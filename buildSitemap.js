@@ -1,0 +1,111 @@
+const { request } = require("graphql-request");
+const jsonfile = require("jsonfile");
+const config = require("./src/config.json");
+const fs = require("fs");
+var sm = require("sitemap");
+// const slug = require("slug");
+// slug.defaults.mode = "rfc3986";
+const api = `${config.baseURL}/graphql`;
+const apiDir = "./src/api";
+const filename = "routes.json";
+const sections = ["pages", "news", "tags", "publications", "meetings"];
+let routes = [];
+
+const query = `{
+  pages (where: {isPublished: true}) {
+    slug
+    category {
+      slug
+    }
+  }
+
+  news: posts (where: {isPublished: true}) {
+    slug
+    category {
+      slug
+    }
+  }
+  publications (where: {isPublished: true}) {
+    slug
+    category {
+      slug
+    }
+  }
+  meetings (where: {isPublished: true}){
+    slug
+    category {
+      slug
+    }
+  }
+
+  tags {
+    slug
+  }
+  
+}`;
+
+if (!fs.existsSync(apiDir)) {
+  fs.mkdirSync(apiDir);
+  console.log(`Created: ${apiDir}/`);
+}
+
+request(api, query).then(res => {
+  sections.forEach(section => {
+    let sectionRoutes = res[section].map(item => {
+      let path;
+      if (section === "pages") {
+        path = `/${item.slug}`;
+      } else if (section === "publications" || section === "meetings") {
+        path = `/${section}/${item.category.slug}/${item.slug}`;
+      } else if (section === "news" || section === "tags") {
+        path = `/${section}/${item.slug}`;
+      } else {
+        path = "/";
+      }
+      return path;
+    });
+    routes.push(...sectionRoutes);
+  });
+
+  sections.forEach(section => {
+    let sectionRoutes = res[section].map(item => {
+      let path;
+      if (section === "publications" || section === "meetings") {
+        path = `/${section}/${item.category.slug}`;
+      }
+
+      return path;
+    });
+    routes.push(...sectionRoutes);
+  });
+
+  // filter nulls
+  let temp = routes.filter(Boolean);
+  // remove dupes
+  let paths = [...new Set(temp)];
+  // add root
+  paths.push("/");
+
+  jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
+    if (err) console.error(err);
+    console.log(`Created: ${apiDir}/${filename}`);
+  });
+
+  let urls = paths.map(route => {
+    let obj = {};
+    obj.url = route;
+    obj.changefreq = "weekly";
+    obj.priority = 0.8;
+    // obj.lastmodrealtime = true;
+    return obj;
+  });
+
+  let sitemap = sm.createSitemap({
+    hostname: config.clientURL,
+    cacheTime: 600000, //600 sec (10 min) cache purge period
+    urls
+  });
+
+  fs.writeFileSync("./public/sitemap.xml", sitemap.toString());
+  console.log(`Created: ./public/sitemap.xml`);
+});
