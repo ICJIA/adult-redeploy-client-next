@@ -19,7 +19,7 @@ exports.handler = function(event, context, callback) {
         })
         .then(r => {
           const res = JSON.stringify(r.data);
-          console.log(res);
+
           callback(null, {
             statusCode: 200,
             body: res
