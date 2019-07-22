@@ -22,17 +22,17 @@
     "quotes": "“”‘’"
   },
   "baseURL": "https://ari.icjia-api.cloud",
-  "clientURL": "https://ari.netlify.com",
+  "clientURL": "https://ari-dev.netlify.com",
   "imageServerURL": "https://image.icjia.cloud",
-  "statusURL": "https://ari.netlify.com/.netlify/functions/status",
+  "statusURL": "https://ari-dev.netlify.com/.netlify/functions/status",
   "status": {
     "dev": "http://localhost:9000/.netlify/functions/status",
-    "prod": "https://ari.netlify.com/.netlify/functions/status"
+    "prod": "https://ari-dev.netlify.com/.netlify/functions/status"
   },
   "thumbnail": {
-    "defaultUrl": "https://spacbeta.icjia-api.cloud/uploads/3a2b9944fccf4661a5eb63e5ea387853.png",
-    "defaultWidth": 310,
-    "defaultHeight": 390
+    "defaultUrl": "https://ari.icjia-api.cloud/uploads/1a2c77fa2ccc44e7bd64db9db67018c5.png",
+    "defaultWidth": 150,
+    "defaultHeight": 150
   },
   "publications": {
     "truncateSummaryAt": 28

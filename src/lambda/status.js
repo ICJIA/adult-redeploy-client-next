@@ -22,14 +22,14 @@ const servers = [
     users: ["ARI"]
   },
   // {
-  //   url: "https://ari.icjia-api.cloud",
+  //   url: "https://ari-dev.icjia-api.cloud",
   //   name: "api",
   //   provider: "Strapi",
   //   providerURL: "https://strapi.io/",
   //   users: ["ARI"]
   // },
   {
-    url: "https://ari.netlify.com/.netlify/functions/healthcheck",
+    url: "https://ari-dev.netlify.com/.netlify/functions/healthcheck",
     name: "web",
     provider: "Netlify",
     providerURL: "https://www.netlify.com/",
