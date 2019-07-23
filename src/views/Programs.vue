@@ -1,11 +1,14 @@
 <template>
   <div>
     <v-container>
-      <v-row>
-        <v-col class="xs-6" >
+      <v-layout row wrap>
+        <v-flex xs6>
           <illinois></illinois>
-        </v-col>
-      </v-row>
+        </v-flex>
+        <v-flex xs6>
+          card here
+        </v-flex>
+      </v-layout>
     </v-container>
     <div></div>
   </div>
@@ -16,6 +19,12 @@ import Illinois from "@/components/Illinois";
 export default {
   components: {
     Illinois
+  },
+  props: {
+    display: {
+      type: String,
+      default: "modal"
+    }
   }
 };
 </script>

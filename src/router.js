@@ -7,6 +7,10 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
+  // eslint-disable-next-line no-unused-vars
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  },
   routes: [
     {
       path: "/",
@@ -21,10 +25,11 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-      path: "/map",
-      name: "map",
+      path: "/programs",
+      name: "programs",
 
-      component: () => import(/* webpackChunkName: "map" */ "./views/Map.vue")
+      component: () =>
+        import(/* webpackChunkName: "programs" */ "./views/Programs.vue")
     }
   ]
 });

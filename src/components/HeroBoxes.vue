@@ -1,16 +1,7 @@
 <template>
   <div class="flexbox-container hide-sm-and-down">
-    <div class="box box-1">
-      <h2 class="heavy text-center">About ARI</h2>
-      <p class="pt-4">
-        Councils provide professional education and prevention; coordinate
-        interventions and services for victims and perpetrators; and contribute
-        to both the improvement of the legal system and the administration of
-        justice.
-      </p>
-    </div>
-    <div class="box box-2">
-      <h2 class="heavy text-center">Get the Facts</h2>
+    <div class="box box-1" @click="$router.push('/programs')">
+      <h2 class="heavy text-center">Local Programs</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
         sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
@@ -18,8 +9,17 @@
         neque.
       </p>
     </div>
-    <div class="box box-3">
-      <h2 class="heavy text-center">News & Events</h2>
+    <div class="box box-2" @click="$router.push('/publications')">
+      <h2 class="heavy text-center">Publications</h2>
+      <p class="pt-4">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
+        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
+        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
+        neque.
+      </p>
+    </div>
+    <div class="box box-3" @click="$router.push('/meetings')">
+      <h2 class="heavy text-center">Meetings</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
         sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac

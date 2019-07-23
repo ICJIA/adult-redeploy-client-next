@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed color="white" elevate-on-scroll max-height="100px">
+  <v-app-bar fixed color="white" max-height="100px">
     <v-app-bar-nav-icon
       @click="toggleDrawer"
       class="hidden-md-and-up"
@@ -14,7 +14,7 @@
       style="margin-left: -15px"
     />&nbsp;&nbsp;&nbsp;&nbsp;
     <v-toolbar-title class="heavy hover" @click="$router.push('/')"
-      >ADULT REDEPLOY ILLINOIS</v-toolbar-title
+      ><span style="color: #555">ADULT REDEPLOY ILLINOIS</span></v-toolbar-title
     >
 
     <div class="flex-grow-1"></div>
@@ -25,7 +25,7 @@
           <v-btn
             :to="link.url"
             depressed
-            style="height: 99%; margin-bottom: 1px; margin-top: 0px;"
+            style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 12px;"
             class="heavy white "
           >
             {{ link.name }}

@@ -24,3 +24,21 @@
 .home .v-carousel__controls {
   bottom: 30px;
 }
+
+#content-top {
+  margin-top: 80px !important;
+}
+
+.rule {
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 5px;
+  margin-bottom: 25px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+a {
+  font-weight: bold;
+}

@@ -1,9 +1,9 @@
 <template>
-  <v-app>
+  <v-app id="page-top">
     <app-nav :links="links"></app-nav>
     <app-drawer :links="links"></app-drawer>
 
-    <v-content>
+    <v-content id="content-top">
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -30,7 +30,12 @@ export default {
         { name: "Home", url: "/", displayNav: false, displayFooter: true },
         { name: "Board", url: "/board", displayNav: true, displayFooter: true },
         { name: "News", url: "/news", displayNav: true, displayFooter: true },
-        { name: "Sites", url: "/sites", displayNav: true, displayFooter: true },
+        {
+          name: "Local Programs",
+          url: "/programs",
+          displayNav: true,
+          displayFooter: true
+        },
         {
           name: "Meetings",
           url: "/meetings",

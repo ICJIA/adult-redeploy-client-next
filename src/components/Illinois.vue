@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 100px">
+  <div>
     <div id="mapwrapper">
       <div id="mapbase" style="max-width: 300px">
         <!-- V4.1 -->
