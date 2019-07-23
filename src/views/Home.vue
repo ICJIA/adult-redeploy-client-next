@@ -63,7 +63,12 @@
               expensive vicious cycle of crime and incarceration.
             </p>
             <div class="text-center mt-6">
-              <v-btn class="ma-2" to="/programs" outlined color="primary"
+              <v-btn
+                title="Find a local program"
+                class="ma-2"
+                to="/programs"
+                outlined
+                color="primary"
                 >Find a local program<v-icon right>chevron_right</v-icon></v-btn
               >
             </div>

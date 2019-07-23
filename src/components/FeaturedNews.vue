@@ -5,7 +5,7 @@
         <v-card
           class="mx-auto py-5 hover"
           color="white"
-          :elevation="hover ? 12 : 2"
+          :elevation="hover ? 18 : 2"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -37,7 +37,12 @@
       </v-hover>
     </div>
     <div class="text-center mt-6">
-      <v-btn class="ma-2" to="/news" outlined color="primary"
+      <v-btn
+        class="ma-2"
+        to="/news"
+        title="News & Events"
+        outlined
+        color="primary"
         >News & Events Archive<v-icon right>chevron_right</v-icon></v-btn
       >
     </div>
