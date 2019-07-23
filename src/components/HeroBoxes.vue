@@ -83,7 +83,7 @@ export default {};
   cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .flexbox-container {
     flex-direction: column;
   }

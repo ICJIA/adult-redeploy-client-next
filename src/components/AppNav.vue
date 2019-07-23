@@ -18,44 +18,42 @@
     >
 
     <div class="flex-grow-1"></div>
-    <span class="hidden-sm-and-down">
-      <v-btn to="/news" depressed class="white">
-        <span class="heavy">News</span>
+
+    <v-toolbar-items class="hidden-sm-and-down">
+      <span v-for="link in links" :key="link.name" class="flexitem">
+        <span v-if="link.displayNav">
+          <v-btn
+            :to="link.url"
+            depressed
+            style="height: 99%; margin-bottom: 1px; margin-top: 0px;"
+            class="heavy white "
+          >
+            {{ link.name }}
+          </v-btn>
+        </span>
+      </span>
+      <v-btn icon to="search">
+        <v-icon>search</v-icon>
       </v-btn>
-
-      <v-btn depressed class="white">
-        <span class="heavy">Sites</span>
-      </v-btn>
-
-      <v-btn depressed class="white">
-        <span class="heavy">Meetings</span>
-      </v-btn>
-
-      <v-btn depressed class="white">
-        <span class="heavy">Board</span>
-      </v-btn>
-
-      <v-btn depressed class="white">
-        <span class="heavy">FAQs</span>
-      </v-btn>
-
-      <v-btn depressed class="white">
-        <span class="heavy">Publications</span>
-      </v-btn>
-    </span>
-
-    <v-btn icon>
-      <v-icon>search</v-icon>
-    </v-btn>
-
-    <!-- <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn> -->
+    </v-toolbar-items>
   </v-app-bar>
 </template>
 
 <script>
-export default {};
+import { EventBus } from "@/event-bus";
+export default {
+  props: {
+    links: {
+      type: Array,
+      default: () => []
+    }
+  },
+  methods: {
+    toggleDrawer() {
+      EventBus.$emit("toggleDrawer");
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,5 +1,10 @@
 <template>
-  <v-carousel height="500" hide-delimiter-background show-arrows-on-hover>
+  <v-carousel
+    height="500"
+    hide-delimiter-background
+    show-arrows-on-hover
+    class="home"
+  >
     <v-carousel-item v-for="(slide, i) in slides" :key="i">
       <v-sheet :color="colors[i]" height="100%">
         <v-row class="fill-height" align="center" justify="center">
@@ -27,4 +32,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

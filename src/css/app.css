@@ -20,3 +20,7 @@
 .fade-leave-active {
   opacity: 0;
 }
+
+.home .v-carousel__controls {
+  bottom: 30px;
+}

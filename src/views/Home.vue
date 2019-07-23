@@ -5,7 +5,7 @@
     <v-container>
       <v-row>
         content here
-        <div style="height: 1000px"></div>
+        <div style="height: 500px"></div>
       </v-row>
     </v-container>
   </div>

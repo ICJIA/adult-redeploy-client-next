@@ -1,54 +1,60 @@
 <template>
   <v-app>
-    <app-nav></app-nav>
-    <v-navigation-drawer app v-model="drawer" clipped disable-resize-watcher>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Test</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item v-for="item in items" :key="item.title" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <app-nav :links="links"></app-nav>
+    <app-drawer :links="links"></app-drawer>
 
     <v-content>
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
     </v-content>
+    <app-footer :links="links"></app-footer>
   </v-app>
 </template>
 
 <script>
 import AppNav from "@/components/AppNav";
+import AppDrawer from "@/components/AppDrawer";
+import AppFooter from "@/components/AppFooter";
 export default {
   name: "App",
   components: {
-    AppNav
+    AppNav,
+    AppDrawer,
+    AppFooter
   },
-  methods: {
-    toggleDrawer() {
-      this.drawer = !this.drawer;
-    }
-  },
+  methods: {},
   data() {
     return {
-      drawer: false,
-      items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
+      links: [
+        { name: "Home", url: "/", displayNav: false, displayFooter: true },
+        { name: "Board", url: "/board", displayNav: true, displayFooter: true },
+        { name: "News", url: "/news", displayNav: true, displayFooter: true },
+        { name: "Sites", url: "/sites", displayNav: true, displayFooter: true },
+        {
+          name: "Meetings",
+          url: "/meetings",
+          displayNav: true,
+          displayFooter: true
+        },
+        {
+          name: "Publications",
+          url: "/publications",
+          displayNav: true,
+          displayFooter: true
+        },
+        {
+          name: "Contact",
+          url: "/contact",
+          displayNav: true,
+          displayFooter: true
+        },
+        {
+          name: "Search",
+          url: "/search",
+          displayNav: false,
+          displayFooter: true
+        }
       ]
     };
   }
