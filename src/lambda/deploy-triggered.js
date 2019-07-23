@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 exports.handler = function(event, context, callback) {
   const axios = require("axios");
   require("dotenv").config();

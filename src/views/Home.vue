@@ -1,13 +1,38 @@
 <template>
-  <HelloWorld />
+  <div>
+    <div>
+      <v-carousel height="500" hide-delimiter-background show-arrows-on-hover>
+        <v-carousel-item v-for="(slide, i) in slides" :key="i">
+          <v-sheet :color="colors[i]" height="100%">
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="display-3">{{ slide }} Slide</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
+    <v-container>
+      <v-row>
+        content here
+        <div style="height: 1000px"></div>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
-
 export default {
-  components: {
-    HelloWorld,
-  },
+  data() {
+    return {
+      colors: [
+        "indigo",
+        "warning",
+        "pink darken-2",
+        "red lighten-1",
+        "deep-purple accent-4"
+      ],
+      slides: ["First", "Second", "Third", "Fourth", "Fifth"]
+    };
+  }
 };
 </script>
