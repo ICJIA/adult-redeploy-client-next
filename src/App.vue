@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar fixed color="white" elevate-on-scroll max-height="120px">
+    <v-app-bar fixed color="white" elevate-on-scroll max-height="100px">
       <v-app-bar-nav-icon
         @click="toggleDrawer"
         class="hidden-md-and-up"
