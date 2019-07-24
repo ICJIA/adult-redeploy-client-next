@@ -1454,10 +1454,10 @@ import { usiljsconfig } from "@/assets/data/usiljsconfig";
 export default {
   methods: {
     mapClick(id) {
-      console.log("Click:", id);
+      console.dir("Click:", id);
     },
     getCounty(data) {
-      console.log(data);
+      console.dir(data);
     }
   },
   data() {
