@@ -29,8 +29,6 @@ export default {
   async created() {
     if (!this.$store.state.isAppReady) {
       this.$store.dispatch("initApp");
-    } else {
-      console.log("isAppReady: ", this.$store.state.isAppReady);
     }
   },
   data() {

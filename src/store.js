@@ -78,11 +78,11 @@ export default new Vuex.Store({
           commit("SET_CACHE", cacheObj);
         });
         end = new Date() - start;
-        // console.log(`cacheContent() timing: ${end}ms`);
+
         return { status: 200, itemCached: res.length, totalTime: end };
       } else {
         end = new Date() - start;
-        return { status: 200, itemCached: 0, time: end };
+        return { status: 200, itemCached: queries.length, time: end };
       }
     }
   },
