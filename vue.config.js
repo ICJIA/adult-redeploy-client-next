@@ -6,5 +6,10 @@ module.exports = {
       }
     }
   },
-  transpileDependencies: ["vuetify"]
+  transpileDependencies: ["vuetify"],
+  pluginOptions: {
+    moment: {
+      locales: ["en"]
+    }
+  }
 };
