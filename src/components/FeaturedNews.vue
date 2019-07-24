@@ -37,12 +37,7 @@
       </v-hover>
     </div>
     <div class="text-center mt-6">
-      <v-btn
-        class="ma-2"
-        to="/news"
-        title="News & Events"
-        outlined
-        color="primary"
+      <v-btn class="ma-2" to="/news" aria-label="Name" outlined color="primary"
         >News & Events Archive<v-icon right>chevron_right</v-icon></v-btn
       >
     </div>

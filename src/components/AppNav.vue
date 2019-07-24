@@ -32,7 +32,7 @@
           </v-btn>
         </span>
       </span>
-      <v-btn icon to="search">
+      <v-btn icon to="search" aria-label="Search">
         <v-icon>search</v-icon>
       </v-btn>
     </v-toolbar-items>

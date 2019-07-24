@@ -7,8 +7,8 @@
       color="secondary"
       style="width: 100%"
     >
-      <v-card-text
-        ><span v-for="link in links" :key="link.name" class="flexitem">
+      <v-card-text>
+        <span v-for="link in links" :key="link.name" class="flexitem">
           <span v-if="link.displayFooter">
             <v-btn
               :to="link.url"
@@ -16,12 +16,13 @@
               class="heavy "
               dark
               color="secondary"
+              :aria-label="link.name"
             >
               <span style="font-size: 12px"> {{ link.name }}</span>
             </v-btn>
           </span>
-        </span></v-card-text
-      >
+        </span>
+      </v-card-text>
     </v-card>
     <v-card
       flat
@@ -57,7 +58,13 @@
         />
         <br />
 
-        <v-btn v-for="icon in icons" :key="icon" class="white--text" icon>
+        <v-btn
+          v-for="icon in icons"
+          :key="icon"
+          class="white--text"
+          icon
+          :aria-label="icon"
+        >
           <v-icon size="18px">{{ icon }}</v-icon>
         </v-btn>
         <br />

@@ -22,6 +22,16 @@ export default {
       colors: ["indigo", "red lighten-1", "deep-purple accent-4"],
       slides: ["First", "Second", "Third"]
     };
+  },
+  mounted() {
+    document.addEventListener("DOMContentLoaded", () => {
+      let arr = [
+        ...document.getElementsByClassName("v-carousel__controls__item")
+      ];
+      arr.forEach(item => {
+        item.setAttribute("aria-label", "navigation button");
+      });
+    });
   }
 };
 </script>
