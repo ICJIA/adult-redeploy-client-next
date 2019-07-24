@@ -28,6 +28,10 @@ export default new Vuex.Store({
     },
     SET_CONFIG(state, config) {
       state.config = config;
+    },
+    SET_CACHE(state, { hash, query }) {
+      state.cache.set(hash, query);
+      console.log(hash, ": cached");
     }
   },
   actions: {
@@ -66,20 +70,20 @@ export default new Vuex.Store({
       }
 
       if (queries.length) {
-        try {
-          res = await Promise.all(queries);
-          res.forEach((query, index) => {
-            state.cache.set(hashes[index], query);
-            console.log(hashes[index], ": cached");
-            // console.log(state.cache);
-          });
-          end = new Date() - start;
-          // console.log(`cacheContent() timing: ${end}ms`);
-        } catch (e) {
-          console.log("Error: ", e);
-        }
+        res = await Promise.all(queries);
+        res.forEach((query, index) => {
+          let cacheObj = {};
+          cacheObj.hash = hashes[index];
+          cacheObj.query = query;
+          commit("SET_CACHE", cacheObj);
+        });
+        end = new Date() - start;
+        // console.log(`cacheContent() timing: ${end}ms`);
+        return { status: 200, itemCached: res.length, totalTime: end };
+      } else {
+        end = new Date() - start;
+        return { status: 200, itemCached: 0, time: end };
       }
-      return { status: 200 };
     }
   },
   getters: {

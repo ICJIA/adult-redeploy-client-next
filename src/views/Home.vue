@@ -77,7 +77,8 @@ export default {
       params: { limit: 3 }
     });
 
-    await this.$store.dispatch("cacheContent", contentMap);
+    let x = await this.$store.dispatch("cacheContent", contentMap);
+    console.log(x);
 
     this.about = this.$store.getters.getContentFromCache(contentMap, "getPage");
 
