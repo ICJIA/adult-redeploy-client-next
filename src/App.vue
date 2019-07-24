@@ -2,8 +2,8 @@
   <v-app id="page-top">
     <app-nav :links="links"></app-nav>
     <app-drawer :links="links"></app-drawer>
-
-    <v-content id="content-top">
+    <breadcrumb></breadcrumb>
+    <v-content id="content-top" aria-live="polite">
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -16,14 +16,23 @@
 import AppNav from "@/components/AppNav";
 import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
+import Breadcrumb from "@/components/Breadcrumb";
 export default {
   name: "App",
   components: {
     AppNav,
     AppDrawer,
-    AppFooter
+    AppFooter,
+    Breadcrumb
   },
   methods: {},
+  async created() {
+    if (!this.$store.state.isAppReady) {
+      this.$store.dispatch("initApp");
+    } else {
+      console.log("isAppReady: ", this.$store.state.isAppReady);
+    }
+  },
   data() {
     return {
       links: [

@@ -1,23 +1,8 @@
 const { MD5 } = require("crypto-js");
 
-const createHashID = str => {
-  return MD5(str).toString();
-};
-
-const isCached = (cache, hash) => {
-  if (cache.has(hash)) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const buildCachePayload = (query, slug, hash) => {
-  return {
-    query,
-    slug,
-    hash
-  };
+const getHash = salt => {
+  let hash = MD5(salt).toString();
+  return hash;
 };
 
 const titleCase = str => {
@@ -30,4 +15,4 @@ const titleCase = str => {
     .join(" ");
 };
 
-export { createHashID, isCached, buildCachePayload, titleCase };
+export { getHash, titleCase };

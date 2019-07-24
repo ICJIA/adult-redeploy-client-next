@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unreachable */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
@@ -427,7 +428,7 @@ const getSinglePublicationQuery = slug => {
 `;
 };
 
-const getMeetingCategoryQuery = slug => {
+const getMeetingCategoryQuery = ({ slug }) => {
   return `{
   categories(where: { slug: "${slug}" }) {
     name
@@ -461,8 +462,9 @@ const getMeetingCategoryQuery = slug => {
 `;
 };
 
-const getPage = async slug => {
+const getPage = async ({ slug }) => {
   try {
+    console.log("Slug: ", slug);
     let page = await queryEndpoint(getPageQuery(slug));
     return page.data.data.pages;
   } catch (e) {
@@ -472,7 +474,7 @@ const getPage = async slug => {
   }
 };
 
-const getPost = async slug => {
+const getPost = async ({ slug }) => {
   try {
     let post = await queryEndpoint(getPostQuery(slug));
     return post.data.data.posts;
@@ -483,7 +485,7 @@ const getPost = async slug => {
   }
 };
 
-const getPubsForMenu = async slug => {
+const getPubsForMenu = async ({ slug }) => {
   try {
     let publications = await queryEndpoint(getPubsForMenuQuery);
     return publications.data.data.types;
@@ -494,11 +496,9 @@ const getPubsForMenu = async slug => {
   }
 };
 
-const getFrontPageNews = async () => {
+const getFrontPageNews = async ({ limit }) => {
   try {
-    let news = await queryEndpoint(
-      getFrontPageNewsQuery(config.frontPageItems.news)
-    );
+    let news = await queryEndpoint(getFrontPageNewsQuery(limit));
     return news.data.data.posts;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -518,7 +518,7 @@ const getNews = async () => {
   }
 };
 
-const getPublicationsByCategory = async slug => {
+const getPublicationsByCategory = async ({ slug }) => {
   try {
     let publications = await queryEndpoint(
       getPublicationsByCategoryQuery(slug)
@@ -564,7 +564,7 @@ const getMeetingsByCategory = async () => {
   }
 };
 
-const getSingleMeeting = async slug => {
+const getSingleMeeting = async ({ slug }) => {
   try {
     let meeting = await queryEndpoint(getSingleMeetingQuery(slug));
     return meeting.data.data.meetings;
@@ -575,7 +575,7 @@ const getSingleMeeting = async slug => {
   }
 };
 
-const getContentByTag = async slug => {
+const getContentByTag = async ({ slug }) => {
   try {
     let content = await queryEndpoint(getContentByTagQuery(slug));
     return content.data.data.tags;
@@ -586,7 +586,7 @@ const getContentByTag = async slug => {
   }
 };
 
-const getSinglePublication = async slug => {
+const getSinglePublication = async ({ slug }) => {
   try {
     let publication = await queryEndpoint(getSinglePublicationQuery(slug));
 
@@ -598,7 +598,7 @@ const getSinglePublication = async slug => {
   }
 };
 
-const getMeetingCategory = async slug => {
+const getMeetingCategory = async ({ slug }) => {
   try {
     let category = await queryEndpoint(getMeetingCategoryQuery(slug));
 

@@ -26,7 +26,7 @@
 }
 
 #content-top {
-  margin-top: 80px !important;
+  margin-top: 65px;
 }
 
 .rule {
@@ -41,4 +41,19 @@
 
 a {
   font-weight: bold;
+}
+
+.breadcrumb {
+  margin-top: 65px;
+  margin-bottom: 48px;
+}
+
+@media only screen and (max-width: 600px) {
+  .breadcrumb {
+    margin-top: 55px;
+  }
+
+  #content-top {
+    margin-top: 55px;
+  }
 }

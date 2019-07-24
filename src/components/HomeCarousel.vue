@@ -19,11 +19,13 @@
 export default {
   data() {
     return {
-      colors: ["indigo", "red lighten-1", "deep-purple accent-4"],
+      colors: ["grey darken-1", "grey darken-1", "grey darken-1"],
       slides: ["First", "Second", "Third"]
     };
   },
   mounted() {
+    // a11y fix for nav buttons
+
     document.addEventListener("DOMContentLoaded", () => {
       let arr = [
         ...document.getElementsByClassName("v-carousel__controls__item")

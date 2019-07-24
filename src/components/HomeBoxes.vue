@@ -24,14 +24,18 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
         sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
         dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque.
+        neque dssds.
       </p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$emit("home-boxes");
+  }
+};
 </script>
 
 <style scoped>
@@ -58,15 +62,15 @@ export default {};
 }
 
 .box-1 {
-  background: #045354;
+  background: #065f60;
 }
 
 .box-2 {
-  background: #068587;
+  background: #067879;
 }
 
 .box-3 {
-  background: #34999b;
+  background: #068384;
 }
 
 .box:hover {

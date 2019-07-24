@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed color="white" max-height="100px">
+  <v-app-bar fixed color="white">
     <v-app-bar-nav-icon
       @click="toggleDrawer"
       class="hidden-md-and-up"
