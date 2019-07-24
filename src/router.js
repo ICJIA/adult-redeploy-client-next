@@ -20,19 +20,17 @@ export default new Router({
         hideBreadcrumb: true
       }
     },
-    {
-      path: "/about",
-      name: "about",
 
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
-    },
     {
       path: "/programs",
       name: "programs",
-
       component: () =>
         import(/* webpackChunkName: "programs" */ "./views/Programs.vue")
+    },
+    {
+      path: "/:slug",
+      name: "page",
+      component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")
     }
   ]
 });

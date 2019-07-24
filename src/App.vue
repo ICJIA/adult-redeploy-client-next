@@ -3,7 +3,7 @@
     <app-nav :links="links"></app-nav>
     <app-drawer :links="links"></app-drawer>
     <breadcrumb></breadcrumb>
-    <v-content id="content-top" aria-live="polite">
+    <v-content id="content-top" aria-live="polite" style="background: #fafafa">
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>

@@ -464,7 +464,6 @@ const getMeetingCategoryQuery = ({ slug }) => {
 
 const getPage = async ({ slug }) => {
   try {
-    console.log("Slug: ", slug);
     let page = await queryEndpoint(getPageQuery(slug));
     return page.data.data.pages;
   } catch (e) {

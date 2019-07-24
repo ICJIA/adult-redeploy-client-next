@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="background: #eee;" class="py-9" v-if="!loading">
+    <div class="py-9" v-if="!loading">
       <slot name="content"></slot>
     </div>
     <div v-else>
@@ -24,10 +24,6 @@ export default {
   props: {
     loading: {
       type: Boolean
-    },
-    content: {
-      type: Array,
-      default: () => []
     }
   }
 };
