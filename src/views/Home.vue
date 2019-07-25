@@ -18,12 +18,12 @@
                 About Adult Redeploy Illinois
               </h2>
 
-              <home-about :content="about"></home-about>
+              <home-about :content="about" v-if="about"></home-about>
             </v-flex>
 
             <v-flex xs12 sm12 md6 class="mb-10">
               <h2 class="heavy rule uppercase">News & Events</h2>
-              <home-news :content="news"></home-news>
+              <home-news :content="news" v-if="news"></home-news>
             </v-flex>
           </v-layout>
         </v-container>
@@ -53,8 +53,8 @@ export default {
   data() {
     return {
       loading: true,
-      about: [],
-      news: []
+      about: null,
+      news: null
     };
   },
   async created() {

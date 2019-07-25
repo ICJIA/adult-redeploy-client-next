@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="py-9" v-if="!loading">
+    <div class="py-9 px-4" v-if="!loading">
       <slot name="title"></slot>
       <slot name="content"></slot>
     </div>

@@ -36,7 +36,7 @@
 
   <v-img
     src="/ari-splash-01.jpg"
-    lazy-src="https://picsum.photos/id/11/10/6"
+    lazy-src="/ari-splash-01.jpg"
     aspect-ratio="1"
     class="grey lighten-2"
     max-height="600"
@@ -47,7 +47,9 @@
             <div class="default-font carousel-large heavy carousel-main-text">
               Adult Redeploy Illinois
             </div>
-            <div class="default-font carousel-medium mt-10 carousel-sub-text">
+            <div
+              class="default-font carousel-medium mt-10 px-12 carousel-sub-text"
+            >
               Results expected with Adult Redeploy Illinois include reduced
               prison overcrowding, lowered cost to taxpayers, and an end to the
               expensive and vicious cycle of crime and incarceration.
@@ -55,20 +57,6 @@
             <v-btn class="mt-6" color="white" to="/about" outlined
               >Learn More</v-btn
             >
-
-            <!-- <v-layout align-center>
-              <v-flex xs12>
-                test
-              </v-flex>
-            </v-layout> -->
-
-            <!-- <div class="default-font carousel-medium mt-10 carousel-sub-text">
-            Results expected with Adult Redeploy Illinois include reduced prison
-            overcrowding, lowered cost to taxpayers, and an end to the expensive
-            and vicious cycle of crime and incarceration.
-          </div>
-
-          -->
           </v-flex>
         </div>
       </v-layout>
@@ -104,5 +92,12 @@ export default {
   width: 100%;
   background: rgba(79, 80, 79, 0.7);
   padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .banner {
+    height: 100%;
+    background: rgba(79, 80, 79, 0.5);
+  }
 }
 </style>

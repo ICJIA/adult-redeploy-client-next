@@ -10,12 +10,12 @@
 }
 
 .carousel-large {
-  font-size: 48px;
+  font-size: 55px;
   color: #fff;
 }
 
 .carousel-medium {
-  font-size: 24px;
+  font-size: 22px;
   color: #fff;
 }
 
@@ -62,7 +62,7 @@ a {
   margin-bottom: 48px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .breadcrumb {
     margin-top: 55px;
   }
