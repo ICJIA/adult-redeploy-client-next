@@ -31,7 +31,7 @@ export default new Vuex.Store({
     },
     SET_CACHE(state, { hash, query }) {
       state.cache.set(hash, query);
-      console.log(hash, ": cached");
+      //console.log(hash, ": cached");
     }
   },
   actions: {
@@ -65,7 +65,7 @@ export default new Vuex.Store({
           hashes.push(value.hash);
           queries.push(value.query.call(this, params));
         } else {
-          console.log("already in cache");
+          //console.log("already in cache");
         }
       }
 
@@ -79,10 +79,28 @@ export default new Vuex.Store({
         });
         end = new Date() - start;
 
-        return { status: 200, itemCached: res.length, totalTime: end };
+        let metaInfo = {
+          itemsCached: res.length,
+          millisecondsToComplete: end,
+          previouslyCached: false
+        };
+
+        if (state.config.debug) {
+          console.log(metaInfo);
+        }
+
+        return metaInfo;
       } else {
         end = new Date() - start;
-        return { status: 200, itemCached: queries.length, time: end };
+        let metaInfo = {
+          itemsCached: queries.length,
+          millisecondsToComplete: end,
+          previouslyCached: true
+        };
+        if (state.config.debug) {
+          console.log(metaInfo);
+        }
+        return metaInfo;
       }
     }
   },
@@ -90,6 +108,9 @@ export default new Vuex.Store({
     // eslint-disable-next-line no-unused-vars
     inCache: state => hash => {
       return state.cache.has(hash);
+    },
+    debug: state => {
+      return state.config.debug;
     },
     getContentFromCache: state => (map, key) => {
       if (map.get(key)) {

@@ -5,6 +5,14 @@ const getHash = salt => {
   return hash;
 };
 
+const checkIfValidPage = arr => {
+  if (arr) {
+    return !!arr.length;
+  } else {
+    return 0;
+  }
+};
+
 const titleCase = str => {
   return str
     .toLowerCase()
@@ -15,4 +23,4 @@ const titleCase = str => {
     .join(" ");
 };
 
-export { getHash, titleCase };
+export { getHash, titleCase, checkIfValidPage };

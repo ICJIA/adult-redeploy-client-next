@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-layout row wrap>
+      <v-layout wrap>
         <v-flex xs6>
           <illinois></illinois>
         </v-flex>

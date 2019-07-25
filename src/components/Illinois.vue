@@ -1449,7 +1449,7 @@
 
 <script>
 /* eslint-disable no-undef */
-
+/* eslint-disable no-redeclare */
 import { usiljsconfig } from "@/assets/data/usiljsconfig";
 export default {
   methods: {

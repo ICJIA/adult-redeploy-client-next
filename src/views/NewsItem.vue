@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-content :loading="loading" v-if="checkIfValidPage(content)">
+    <base-content :loading="loading">
       <template v-slot:title>
         <v-container>
           <v-layout wrap>
@@ -14,7 +14,7 @@
         <v-container>
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
-              {{ content[0].content }}
+              <div v-html="render(content[0].content)"></div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -25,8 +25,9 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import { getPage } from "@/services/Content";
+import { getPost } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
+import { renderToHtml } from "@/services/Markdown";
 export default {
   watch: {
     $route: "fetchContent"
@@ -34,8 +35,7 @@ export default {
   data() {
     return {
       loading: true,
-      content: [],
-      checkIfValidPage
+      content: []
     };
   },
   components: {
@@ -50,10 +50,10 @@ export default {
 
       const contentMap = new Map();
       const slug = this.$route.params.slug;
-      const name = `getPage-${slug}`;
+      const name = `getPost-${slug}`;
       contentMap.set(name, {
         hash: getHash(name),
-        query: getPage,
+        query: getPost,
         params: { slug }
       });
 
@@ -62,6 +62,7 @@ export default {
       this.content = this.$store.getters.getContentFromCache(contentMap, name);
 
       checkIfValidPage(this.content) ? null : this.routeToError();
+
       this.loading = false;
     },
     routeToError() {
@@ -71,6 +72,9 @@ export default {
         name: "error",
         params: { msg: "Page not found", statusCode: 404 }
       });
+    },
+    render(content) {
+      return renderToHtml(content);
     }
   }
 };

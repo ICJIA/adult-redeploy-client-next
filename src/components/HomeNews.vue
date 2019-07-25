@@ -6,6 +6,7 @@
           class="mx-auto py-5 hover"
           color="white"
           :elevation="hover ? 18 : 2"
+          @click="$router.push(`/news/${item.slug}`)"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -13,6 +14,7 @@
                 {{ item.createdAt | format }}
               </div>
               <v-list-item-title
+                :class="{ shaded: hover }"
                 class="headline mb-1"
                 style="font-weight: 700"
                 >{{ item.title | titleCase }}</v-list-item-title
@@ -52,4 +54,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.shaded {
+  color: #067879;
+}
+</style>

@@ -28,9 +28,28 @@ export default new Router({
         import(/* webpackChunkName: "programs" */ "./views/Programs.vue")
     },
     {
+      path: "/news/:slug",
+      name: "newsItem",
+      component: () =>
+        import(/* webpackChunkName: "news" */ "./views/NewsItem.vue")
+    },
+
+    {
+      path: "/error",
+      name: "error",
+      component: () =>
+        import(/* webpackChunkName: "error" */ "./views/Error.vue")
+    },
+    {
       path: "/:slug",
       name: "page",
       component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")
+    },
+    {
+      path: "*",
+      name: "redirect",
+      component: () =>
+        import(/* webpackChunkName: "error" */ "./views/Error.vue")
     }
   ]
 });
