@@ -22,10 +22,10 @@ export default new Router({
     },
 
     {
-      path: "/programs",
+      path: "/local-programs",
       name: "programs",
       component: () =>
-        import(/* webpackChunkName: "programs" */ "./views/Programs.vue")
+        import(/* webpackChunkName: "programs" */ "./views/LocalPrograms.vue")
     },
     {
       path: "/news/:slug",
@@ -39,6 +39,13 @@ export default new Router({
       name: "error",
       component: () =>
         import(/* webpackChunkName: "error" */ "./views/Error.vue")
+    },
+
+    {
+      path: "/sandbox",
+      name: "sandbox",
+      component: () =>
+        import(/* webpackChunkName: "error" */ "./views/Sandbox.vue")
     },
     {
       path: "/:slug",

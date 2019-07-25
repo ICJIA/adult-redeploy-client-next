@@ -9,7 +9,7 @@
         neque.
       </p>
     </div>
-    <div class="box box-2" @click="$router.push('/publications')">
+    <div class="box box-2" @click="$router.push('/resources')">
       <h2 class="heavy text-center">Resources</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
@@ -18,8 +18,8 @@
         neque.
       </p>
     </div>
-    <div class="box box-3" @click="$router.push('/meetings')">
-      <h2 class="heavy text-center">Meetings</h2>
+    <div class="box box-3" @click="$router.push('/explore')">
+      <h2 class="heavy text-center">Grants</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
         sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac

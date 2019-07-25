@@ -40,7 +40,7 @@
 }
 
 #content-top {
-  margin-top: 65px;
+  margin-top: 90px;
 }
 
 .rule {
@@ -58,17 +58,17 @@ a {
 }
 
 .breadcrumb {
-  margin-top: 65px;
+  margin-top: 90px;
   margin-bottom: 48px;
 }
 
 @media only screen and (max-width: 800px) {
   .breadcrumb {
-    margin-top: 55px;
+    margin-top: 85px;
   }
 
   #content-top {
-    margin-top: 55px;
+    margin-top: 85px;
   }
   .carousel-sub-text {
     display: none;

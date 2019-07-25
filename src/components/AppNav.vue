@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed color="white">
+  <v-app-bar color="white" fixed height="90">
     <v-app-bar-nav-icon
       @click="toggleDrawer"
       class="hidden-md-and-up"
@@ -10,11 +10,13 @@
     <img
       src="/icjia-logo.png"
       alt="Illinois Criminal Justice Information Authority"
-      height="50"
+      height="70"
       style="margin-left: -15px"
     />&nbsp;&nbsp;&nbsp;&nbsp;
     <v-toolbar-title class="heavy hover" @click="$router.push('/')"
-      ><span style="color: #555">ADULT REDEPLOY ILLINOIS</span></v-toolbar-title
+      ><span style="color: #555; font-size: 24px"
+        >ADULT REDEPLOY ILLINOIS</span
+      ></v-toolbar-title
     >
 
     <div class="flex-grow-1"></div>
@@ -22,19 +24,43 @@
     <v-toolbar-items class="hidden-sm-and-down">
       <span v-for="link in links" :key="link.name" class="flexitem">
         <span v-if="link.displayNav">
-          <v-btn
-            :to="link.url"
-            depressed
-            style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 12px;"
-            class="heavy white "
-          >
-            {{ link.name }}
-          </v-btn>
+          <v-menu offset-y left eager style="background: yellow">
+            <template v-slot:activator="{ on }">
+              <v-btn
+                v-if="link.subMenu"
+                depressed
+                style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
+                class="heavy white "
+                v-on="on"
+              >
+                {{ link.name }}<v-icon right small>arrow_drop_down</v-icon>
+              </v-btn>
+              <v-btn
+                v-else
+                depressed
+                style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
+                class="heavy white "
+                :to="link.url"
+              >
+                {{ link.name }}
+              </v-btn>
+            </template>
+
+            <v-list nav dense v-if="link.subMenu" elevation="1">
+              <v-list-item-group color="primary">
+                <v-list-item v-for="(subItem, i) in link.subMenu" :key="i">
+                  <v-list-item-content @click="$router.push(subItem.url)">
+                    <v-list-item-title
+                      v-text="subItem.name"
+                      style="font-size: 14px; font-weight: bold"
+                    ></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-menu>
         </span>
       </span>
-      <v-btn icon to="search" aria-label="Search">
-        <v-icon>search</v-icon>
-      </v-btn>
     </v-toolbar-items>
   </v-app-bar>
 </template>

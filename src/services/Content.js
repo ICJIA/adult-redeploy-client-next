@@ -35,7 +35,7 @@ async function queryEndpoint(query) {
 
 const getPageQuery = slug => {
   return `{
-  pages (where: {slug: ${slug}}) {
+  pages (where: {slug: "${slug}"}) {
     id
     createdAt
     updatedAt
@@ -464,11 +464,12 @@ const getMeetingCategoryQuery = ({ slug }) => {
 
 const getPage = async ({ slug }) => {
   try {
+    console.log(slug);
     let page = await queryEndpoint(getPageQuery(slug));
     return page.data.data.pages;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
+    console.log("getPage error", e.toString());
     return [];
   }
 };
