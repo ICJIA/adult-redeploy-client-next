@@ -10,7 +10,7 @@
       </p>
     </div>
     <div class="box box-2" @click="$router.push('/publications')">
-      <h2 class="heavy text-center">Publications</h2>
+      <h2 class="heavy text-center">Resources</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
         sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac

@@ -42,9 +42,21 @@ export default {
           displayFooter: true
         },
         { name: "Board", url: "/board", displayNav: true, displayFooter: true },
+        {
+          name: "Approach",
+          url: "/approach",
+          displayNav: true,
+          displayFooter: true
+        },
+        {
+          name: "Grants",
+          url: "/grants",
+          displayNav: true,
+          displayFooter: true
+        },
         { name: "News", url: "/news", displayNav: true, displayFooter: true },
         {
-          name: "Local Programs",
+          name: "Programs",
           url: "/programs",
           displayNav: true,
           displayFooter: true
@@ -61,15 +73,16 @@ export default {
           displayNav: true,
           displayFooter: true
         },
-        {
-          name: "Contact",
-          url: "/contact",
-          displayNav: true,
-          displayFooter: true
-        },
+
         {
           name: "Search",
           url: "/search",
+          displayNav: false,
+          displayFooter: true
+        },
+        {
+          name: "ICJIA",
+          url: "/icjia",
           displayNav: false,
           displayFooter: true
         }
