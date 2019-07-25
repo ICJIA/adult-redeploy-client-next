@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const axios = require("axios");
 const api = axios.create({
-  baseURL: "https://spacbeta.icjia-api.cloud",
+  baseURL: "https://ari.icjia-api.cloud",
   timeout: 8000
 });
 

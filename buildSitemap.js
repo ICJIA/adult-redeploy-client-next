@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { request } = require("graphql-request");
 const jsonfile = require("jsonfile");
 const config = require("./src/config.json");

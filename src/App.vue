@@ -35,6 +35,12 @@ export default {
     return {
       links: [
         { name: "Home", url: "/", displayNav: false, displayFooter: true },
+        {
+          name: "About",
+          url: "/about",
+          displayNav: false,
+          displayFooter: true
+        },
         { name: "Board", url: "/board", displayNav: true, displayFooter: true },
         { name: "News", url: "/news", displayNav: true, displayFooter: true },
         {

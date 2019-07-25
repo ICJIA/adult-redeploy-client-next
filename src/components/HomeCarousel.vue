@@ -1,5 +1,5 @@
 <template>
-  <v-carousel
+  <!-- <v-carousel
     height="500"
     hide-delimiter-background
     show-arrows-on-hover
@@ -7,35 +7,73 @@
   >
     <v-carousel-item v-for="(slide, i) in slides" :key="i">
       <v-sheet :color="colors[i]" height="100%">
-        <!-- <v-row class="fill-height" align="center" justify="center">
-          <div class="default-font carousel-large heavy">
-            Adult Redeploy Illinois<br />test
-          </div>
-        </v-row> -->
+       
         <v-container fill-height text-center>
           <v-layout align-center>
             <v-flex xs12>
               <div class="default-font carousel-large heavy carousel-main-text">
                 Adult Redeploy Illinois
               </div>
-              <div class="default-font carousel-medium mt-4 carousel-sub-text">
-                Adult Redeploy Illinois was established by the Crime Reduction
-                Act to provide financial incentives to local jurisdictions for
-                programs that allow diversion of non-violent offenders from
-                state prisons by providing community-based services.
+              <div class="default-font carousel-medium mt-10 carousel-sub-text">
+                Results expected with Adult Redeploy Illinois include reduced
+                prison overcrowding, lowered cost to taxpayers, and an end to
+                the expensive and vicious cycle of crime and incarceration.
               </div>
-              <img
-                src="/icjia-logo-white.png"
-                alt="Illinois Criminal Justice Information Authority"
-                width="110"
-                class="mt-8"
-              />
+            
+              <v-btn
+                class="mt-12 mb-12"
+                to="/about"
+                aria-label="Return home"
+                outlined
+                >Learn More</v-btn
+              >
             </v-flex>
           </v-layout>
         </v-container>
       </v-sheet>
     </v-carousel-item>
-  </v-carousel>
+  </v-carousel> -->
+
+  <v-img
+    src="/ari-splash-01.jpg"
+    lazy-src="https://picsum.photos/id/11/10/6"
+    aspect-ratio="1"
+    class="grey lighten-2"
+    max-height="600"
+    ><v-container fluid fill-height text-center style="margin: 0; padding: 0">
+      <v-layout align-center>
+        <div class="banner">
+          <v-flex xs12>
+            <div class="default-font carousel-large heavy carousel-main-text">
+              Adult Redeploy Illinois
+            </div>
+            <div class="default-font carousel-medium mt-10 carousel-sub-text">
+              Results expected with Adult Redeploy Illinois include reduced
+              prison overcrowding, lowered cost to taxpayers, and an end to the
+              expensive and vicious cycle of crime and incarceration.
+            </div>
+            <v-btn class="mt-6" color="white" to="/about" outlined
+              >Learn More</v-btn
+            >
+
+            <!-- <v-layout align-center>
+              <v-flex xs12>
+                test
+              </v-flex>
+            </v-layout> -->
+
+            <!-- <div class="default-font carousel-medium mt-10 carousel-sub-text">
+            Results expected with Adult Redeploy Illinois include reduced prison
+            overcrowding, lowered cost to taxpayers, and an end to the expensive
+            and vicious cycle of crime and incarceration.
+          </div>
+
+          -->
+          </v-flex>
+        </div>
+      </v-layout>
+    </v-container>
+  </v-img>
 </template>
 
 <script>
@@ -61,4 +99,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.banner {
+  width: 100%;
+  background: rgba(79, 80, 79, 0.7);
+  padding: 30px;
+}
+</style>

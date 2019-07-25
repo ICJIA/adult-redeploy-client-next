@@ -4,11 +4,21 @@
       <v-container grid-list-md text-center>
         <v-layout wrap align-center>
           <v-flex>
-            <h1 style="font-size: 48px; color: #666">Oops.</h1>
-            <h2 class="mt-10">
+            <h1 style="font-size: 48px; color: #067879">Oops.</h1>
+            <h2
+              class="mt-10"
+              v-if="$route.params.statusCode && $route.params.msg"
+            >
               {{ $route.params.statusCode }} | {{ $route.params.msg }}
             </h2>
-            <p class="mt-12"><router-link to="/">Go back home</router-link></p>
+            <v-btn
+              class="mt-12"
+              to="/"
+              aria-label="Return home"
+              outlined
+              color="primary"
+              ><v-icon left>chevron_left</v-icon>Go back home</v-btn
+            >
           </v-flex>
         </v-layout>
       </v-container>

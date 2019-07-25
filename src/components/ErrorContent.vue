@@ -1,5 +1,5 @@
 <template>
-  <div style="background: #fff; min-height: 65vh">
+  <div style="min-height: 65vh">
     <div class="py-12">
       <slot name="content"></slot>
     </div>
