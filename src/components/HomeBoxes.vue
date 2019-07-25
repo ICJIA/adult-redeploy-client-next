@@ -1,6 +1,6 @@
 <template>
   <div class="flexbox-container hide-sm-and-down">
-    <div class="box box-1" @click="$router.push('/programs')">
+    <div class="box box-1" @click="$router.push('/local-programs')">
       <h2 class="heavy text-center">Local Programs</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,

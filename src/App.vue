@@ -69,7 +69,7 @@ export default {
         },
         {
           name: "Programs",
-          url: "/programs",
+          url: "/local-programs",
           displayNav: true,
           displayFooter: true,
           displayDrawer: true,

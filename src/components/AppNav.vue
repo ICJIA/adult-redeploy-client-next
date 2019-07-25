@@ -12,6 +12,8 @@
       alt="Illinois Criminal Justice Information Authority"
       height="70"
       style="margin-left: -15px"
+      class="hover"
+      @click="$router.push('/')"
     />&nbsp;&nbsp;&nbsp;&nbsp;
     <v-toolbar-title class="heavy hover" @click="$router.push('/')"
       ><span style="color: #555; font-size: 24px"
@@ -46,7 +48,7 @@
               </v-btn>
             </template>
 
-            <v-list nav dense v-if="link.subMenu" elevation="1">
+            <v-list nav dense flat v-if="link.subMenu" elevation="1">
               <v-list-item-group color="primary">
                 <v-list-item v-for="(subItem, i) in link.subMenu" :key="i">
                   <v-list-item-content @click="$router.push(subItem.url)">

@@ -3,6 +3,7 @@
     <div class="py-9 px-4" v-if="!loading">
       <slot name="title"></slot>
       <slot name="content"></slot>
+      <slot name="special"></slot>
     </div>
     <div v-else>
       <v-container>

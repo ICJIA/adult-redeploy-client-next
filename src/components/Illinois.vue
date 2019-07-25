@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="mapwrapper">
-      <div id="mapbase" style="max-width: 300px">
+      <div id="mapbase" :style="{ 'max-width': maxWidth + 'px' }">
         <!-- V4.1 -->
         <svg
           version="1.1"
@@ -1457,6 +1457,12 @@ export default {
     },
     getCounty(data) {
       console.dir(data);
+    }
+  },
+  props: {
+    maxWidth: {
+      type: Number,
+      default: 500
     }
   },
   data() {
