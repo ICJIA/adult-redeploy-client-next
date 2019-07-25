@@ -24,7 +24,8 @@ export default {
   },
   props: {
     loading: {
-      type: Boolean
+      type: Boolean,
+      default: true
     }
   }
 };

@@ -5,6 +5,18 @@
   font-size: 16px;
 }
 
+.default-font {
+  font-family: "Lato", sans-serif !important;
+}
+
+.carousel-large {
+  font-size: 48px;
+}
+
+.carousel-medium {
+  font-size: 24px;
+}
+
 .hover {
   cursor: pointer;
 }
@@ -22,7 +34,7 @@
 }
 
 .home .v-carousel__controls {
-  bottom: 30px;
+  bottom: 20px;
 }
 
 #content-top {
@@ -56,4 +68,22 @@ a {
   #content-top {
     margin-top: 55px;
   }
+  .carousel-sub-text {
+    display: none;
+  }
+}
+
+/** NProgress config **/
+
+#nprogress .bar {
+  background: #3f51b5;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #3f51b5, 0 0 5px #3f51b5;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #3f51b5;
+  border-left-color: #3f51b5;
 }

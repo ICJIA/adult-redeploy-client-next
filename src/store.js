@@ -82,7 +82,8 @@ export default new Vuex.Store({
         let metaInfo = {
           itemsCached: res.length,
           millisecondsToComplete: end,
-          previouslyCached: false
+          previouslyCached: false,
+          cacheSize: state.cache.size
         };
 
         if (state.config.debug) {
@@ -95,7 +96,8 @@ export default new Vuex.Store({
         let metaInfo = {
           itemsCached: queries.length,
           millisecondsToComplete: end,
-          previouslyCached: true
+          previouslyCached: true,
+          cacheSize: state.cache.size
         };
         if (state.config.debug) {
           console.log(metaInfo);

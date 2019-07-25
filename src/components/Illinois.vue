@@ -1448,8 +1448,7 @@
 </template>
 
 <script>
-/* eslint-disable no-undef */
-/* eslint-disable no-redeclare */
+/* eslint-disable */
 import { usiljsconfig } from "@/assets/data/usiljsconfig";
 export default {
   methods: {

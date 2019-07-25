@@ -1,19 +1,14 @@
 <template>
   <error-content>
-    <template v-slot:title>
-      <v-container>
-        <v-layout wrap>
-          <v-flex xs12>
-            <h1>Error</h1>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </template>
     <template v-slot:content>
-      <v-container>
-        <v-layout wrap>
-          <v-flex xs12>
-            {{ $route.params }}
+      <v-container grid-list-md text-center>
+        <v-layout wrap align-center>
+          <v-flex>
+            <h1 style="font-size: 48px; color: #666">Oops.</h1>
+            <h2 class="mt-10">
+              {{ $route.params.statusCode }} | {{ $route.params.msg }}
+            </h2>
+            <p class="mt-12"><router-link to="/">Go back home</router-link></p>
           </v-flex>
         </v-layout>
       </v-container>
@@ -26,6 +21,9 @@ import ErrorContent from "@/components/ErrorContent";
 export default {
   components: {
     ErrorContent
+  },
+  mounted() {
+    this.$store.commit("CLEAR_CACHE");
   }
 };
 </script>

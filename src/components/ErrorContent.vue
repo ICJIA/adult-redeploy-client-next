@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <div class="py-9">
-      <slot name="title"></slot>
+  <div style="background: #fff; min-height: 65vh">
+    <div class="py-12">
       <slot name="content"></slot>
     </div>
   </div>

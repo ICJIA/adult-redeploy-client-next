@@ -2,7 +2,7 @@
   <div>
     <base-content :loading="loading">
       <template v-slot:title>
-        <v-container>
+        <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12>
               <h1 class="page-title">{{ content[0].title }}</h1>
@@ -11,7 +11,7 @@
         </v-container>
       </template>
       <template v-slot:content>
-        <v-container>
+        <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
               <div v-html="render(content[0].content)"></div>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       loading: true,
-      content: []
+      content: null
     };
   },
   components: {
