@@ -68,8 +68,8 @@ export default {
           displayFooter: true
         },
         {
-          name: "Publications",
-          url: "/publications",
+          name: "Resources",
+          url: "/resources",
           displayNav: true,
           displayFooter: true
         },
