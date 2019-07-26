@@ -83,7 +83,7 @@ export default {
       EventBus.$emit("toggleDrawer");
     },
     logoWidth() {
-      console.log(this.$vuetify.breakpoint);
+      //console.log(this.$vuetify.breakpoint);
       if (this.$vuetify.breakpoint.xs) {
         return 50;
       } else {

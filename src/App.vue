@@ -26,120 +26,21 @@ export default {
     Breadcrumb
   },
   methods: {},
+  async mounted() {},
   async created() {
     if (!this.$store.state.isAppReady) {
       this.$store.dispatch("initApp");
+      const configPromise = process.BROWSER_BUILD
+        ? import("@/config.json")
+        : Promise.resolve(require("@/config.json"));
+      let config = await configPromise;
+      this.links = config.links;
+      this.$store.dispatch("setConfig", config);
     }
   },
   data() {
     return {
-      links: [
-        { name: "Home", url: "/", displayNav: false, displayFooter: true },
-        {
-          name: "About",
-          url: "/about",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true,
-          subMenu: [
-            { name: "Overview", url: "/overview" },
-            { name: "Oversight Board", url: "/board" },
-            { name: "Staff", url: "/staff" },
-            { name: "Meeting Materials", url: "/meetings" },
-            { name: "Media", url: "/media" },
-            { name: "FAQs", url: "/faqs" }
-          ]
-        },
-
-        {
-          name: "Approach",
-          url: "/approach",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true,
-          subMenu: [
-            { name: "Local control", url: "/local-control" },
-            { name: "Evidence-based Practicies", url: "/ebs" },
-            {
-              name: "Performance Measurement",
-              url: "/performance-measurement"
-            },
-            { name: "Evaluation", url: "/evaluation" }
-          ]
-        },
-        {
-          name: "Programs",
-          url: "/local-programs",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true,
-          subMenu: [
-            { name: "Local programs", url: "/local-programs" },
-            { name: "Training", url: "/training" },
-            {
-              name: "All-Sites Summits",
-              url: "/summits"
-            }
-          ]
-        },
-        {
-          name: "Grants",
-          url: "/grants",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true,
-          subMenu: [
-            { name: "Explore", url: "/explore" },
-            { name: "Apply", url: "/apply" },
-            {
-              name: "Implement",
-              url: "/implement"
-            }
-          ]
-        },
-        {
-          name: "News",
-          url: "/news",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true
-        },
-
-        {
-          name: "Resources",
-          url: "/resources",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true,
-          subMenu: [
-            { name: "Annual Reports", url: "/annual-reports" },
-            { name: "Templates", url: "/templates" },
-            {
-              name: "Toolkits",
-              url: "/toolkits"
-            },
-            {
-              name: "Webinars",
-              url: "/webinars"
-            }
-          ]
-        },
-
-        {
-          name: "Search",
-          url: "/search",
-          displayNav: true,
-          displayFooter: true,
-          displayDrawer: true
-        },
-        {
-          name: "ICJIA",
-          url: "/icjia",
-          displayNav: false,
-          displayFooter: true,
-          displayDrawer: false
-        }
-      ]
+      links: []
     };
   }
 };

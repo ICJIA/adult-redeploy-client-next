@@ -4,10 +4,6 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const configPromise = process.BROWSER_BUILD
-  ? import("@/config.json")
-  : Promise.resolve(require("@/config.json"));
-
 export default new Vuex.Store({
   state: {
     isAppReady: false,
@@ -36,11 +32,12 @@ export default new Vuex.Store({
   },
   actions: {
     async initApp({ commit }) {
-      const config = await configPromise;
-      commit("SET_CONFIG", config);
       commit("SET_APP_READY", true);
       commit("CLEAR_CACHE");
       console.log("App initialized");
+    },
+    setConfig({ commit }, config) {
+      commit("SET_CONFIG", config);
     },
     // eslint-disable-next-line no-unused-vars
     async cacheContent({ commit, state, getters }, contentMap) {
