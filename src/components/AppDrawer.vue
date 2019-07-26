@@ -40,7 +40,9 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>Test</v-list-item-title>
+            <v-list-item-title class="text-center heavy"
+              >ADULT REDEPLOY ILLINOIS</v-list-item-title
+            >
           </v-list-item-content>
         </v-list-item>
 
@@ -48,9 +50,9 @@
 
         <v-list dense>
           <v-list-item v-for="item in items" :key="item.title" link>
-            <v-list-item-icon>
+            <!-- <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            </v-list-item-icon> -->
 
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -60,8 +62,25 @@
       </v-list>
       <v-spacer></v-spacer>
       <v-divider></v-divider>
-      <div class="text-center py-5">
-        <h3>Bottom content here</h3>
+      <div class="text-center px-3 py-5" style="color: #fff">
+        <a href="http://www.icjia.state.il.us">
+          <img
+            src="/icjia-logo-white.png"
+            alt="Illinois Criminal Justice Information Authority"
+            width="65"
+            class="mt-3"
+          />
+        </a>
+        <br />
+
+        <strong
+          ><a
+            href="http://www.icjia.state.il.us"
+            class="footer-link"
+            style="font-size: 10px;"
+            >Illinois Criminal Justice Information Authority</a
+          ></strong
+        >
       </div>
     </v-layout>
   </v-navigation-drawer>

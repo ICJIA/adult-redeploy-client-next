@@ -14,7 +14,7 @@
         <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
-              <div v-html="render(content[0].content)"></div>
+              <div v-html="renderToHtml(content[0].content)"></div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       loading: true,
-      content: null
+      content: null,
+      renderToHtml
     };
   },
   components: {
@@ -72,9 +73,6 @@ export default {
         name: "error",
         params: { msg: "Page not found", statusCode: 404 }
       });
-    },
-    render(content) {
-      return renderToHtml(content);
     }
   }
 };

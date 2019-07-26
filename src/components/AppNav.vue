@@ -3,6 +3,8 @@
     <v-app-bar-nav-icon
       @click="toggleDrawer"
       class="hidden-md-and-up"
+      style="color: black"
+      large
     ></v-app-bar-nav-icon>
 
     <div style="width: 15px"></div>
@@ -11,7 +13,7 @@
       src="/icjia-logo.png"
       alt="Illinois Criminal Justice Information Authority"
       height="70"
-      style="margin-left: -15px"
+      style="margin-left: -5px; margin-right: 8px;"
       class="hover"
       @click="$router.push('/')"
     />&nbsp;&nbsp;&nbsp;&nbsp;

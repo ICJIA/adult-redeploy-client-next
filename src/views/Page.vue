@@ -14,7 +14,7 @@
         <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
-              {{ content[0].content }}
+              <div v-html="renderToHtml(content[0].content)"></div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -27,6 +27,7 @@
 import BaseContent from "@/components/BaseContent";
 import { getPage } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
+import { renderToHtml } from "@/services/Markdown";
 export default {
   watch: {
     $route: "fetchContent"
@@ -35,7 +36,8 @@ export default {
     return {
       loading: true,
       content: null,
-      checkIfValidPage
+      checkIfValidPage,
+      renderToHtml
     };
   },
   components: {

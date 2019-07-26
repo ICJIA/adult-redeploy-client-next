@@ -92,6 +92,7 @@ export default {
   width: 100%;
   background: rgba(79, 80, 79, 0.7);
   padding: 30px;
+  margin-top: 100px;
 }
 
 @media only screen and (max-width: 600px) {

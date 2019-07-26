@@ -43,6 +43,13 @@
   margin-top: 90px;
 }
 
+.page-title {
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
 .rule {
   border-bottom: 1px solid #aaa;
   padding-bottom: 5px;
