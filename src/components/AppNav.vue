@@ -12,13 +12,13 @@
     <img
       src="/icjia-logo.png"
       alt="Illinois Criminal Justice Information Authority"
-      height="70"
+      :width="logoWidth()"
       style="margin-left: -5px; margin-right: 8px;"
       class="hover"
       @click="$router.push('/')"
     />&nbsp;&nbsp;&nbsp;&nbsp;
     <v-toolbar-title class="heavy hover" @click="$router.push('/')"
-      ><span style="color: #555; font-size: 24px"
+      ><span style="" class="agency"
         >ADULT REDEPLOY ILLINOIS</span
       ></v-toolbar-title
     >
@@ -81,6 +81,14 @@ export default {
   methods: {
     toggleDrawer() {
       EventBus.$emit("toggleDrawer");
+    },
+    logoWidth() {
+      console.log(this.$vuetify.breakpoint);
+      if (this.$vuetify.breakpoint.xs) {
+        return 50;
+      } else {
+        return 90;
+      }
     }
   }
 };
