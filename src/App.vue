@@ -7,7 +7,7 @@
       <v-content
         id="content-top"
         aria-live="polite"
-        style="background: #fafafa"
+        style="background: #fafafa; min-height: 68vh"
       >
         <transition name="fade" mode="out-in">
           <router-view></router-view>
