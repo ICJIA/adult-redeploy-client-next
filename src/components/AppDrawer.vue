@@ -37,7 +37,7 @@
     disable-resize-watcher
   >
     <v-layout column fill-height>
-      <v-list>
+      <v-list class="drawer" rounded>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="text-center heavy"
@@ -49,34 +49,33 @@
         <v-divider></v-divider>
 
         <v-list dense v-for="link in links" :key="link.name">
-          <div>
-            <v-list-item v-if="!link.subMenu" class="push-right">
+          <v-list-item v-if="!link.subMenu" class="push-right link-item">
+            <v-list-item-content>
+              <v-list-item-title
+                @click="$router.push(link.url)"
+                style="font-weight: 900 !important; cursor: pointer"
+                class=""
+                >{{ link.name }}</v-list-item-title
+              >
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-group no-action sub-group v-else>
+            <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title
-                  @click="$router.push(link.url)"
-                  style="font-weight: 900 !important; cursor: pointer"
-                  >{{ link.name }}</v-list-item-title
-                >
+                <v-list-item-title style="font-weight: 900 !important">{{
+                  link.name
+                }}</v-list-item-title>
               </v-list-item-content>
+            </template>
+
+            <v-list-item v-for="(item, i) in link.subMenu" :key="i" link>
+              <v-list-item-title
+                v-text="item.name"
+                @click="$router.push(item.url)"
+              ></v-list-item-title>
             </v-list-item>
-
-            <v-list-group no-action sub-group v-else>
-              <template v-slot:activator>
-                <v-list-item-content>
-                  <v-list-item-title style="font-weight: 900 !important">{{
-                    link.name
-                  }}</v-list-item-title>
-                </v-list-item-content>
-              </template>
-
-              <v-list-item v-for="(item, i) in link.subMenu" :key="i" link>
-                <v-list-item-title
-                  v-text="item.name"
-                  @click="$router.push(item.url)"
-                ></v-list-item-title>
-              </v-list-item>
-            </v-list-group>
-          </div>
+          </v-list-group>
         </v-list>
       </v-list>
       <v-spacer></v-spacer>
@@ -137,9 +136,17 @@ export default {
 }
 
 .push-right {
-  margin-left: 50px;
+  padding-left: 65px;
 }
-.v-list-item--active {
+.drawer .v-list-item--active {
   color: #fff !important;
+}
+
+/* .drawer .v-list-item-group .v-list-item--active {
+  opacity: 0.1 !important;
+} */
+
+.link-item:hover {
+  background: #268384;
 }
 </style>
