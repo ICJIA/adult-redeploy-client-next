@@ -111,6 +111,9 @@ export default new Vuex.Store({
     inCache: state => hash => {
       return state.cache.has(hash);
     },
+    config: state => {
+      return state.config;
+    },
     debug: state => {
       return state.config.debug;
     },

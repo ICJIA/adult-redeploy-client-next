@@ -48,16 +48,35 @@
 
         <v-divider></v-divider>
 
-        <v-list dense>
-          <v-list-item v-for="item in items" :key="item.title" link>
-            <!-- <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon> -->
+        <v-list dense v-for="link in links" :key="link.name">
+          <div>
+            <v-list-item v-if="!link.subMenu" class="push-right">
+              <v-list-item-content>
+                <v-list-item-title
+                  @click="$router.push(link.url)"
+                  style="font-weight: 900 !important; cursor: pointer"
+                  >{{ link.name }}</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+            <v-list-group no-action sub-group v-else>
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title style="font-weight: 900 !important">{{
+                    link.name
+                  }}</v-list-item-title>
+                </v-list-item-content>
+              </template>
+
+              <v-list-item v-for="(item, i) in link.subMenu" :key="i" link>
+                <v-list-item-title
+                  v-text="item.name"
+                  @click="$router.push(item.url)"
+                ></v-list-item-title>
+              </v-list-item>
+            </v-list-group>
+          </div>
         </v-list>
       </v-list>
       <v-spacer></v-spacer>
@@ -94,6 +113,12 @@ export default {
       this.drawer = !this.drawer;
     });
   },
+  props: {
+    links: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       drawer: false,
@@ -109,5 +134,12 @@ export default {
 <style>
 .theme--light.v-list {
   background: white !important;
+}
+
+.push-right {
+  margin-left: 50px;
+}
+.v-list-item--active {
+  color: #fff !important;
 }
 </style>
