@@ -49,12 +49,7 @@ const getPageQuery = slug => {
       name
       slug
     }
-    category {
-      name
-      type {
-        name
-      }
-    }
+    
     
   }
 }`;
@@ -75,26 +70,11 @@ const getPostQuery = slug => {
       name
       slug
     }
-    category {
-      name
-      type {
-        name
-      }
-    }
+    
     
   }
 }`;
 };
-
-const getPubsForMenuQuery = `
-{
-  types (where: {name:"publication"}) {
-    categories {
-      name
-      slug
-    }
-  }
-}`;
 
 const getFrontPageNewsQuery = limit => {
   return `{
@@ -134,40 +114,7 @@ const getNewsQuery = () => {
 
 const getPublicationsByCategoryQuery = slug => {
   return `{
-  categories (where: {slug: "${slug}"}) {
-    name
-    slug
-    summary
-    
-    publications(sort: "year:desc, title:asc") {
-     title
-     slug
-    addToBanner
-    tags {
-      name
-      slug
-    }
-    summary
-    createdAt
-    isPublished
-    year
-    file {
-      name
-      url
-    }
-    externalURL
-    thumbnail {
-      url
-      name
-    }
-    category {
-      name
-      slug
-    }
-    }
-   
-   
-  }
+  
 }`;
 };
 
@@ -195,10 +142,7 @@ const getFeaturedPublicationsQuery = () => {
       url
       name
     }
-    category {
-      name
-      slug
-    }
+    
   }
 } `;
 };
@@ -226,47 +170,14 @@ const getAllPublicationsQuery = () => {
       url
       name
     }
-    category {
-      name
-      slug
-    }
+    
   }
 } `;
 };
 
 const getMeetingsByCategoryQuery = () => {
   return `{
-  types(where: { name: "meeting" }) {
-    name
-    categories(sort: "name:asc") {
-      name
-      summary
-      slug
-
-      meetings(sort: "scheduledDate:desc, title:asc") {
-        title
-        slug
-        createdAt
-        updatedAt
-        scheduledDate
-        summary
-        content
-        isPublished
-        materials {
-          name
-          url
-        }
-        category {
-          name
-          slug
-        }
-        tags {
-          name
-          slug
-        }
-      }
-    }
-  }
+ 
 }
   `;
 };
@@ -288,10 +199,7 @@ const getSingleMeetingQuery = slug => {
       name
       url
     }
-    category {
-      name
-      slug
-    }
+    
     tags {
       slug
       name
@@ -321,10 +229,7 @@ const getContentByTagQuery = slug => {
         name
         slug
       }
-      category {
-        name
-        slug
-      }
+     
     }
     publications(sort: "year:desc, title:asc", where: {isPublished: true}) {
       title
@@ -347,10 +252,7 @@ const getContentByTagQuery = slug => {
       url
       name
     }
-    category {
-      name
-      slug
-    }
+    
     },
      meetings(sort: "scheduledDate:desc", where: {isPublished: true}) {
       createdAt
@@ -366,10 +268,7 @@ const getContentByTagQuery = slug => {
       name
       url
     }
-    category {
-      name
-      slug
-    }
+    
     tags {
       slug
       name
@@ -387,10 +286,7 @@ const getContentByTagQuery = slug => {
         name
         slug
       }
-      category {
-        name
-        slug
-      }
+     
     }
   }
 }
@@ -421,10 +317,7 @@ const getSinglePublicationQuery = slug => {
       url
       name
     }
-    category {
-      name
-      slug
-    }
+   
   }
 } 
 `;
@@ -450,10 +343,7 @@ const getMeetingCategoryQuery = slug => {
         name
         url
       }
-      category {
-        name
-        slug
-      }
+     
       tags {
         slug
         name
@@ -507,12 +397,7 @@ const getPageBySectionQuery = (section, slug) => {
         name
         slug
       }
-      category {
-        name
-        type {
-          name
-        }
-      }
+      
     }
   }
 }`;
@@ -534,17 +419,6 @@ const getPost = async ({ slug }) => {
   try {
     let post = await queryEndpoint(getPostQuery(slug));
     return post.data.data.posts;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getPubsForMenu = async ({ slug }) => {
-  try {
-    let publications = await queryEndpoint(getPubsForMenuQuery);
-    return publications.data.data.types;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
@@ -602,17 +476,6 @@ const getAllPublications = async () => {
   try {
     let publications = await queryEndpoint(getAllPublicationsQuery());
     return publications.data.data.publications;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getMeetingsByCategory = async () => {
-  try {
-    let categories = await queryEndpoint(getMeetingsByCategoryQuery());
-    return categories.data.data.types;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
@@ -693,11 +556,9 @@ export {
   getPost,
   getFrontPageNews,
   getNews,
-  getPubsForMenu,
   getPublicationsByCategory,
   getFeaturedPublications,
   getAllPublications,
-  getMeetingsByCategory,
   getMeetingCategory,
   getSingleMeeting,
   getContentByTag,
