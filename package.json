@@ -6,7 +6,7 @@
     "serve": "node buildConfig.js && node buildSearchIndex.js && vue-cli-service serve",
     "build": "node buildConfig.js && node buildSearchIndex.js && vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "vue-cli-service build  && npm run build:lambda",
+    "deploy": "node buildConfig.js && node buildSearchIndex.js && vue-cli-service build  && npm run build:lambda",
     "test:unit": "vue-cli-service test:unit",
     "build:lambda": "netlify-lambda build ./src/lambda",
     "start:lambda": "netlify-lambda serve ./src/lambda"
