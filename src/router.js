@@ -54,7 +54,18 @@ export default new Router({
         import(/* webpackChunkName: "search" */ "./views/Search.vue")
     },
     {
-      path: "/:slug",
+      path: "/news",
+      name: "news",
+      component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
+    },
+    {
+      path: "/:section",
+      name: "section",
+      component: () =>
+        import(/* webpackChunkName: "section" */ "./views/Section.vue")
+    },
+    {
+      path: "/:section/:slug",
       name: "page",
       component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")
     },

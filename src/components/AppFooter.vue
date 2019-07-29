@@ -8,17 +8,17 @@
       style="width: 100%"
     >
       <v-card-text>
-        <span v-for="link in sections" :key="link.name" class="flexitem">
+        <span v-for="link in sections" :key="link.title" class="flexitem">
           <span v-if="link.displayFooter">
             <v-btn
-              :to="link.url"
+              :to="link.slug"
               depressed
               class="heavy "
               dark
               color="secondary"
               :aria-label="link.name"
             >
-              <span style="font-size: 12px"> {{ link.name }}</span>
+              <span style="font-size: 12px"> {{ link.slug }}</span>
             </v-btn>
           </span>
         </span>

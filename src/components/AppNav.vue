@@ -26,36 +26,38 @@
     <div class="flex-grow-1"></div>
 
     <v-toolbar-items class="hidden-sm-and-down">
-      <span v-for="link in sections" :key="link.name" class="flexitem">
+      <span v-for="link in sections" :key="link.title" class="flexitem">
         <span v-if="link.displayNav">
           <v-menu offset-y left eager style="background: yellow">
             <template v-slot:activator="{ on }">
               <v-btn
-                v-if="link.subMenu"
+                v-if="link.pages.length > 1"
                 depressed
                 style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
                 class="heavy white "
                 v-on="on"
               >
-                {{ link.name }}<v-icon right small>arrow_drop_down</v-icon>
+                {{ link.title }}<v-icon right small>arrow_drop_down</v-icon>
               </v-btn>
               <v-btn
                 v-else
                 depressed
                 style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
                 class="heavy white "
-                :to="link.url"
+                :to="`/${link.slug}`"
               >
-                {{ link.name }}
+                {{ link.title }}
               </v-btn>
             </template>
 
-            <v-list nav dense flat v-if="link.subMenu" elevation="1">
+            <v-list nav dense flat v-if="link.pages.length > 1" elevation="1">
               <v-list-item-group color="primary">
-                <v-list-item v-for="(subItem, i) in link.subMenu" :key="i">
-                  <v-list-item-content @click="$router.push(subItem.url)">
+                <v-list-item v-for="(subItem, i) in link.pages" :key="i">
+                  <v-list-item-content
+                    @click="$router.push(`/${link.slug}/${subItem.slug}`)"
+                  >
                     <v-list-item-title
-                      v-text="subItem.name"
+                      v-text="subItem.title"
                       style="font-size: 14px; font-weight: bold"
                     ></v-list-item-title>
                   </v-list-item-content>

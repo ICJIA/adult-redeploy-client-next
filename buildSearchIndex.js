@@ -23,6 +23,13 @@ const query = `{
     user {
       username
     }
+    section {
+      title
+      slug
+      summary
+      searchMeta
+      summary
+    }
     
     tags {
       name

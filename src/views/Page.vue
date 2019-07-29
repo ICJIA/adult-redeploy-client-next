@@ -27,7 +27,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import TOC from "@/components/TOC";
-import { getPage } from "@/services/Content";
+import { getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 export default {
@@ -40,7 +40,8 @@ export default {
       content: null,
       checkIfValidPage,
       renderToHtml,
-      showToc: false
+      showToc: false,
+      sectionContent: null
     };
   },
   components: {
@@ -61,20 +62,31 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
+      const section = this.$route.params.section;
       const slug = this.$route.params.slug;
-      const name = `getPage-${slug}`;
+
+      const name = `getPageBySection-${section}${slug}`;
       contentMap.set(name, {
         hash: getHash(name),
-        query: getPage,
-        params: { slug }
+        query: getPageBySection,
+        params: { section, slug }
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
 
-      this.content = this.$store.getters.getContentFromCache(contentMap, name);
+      this.sectionContent = this.$store.getters.getContentFromCache(
+        contentMap,
+        name
+      );
 
-      checkIfValidPage(this.content) ? null : this.routeToError();
-      this.showToc = this.content[0].showToc;
+      this.content = this.sectionContent[0].pages;
+
+      if (checkIfValidPage(this.content)) {
+        this.showToc = this.content[0].showToc;
+      } else {
+        this.routeToError();
+      }
+
       this.loading = false;
     },
     routeToError() {
@@ -89,4 +101,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>

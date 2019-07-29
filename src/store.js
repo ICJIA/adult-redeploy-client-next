@@ -9,6 +9,7 @@ export default new Vuex.Store({
     isAppReady: false,
     config: null,
     routes: null,
+    sections: null,
     searchIndex: null,
     lastDeploy: null,
     lastBuild: null,
@@ -40,6 +41,10 @@ export default new Vuex.Store({
     SET_CACHE(state, { hash, query }) {
       state.cache.set(hash, query);
       //console.log(hash, ": cached");
+    },
+    SET_SECTIONS(state, sections) {
+      state.sections = sections;
+      console.log("sections loaded");
     }
   },
   actions: {
@@ -55,6 +60,9 @@ export default new Vuex.Store({
     },
     setSearchIndex({ commit }, searchIndex) {
       commit("SET_SEARCH_INDEX", searchIndex);
+    },
+    setSections({ commit }, sections) {
+      commit("SET_SECTIONS", sections);
     },
     // eslint-disable-next-line no-unused-vars
     async cacheContent({ commit, state, getters }, contentMap) {
@@ -127,6 +135,9 @@ export default new Vuex.Store({
     },
     config: state => {
       return state.config;
+    },
+    sections: state => {
+      return state.sections;
     },
     debug: state => {
       return state.config.debug;

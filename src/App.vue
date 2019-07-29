@@ -1,8 +1,9 @@
 <template>
   <v-app id="page-top">
     <div v-if="!loading">
-      <app-nav :sections="sections"></app-nav>
+      <app-nav :sections="sectionsTest"></app-nav>
       <app-drawer :sections="sections"></app-drawer>
+
       <breadcrumb></breadcrumb>
       <v-content
         id="content-top"
@@ -13,7 +14,7 @@
           <router-view></router-view>
         </transition>
       </v-content>
-      <app-footer :sections="sections"></app-footer>
+      <app-footer :sections="sectionsTest"></app-footer>
     </div>
     <div v-else>
       <v-container>
@@ -33,6 +34,7 @@ import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
+import { getSections } from "@/services/Content";
 export default {
   name: "App",
   components: {
@@ -68,13 +70,18 @@ export default {
       this.$store.dispatch("setSearchIndex", searchIndex);
 
       console.log("Debug: ", this.$store.getters.debug);
+
+      this.sectionsTest = await getSections();
+      this.$store.dispatch("setSections", this.sectionsTest);
+
       this.loading = false;
     }
   },
   data() {
     return {
       sections: [],
-      loading: true
+      loading: true,
+      test: []
     };
   }
 };

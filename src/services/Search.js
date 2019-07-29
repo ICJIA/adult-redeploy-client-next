@@ -13,7 +13,14 @@ const getSearchIndex = async () => {
     let searchIndex = await searchIndexPromise;
 
     let pages = searchIndex["pages"].map(item => {
-      item.parentPath = "/";
+      if (item.slug === "home") {
+        item.parentPath = "/";
+      } else {
+        if (item.section) {
+          item.parentPath = `/${item.section.slug}`;
+        }
+      }
+
       return item;
     });
 
@@ -32,7 +39,7 @@ const getSearchIndex = async () => {
       //item.slug = slug(item.title);
       return item;
     });
-
+    // return ["test"];
     return [...news, ...pages, ...meetings, ...publications];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());

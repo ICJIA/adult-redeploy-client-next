@@ -430,7 +430,7 @@ const getSinglePublicationQuery = slug => {
 `;
 };
 
-const getMeetingCategoryQuery = ({ slug }) => {
+const getMeetingCategoryQuery = slug => {
   return `{
   categories(where: { slug: "${slug}" }) {
     name
@@ -462,6 +462,58 @@ const getMeetingCategoryQuery = ({ slug }) => {
   }
 }
 `;
+};
+
+const getSectionsQuery = () => {
+  return `{
+  sections (sort: "order:asc"){
+    title
+    summary
+    slug
+    searchMeta
+    summary
+    order
+    displayNav
+    displayFooter
+    displayDrawer
+    pages {
+      title
+      slug
+    }
+  }
+} `;
+};
+
+const getPageBySectionQuery = (section, slug) => {
+  return `{
+  sections(where: { slug: "${section}" }) {
+    title
+    slug
+    summary
+    searchMeta
+    pages(where: { slug: "${slug}" }) {
+      id
+      createdAt
+      updatedAt
+      title
+      showToc
+      slug
+      content
+      isPublished
+      summary
+      tags {
+        name
+        slug
+      }
+      category {
+        name
+        type {
+          name
+        }
+      }
+    }
+  }
+}`;
 };
 
 const getPage = async ({ slug }) => {
@@ -612,6 +664,28 @@ const getMeetingCategory = async ({ slug }) => {
   }
 };
 
+const getSections = async () => {
+  try {
+    let sections = await queryEndpoint(getSectionsQuery());
+    return sections.data.data.sections;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getPageBySection = async ({ section, slug }) => {
+  try {
+    let sections = await queryEndpoint(getPageBySectionQuery(section, slug));
+    return sections.data.data.sections;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -625,5 +699,7 @@ export {
   getMeetingCategory,
   getSingleMeeting,
   getContentByTag,
-  getSinglePublication
+  getSinglePublication,
+  getSections,
+  getPageBySection
 };
