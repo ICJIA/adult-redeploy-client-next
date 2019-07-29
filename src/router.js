@@ -23,8 +23,8 @@ export default new Router({
 
     { path: "/home", redirect: { name: "home" } },
     {
-      path: "/local-programs",
-      name: "programs",
+      path: "/programs/local-programs",
+      name: "localPrograms",
       component: () =>
         import(/* webpackChunkName: "programs" */ "./views/LocalPrograms.vue")
     },

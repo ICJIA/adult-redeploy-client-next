@@ -21,7 +21,10 @@
         <v-divider></v-divider>
 
         <v-list dense v-for="link in sections" :key="link.name">
-          <v-list-item v-if="link.pages.length < 2" class="link-item">
+          <v-list-item
+            class="link-item"
+            v-if="!link.hasSubMenus && link.pages.length > 0"
+          >
             <v-list-item-content>
               <v-list-item-title
                 @click="
@@ -34,7 +37,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-group no-action sub-group v-else>
+          <v-list-group no-action sub-group v-if="link.hasSubMenus">
             <template v-slot:activator>
               <v-list-item-content>
                 <v-list-item-title style="font-weight: 900 !important">{{
@@ -42,7 +45,7 @@
                 }}</v-list-item-title>
               </v-list-item-content>
             </template>
-            <span v-if="link.pages.length > 1">
+            <span v-if="link.pages.length > 0">
               <v-list-item v-for="(item, i) in link.pages" :key="i" link>
                 <v-list-item-title
                   v-text="item.title"

@@ -468,6 +468,7 @@ const getSectionsQuery = () => {
   return `{
   sections (sort: "order:asc"){
     title
+    hasSubMenus
     summary
     slug
     searchMeta
@@ -490,6 +491,7 @@ const getPageBySectionQuery = (section, slug) => {
     title
     slug
     summary
+    hasSubMenus
     searchMeta
     pages(where: { slug: "${slug}" }) {
       id

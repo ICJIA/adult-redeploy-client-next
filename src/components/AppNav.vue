@@ -31,7 +31,7 @@
           <v-menu offset-y left eager style="background: yellow">
             <template v-slot:activator="{ on }">
               <v-btn
-                v-if="link.pages.length > 1"
+                v-if="link.hasSubMenus && link.pages.length > 0"
                 depressed
                 style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
                 class="heavy white "
@@ -50,7 +50,7 @@
               </v-btn>
             </template>
 
-            <v-list nav dense flat v-if="link.pages.length > 1" elevation="1">
+            <v-list nav dense flat elevation="1">
               <v-list-item-group color="primary">
                 <v-list-item v-for="(subItem, i) in link.pages" :key="i">
                   <v-list-item-content
