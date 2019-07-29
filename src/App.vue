@@ -1,8 +1,8 @@
 <template>
   <v-app id="page-top">
     <div v-if="!loading">
-      <app-nav :links="links"></app-nav>
-      <app-drawer :links="links"></app-drawer>
+      <app-nav :sections="sections"></app-nav>
+      <app-drawer :sections="sections"></app-drawer>
       <breadcrumb></breadcrumb>
       <v-content
         id="content-top"
@@ -13,7 +13,7 @@
           <router-view></router-view>
         </transition>
       </v-content>
-      <app-footer :links="links"></app-footer>
+      <app-footer :sections="sections"></app-footer>
     </div>
     <div v-else>
       <v-container>
@@ -49,17 +49,31 @@ export default {
     if (!this.$store.state.isAppReady) {
       this.$store.dispatch("initApp");
       const configPromise = process.BROWSER_BUILD
-        ? import("@/config.json")
-        : Promise.resolve(require("@/config.json"));
+        ? import("@/api/config.json")
+        : Promise.resolve(require("@/api/config.json"));
       let config = await configPromise;
-      this.links = config.links;
       this.$store.dispatch("setConfig", config);
+      this.sections = config.sections;
+
+      const routesPromise = process.BROWSER_BUILD
+        ? import("@/api/routes.json")
+        : Promise.resolve(require("@/api/routes.json"));
+      let routes = await routesPromise;
+      this.$store.dispatch("setRoutes", routes);
+
+      const searchIndexPromise = process.BROWSER_BUILD
+        ? import("@/api/searchIndex.json")
+        : Promise.resolve(require("@/api/searchIndex.json"));
+      let searchIndex = await searchIndexPromise;
+      this.$store.dispatch("setSearchIndex", searchIndex);
+
+      console.log("Debug: ", this.$store.getters.debug);
       this.loading = false;
     }
   },
   data() {
     return {
-      links: [],
+      sections: [],
       loading: true
     };
   }

@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 
 import { EventBus } from "@/event-bus";
-const config = require("@/config.json");
+const config = require("@/api/config.json");
 
 const axios = require("axios");
 const api = axios.create({
@@ -40,6 +40,7 @@ const getPageQuery = slug => {
     createdAt
     updatedAt
     title
+    showToc
     slug
     content
     isPublished
@@ -312,6 +313,7 @@ const getContentByTagQuery = slug => {
 			slug
       path
       content
+      showToc
       isPublished
       updatedAt
       createdAt
@@ -464,7 +466,7 @@ const getMeetingCategoryQuery = ({ slug }) => {
 
 const getPage = async ({ slug }) => {
   try {
-    console.log(slug);
+    // console.log(slug);
     let page = await queryEndpoint(getPageQuery(slug));
     return page.data.data.pages;
   } catch (e) {
@@ -509,7 +511,7 @@ const getFrontPageNews = async ({ limit }) => {
 
 const getNews = async () => {
   try {
-    let news = await queryEndpoint(getNewsQuery(config.frontPageItems.news));
+    let news = await queryEndpoint(getNewsQuery());
     return news.data.data.posts;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());

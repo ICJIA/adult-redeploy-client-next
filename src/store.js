@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     isAppReady: false,
     config: null,
+    routes: null,
+    searchIndex: null,
     lastDeploy: null,
     lastBuild: null,
     cache: new Map(),
@@ -21,9 +23,19 @@ export default new Vuex.Store({
     },
     SET_APP_READY(state, bool) {
       state.isAppReady = bool;
+      console.log("isAppReady", bool);
     },
     SET_CONFIG(state, config) {
       state.config = config;
+      console.log("config loaded");
+    },
+    SET_ROUTES(state, routes) {
+      state.routes = routes;
+      console.log("routes loaded");
+    },
+    SET_SEARCH_INDEX(state, searchIndex) {
+      state.searchIndex = searchIndex;
+      console.log("search index loaded");
     },
     SET_CACHE(state, { hash, query }) {
       state.cache.set(hash, query);
@@ -34,10 +46,15 @@ export default new Vuex.Store({
     async initApp({ commit }) {
       commit("SET_APP_READY", true);
       commit("CLEAR_CACHE");
-      console.log("App initialized");
     },
     setConfig({ commit }, config) {
       commit("SET_CONFIG", config);
+    },
+    setRoutes({ commit }, routes) {
+      commit("SET_ROUTES", routes);
+    },
+    setSearchIndex({ commit }, searchIndex) {
+      commit("SET_SEARCH_INDEX", searchIndex);
     },
     // eslint-disable-next-line no-unused-vars
     async cacheContent({ commit, state, getters }, contentMap) {

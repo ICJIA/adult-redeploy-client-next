@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "node buildSearchIndex.js && vue-cli-service serve",
-    "build": "node buildSearchIndex.js && vue-cli-service build",
+    "serve": "node buildConfig.js && node buildSearchIndex.js && vue-cli-service serve",
+    "build": "node buildConfig.js && node buildSearchIndex.js && vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "vue-cli-service build  && npm run build:lambda",
     "test:unit": "vue-cli-service test:unit",
@@ -16,8 +16,10 @@
     "core-js": "^2.6.5",
     "crypto-js": "^3.1.9-1",
     "deepmerge": "^4.0.0",
+    "dotenv": "^8.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "fibers": "^4.0.1",
+    "fuse.js": "^3.4.5",
     "graphql-request": "^1.8.2",
     "lodash": "^4.17.15",
     "markdown-it": "^9.0.1",
@@ -32,11 +34,11 @@
     "thumbor-url-builder": "^0.1.1",
     "vue": "^2.6.10",
     "vue-analytics": "^5.17.0",
-    "vue-browser-detect-plugin": "^0.1.3",
+    "vue-browser-detect-plugin": "^0.1.5",
     "vue-content-loader": "^0.2.2",
-    "vue-meta": "^2.1.0",
+    "vue-meta": "^2.2.0",
     "vue-router": "^3.0.7",
-    "vuetify": "^2.0.1",
+    "vuetify": "^2.0.2",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
@@ -56,7 +58,7 @@
     "sass": "^1.22.7",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-moment": "^0.1.1",
-    "vue-cli-plugin-vuetify": "git+https://github.com/vuetifyjs/vue-cli-plugin-vuetify.git#dev",
+    "vue-cli-plugin-vuetify": "vuetifyjs/vue-cli-plugin-vuetify#5f918c2",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.3.0"
   }

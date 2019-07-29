@@ -8,7 +8,7 @@
       style="width: 100%"
     >
       <v-card-text>
-        <span v-for="link in links" :key="link.name" class="flexitem">
+        <span v-for="link in sections" :key="link.name" class="flexitem">
           <span v-if="link.displayFooter">
             <v-btn
               :to="link.url"
@@ -83,7 +83,7 @@
 <script>
 export default {
   props: {
-    links: {
+    sections: {
       type: Array,
       default: () => []
     }

@@ -3,13 +3,10 @@
 /* eslint-disable no-unused-vars */
 
 import { EventBus } from "@/event-bus";
-// const config = require("@/config.json");
-// const slug = require("slug");
-// slug.defaults.mode = "rfc3986";
 
 const searchIndexPromise = process.BROWSER_BUILD
-  ? import("@/api/search.json")
-  : Promise.resolve(require("@/api/search.json"));
+  ? import("@/api/searchIndex.json")
+  : Promise.resolve(require("@/api/searchIndex.json"));
 
 const getSearchIndex = async () => {
   try {

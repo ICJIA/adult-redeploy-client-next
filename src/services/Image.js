@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-const config = require("../config.json");
-import { EventBus } from "../event-bus.js";
+const config = require("@/api/config.json");
+import { EventBus } from "@/event-bus.js";
 import axios from "axios";
 
 const ThumborUrlBuilder = require("thumbor-url-builder");

@@ -48,7 +48,7 @@
 
         <v-divider></v-divider>
 
-        <v-list dense v-for="link in links" :key="link.name">
+        <v-list dense v-for="link in sections" :key="link.name">
           <v-list-item v-if="!link.subMenu" class="push-right link-item">
             <v-list-item-content>
               <v-list-item-title
@@ -113,7 +113,7 @@ export default {
     });
   },
   props: {
-    links: {
+    sections: {
       type: Array,
       default: () => []
     }

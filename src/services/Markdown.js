@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-const config = require("../config.json");
-import { EventBus } from "../event-bus.js";
+const config = require("@/api/config.json");
+import { EventBus } from "@/event-bus.js";
 
 const namedHeaders = require("markdown-it-named-headers");
 const attrs = require("markdown-it-attrs");

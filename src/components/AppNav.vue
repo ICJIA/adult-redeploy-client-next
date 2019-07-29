@@ -26,7 +26,7 @@
     <div class="flex-grow-1"></div>
 
     <v-toolbar-items class="hidden-sm-and-down">
-      <span v-for="link in links" :key="link.name" class="flexitem">
+      <span v-for="link in sections" :key="link.name" class="flexitem">
         <span v-if="link.displayNav">
           <v-menu offset-y left eager style="background: yellow">
             <template v-slot:activator="{ on }">
@@ -73,7 +73,7 @@
 import { EventBus } from "@/event-bus";
 export default {
   props: {
-    links: {
+    sections: {
       type: Array,
       default: () => []
     }

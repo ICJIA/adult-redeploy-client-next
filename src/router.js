@@ -48,6 +48,12 @@ export default new Router({
         import(/* webpackChunkName: "error" */ "./views/Sandbox.vue")
     },
     {
+      path: "/search",
+      name: "search",
+      component: () =>
+        import(/* webpackChunkName: "search" */ "./views/Search.vue")
+    },
+    {
       path: "/:slug",
       name: "page",
       component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")

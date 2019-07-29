@@ -1,22 +1,22 @@
 <template>
   <div>
     <base-content :loading="loading">
-      <template v-slot:title>
+      <template v-slot:content>
         <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12>
-              <h1 class="page-title">{{ content[0].title }}</h1>
+              <div v-html="renderToHtml(content[0].content)"></div>
             </v-flex>
           </v-layout>
         </v-container>
       </template>
-      <template v-slot:content>
-        <v-container v-if="content">
+      <template v-slot:special>
+        <v-container>
           <v-layout wrap>
-            <v-flex :[dynamicFlex]="true">
-              <div v-html="renderToHtml(content[0].content)"></div>
+            <v-flex xs12 class="mb-10">
+              <!-- {{ searchIndex }} -->
+              <search :search-content="searchIndex" class="search" style="" />
             </v-flex>
-            <v-flex xs2 v-if="showToc"><TOC></TOC></v-flex>
           </v-layout>
         </v-container>
       </template>
@@ -26,47 +26,38 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import TOC from "@/components/TOC";
+import Search from "@/components/Search";
 import { getPage } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { getSearchIndex } from "@/services/Search";
 export default {
-  watch: {
-    $route: "fetchContent"
-  },
   data() {
     return {
       loading: true,
       content: null,
       checkIfValidPage,
       renderToHtml,
-      showToc: false
+      searchIndex: null
     };
   },
   components: {
     BaseContent,
-    TOC
+    Search
   },
   created() {
     this.fetchContent();
   },
-  computed: {
-    dynamicFlex() {
-      return this.showToc ? "xs10" : "xs12";
-    }
-  },
-
   methods: {
     async fetchContent() {
       this.loading = true;
 
       const contentMap = new Map();
-      const slug = this.$route.params.slug;
-      const name = `getPage-${slug}`;
+      const name = `search`;
       contentMap.set(name, {
         hash: getHash(name),
         query: getPage,
-        params: { slug }
+        params: { slug: "search" }
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -74,7 +65,8 @@ export default {
       this.content = this.$store.getters.getContentFromCache(contentMap, name);
 
       checkIfValidPage(this.content) ? null : this.routeToError();
-      this.showToc = this.content[0].showToc;
+
+      this.searchIndex = await getSearchIndex();
       this.loading = false;
     },
     routeToError() {

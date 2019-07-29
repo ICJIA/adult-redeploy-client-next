@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { EventBus } from "../event-bus";
-const config = require("@/config.json");
+const config = require("@/api/config.json");
 import axios from "axios";
 
 const { request } = require("graphql-request");
