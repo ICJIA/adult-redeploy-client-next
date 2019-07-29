@@ -21,6 +21,5 @@ yarn-error.log*
 *.sw?
 
 # search index
-/src/api
 /netlify
 .env
