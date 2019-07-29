@@ -2,7 +2,7 @@
   <v-app id="page-top">
     <div v-if="!loading">
       <app-nav :sections="sectionsTest"></app-nav>
-      <app-drawer :sections="sections"></app-drawer>
+      <app-drawer :sections="sectionsTest"></app-drawer>
 
       <breadcrumb></breadcrumb>
       <v-content

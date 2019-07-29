@@ -21,6 +21,7 @@ export default new Router({
       }
     },
 
+    { path: "/home", redirect: { name: "home" } },
     {
       path: "/local-programs",
       name: "programs",
@@ -64,11 +65,13 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "section" */ "./views/Section.vue")
     },
+
     {
       path: "/:section/:slug",
       name: "page",
       component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")
     },
+
     {
       path: "*",
       name: "redirect",

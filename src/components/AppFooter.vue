@@ -11,7 +11,7 @@
         <span v-for="link in sections" :key="link.title" class="flexitem">
           <span v-if="link.displayFooter">
             <v-btn
-              :to="link.slug"
+              :to="link.slug === 'home' ? '/' : `/${link.slug}`"
               depressed
               class="heavy "
               dark

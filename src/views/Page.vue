@@ -64,7 +64,7 @@ export default {
       const contentMap = new Map();
       const section = this.$route.params.section;
       const slug = this.$route.params.slug;
-
+      console.log("section");
       const name = `getPageBySection-${section}${slug}`;
       contentMap.set(name, {
         hash: getHash(name),
