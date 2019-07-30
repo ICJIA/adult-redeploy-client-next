@@ -19,7 +19,12 @@
     <div v-else>
       <v-container>
         <v-layout wrap>
-          <v-flex>
+          <v-flex class="text-center">
+            <img
+              src="/icjia-logo.png"
+              alt="Illinois Criminal Justice Information Authority"
+            />
+            <h1>Adult Redeploy Illinois</h1>
             <loader></loader>
           </v-flex>
         </v-layout>

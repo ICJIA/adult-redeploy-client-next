@@ -28,15 +28,15 @@ export default new Vuex.Store({
     },
     SET_CONFIG(state, config) {
       state.config = config;
-      console.log("config loaded");
+      console.log("Config loaded");
     },
     SET_ROUTES(state, routes) {
       state.routes = routes;
-      console.log("routes loaded");
+      console.log("Routes loaded");
     },
     SET_SEARCH_INDEX(state, searchIndex) {
       state.searchIndex = searchIndex;
-      console.log("search index loaded");
+      console.log("Search index loaded");
     },
     SET_CACHE(state, { hash, query }) {
       state.cache.set(hash, query);
@@ -44,7 +44,7 @@ export default new Vuex.Store({
     },
     SET_SECTIONS(state, sections) {
       state.sections = sections;
-      console.log("sections loaded");
+      console.log("Sections loaded");
     }
   },
   actions: {
