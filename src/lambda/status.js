@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 var https = require("https");
-// const axios = require("axios");
 require("dotenv").config();
 let request;
 
@@ -12,7 +10,6 @@ const servers = [
     users: ["ARI", "ICJIA"],
     options: {
       hostname: "image.icjia.cloud",
-      port: 443,
       path: "/healthcheck",
       method: "GET"
     }
@@ -25,7 +22,6 @@ const servers = [
     users: ["ARI"],
     options: {
       hostname: "ari.icjia-api.cloud",
-      port: 443,
       path:
         "/file?path=/uploads/8171e679ad8544f4b81f55f0efe56b0f.pdf&name=healthcheck.pdf",
       method: "GET"
@@ -38,7 +34,6 @@ const servers = [
     users: ["ARI"],
     options: {
       hostname: "ari.icjia-api.cloud",
-      port: 443,
       path: "/_health",
       method: "HEAD"
     }
@@ -50,7 +45,6 @@ const servers = [
     users: ["ARI"],
     options: {
       hostname: "ari-dev.netlify.com",
-      port: 443,
       path: "/.netlify/functions/healthcheck",
       method: "GET"
     }
@@ -68,20 +62,20 @@ const headers = {
 };
 
 function queryServer(server) {
+  // eslint-disable-next-line no-unused-vars
   return new Promise(function(resolve, reject) {
     request = https.get(server.options, response => {
       server.status = response.statusCode;
       server.headers = JSON.stringify(response.headers);
-
       resolve(server);
     });
     request.on("error", error => {
       server.status = error;
-
       resolve(server);
     });
   });
 }
+// eslint-disable-next-line no-unused-vars
 exports.handler = async (event, context) => {
   let arr = [];
   servers.forEach((server, index) => {
