@@ -67,7 +67,7 @@ const query = `{
     externalURL
     year
     searchMeta
-    addToBanner
+    category
     thumbnail {
             url
         }
@@ -91,6 +91,7 @@ const query = `{
     summary
     searchMeta
     content
+    category
     slug
     isPublished
     materials {

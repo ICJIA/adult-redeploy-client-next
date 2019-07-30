@@ -38,7 +38,7 @@
 import Fuse from "fuse.js";
 import BaseList from "@/components/BaseList";
 import SearchCard from "@/components/SearchCard";
-import { getSearchIndex } from "@/services/Search";
+
 export default {
   components: {
     BaseList,
@@ -76,9 +76,10 @@ export default {
       keys: [
         "searchMeta",
         "title",
+        "createdAt",
         "summary",
         "content",
-        "category.name",
+        "category",
         "tags.name"
       ]
     });
