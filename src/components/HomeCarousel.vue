@@ -36,7 +36,7 @@
 
   <v-img
     src="/ari-splash-01.jpg"
-    lazy-src="/ari-splash-01.jpg"
+    lazy-src="/ari-splash-01-tiny.jpg"
     aspect-ratio="1"
     class="grey lighten-2"
     max-height="600"
