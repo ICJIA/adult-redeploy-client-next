@@ -32,6 +32,7 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
     />
+    <style></style>
   </head>
 
   <body>
@@ -54,6 +55,10 @@
     </nav>
     <section class="section">
       <div class="container">
+        <div id="loader" class="has-text-centered">
+          <div>LOADING...</div>
+        </div>
+
         <table id="example" class="display" style="width:100%">
           <thead>
             <tr>
@@ -68,8 +73,17 @@
       </div>
     </section>
     <script>
+      $("#example").hide();
       var api;
-      function getJson(api) {
+      if (
+        location.hostname === "localhost" ||
+        location.hostname === "127.0.0.1"
+      ) {
+        api = "http://localhost:9000";
+      } else {
+        api = "https://ari-dev.netlify.com";
+      }
+      (function displayStatus(api) {
         let url = api + "/.netlify/functions/status";
 
         $.getJSON(url, {
@@ -117,19 +131,12 @@
                 }
               ]
             });
-            console.log(table);
+
+            $("#loader").hide();
+            $("#example").show();
           });
         });
-      }
-      if (
-        location.hostname === "localhost" ||
-        location.hostname === "127.0.0.1"
-      ) {
-        api = "http://localhost:9000";
-      } else {
-        api = "https://ari-dev.netlify.com";
-      }
-      getJson(api);
+      })(api);
     </script>
   </body>
 </html>
