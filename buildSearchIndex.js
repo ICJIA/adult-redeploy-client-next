@@ -35,14 +35,7 @@ const query = `{
       name
       slug
     }
-    category {
-      name
-      summary
-      slug
-      type {
-        name
-      }
-    }
+   
     
   }
   news: posts (sort: "createdAt:desc", where: {isPublished: true}) {
@@ -62,14 +55,7 @@ const query = `{
       name
       slug
     }
-    category {
-      name
-      summary
-      slug
-      type {
-        name
-      }
-    }
+   
     
   }
   publications (sort: "year:desc, title:asc", where: {isPublished: true}) {
@@ -86,14 +72,7 @@ const query = `{
             url
         }
     isPublished
-    category {
-      name
-      summary
-      slug
-      type {
-        name
-      }
-    }
+   
     tags {
       name
       slug
@@ -118,10 +97,7 @@ const query = `{
       name
       url
     }
-    category {
-      name
-      slug
-    }
+   
     tags {
       name
       slug

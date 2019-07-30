@@ -5,7 +5,7 @@ const jsonfile = require("jsonfile");
 
 const fs = require("fs");
 
-const api = `${process.env.VUE_APP_BASE_API_URL}/graphql`;
+const api = `${process.env.VUE_APP_BASE_API_URL}graphql`;
 const apiDir = "./src/api";
 const fileName = "config.json";
 
@@ -31,4 +31,5 @@ request(api, query).then(res => {
       console.log(`Created: ${apiDir}/${fileName}`);
     }
   );
+  console.log(res);
 });

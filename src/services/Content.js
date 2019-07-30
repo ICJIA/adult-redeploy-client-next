@@ -112,12 +112,6 @@ const getNewsQuery = () => {
 }`;
 };
 
-const getPublicationsByCategoryQuery = slug => {
-  return `{
-  
-}`;
-};
-
 const getFeaturedPublicationsQuery = () => {
   return `{
   publications (where: {addToBanner: true}, sort: "bannerRank:desc") {
@@ -173,13 +167,6 @@ const getAllPublicationsQuery = () => {
     
   }
 } `;
-};
-
-const getMeetingsByCategoryQuery = () => {
-  return `{
- 
-}
-  `;
 };
 
 const getSingleMeetingQuery = slug => {
@@ -323,37 +310,6 @@ const getSinglePublicationQuery = slug => {
 `;
 };
 
-const getMeetingCategoryQuery = slug => {
-  return `{
-  categories(where: { slug: "${slug}" }) {
-    name
-    slug
-
-    meetings(sort: "scheduledDate:desc", where: { isPublished: true }) {
-      createdAt
-      updatedAt
-      isPublished
-      summary
-      title
-      slug
-      isPublished
-      content
-      scheduledDate
-      materials {
-        name
-        url
-      }
-     
-      tags {
-        slug
-        name
-      }
-    }
-  }
-}
-`;
-};
-
 const getSectionsQuery = () => {
   return `{
   sections (sort: "order:asc"){
@@ -448,19 +404,6 @@ const getNews = async () => {
   }
 };
 
-const getPublicationsByCategory = async ({ slug }) => {
-  try {
-    let publications = await queryEndpoint(
-      getPublicationsByCategoryQuery(slug)
-    );
-    return publications.data.data.categories;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
 const getFeaturedPublications = async () => {
   try {
     let featured = await queryEndpoint(getFeaturedPublicationsQuery());
@@ -517,18 +460,6 @@ const getSinglePublication = async ({ slug }) => {
   }
 };
 
-const getMeetingCategory = async ({ slug }) => {
-  try {
-    let category = await queryEndpoint(getMeetingCategoryQuery(slug));
-
-    return category.data.data.categories;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
 const getSections = async () => {
   try {
     let sections = await queryEndpoint(getSectionsQuery());
@@ -556,10 +487,8 @@ export {
   getPost,
   getFrontPageNews,
   getNews,
-  getPublicationsByCategory,
   getFeaturedPublications,
   getAllPublications,
-  getMeetingCategory,
   getSingleMeeting,
   getContentByTag,
   getSinglePublication,
