@@ -111,3 +111,7 @@ a {
   border-top-color: #3f51b5;
   border-left-color: #3f51b5;
 }
+
+summary:hover {
+  cursor: pointer;
+}

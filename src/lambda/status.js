@@ -6,34 +6,54 @@ let request;
 
 const servers = [
   {
-    url: "https://image.icjia.cloud/healthcheck",
     name: "image server",
     provider: "Thumbor",
     providerURL: "https://thumbor.readthedocs.io/en/latest/index.html",
-    users: ["ARI", "ICJIA"]
+    users: ["ARI", "ICJIA"],
+    options: {
+      hostname: "image.icjia.cloud",
+      port: 443,
+      path: "/healthcheck",
+      method: "GET"
+    }
   },
   {
-    url:
-      "https://ari.icjia-api.cloud/file?path=/uploads/8171e679ad8544f4b81f55f0efe56b0f.pdf&name=healthcheck.pdf",
     name: "fileserver",
     provider: "ARI",
     providerURL:
       "https://gist.github.com/cschweda/8315c54d04ddb14519214b0af941030e",
-    users: ["ARI"]
+    users: ["ARI"],
+    options: {
+      hostname: "ari.icjia-api.cloud",
+      port: 443,
+      path:
+        "/file?path=/uploads/8171e679ad8544f4b81f55f0efe56b0f.pdf&name=healthcheck.pdf",
+      method: "GET"
+    }
   },
-  // {
-  //   url: "https://ari-dev.icjia-api.cloud",
-  //   name: "api",
-  //   provider: "Strapi",
-  //   providerURL: "https://strapi.io/",
-  //   users: ["ARI"]
-  // },
   {
-    url: "https://ari-dev.netlify.com/.netlify/functions/healthcheck",
+    name: "api",
+    provider: "Strapi",
+    providerURL: "https://strapi.io/",
+    users: ["ARI"],
+    options: {
+      hostname: "ari.icjia-api.cloud",
+      port: 443,
+      path: "/_health",
+      method: "HEAD"
+    }
+  },
+  {
     name: "web",
     provider: "Netlify",
     providerURL: "https://www.netlify.com/",
-    users: ["ARI"]
+    users: ["ARI"],
+    options: {
+      hostname: "ari-dev.netlify.com",
+      port: 443,
+      path: "/.netlify/functions/healthcheck",
+      method: "GET"
+    }
   }
 ];
 
@@ -49,12 +69,15 @@ const headers = {
 
 function queryServer(server) {
   return new Promise(function(resolve, reject) {
-    request = https.get(server.url, response => {
+    request = https.get(server.options, response => {
       server.status = response.statusCode;
+      server.headers = JSON.stringify(response.headers);
+
       resolve(server);
     });
     request.on("error", error => {
       server.status = error;
+
       resolve(server);
     });
   });

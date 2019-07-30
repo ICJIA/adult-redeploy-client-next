@@ -20,7 +20,6 @@ export default new Router({
         hideBreadcrumb: true
       }
     },
-
     { path: "/home", redirect: { name: "home" } },
     {
       path: "/programs/local-programs",
@@ -35,6 +34,23 @@ export default new Router({
         import(/* webpackChunkName: "news" */ "./views/NewsItem.vue")
     },
 
+    {
+      path: "/news",
+      name: "news",
+      component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
+    },
+    {
+      path: "/about/meetings",
+      name: "meetings",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
+    },
+    {
+      path: "/about/meetings/:slug",
+      name: "meetingsSingle",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
+    },
     {
       path: "/error",
       name: "error",
@@ -53,23 +69,6 @@ export default new Router({
       name: "search",
       component: () =>
         import(/* webpackChunkName: "search" */ "./views/Search.vue")
-    },
-    {
-      path: "/news",
-      name: "news",
-      component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
-    },
-    {
-      path: "/about/meetings",
-      name: "meetings",
-      component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
-    },
-    {
-      path: "/about/meetings/:slug",
-      name: "meetingsSingle",
-      component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
     },
     {
       path: "/:section",
