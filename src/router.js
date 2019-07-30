@@ -60,6 +60,18 @@ export default new Router({
       component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
     },
     {
+      path: "/about/meetings",
+      name: "meetings",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
+    },
+    {
+      path: "/about/meetings/:slug",
+      name: "meetingsSingle",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
+    },
+    {
       path: "/:section",
       name: "section",
       component: () =>

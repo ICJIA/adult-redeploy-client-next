@@ -30,17 +30,18 @@ const getSearchIndex = async () => {
     });
 
     let meetings = searchIndex["meetings"].map(item => {
-      item.parentPath = "/meetings/" + item.category.slug;
+      item.parentPath = "/about/meetings";
       return item;
     });
 
-    let publications = searchIndex["publications"].map(item => {
-      item.parentPath = "/publications/" + item.category.slug;
-      //item.slug = slug(item.title);
-      return item;
-    });
-    // return ["test"];
-    return [...news, ...pages, ...meetings, ...publications];
+    // let publications = searchIndex["publications"].map(item => {
+    //   item.parentPath = "/publications/" + item.category.slug;
+
+    //   return item;
+    // });
+
+    // return [...news, ...pages, ...meetings, ...publications];
+    return [...news, ...pages, ...meetings];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
     console.log(e.toString());

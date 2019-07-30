@@ -79,6 +79,8 @@ export default {
         name
       );
 
+      console.log(this.sectionContent);
+
       this.content = this.sectionContent[0].pages;
 
       if (checkIfValidPage(this.content)) {

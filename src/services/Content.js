@@ -114,11 +114,10 @@ const getNewsQuery = () => {
 
 const getFeaturedPublicationsQuery = () => {
   return `{
-  publications (where: {addToBanner: true}, sort: "bannerRank:desc") {
+  publications  {
     title
     slug
-    addToBanner
-    bannerRank
+    category
     tags {
       name
       slug
@@ -146,7 +145,7 @@ const getAllPublicationsQuery = () => {
   publications (sort: "title:asc") {
     title
     slug
-    addToBanner
+    category
     tags {
       name
       slug
@@ -172,7 +171,7 @@ const getAllPublicationsQuery = () => {
 const getSingleMeetingQuery = slug => {
   return `{
   meetings (where: {slug: "${slug}", isPublished: true}) {
-   
+    category
     createdAt
     updatedAt
     isPublished
@@ -221,7 +220,8 @@ const getContentByTagQuery = slug => {
     publications(sort: "year:desc, title:asc", where: {isPublished: true}) {
       title
     slug
-    addToBanner
+    category
+    
     tags {
       name
       slug
@@ -247,6 +247,7 @@ const getContentByTagQuery = slug => {
     isPublished
     summary
     title
+    category
     slug
     isPublished
     content
@@ -285,8 +286,7 @@ const getSinglePublicationQuery = slug => {
   publications (where: {slug: "${slug}"})  {
     title
     slug
-    addToBanner
-    bannerRank
+    category
     tags {
       name
       slug
