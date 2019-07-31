@@ -359,6 +359,19 @@ const getPageBySectionQuery = (section, slug) => {
 }`;
 };
 
+const getSiteDescriptionQuery = slug => {
+  return `{
+  sites (where: {isPublished: true, slug: "${slug}"}){
+    id
+    title
+    slug
+    summary
+    content
+    siteType
+  }
+}`;
+};
+
 const getPage = async ({ slug }) => {
   try {
     // console.log(slug);
@@ -482,6 +495,17 @@ const getPageBySection = async ({ section, slug }) => {
   }
 };
 
+const getSiteDescription = async ({ slug }) => {
+  try {
+    let sites = await queryEndpoint(getSiteDescriptionQuery(slug));
+    return sites.data.data.sites;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -493,5 +517,6 @@ export {
   getContentByTag,
   getSinglePublication,
   getSections,
-  getPageBySection
+  getPageBySection,
+  getSiteDescription
 };

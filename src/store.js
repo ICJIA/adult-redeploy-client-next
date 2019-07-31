@@ -25,7 +25,6 @@ async function fetchData(endpoint) {
 export default new Vuex.Store({
   state: {
     isAppReady: false,
-
     config: null,
     routes: null,
     sections: null,
@@ -138,10 +137,14 @@ export default new Vuex.Store({
       if (queries.length) {
         res = await Promise.all(queries);
         res.forEach((query, index) => {
-          let cacheObj = {};
-          cacheObj.hash = hashes[index];
-          cacheObj.query = query;
-          commit("SET_CACHE", cacheObj);
+          if (query.length > 0) {
+            let cacheObj = {};
+            cacheObj.hash = hashes[index];
+            cacheObj.query = query;
+            commit("SET_CACHE", cacheObj);
+          } else {
+            console.log("Empty query - not cached");
+          }
         });
         end = new Date() - start;
 

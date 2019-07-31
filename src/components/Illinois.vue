@@ -1449,14 +1449,12 @@
 
 <script>
 /* eslint-disable */
-import { usiljsconfig } from "@/assets/data/usiljsconfig";
+import { EventBus } from "@/event-bus";
+import { usiljsconfig } from "@/api/usiljsconfig";
 export default {
   methods: {
-    mapClick(id) {
-      console.dir("Click:", id);
-    },
     getCounty(data) {
-      console.dir(data);
+      EventBus.$emit("mapClick", data);
     }
   },
   props: {

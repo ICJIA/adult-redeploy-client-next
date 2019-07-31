@@ -28,7 +28,7 @@
               </div>
             </v-flex>
             <v-flex xs12 sm12 md6>
-              FactSheet here
+              <SiteDescription></SiteDescription>
             </v-flex>
           </v-layout>
         </v-container>
@@ -40,16 +40,69 @@
 <script>
 import Illinois from "@/components/Illinois";
 import BaseContent from "@/components/BaseContent";
+import { getPageBySection } from "@/services/Content";
+import { getHash, checkIfValidPage } from "@/services/Utilities";
+import SiteDescription from "@/components/SiteDescription";
+// import { renderToHtml } from "@/services/Markdown";
 export default {
   components: {
     Illinois,
-    BaseContent
+    BaseContent,
+    SiteDescription
   },
   data() {
     return {
       loading: false,
       content: null
     };
+  },
+  created() {
+    this.fetchContent();
+  },
+  methods: {
+    async fetchContent() {
+      this.loading = true;
+
+      const contentMap = new Map();
+      const section = "programs";
+      const slug = "local-programs";
+
+      const name = `getPageBySection-${section}${slug}`;
+      contentMap.set(name, {
+        hash: getHash(name),
+        query: getPageBySection,
+        params: { section, slug }
+      });
+
+      await this.$store.dispatch("cacheContent", contentMap);
+
+      this.sectionContent = this.$store.getters.getContentFromCache(
+        contentMap,
+        name
+      );
+
+      if (checkIfValidPage(this.sectionContent)) {
+        this.content = this.sectionContent[0].pages;
+
+        if (checkIfValidPage(this.content)) {
+          this.showToc = this.content[0].showToc;
+        } else {
+          this.routeToError();
+        }
+      } else {
+        this.routeToError();
+      }
+      //console.log(this.sectionContent);
+      this.loading = false;
+    },
+    routeToError() {
+      this.content = null;
+      this.loading = false;
+      this.$router.push({
+        name: "error",
+        params: { msg: "Page not found", statusCode: 404 }
+      });
+    }
   },
   props: {
     display: {
