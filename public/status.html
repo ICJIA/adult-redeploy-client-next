@@ -30,6 +30,7 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"
     ></script>
+    <script src="https://kit.fontawesome.com/df2aad9de3.js"></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -111,6 +112,14 @@
               </tr>
             </thead>
           </table>
+          <div class="columns is-centered spacer extras">
+            <a class="button is-small" href="/">
+              <span class="icon is-small">
+                <i class="fas fa-angle-double-left"></i>
+              </span>
+              <span>Back home</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -195,10 +204,12 @@
 
         async function init() {
           $("#status").hide();
+          $(".extras").hide();
           let status = await fetchData(buildStatusUrl());
           $(document).ready(() => {
             buildStatusTable(status);
             $(".loader").hide();
+            $(".extras").show();
           });
         }
 
