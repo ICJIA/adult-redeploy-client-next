@@ -108,15 +108,15 @@
             </div>
           </div>
 
-          <div class="column has-text-center has-text-center-mobile">
-            <div class="has-text-weight-bold extras">
+          <div class="column has-text-center has-text-center-mobile extras">
+            <div class="has-text-weight-bold ">
               <span style="font-size: 14px;">Last successful deploy: </span>
               <span style="font-size: 14px;" id="deploy"></span>
             </div>
           </div>
 
 
-          <div class="column has-text-left-mobile has-text-right">
+          <div class="column has-text-left-mobile has-text-right extras">
             <img src="https://api.netlify.com/api/v1/badges/c72a7e19-1f67-4b2a-8e91-0ee6df8fa2e9/deploy-status" alt="Netliy deployment status" />
           </div>
           
@@ -127,8 +127,8 @@
           </div>
           <table id="status" class="display stripe" style="width:100%">
             <thead>
-              <tr>
-                <th>Name</th>
+              <tr >
+                <th >Name</th>
                 <th>Options</th>
                 <th>Status</th>
               </tr>
@@ -239,18 +239,28 @@
         }
 
         async function init() {
+          let lastDeploy = null
           $("#status").hide();
           $(".extras").hide();
           let status = await fetchData(buildStatusUrl());
+          try {
           let logs = await fetchData(`https://ari.icjia-api.cloud/logs?_sort=createdAt:DESC`)
-          let lastDeploy = getLastSuccessfulDeploy(logs)
+           lastDeploy = getLastSuccessfulDeploy(logs)
           lastDeploy = moment(lastDeploy).fromNow()
+          } catch(e) {
+            console.error('Error: ARI API not reachable. Please try again later.')
+            lastDeploy = null
+          }
+          
           
           $(document).ready(() => {
             buildStatusTable(status);
 
             $(".loader").hide();
-            $("#deploy").html(lastDeploy)
+            if (lastDeploy) {
+              $("#deploy").html(lastDeploy)
+            }
+            
             $(".extras").show();
           });
         }
