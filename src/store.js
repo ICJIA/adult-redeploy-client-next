@@ -77,13 +77,24 @@ export default new Vuex.Store({
       commit("SET_APP_READY", true);
     },
     async setApiStatus({ commit }) {
-      let status = await fetchData(buildStatusUrl());
-      let apiStatus = status.filter(server => {
-        if (server.server === "api") {
-          return server;
+      try {
+        let status = await fetchData(buildStatusUrl());
+        let apiStatus = status.filter(server => {
+          if (server.server === "api") {
+            return server;
+          }
+        });
+        if (apiStatus.length) {
+          console.log("Successfully connected to status server.");
+          commit("SET_API_STATUS", apiStatus[0]["status"]);
+        } else {
+          console.error("Status server error");
+          commit("SET_API_STATUS", 500);
         }
-      });
-      commit("SET_API_STATUS", apiStatus[0]["status"]);
+      } catch (e) {
+        console.log("Can't connect to status server.");
+        commit("SET_API_STATUS", 500);
+      }
     },
     setConfig({ commit }, config) {
       commit("SET_CONFIG", config);

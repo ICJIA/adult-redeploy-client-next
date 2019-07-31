@@ -10,14 +10,14 @@
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
       >
-        <transition name="fade" mode="out-in" v-if="$store.getters.isApiReady">
-          <router-view></router-view>
-        </transition>
-        <transition name="fade" mode="out-in" v-else>
-          <v-alert type="error" class="text-center">
-            Adult Redeploy database error.&nbsp;&nbsp;
-            <a href="/" style="color: #fff;">Please reload.</a>
-          </v-alert>
+        <transition name="fade" mode="out-in">
+          <router-view v-if="$store.getters.isApiReady"></router-view>
+          <div v-else>
+            <v-alert type="error" class="text-center">
+              Can't connect to the Adult Redeploy Illinois database.&nbsp;&nbsp;
+              <a href="/" style="color: #fff;">Please reload.</a>
+            </v-alert>
+          </div>
         </transition>
       </v-content>
       <app-footer :sections="sectionsTest"></app-footer>
