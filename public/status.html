@@ -2,6 +2,7 @@
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
     <title>Adult Redeploy Illinois | Status</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -111,23 +112,6 @@
             </thead>
           </table>
         </div>
-
-        <!-- <div class="column">
-          <div class="is-size-5 has-text-weight-bold rule spacer">Logs</div>
-          <div class="columns is-centered">
-            <div class="loader spacer"></div>
-          </div>
-          <table id="logs" class="display stripe" style="width:100%">
-            <thead>
-              <tr>
-                <th>_id</th>
-                <th>Event</th>
-                <th>Provider</th>
-                <th>Timestamp</th>
-              </tr>
-            </thead>
-          </table>
-        </div> -->
       </div>
     </section>
 
@@ -209,42 +193,11 @@
           $("#status").show();
         }
 
-        function buildLogTable(data) {
-          console.log(data);
-          var table = $("#logs").DataTable({
-            data,
-            paging: true,
-            searching: true,
-            responsive: true,
-            //order: [[1, "desc"]],
-            columnDefs: [{ type: "numeric-comma", targets: 3 }],
-            columns: [
-              { data: "_id", visible: false },
-              { data: "event", visible: true },
-              { data: "provider", visible: false },
-              {
-                data: null,
-                render: function(data, type, row) {
-                  //return moment(data.datetimestamp).fromNow();
-                  return data.datetimestamp;
-                }
-              }
-            ]
-          });
-          $("#logs").show();
-        }
-
         async function init() {
           $("#status").hide();
-          // $("#logs").hide();
           let status = await fetchData(buildStatusUrl());
-          // let logs = await fetchData(
-          //   `${baseURL}/logs?_limit=25&_sort=createdAt:DESC`
-          // );
-
           $(document).ready(() => {
             buildStatusTable(status);
-            // buildLogTable(logs);
             $(".loader").hide();
           });
         }

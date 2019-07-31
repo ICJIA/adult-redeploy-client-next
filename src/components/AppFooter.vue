@@ -69,12 +69,16 @@
           <v-icon size="18px">{{ icon }}</v-icon>
         </v-btn>
         <br />
-        {{ new Date().getFullYear() }}
-        <strong
-          ><a href="http://www.icjia.state.il.us" class="footer-link"
-            >Illinois Criminal Justice Information Authority</a
-          ></strong
-        >
+        <div style="font-size: 12px">
+          {{ new Date().getFullYear() }}
+          <strong
+            ><a href="http://www.icjia.state.il.us" class="footer-link"
+              >Illinois Criminal Justice Information Authority</a
+            ></strong
+          >&nbsp;|&nbsp;<strong
+            ><a href="/status.html" class="footer-link">Status</a></strong
+          >
+        </div>
       </v-card-text>
     </v-card>
   </v-footer>
