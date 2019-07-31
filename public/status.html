@@ -37,11 +37,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
     />
 
-    <!-- <script
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
       integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
       crossorigin="anonymous"
-    ></script> -->
+    ></script>
 
     <!-- <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script> -->
 
@@ -99,15 +99,24 @@
     <main>
     <section class="section">
       <div class="container">
-        <div class="columns is-multiline is-mobile">
+        <div class="columns is-multiline is-desktop">
           
-          <div class="column is-half">
-            <div class="is-size-5 has-text-weight-bold">
-              SERVER STATUS
+          <div class="column has-text-left-mobile">
+            <div class="is-size-5 has-text-weight-bold is-uppercase">
+              Server Status
              
             </div>
           </div>
-          <div class="column is-half has-text-right">
+
+          <div class="column has-text-center has-text-center-mobile">
+            <div class="has-text-weight-bold extras">
+              <span style="font-size: 14px;">Last successful deploy: </span>
+              <span style="font-size: 14px;" id="deploy"></span>
+            </div>
+          </div>
+
+
+          <div class="column has-text-left-mobile has-text-right">
             <img src="https://api.netlify.com/api/v1/badges/c72a7e19-1f67-4b2a-8e91-0ee6df8fa2e9/deploy-status" alt="Netliy deployment status" />
           </div>
           
@@ -213,13 +222,35 @@
           $("#status").show();
         }
 
+        function getLastSuccessfulDeploy(logs) {
+          let lastDeploy;
+          const success=logs.filter((log)=> {
+            
+            if (log.event === "deploy-succeeded") {
+            return log;
+          }
+          })
+          if (success.length) {
+            lastDeploy = success[0]["datetimestamp"];
+          } else {
+            lastDeploy = null
+          }
+          return lastDeploy;
+        }
+
         async function init() {
           $("#status").hide();
           $(".extras").hide();
           let status = await fetchData(buildStatusUrl());
+          let logs = await fetchData(`https://ari.icjia-api.cloud/logs?_sort=createdAt:DESC`)
+          let lastDeploy = getLastSuccessfulDeploy(logs)
+          lastDeploy = moment(lastDeploy).fromNow()
+          
           $(document).ready(() => {
             buildStatusTable(status);
+
             $(".loader").hide();
+            $("#deploy").html(lastDeploy)
             $(".extras").show();
           });
         }
