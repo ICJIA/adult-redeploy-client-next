@@ -12,7 +12,8 @@ const servers = [
       hostname: "image.icjia.cloud",
       path: "/healthcheck",
       method: "GET"
-    }
+    },
+    server: "image"
   },
   {
     name: "file server",
@@ -25,7 +26,8 @@ const servers = [
       path:
         "/file?path=/uploads/8171e679ad8544f4b81f55f0efe56b0f.pdf&name=healthcheck.pdf",
       method: "GET"
-    }
+    },
+    server: "file"
   },
   {
     name: "api server",
@@ -36,7 +38,8 @@ const servers = [
       hostname: "ari.icjia-api.cloud",
       path: "/_health",
       method: "HEAD"
-    }
+    },
+    server: "api"
   },
   {
     name: "web server",
@@ -47,7 +50,8 @@ const servers = [
       hostname: "ari-dev.netlify.com",
       path: "/.netlify/functions/healthcheck",
       method: "GET"
-    }
+    },
+    server: "web"
   }
 ];
 

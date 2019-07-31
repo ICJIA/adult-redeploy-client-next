@@ -4,15 +4,35 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+function buildStatusUrl() {
+  let url;
+  let endpoint = "/.netlify/functions/status";
+  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+    url = `http://localhost:9000${endpoint}`;
+  } else {
+    url = `https://ari-dev.netlify.com${endpoint}`;
+  }
+  return url;
+}
+
+async function fetchData(endpoint) {
+  // eslint-disable-next-line no-unused-vars
+  let data;
+  let response = await fetch(endpoint);
+  return (data = await response.json());
+}
+
 export default new Vuex.Store({
   state: {
     isAppReady: false,
+
     config: null,
     routes: null,
     sections: null,
     searchIndex: null,
     lastDeploy: null,
     lastBuild: null,
+    apiStatus: null,
     cache: new Map(),
     jwt: localStorage.getItem("jwt") || "",
     userMeta: JSON.parse(localStorage.getItem("userMeta")) || ""
@@ -45,12 +65,25 @@ export default new Vuex.Store({
     SET_SECTIONS(state, sections) {
       state.sections = sections;
       console.log("Sections loaded");
+    },
+    SET_API_STATUS(state, apiStatus) {
+      state.apiStatus = apiStatus;
+      console.log("API status code: ", apiStatus);
     }
   },
   actions: {
     async initApp({ commit }) {
-      commit("SET_APP_READY", true);
       commit("CLEAR_CACHE");
+      commit("SET_APP_READY", true);
+    },
+    async setApiStatus({ commit }) {
+      let status = await fetchData(buildStatusUrl());
+      let apiStatus = status.filter(server => {
+        if (server.server === "api") {
+          return server;
+        }
+      });
+      commit("SET_API_STATUS", apiStatus[0]["status"]);
     },
     setConfig({ commit }, config) {
       commit("SET_CONFIG", config);
@@ -132,6 +165,13 @@ export default new Vuex.Store({
     // eslint-disable-next-line no-unused-vars
     inCache: state => hash => {
       return state.cache.has(hash);
+    },
+    isApiReady: state => {
+      if (state.apiStatus === 200 || state.apiStatus === 204) {
+        return true;
+      } else {
+        return false;
+      }
     },
     config: state => {
       return state.config;

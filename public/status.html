@@ -130,6 +130,7 @@
               <tr >
                 <th >Name</th>
                 <th>Options</th>
+                <th>Server</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -176,6 +177,7 @@
             }
           },
           { data: "options", visible: false },
+          { data: "server", visible: false },
           {
             data: null,
             render: function(data, type, row) {
@@ -193,7 +195,8 @@
                 );
               }
             }
-          }
+          },
+          
         ];
 
         function buildStatusUrl() {

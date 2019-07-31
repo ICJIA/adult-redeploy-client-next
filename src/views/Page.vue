@@ -79,12 +79,14 @@ export default {
         name
       );
 
-      console.log(this.sectionContent);
+      if (checkIfValidPage(this.sectionContent)) {
+        this.content = this.sectionContent[0].pages;
 
-      this.content = this.sectionContent[0].pages;
-
-      if (checkIfValidPage(this.content)) {
-        this.showToc = this.content[0].showToc;
+        if (checkIfValidPage(this.content)) {
+          this.showToc = this.content[0].showToc;
+        } else {
+          this.routeToError();
+        }
       } else {
         this.routeToError();
       }

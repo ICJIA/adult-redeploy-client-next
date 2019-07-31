@@ -10,8 +10,14 @@
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
       >
-        <transition name="fade" mode="out-in">
+        <transition name="fade" mode="out-in" v-if="$store.getters.isApiReady">
           <router-view></router-view>
+        </transition>
+        <transition name="fade" mode="out-in" v-else>
+          <v-alert type="error" class="text-center">
+            Adult Redeploy database error.&nbsp;&nbsp;
+            <a href="/" style="color: #fff;">Please reload.</a>
+          </v-alert>
         </transition>
       </v-content>
       <app-footer :sections="sectionsTest"></app-footer>
@@ -54,7 +60,6 @@ export default {
   async created() {
     this.loading = true;
     if (!this.$store.state.isAppReady) {
-      this.$store.dispatch("initApp");
       const configPromise = process.BROWSER_BUILD
         ? import("@/api/config.json")
         : Promise.resolve(require("@/api/config.json"));
@@ -79,6 +84,9 @@ export default {
       this.sectionsTest = await getSections();
       this.$store.dispatch("setSections", this.sectionsTest);
 
+      await this.$store.dispatch("setApiStatus");
+
+      this.$store.dispatch("initApp");
       this.loading = false;
     }
   },
