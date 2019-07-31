@@ -5,9 +5,9 @@ let request;
 const servers = [
   {
     name: "image server",
-    provider: "Thumbor",
-    providerURL: "https://thumbor.readthedocs.io/en/latest/index.html",
-    users: ["ARI", "ICJIA"],
+    // provider: "Thumbor",
+    // providerURL: "https://thumbor.readthedocs.io/en/latest/index.html",
+    // users: ["ARI", "ICJIA"],
     options: {
       hostname: "image.icjia.cloud",
       path: "/healthcheck",
@@ -15,11 +15,11 @@ const servers = [
     }
   },
   {
-    name: "fileserver",
-    provider: "ARI",
-    providerURL:
-      "https://gist.github.com/cschweda/8315c54d04ddb14519214b0af941030e",
-    users: ["ARI"],
+    name: "file server",
+    // provider: "ARI",
+    // providerURL:
+    //   "https://gist.github.com/cschweda/8315c54d04ddb14519214b0af941030e",
+    // users: ["ARI"],
     options: {
       hostname: "ari.icjia-api.cloud",
       path:
@@ -28,10 +28,10 @@ const servers = [
     }
   },
   {
-    name: "api",
-    provider: "Strapi",
-    providerURL: "https://strapi.io/",
-    users: ["ARI"],
+    name: "api server",
+    // provider: "Strapi",
+    // providerURL: "https://strapi.io/",
+    // users: ["ARI"],
     options: {
       hostname: "ari.icjia-api.cloud",
       path: "/_health",
@@ -39,10 +39,10 @@ const servers = [
     }
   },
   {
-    name: "web",
-    provider: "Netlify",
-    providerURL: "https://www.netlify.com/",
-    users: ["ARI"],
+    name: "web server",
+    // provider: "Netlify",
+    // providerURL: "https://www.netlify.com/",
+    // users: ["ARI"],
     options: {
       hostname: "ari-dev.netlify.com",
       path: "/.netlify/functions/healthcheck",
@@ -66,7 +66,7 @@ function queryServer(server) {
   return new Promise(function(resolve, reject) {
     request = https.get(server.options, response => {
       server.status = response.statusCode;
-      server.headers = JSON.stringify(response.headers);
+      // server.headers = JSON.stringify(response.headers);
       resolve(server);
     });
     request.on("error", error => {

@@ -2,7 +2,7 @@
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Adult Redeploy Illinois | Status</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,6 +11,8 @@
     <!-- Place favicon.ico in the root directory -->
 
     <meta name="theme-color" content="#fafafa" />
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.5/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -32,7 +34,44 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
     />
-    <style></style>
+
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
+      crossorigin="anonymous"
+    ></script> -->
+
+    <!-- <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script> -->
+
+    <style>
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .rule {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+
+      .spacer {
+        margin-top: 50px !important;
+      }
+
+      .loader {
+        -webkit-animation: spinAround 0.5s infinite linear;
+        animation: spinAround 0.5s infinite linear;
+        border: 5px solid green;
+        border-radius: 290486px;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        content: "";
+        display: block;
+        height: 2em;
+        position: relative;
+        width: 2em;
+      }
+    </style>
   </head>
 
   <body>
@@ -55,88 +94,167 @@
     </nav>
     <section class="section">
       <div class="container">
-        <div id="loader" class="has-text-centered">
-          <div>LOADING...</div>
+        <div class="column">
+          <div class="is-size-5 has-text-weight-bold rule">
+            Server status
+          </div>
+          <div class="columns is-centered">
+            <div class="loader spacer"></div>
+          </div>
+          <table id="status" class="display stripe" style="width:100%">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Options</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+          </table>
         </div>
 
-        <table id="example" class="display" style="width:100%">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Provider</th>
-              <th>ProviderURL</th>
-              <th>Options</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-        </table>
+        <!-- <div class="column">
+          <div class="is-size-5 has-text-weight-bold rule spacer">Logs</div>
+          <div class="columns is-centered">
+            <div class="loader spacer"></div>
+          </div>
+          <table id="logs" class="display stripe" style="width:100%">
+            <thead>
+              <tr>
+                <th>_id</th>
+                <th>Event</th>
+                <th>Provider</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+          </table>
+        </div> -->
       </div>
     </section>
-    <script>
-      $("#example").hide();
-      var api;
-      if (
-        location.hostname === "localhost" ||
-        location.hostname === "127.0.0.1"
-      ) {
-        api = "http://localhost:9000";
-      } else {
-        api = "https://ari-dev.netlify.com";
-      }
-      (function displayStatus(api) {
-        let url = api + "/.netlify/functions/status";
 
-        $.getJSON(url, {
-          format: "json"
-        }).done(function(data) {
-          $(document).ready(function() {
-            var table = $("#example").DataTable({
-              data: data,
-              paging: false,
-              searching: false,
-              responsive: true,
-              columns: [
-                { data: "name" },
-                {
-                  data: null,
-                  render: function(data, type, row) {
-                    return (
-                      "<a href='" +
-                      data.providerURL +
-                      "'>" +
-                      data.provider +
-                      "</a>"
-                    );
-                  }
-                },
-                { data: "providerURL", visible: false },
-                { data: "options", visible: false },
-                {
-                  data: null,
-                  render: function(data, type, row) {
-                    if (data.status === 200 || data.status === 204) {
-                      return (
-                        "<span style='background: green; color: white; padding: 5px;'>" +
-                        data.status +
-                        "</span>"
-                      );
-                    } else {
-                      return (
-                        "<span style='background: red; color: white; padding: 5px;'>" +
-                        data.status +
-                        "</span>"
-                      );
-                    }
-                  }
-                }
-              ]
-            });
+    <section class="section">
+      <div class="container"></div>
+    </section>
 
-            $("#loader").hide();
-            $("#example").show();
+    <script type="text/babel">
+      var app = (function() {
+        let baseURL = "https://ari.icjia-api.cloud";
+        async function fetchData(endpoint) {
+          let data;
+          let response = await fetch(endpoint);
+          return (data = await response.json());
+        }
+
+        const statusColumnDefs = [
+          {
+            targets: -1,
+            className: "dt-body-center"
+          },
+          {
+            targets: -1,
+            className: "dt-head-center"
+          }
+        ];
+
+        const statusColumns = [
+          {
+            data: null,
+            render: function(data, type, row) {
+              return "<strong>" + data.name + "</strong>";
+            }
+          },
+          { data: "options", visible: false },
+          {
+            data: null,
+            render: function(data, type, row) {
+              if (data.status === 200 || data.status === 204) {
+                return (
+                  "<span style='background: green; color: white; font-weight: bold; padding: 5px;'>" +
+                  data.status +
+                  "</span>"
+                );
+              } else {
+                return (
+                  "<span style='background: red; color: white; padding: 5px;font-weight: bold;'>" +
+                  data.status +
+                  "</span>"
+                );
+              }
+            }
+          }
+        ];
+
+        function buildStatusUrl() {
+          let url;
+          let endpoint = "/.netlify/functions/status";
+          if (
+            location.hostname === "localhost" ||
+            location.hostname === "127.0.0.1"
+          ) {
+            url = `http://localhost:9000${endpoint}`;
+          } else {
+            url = `https://ari-dev.netlify.com${endpoint}`;
+          }
+          return url;
+        }
+
+        function buildStatusTable(data) {
+          var table = $("#status").DataTable({
+            data,
+            paging: false,
+            searching: false,
+            responsive: true,
+            columnDefs: statusColumnDefs,
+            columns: statusColumns
           });
-        });
-      })(api);
+          $("#status").show();
+        }
+
+        function buildLogTable(data) {
+          console.log(data);
+          var table = $("#logs").DataTable({
+            data,
+            paging: true,
+            searching: true,
+            responsive: true,
+            //order: [[1, "desc"]],
+            columnDefs: [{ type: "numeric-comma", targets: 3 }],
+            columns: [
+              { data: "_id", visible: false },
+              { data: "event", visible: true },
+              { data: "provider", visible: false },
+              {
+                data: null,
+                render: function(data, type, row) {
+                  //return moment(data.datetimestamp).fromNow();
+                  return data.datetimestamp;
+                }
+              }
+            ]
+          });
+          $("#logs").show();
+        }
+
+        async function init() {
+          $("#status").hide();
+          // $("#logs").hide();
+          let status = await fetchData(buildStatusUrl());
+          // let logs = await fetchData(
+          //   `${baseURL}/logs?_limit=25&_sort=createdAt:DESC`
+          // );
+
+          $(document).ready(() => {
+            buildStatusTable(status);
+            // buildLogTable(logs);
+            $(".loader").hide();
+          });
+        }
+
+        return {
+          init
+        };
+      })();
+
+      app.init();
     </script>
   </body>
 </html>
