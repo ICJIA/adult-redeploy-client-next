@@ -39,7 +39,7 @@ export default {
     async fetchData(mapData) {
       this.loading = true;
       const contentMap = new Map();
-      console.log(mapData.slug);
+      //console.log(mapData.slug);
       const slug = mapData.slug;
       const name = `getSiteDescription-${slug}`;
       contentMap.set(name, {

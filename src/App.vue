@@ -1,10 +1,10 @@
 <template>
   <v-app id="page-top">
-    <div v-if="!loading">
-      <app-nav :sections="sectionsTest"></app-nav>
-      <app-drawer :sections="sectionsTest"></app-drawer>
+    <app-nav :sections="sectionsTest"></app-nav>
+    <app-drawer :sections="sectionsTest"></app-drawer>
 
-      <breadcrumb></breadcrumb>
+    <breadcrumb></breadcrumb>
+    <div v-if="!loading">
       <v-content
         id="content-top"
         aria-live="polite"
@@ -20,17 +20,19 @@
           </div>
         </transition>
       </v-content>
+
       <app-footer :sections="sectionsTest"></app-footer>
     </div>
-    <div v-else>
+    <div v-if="loading">
       <v-container>
         <v-layout wrap>
           <v-flex class="text-center">
-            <img
+            <!-- <img
               src="/icjia-logo.png"
               alt="Illinois Criminal Justice Information Authority"
-            />
-            <h1>Adult Redeploy Illinois</h1>
+              style="margin-top: 150px;"
+            /> -->
+            <h1 class="lato mt-5 heavy">Adult Redeploy Illinois</h1>
             <loader></loader>
           </v-flex>
         </v-layout>

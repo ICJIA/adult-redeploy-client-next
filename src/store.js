@@ -137,14 +137,10 @@ export default new Vuex.Store({
       if (queries.length) {
         res = await Promise.all(queries);
         res.forEach((query, index) => {
-          if (query.length > 0) {
-            let cacheObj = {};
-            cacheObj.hash = hashes[index];
-            cacheObj.query = query;
-            commit("SET_CACHE", cacheObj);
-          } else {
-            console.log("Empty query - not cached");
-          }
+          let cacheObj = {};
+          cacheObj.hash = hashes[index];
+          cacheObj.query = query;
+          commit("SET_CACHE", cacheObj);
         });
         end = new Date() - start;
 

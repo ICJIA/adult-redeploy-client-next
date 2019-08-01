@@ -24,7 +24,7 @@
           <v-layout wrap>
             <v-flex xs12 sm12 md6>
               <div>
-                <illinois :maxWidth="400"></illinois>
+                <site-illinois :maxWidth="400"></site-illinois>
               </div>
             </v-flex>
             <v-flex xs12 sm12 md6>
@@ -38,15 +38,15 @@
 </template>
 
 <script>
-import Illinois from "@/components/Illinois";
 import BaseContent from "@/components/BaseContent";
 import { getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import SiteDescription from "@/components/SiteDescription";
+import SiteIllinois from "@/components/SiteIllinois";
 // import { renderToHtml } from "@/services/Markdown";
 export default {
   components: {
-    Illinois,
+    SiteIllinois,
     BaseContent,
     SiteDescription
   },
