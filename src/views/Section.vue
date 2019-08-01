@@ -44,12 +44,16 @@ export default {
       this.loading = false;
       this.$router.push({
         name: "error",
-        params: { msg: "Page not found", statusCode: 404 }
+        params: {
+          msg: "Page not found",
+          statusCode: 404,
+          debug: this.$route.params
+        }
       });
     },
     fetchContent() {
       this.loading = true;
-      const section = this.$route.params.section;
+      const section = this.$route.params.section.toLowerCase();
       if (section !== "home") {
         this.content = this.$store.getters.sections.find(
           x => x.slug === `${section}`

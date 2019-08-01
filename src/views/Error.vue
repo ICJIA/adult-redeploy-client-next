@@ -11,6 +11,10 @@
             >
               {{ $route.params.statusCode }} | {{ $route.params.msg }}
             </h2>
+
+            <div v-if="$store.getters.debug" class="mt-5">
+              {{ $route.params.debug }}
+            </div>
             <v-btn
               class="mt-12"
               to="/"

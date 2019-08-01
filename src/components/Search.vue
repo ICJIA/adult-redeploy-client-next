@@ -104,7 +104,11 @@ export default {
     },
     getCategory(item) {
       let cat = item.parentPath.split("/");
-      console.log(cat);
+      if (cat[1]) {
+        return cat[1];
+      } else {
+        return "";
+      }
       // let returnCat;
       // if (cat[1].length) {
       //   switch (cat[1]) {
@@ -124,9 +128,6 @@ export default {
       // } else {
       //   return "";
       // }
-      if (cat[1].length) {
-        return cat[1];
-      }
     }
   }
 };

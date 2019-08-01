@@ -62,8 +62,8 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
-      const section = this.$route.params.section;
-      const slug = this.$route.params.slug;
+      const section = this.$route.params.section.toLowerCase();
+      const slug = this.$route.params.slug.toLowerCase();
 
       const name = `getPageBySection-${section}${slug}`;
       contentMap.set(name, {
@@ -98,7 +98,11 @@ export default {
       this.loading = false;
       this.$router.push({
         name: "error",
-        params: { msg: "Page not found", statusCode: 404 }
+        params: {
+          msg: "Page not found",
+          statusCode: 404,
+          debug: this.$route.params
+        }
       });
     }
   }

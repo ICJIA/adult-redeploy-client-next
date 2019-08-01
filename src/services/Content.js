@@ -312,23 +312,30 @@ const getSinglePublicationQuery = slug => {
 
 const getSectionsQuery = () => {
   return `{
-  sections (sort: "order:asc"){
+  sections (sort: "order:asc") {
     title
-    hasSubMenus
-    summary
     slug
+    summary
     searchMeta
     summary
     order
+    hasSubMenus
     displayNav
     displayFooter
     displayDrawer
+    sites {
+      title
+      slug
+      summary
+    }
     pages {
       title
       slug
+      isPublished
+      summary
     }
   }
-} `;
+}`;
 };
 
 const getPageBySectionQuery = (section, slug) => {

@@ -50,7 +50,7 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
-      const slug = this.$route.params.slug;
+      const slug = this.$route.params.slug.toLowerCase();
       const name = `getPost-${slug}`;
       contentMap.set(name, {
         hash: getHash(name),

@@ -1,11 +1,24 @@
 // This is similar to "map-config.js" with basic settings (colors, info., etc)
+
+/**
+ * ARI Colors:
+ *
+ * For counties:
+ * upColor: #7bc682
+ * overColor: #0eea50
+ * downColor: #3f51b5
+ *
+ *
+ * For circuits:
+ *
+ */
 const usiljsconfig = {
   usiljs1: {
     hover: "ADAMS", //info of the popup
     url: "", //link to any webpage
     target: "vue", // use "new_window", "same_window", "modal", or "none"
-    upColor: "#42A5F5", //default color
-    overColor: "#2979FF", //highlight color
+    upColor: "#7bc682", //default color
+    overColor: "#0eea50", //highlight color
     downColor: "#cae9af", //clicking color
     active: true,
     slug: "adams",
@@ -16,7 +29,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -25,7 +38,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -33,19 +46,18 @@ const usiljsconfig = {
     hover: "BOONE",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    slug: "boone",
-    circuit: null
+    slug: "boone"
   },
   usiljs5: {
     hover: "BROWN",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -54,7 +66,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -63,7 +75,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -72,7 +84,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -81,7 +93,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -90,7 +102,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -99,7 +111,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -108,7 +120,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -117,7 +129,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -126,7 +138,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -135,7 +147,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -143,8 +155,8 @@ const usiljsconfig = {
     hover: "COOK",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
     // cid: "031",
@@ -155,7 +167,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -164,7 +176,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -172,8 +184,8 @@ const usiljsconfig = {
     hover: "DEKALB",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
     circuit: null,
@@ -184,7 +196,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -193,7 +205,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -201,8 +213,8 @@ const usiljsconfig = {
     hover: "DUPAGE",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
     circuit: null,
@@ -213,7 +225,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -222,7 +234,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -231,7 +243,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -240,7 +252,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -249,7 +261,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -258,7 +270,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -267,7 +279,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -276,7 +288,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -285,7 +297,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -293,17 +305,18 @@ const usiljsconfig = {
     hover: "GRUNDY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "grundy"
   },
   usiljs33: {
     hover: "HAMILTON",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -312,7 +325,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -321,7 +334,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -330,7 +343,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -339,7 +352,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -348,7 +361,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -357,7 +370,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -366,7 +379,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -375,7 +388,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -383,17 +396,18 @@ const usiljsconfig = {
     hover: "JERSEY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "jersey"
   },
   usiljs43: {
     hover: "JO DAVIESS",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -402,7 +416,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -411,7 +425,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -420,7 +434,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -428,17 +442,18 @@ const usiljsconfig = {
     hover: "KENDALL",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "kendall"
   },
   usiljs48: {
     hover: "KNOX",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -446,28 +461,28 @@ const usiljsconfig = {
     hover: "LAKE",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "083",
     slug: "lake"
   },
   usiljs50: {
     hover: "LASALLE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "lasalle"
   },
   usiljs51: {
     hover: "LAWRENCE",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -476,7 +491,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -485,7 +500,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -494,7 +509,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -502,17 +517,18 @@ const usiljsconfig = {
     hover: "MACON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "macon"
   },
   usiljs56: {
     hover: "MACOUPIN",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -520,17 +536,18 @@ const usiljsconfig = {
     hover: "MADISON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "madison"
   },
   usiljs58: {
     hover: "MARION",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -539,7 +556,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -548,7 +565,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -557,7 +574,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -566,7 +583,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -574,22 +591,19 @@ const usiljsconfig = {
     hover: "MCHENRY",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#FFFFFF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: true,
-    // cid: "111",
-    slug: "mchenry"
+    active: false
   },
   usiljs64: {
     hover: "MCLEAN",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "113",
     slug: "mclean"
   },
   usiljs65: {
@@ -597,7 +611,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -606,7 +620,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -615,7 +629,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -624,7 +638,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -633,7 +647,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -642,7 +656,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -651,7 +665,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -659,26 +673,28 @@ const usiljsconfig = {
     hover: "PEORIA",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "peoria"
   },
   usiljs73: {
     hover: "PERRY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "washington-perry"
   },
   usiljs74: {
     hover: "PIATT",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -687,7 +703,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -696,7 +712,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -705,7 +721,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -714,7 +730,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -723,7 +739,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -732,7 +748,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -741,7 +757,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -750,7 +766,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -758,17 +774,18 @@ const usiljsconfig = {
     hover: "SANGAMON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "sangamon"
   },
   usiljs84: {
     hover: "SCHUYLER",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -777,7 +794,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -786,7 +803,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -794,19 +811,19 @@ const usiljsconfig = {
     hover: "ST. CLAIR",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#FFFFFF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: true,
+    active: false
     // cid: "163",
-    slug: "st-clair"
+    // slug: "st-clair"
   },
   usiljs88: {
     hover: "STARK",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -815,7 +832,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -824,7 +841,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -833,7 +850,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -842,7 +859,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -851,7 +868,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -860,7 +877,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -868,17 +885,18 @@ const usiljsconfig = {
     hover: "WASHINGTON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "washington-perry"
   },
   usiljs96: {
     hover: "WAYNE",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -887,7 +905,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -896,7 +914,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -904,17 +922,18 @@ const usiljsconfig = {
     hover: "WILL",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "will"
   },
   usiljs100: {
     hover: "WILLIAMSON",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -922,11 +941,10 @@ const usiljsconfig = {
     hover: "WINNEBAGO",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#7bc682",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "201",
     slug: "winnebago"
   },
   usiljs102: {
@@ -934,7 +952,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },

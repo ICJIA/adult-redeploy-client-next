@@ -46,7 +46,7 @@ const getSearchIndex = async () => {
     // });
 
     // return [...news, ...pages, ...meetings, ...publications];
-    console.log(sites);
+    //console.log(sites);
     return [...news, ...pages, ...meetings, ...sites];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
