@@ -1,6 +1,6 @@
 <template>
   <div class="flexbox-container hide-sm-and-down">
-    <div class="box box-1" @click="$router.push('/local-programs')">
+    <div class="box box-1" @click="$router.push('/programs/local-programs')">
       <h2 class="heavy text-center">Local Programs</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
@@ -18,7 +18,7 @@
         neque.
       </p>
     </div>
-    <div class="box box-3" @click="$router.push('/explore')">
+    <div class="box box-3" @click="$router.push('/grants')">
       <h2 class="heavy text-center">Grants</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,

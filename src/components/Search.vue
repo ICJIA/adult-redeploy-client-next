@@ -20,7 +20,10 @@
                   elevation="1"
                   class="card pt-3"
                   ><template slot="contentType">
-                    <div class="text-right pr-3 pt-3 spac-purple heavy">
+                    <div
+                      class="text-right pr-3 pt-3 heavy"
+                      style="color: #065f60"
+                    >
                       {{ getCategory(item) | upperCase }}
                     </div>
                   </template>
@@ -76,11 +79,11 @@ export default {
       keys: [
         "searchMeta",
         "title",
-        "createdAt",
         "summary",
         "content",
         "category",
-        "tags.name"
+        "tags.name",
+        "createdAt"
       ]
     });
     this.$nextTick(() => {
@@ -101,21 +104,28 @@ export default {
     },
     getCategory(item) {
       let cat = item.parentPath.split("/");
-      let returnCat;
+      console.log(cat);
+      // let returnCat;
+      // if (cat[1].length) {
+      //   switch (cat[1]) {
+      //     case "publications":
+      //       returnCat = "publication";
+      //       break;
+      //     case "meetings":
+      //       returnCat = "meeting";
+      //       break;
+      //     case "sites":
+      //       returnCat = "site";
+      //       break;
+      //     default:
+      //       returnCat = cat[1];
+      //   }
+      //   return returnCat;
+      // } else {
+      //   return "";
+      // }
       if (cat[1].length) {
-        switch (cat[1]) {
-          case "publications":
-            returnCat = "publication";
-            break;
-          case "meetings":
-            returnCat = "meeting";
-            break;
-          default:
-            returnCat = cat[1];
-        }
-        return returnCat;
-      } else {
-        return "";
+        return cat[1];
       }
     }
   }

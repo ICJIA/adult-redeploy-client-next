@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
-    <title>Adult Redeploy Illinois | Status</title>
+    <title>Adult Redeploy Illinois | Server Status</title>
     <meta name="description" content="Status page for Adult Redeploy Illinois" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -90,7 +90,7 @@
         <a class="navbar-item" href="/">
           <img src="/icjia-logo.png" alt="ICJIA Logo" />&nbsp;&nbsp;<span
             style="font-weight: 900"
-            >ADULT REDEPLOY ILLINOIS | STATUS</span
+            >ADULT REDEPLOY ILLINOIS | SERVER STATUS</span
           >
         </a>
       </div>
@@ -101,14 +101,14 @@
       <div class="container">
         <div class="columns is-multiline is-desktop">
           
-          <div class="column has-text-left-mobile">
+          <!-- <div class="column has-text-left-mobile">
             <div class="is-size-5 has-text-weight-bold is-uppercase">
               Server Status
              
             </div>
-          </div>
+          </div> -->
 
-          <div class="column has-text-center has-text-center-mobile extras">
+          <div class="column has-text-left has-text-center-mobile extras">
             <div class="has-text-weight-bold ">
               <span style="font-size: 14px;">Last successful deploy: </span>
               <span style="font-size: 14px;" id="deploy"></span>
@@ -187,6 +187,7 @@
                   data.status +
                   "</span>"
                 );
+                
               } else {
                 return (
                   "<span style='background: red; color: white; padding: 5px;font-weight: bold;'>" +
