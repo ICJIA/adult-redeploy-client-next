@@ -25,7 +25,7 @@ export default {
     },
     empty: {
       type: String,
-      default: "There is nothing to see."
+      default: "Move along. Nothing here."
     }
   }
 };

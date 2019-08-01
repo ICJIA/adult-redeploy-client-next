@@ -1,20 +1,22 @@
 <template>
   <div>
     <base-content :loading="loading">
-      <template v-slot:title>
-        <v-container v-if="content">
-          <v-layout wrap>
-            <v-flex xs12>
-              <h1 class="page-title">{{ content[0].title }}</h1>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </template>
       <template v-slot:content>
         <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12>
-              <div v-html="renderToHtml(content[0].content)"></div>
+              <v-card class="mx-auto" color="white">
+                <v-card-title class="site-desription-title px-3">{{
+                  content[0].title
+                }}</v-card-title>
+                <v-card-text
+                  ><div
+                    v-html="renderToHtml(content[0].content)"
+                    v-if="content[0].content"
+                    class="site-description"
+                  ></div
+                ></v-card-text>
+              </v-card>
             </v-flex>
           </v-layout>
         </v-container>

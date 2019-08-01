@@ -10,14 +10,47 @@
           </v-layout>
         </v-container>
       </template>
-      <template v-slot:special>
-        <v-container v-if="content">
-          <v-layout wrap>
-            <v-flex>
-              {{ content }}
-            </v-flex>
-          </v-layout>
-        </v-container>
+      <template slot="page-list" v-if="content.pages.length > 0">
+        <base-list :items="content.pages">
+          <template slot-scope="item">
+            <v-container>
+              <v-flex xs12>
+                <div class="mb-5">{{ item }}</div>
+              </v-flex>
+            </v-container>
+          </template>
+        </base-list>
+      </template>
+      <template slot="site-list" v-if="content.sites.length > 0">
+        <base-list :items="content.sites">
+          <template slot-scope="item">
+            <v-container>
+              <v-flex xs12>
+                <v-hover v-slot:default="{ hover }">
+                  <v-card
+                    class="mx-auto"
+                    color="white"
+                    v-if="content"
+                    :elevation="hover ? 18 : 2"
+                    @click="$router.push(`/sites/${item.slug}`)"
+                  >
+                    <v-card-title class="site-desription-title px-3">{{
+                      item.title
+                    }}</v-card-title>
+                    <v-card-text>
+                      {{ item.summary }}
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn :to="`/sites/${item.slug}`" text color="primary">
+                        Learn More
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-hover>
+              </v-flex>
+            </v-container>
+          </template>
+        </base-list>
       </template>
     </base-content>
   </div>
@@ -25,6 +58,8 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
+import BaseList from "@/components/BaseList";
+import { renderToHtml } from "@/services/Markdown";
 export default {
   watch: {
     $route: "fetchContent"
@@ -32,11 +67,13 @@ export default {
   data() {
     return {
       loading: null,
-      content: []
+      content: [],
+      renderToHtml
     };
   },
   components: {
-    BaseContent
+    BaseContent,
+    BaseList
   },
   methods: {
     routeToError() {

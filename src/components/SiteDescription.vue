@@ -7,25 +7,22 @@
       Not found. Please try again.
     </div>
 
-    <div v-if="content && !loading" ref="site-card">
-      <v-card class="mx-auto" color="white">
-        <v-card-title class="site-desription-title px-3">{{
-          content[0].title
-        }}</v-card-title>
-        <v-card-text
-          ><div
-            v-html="renderToHtml(content[0].content)"
-            v-if="content[0].content"
-            class="site-description"
-          ></div
-        ></v-card-text>
-      </v-card>
-    </div>
-    <div v-if="!content && loading">
-      <div class="text-center">
-        <loader></loader>
-      </div>
-    </div>
+    <base-content :loading="loading">
+      <template v-slot:content>
+        <v-card class="mx-auto" color="white" v-if="content">
+          <v-card-title class="site-desription-title px-3">{{
+            content[0].title
+          }}</v-card-title>
+          <v-card-text
+            ><div
+              v-html="renderToHtml(content[0].content)"
+              v-if="content[0].content"
+              class="site-description"
+            ></div
+          ></v-card-text>
+        </v-card>
+      </template>
+    </base-content>
   </div>
 </template>
 
@@ -37,10 +34,12 @@ import { getSiteDescription } from "@/services/Content";
 // eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import Loader from "@/components/Loader";
+import BaseContent from "@/components/BaseContent";
 
 export default {
   components: {
-    Loader
+    Loader,
+    BaseContent
   },
   data() {
     return {

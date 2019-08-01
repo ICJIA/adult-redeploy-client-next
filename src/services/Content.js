@@ -323,7 +323,7 @@ const getSectionsQuery = () => {
     displayNav
     displayFooter
     displayDrawer
-    sites {
+    sites (sort: "title:asc"){
       title
       slug
       summary

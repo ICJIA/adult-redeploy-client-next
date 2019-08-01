@@ -45,6 +45,7 @@
                 }}</v-list-item-title>
               </v-list-item-content>
             </template>
+
             <span v-if="link.pages.length > 0">
               <v-list-item v-for="(item, i) in link.pages" :key="i" link>
                 <v-list-item-title
