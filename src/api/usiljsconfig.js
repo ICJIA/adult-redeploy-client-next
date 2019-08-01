@@ -27,6 +27,7 @@ const usiljsconfig = {
     downColor: "#cae9af", //clicking color
     active: true,
     slug: "adams",
+    name: "Adams",
     circuit: null
   },
   usiljs2: {
@@ -119,6 +120,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Christian",
     slug: "fourth-judicial-circuit"
   },
   usiljs12: {
@@ -165,7 +167,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "031",
+    name: "Cook",
     slug: "cook"
   },
   usiljs17: {
@@ -176,6 +178,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Crawford",
     slug: "second-judicial-circuit"
   },
   usiljs18: {
@@ -195,6 +198,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "DeKalb",
     circuit: null,
     slug: "dekalb"
   },
@@ -224,6 +228,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "DuPage",
     circuit: null,
     slug: "dupage"
   },
@@ -244,6 +249,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Edwards",
     slug: "second-judicial-circuit"
   },
   usiljs25: {
@@ -254,6 +260,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Effingham",
     slug: "fourth-judicial-circuit"
   },
   usiljs26: {
@@ -292,6 +299,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Fulton",
     slug: "ninth-judicial-circuit"
   },
   usiljs30: {
@@ -302,6 +310,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Gallatin",
     slug: "second-judicial-circuit"
   },
   usiljs31: {
@@ -321,6 +330,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Grundy",
     slug: "grundy"
   },
   usiljs33: {
@@ -331,6 +341,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Hamilton",
     slug: "second-judicial-circuit"
   },
   usiljs34: {
@@ -350,6 +361,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Hardin",
     slug: "second-judicial-circuit"
   },
   usiljs36: {
@@ -405,6 +417,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Jefferson",
     slug: "second-judicial-circuit"
   },
   usiljs42: {
@@ -415,6 +428,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Jersey",
     slug: "jersey"
   },
   usiljs43: {
@@ -461,6 +475,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Kendall",
     slug: "kendall"
   },
   usiljs48: {
@@ -471,6 +486,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Knox",
     slug: "ninth-judicial-circuit"
   },
   usiljs49: {
@@ -481,6 +497,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Lake",
     slug: "lake"
   },
   usiljs50: {
@@ -491,6 +508,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "LaSalle",
     slug: "lasalle"
   },
   usiljs51: {
@@ -501,6 +519,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Lawrence",
     slug: "second-judicial-circuit"
   },
   usiljs52: {
@@ -538,6 +557,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Macon",
     slug: "macon"
   },
   usiljs56: {
@@ -557,6 +577,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Madison",
     slug: "madison"
   },
   usiljs58: {
@@ -603,6 +624,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "McDonough",
     slug: "ninth-judicial-circuit"
   },
   usiljs63: {
@@ -622,6 +644,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "McClean",
     slug: "mclean"
   },
   usiljs65: {
@@ -650,6 +673,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Monroe",
     slug: "twentieth-judicial-circuit"
   },
   usiljs68: {
@@ -696,6 +720,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Peoria",
     slug: "peoria"
   },
   usiljs73: {
@@ -706,6 +731,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Perry",
     slug: "washington-perry"
   },
   usiljs74: {
@@ -761,6 +787,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Randolph",
     slug: "twentieth-judicial-circuit"
   },
   usiljs80: {
@@ -771,6 +798,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Richland",
     slug: "second-judicial-circuit"
   },
   usiljs81: {
@@ -799,6 +827,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Sangamon",
     slug: "sangamon"
   },
   usiljs84: {
@@ -836,6 +865,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "St. Clair",
     slug: "twentieth-judicial-circuit"
   },
   usiljs88: {
@@ -891,6 +921,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Wabash",
     slug: "second-judicial-circuit"
   },
   usiljs94: {
@@ -910,6 +941,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Washington",
     slug: "washington-perry"
   },
   usiljs96: {
@@ -920,6 +952,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Wayne",
     slug: "second-judicial-circuit"
   },
   usiljs97: {
@@ -930,6 +963,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "White",
     slug: "second-judicial-circuit"
   },
   usiljs98: {
@@ -949,6 +983,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Will",
     slug: "will"
   },
   usiljs100: {
@@ -968,6 +1003,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "Winnebago",
     slug: "winnebago"
   },
   usiljs102: {

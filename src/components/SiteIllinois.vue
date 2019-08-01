@@ -1453,7 +1453,8 @@ import { EventBus } from "@/event-bus";
 import { usiljsconfig } from "@/api/usiljsconfig";
 export default {
   methods: {
-    getCounty(data) {
+    getCountyData(data) {
+      this.$store.dispatch("setSelectedCountyData", data);
       EventBus.$emit("mapClick", data);
     }
   },
@@ -1530,8 +1531,8 @@ export default {
           } else if (usiljsconfig[id].target === "modal") {
             jQuery(usiljsconfig[id].url).modal("show");
           } else if (usiljsconfig[id].target === "vue") {
-            vm.countyData = usiljsconfig[id];
-            vm.getCounty(vm.countyData);
+            //vm.countyData = usiljsconfig[id];
+            vm.getCountyData(usiljsconfig[id]);
             // console.log(usiljsconfig[id])
           }
         });

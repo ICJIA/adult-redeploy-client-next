@@ -58,6 +58,7 @@ export default {
   },
   created() {
     this.fetchContent();
+    this.$store.dispatch("setSelectedCountyData", null);
   },
   methods: {
     async fetchContent() {

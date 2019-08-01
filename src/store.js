@@ -33,6 +33,7 @@ export default new Vuex.Store({
     lastBuild: null,
     apiStatus: null,
     cache: new Map(),
+    selectedCountyData: null,
     jwt: localStorage.getItem("jwt") || "",
     userMeta: JSON.parse(localStorage.getItem("userMeta")) || ""
   },
@@ -68,6 +69,10 @@ export default new Vuex.Store({
     SET_API_STATUS(state, apiStatus) {
       state.apiStatus = apiStatus;
       console.log("API status code: ", apiStatus);
+    },
+    SET_SELECTED_COUNTY_DATA(state, payload) {
+      state.selectedCountyData = payload;
+      //console.log("Selected county data: ", payload);
     }
   },
   actions: {
@@ -106,6 +111,9 @@ export default new Vuex.Store({
     },
     setSections({ commit }, sections) {
       commit("SET_SECTIONS", sections);
+    },
+    setSelectedCountyData({ commit }, payload) {
+      commit("SET_SELECTED_COUNTY_DATA", payload);
     },
     // eslint-disable-next-line no-unused-vars
     async cacheContent({ commit, state, getters }, contentMap) {
@@ -185,6 +193,9 @@ export default new Vuex.Store({
     },
     config: state => {
       return state.config;
+    },
+    selectedCountyData: state => {
+      return state.selectedCountyData;
     },
     sections: state => {
       return state.sections;

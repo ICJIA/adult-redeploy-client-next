@@ -1,12 +1,27 @@
 <template>
   <div>
-    <div v-if="!this.loading && !this.error">
-      {{ content }}
+    <div v-if="!$store.getters.selectedCountyData" class="text-center">
+      <h2>Select a county for more information.</h2>
     </div>
     <div v-if="error">
-      County not found
+      County not found. Please try again.
     </div>
-    <div v-if="this.loading">
+
+    <div v-if="content && !loading" ref="site-card">
+      <v-card class="mx-auto" color="white">
+        <v-card-title class="site-desription-title" style="">{{
+          content[0].title
+        }}</v-card-title>
+        <v-card-text
+          ><div
+            v-html="renderToHtml(content[0].content)"
+            v-if="content[0].content"
+            class="site-description"
+          ></div
+        ></v-card-text>
+      </v-card>
+    </div>
+    <div v-if="!content && loading">
       <div class="text-center">
         <loader></loader>
       </div>
@@ -16,15 +31,17 @@
 
 <script>
 import { EventBus } from "@/event-bus";
+import BaseContent from "@/components/BaseContent";
+import { renderToHtml } from "@/services/Markdown";
 import { getSiteDescription } from "@/services/Content";
 // eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import Loader from "@/components/Loader";
 
-import { renderToHtml } from "@/services/Markdown";
 export default {
   components: {
-    Loader
+    Loader,
+    BaseContent
   },
   data() {
     return {
@@ -65,4 +82,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.site-desription-title {
+  background: #067879;
+  font-weight: 900;
+  color: #ffff;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.site-description {
+  color: #000;
+}
+.site-description h2 {
+  margin-bottom: 15px;
+  line-height: 1.5em;
+}
+</style>
