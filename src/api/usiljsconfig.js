@@ -25,7 +25,7 @@ const usiljsconfig = {
     overColor: "#0eea50", //highlight color
     downColor: "#cae9af", //clicking color
     active: true,
-    slug: "adams",
+    slug: "adams-county",
     name: "Adams",
     circuit: null
   },
@@ -55,7 +55,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    slug: "boone"
+    slug: "boone-county"
   },
   usiljs5: {
     hover: "BROWN",
@@ -167,7 +167,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Cook",
-    slug: "cook"
+    slug: "cook-county"
   },
   usiljs17: {
     hover: "CRAWFORD",
@@ -199,7 +199,7 @@ const usiljsconfig = {
     active: true,
     name: "DeKalb",
     circuit: null,
-    slug: "dekalb"
+    slug: "dekalb-county"
   },
   usiljs20: {
     hover: "DEWITT",
@@ -229,7 +229,7 @@ const usiljsconfig = {
     active: true,
     name: "DuPage",
     circuit: null,
-    slug: "dupage"
+    slug: "dupage-county"
   },
   usiljs23: {
     hover: "EDGAR",
@@ -330,7 +330,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Grundy",
-    slug: "grundy"
+    slug: "grundy-county"
   },
   usiljs33: {
     hover: "HAMILTON",
@@ -428,7 +428,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Jersey",
-    slug: "jersey"
+    slug: "jersey-county"
   },
   usiljs43: {
     hover: "JO DAVIESS",
@@ -475,7 +475,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Kendall",
-    slug: "kendall"
+    slug: "kendall-county"
   },
   usiljs48: {
     hover: "KNOX",
@@ -497,7 +497,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Lake",
-    slug: "lake"
+    slug: "lake-county"
   },
   usiljs50: {
     hover: "LASALLE",
@@ -508,7 +508,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "LaSalle",
-    slug: "lasalle"
+    slug: "lasalle-county"
   },
   usiljs51: {
     hover: "LAWRENCE",
@@ -557,7 +557,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Macon",
-    slug: "macon"
+    slug: "macon-county"
   },
   usiljs56: {
     hover: "MACOUPIN",
@@ -577,7 +577,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Madison",
-    slug: "madison"
+    slug: "madison-county"
   },
   usiljs58: {
     hover: "MARION",
@@ -644,7 +644,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "McClean",
-    slug: "mclean"
+    slug: "mclean-county"
   },
   usiljs65: {
     hover: "MENARD",
@@ -720,7 +720,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Peoria",
-    slug: "peoria"
+    slug: "peoria-county"
   },
   usiljs73: {
     hover: "PERRY",
@@ -731,7 +731,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Perry",
-    slug: "washington-perry"
+    slug: "washington-perry-counties"
   },
   usiljs74: {
     hover: "PIATT",
@@ -827,7 +827,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Sangamon",
-    slug: "sangamon"
+    slug: "sangamon-county"
   },
   usiljs84: {
     hover: "SCHUYLER",
@@ -941,7 +941,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Washington",
-    slug: "washington-perry"
+    slug: "washington-perry-counties"
   },
   usiljs96: {
     hover: "WAYNE",
@@ -983,7 +983,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Will",
-    slug: "will"
+    slug: "will-county"
   },
   usiljs100: {
     hover: "WILLIAMSON",
@@ -1003,7 +1003,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Winnebago",
-    slug: "winnebago"
+    slug: "winnebago-county"
   },
   usiljs102: {
     hover: "WOODFORD",

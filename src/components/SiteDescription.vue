@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-if="!$store.getters.selectedCountyData" class="text-center">
-      <h2>Select a county for more information.</h2>
+      <h2>Select a county or judicial circuit for more information.</h2>
     </div>
     <div v-if="error">
-      County not found. Please try again.
+      Not found. Please try again.
     </div>
 
     <div v-if="content && !loading" ref="site-card">

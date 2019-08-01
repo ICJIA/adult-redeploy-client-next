@@ -55,7 +55,7 @@ export default {
       this.loading = true;
       const contentMap = new Map();
 
-      const slug = this.$route.params.slug;
+      const slug = this.$route.params.slug.toLowerCase();
       const name = `getSiteDescription-${slug}`;
       contentMap.set(name, {
         hash: getHash(name),
