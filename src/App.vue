@@ -13,10 +13,24 @@
         <transition name="fade" mode="out-in">
           <router-view v-if="$store.getters.isApiReady"></router-view>
           <div v-else>
-            <v-alert type="error" class="text-center">
-              Can't connect to the Adult Redeploy Illinois database.&nbsp;&nbsp;
-              <a href="/" style="color: #fff;">Please reload.</a>
+             <v-alert
+              type="warning"
+              class="text-center"
+              v-if="env === 'development'"
+            >
+              You're running in <strong>development</strong> mode.<br />Be sure
+              the Netlify 'Status' function is running.&nbsp;&nbsp;
             </v-alert>
+            <v-alert type="error" class="text-center">
+              Can't connect to the Adult Redeploy Illinois
+              database.&nbsp;&nbsp;<br />
+              <div class="mt-3">
+                <a href="/" style="color: #fff;"
+                  ><strong>Please reload and try again.</strong></a
+                >
+              </div>
+            </v-alert>
+           
           </div>
         </transition>
       </v-content>
@@ -100,7 +114,8 @@ export default {
     return {
       sections: [],
       loading: true,
-      test: []
+      test: [],
+      env: process.env.NODE_ENV
     };
   }
 };

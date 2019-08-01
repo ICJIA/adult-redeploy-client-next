@@ -22,13 +22,15 @@
       <template v-slot:special>
         <v-container>
           <v-layout wrap>
-            <v-flex xs12 sm12 md6>
+            <v-flex xs12 sm6 md6>
               <div>
                 <site-illinois :maxWidth="400"></site-illinois>
               </div>
             </v-flex>
-            <v-flex xs12 sm12 md6>
-              <SiteDescription></SiteDescription>
+            <v-flex xs12 sm6 md6>
+              <SiteDescription
+                :class="{ pull: $vuetify.breakpoint.xs }"
+              ></SiteDescription>
             </v-flex>
           </v-layout>
         </v-container>
@@ -114,4 +116,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.pull {
+  margin-top: -75px;
+}
+</style>
