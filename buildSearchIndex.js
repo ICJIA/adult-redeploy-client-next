@@ -105,6 +105,18 @@ const query = `{
     }
     
   }
+
+  
+  sites {
+    id
+    title
+    slug
+    summary
+    content
+    searchMeta
+    siteType
+  }
+
   
  
  

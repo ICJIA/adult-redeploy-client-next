@@ -7,7 +7,9 @@
       County not found
     </div>
     <div v-if="this.loading">
-      Loading
+      <div class="text-center">
+        <loader></loader>
+      </div>
     </div>
   </div>
 </template>
@@ -17,9 +19,13 @@ import { EventBus } from "@/event-bus";
 import { getSiteDescription } from "@/services/Content";
 // eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
+import Loader from "@/components/Loader";
 
 import { renderToHtml } from "@/services/Markdown";
 export default {
+  components: {
+    Loader
+  },
   data() {
     return {
       description: null,

@@ -1,7 +1,7 @@
 <template>
   <v-app id="page-top">
-    <app-nav :sections="sectionsTest"></app-nav>
-    <app-drawer :sections="sectionsTest"></app-drawer>
+    <app-nav :sections="sections"></app-nav>
+    <app-drawer :sections="sections"></app-drawer>
 
     <breadcrumb></breadcrumb>
     <div v-if="!loading">
@@ -21,7 +21,7 @@
         </transition>
       </v-content>
 
-      <app-footer :sections="sectionsTest"></app-footer>
+      <app-footer :sections="sections"></app-footer>
     </div>
     <div v-if="loading">
       <v-container>
@@ -32,7 +32,9 @@
               alt="Illinois Criminal Justice Information Authority"
               style="margin-top: 150px;"
             /> -->
-            <h1 class="lato mt-5 heavy">Adult Redeploy Illinois</h1>
+            <h1 class="lato heavy" style="margin-top: 150px;">
+              Adult Redeploy Illinois
+            </h1>
             <loader></loader>
           </v-flex>
         </v-layout>
@@ -83,8 +85,8 @@ export default {
 
       console.log("Debug: ", this.$store.getters.debug);
 
-      this.sectionsTest = await getSections();
-      this.$store.dispatch("setSections", this.sectionsTest);
+      this.sections = await getSections();
+      this.$store.dispatch("setSections", this.sections);
 
       await this.$store.dispatch("setApiStatus");
 
