@@ -11,6 +11,11 @@
  *
  * For circuits:
  *
+ *
+ *
+ * For planning grants:
+ *
+ *
  */
 const usiljsconfig = {
   usiljs1: {
@@ -110,10 +115,11 @@ const usiljsconfig = {
     hover: "CHRISTIAN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "fourth-judicial-circuit"
   },
   usiljs12: {
     hover: "CLARK",
@@ -166,10 +172,11 @@ const usiljsconfig = {
     hover: "CRAWFORD",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs18: {
     hover: "CUMBERLAND",
@@ -233,19 +240,21 @@ const usiljsconfig = {
     hover: "EDWARDS",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs25: {
     hover: "EFFINGHAM",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "fourth-judicial-circuit"
   },
   usiljs26: {
     hover: "FAYETTE",
@@ -269,28 +278,31 @@ const usiljsconfig = {
     hover: "FRANKLIN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs29: {
     hover: "FULTON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "ninth-judicial-circuit"
   },
   usiljs30: {
     hover: "GALLATIN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs31: {
     hover: "GREENE",
@@ -315,10 +327,11 @@ const usiljsconfig = {
     hover: "HAMILTON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs34: {
     hover: "HANCOCK",
@@ -333,10 +346,11 @@ const usiljsconfig = {
     hover: "HARDIN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs36: {
     hover: "HENDERSON",
@@ -387,10 +401,11 @@ const usiljsconfig = {
     hover: "JEFFERSON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs42: {
     hover: "JERSEY",
@@ -452,10 +467,11 @@ const usiljsconfig = {
     hover: "KNOX",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "ninth-judicial-circuit"
   },
   usiljs49: {
     hover: "LAKE",
@@ -481,10 +497,11 @@ const usiljsconfig = {
     hover: "LAWRENCE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs52: {
     hover: "LEE",
@@ -582,10 +599,11 @@ const usiljsconfig = {
     hover: "MCDONOUGH",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "ninth-judicial-circuit"
   },
   usiljs63: {
     hover: "MCHENRY",
@@ -628,10 +646,11 @@ const usiljsconfig = {
     hover: "MONROE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "twentieth-judicial-circuit"
   },
   usiljs68: {
     hover: "MONTGOMERY",
@@ -738,19 +757,21 @@ const usiljsconfig = {
     hover: "RANDOLPH",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "twentieth-judicial-circuit"
   },
   usiljs80: {
     hover: "RICHLAND",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs81: {
     hover: "ROCK ISLAND",
@@ -811,12 +832,11 @@ const usiljsconfig = {
     hover: "ST. CLAIR",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
-    // cid: "163",
-    // slug: "st-clair"
+    active: true,
+    slug: "twentieth-judicial-circuit"
   },
   usiljs88: {
     hover: "STARK",
@@ -867,10 +887,11 @@ const usiljsconfig = {
     hover: "WABASH",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs94: {
     hover: "WARREN",
@@ -895,19 +916,21 @@ const usiljsconfig = {
     hover: "WAYNE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs97: {
     hover: "WHITE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#7bc682",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs98: {
     hover: "WHITESIDE",
