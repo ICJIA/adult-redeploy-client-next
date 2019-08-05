@@ -371,6 +371,8 @@ const getSiteDescriptionQuery = slug => {
     summary
     content
     siteType
+    createdAt
+    updatedAt
   }
 }`;
 };
@@ -385,6 +387,8 @@ const getAllSiteDescriptionsQuery = () => {
     content
     siteType
     showToc
+     createdAt
+    updatedAt
   }
 }`;
 };

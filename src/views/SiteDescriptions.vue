@@ -25,18 +25,7 @@
           <template slot-scope="item">
             <v-container>
               <v-flex xs12>
-                <v-card class="mx-auto" color="white" v-if="sites">
-                  <v-card-title class="site-desription-title px-3">{{
-                    item.title
-                  }}</v-card-title>
-                  <v-card-text>
-                    <div
-                      v-html="renderToHtml(item.content)"
-                      class="markdown-body"
-                    ></div>
-                  </v-card-text>
-                  <v-card-actions class="hover py-3 px-3"> </v-card-actions>
-                </v-card>
+                <BaseDescription :content="[...item]"></BaseDescription>
               </v-flex>
             </v-container>
           </template>
@@ -49,6 +38,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
+import BaseDescription from "@/components/BaseDescription";
 
 import { getAllSiteDescriptions, getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -72,7 +62,8 @@ export default {
   },
   components: {
     BaseContent,
-    BaseList
+    BaseList,
+    BaseDescription
   },
   created() {
     this.fetchContent();
