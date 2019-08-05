@@ -323,11 +323,7 @@ const getSectionsQuery = () => {
     displayNav
     displayFooter
     displayDrawer
-    sites (sort: "title:asc"){
-      title
-      slug
-      summary
-    }
+    
     pages {
       title
       slug
@@ -375,6 +371,20 @@ const getSiteDescriptionQuery = slug => {
     summary
     content
     siteType
+  }
+}`;
+};
+
+const getAllSiteDescriptionsQuery = () => {
+  return `{
+  sites (sort: "title:asc", where: {isPublished: true}){
+    id
+    title
+    slug
+    summary
+    content
+    siteType
+    showToc
   }
 }`;
 };
@@ -513,6 +523,17 @@ const getSiteDescription = async ({ slug }) => {
   }
 };
 
+const getAllSiteDescriptions = async () => {
+  try {
+    let sites = await queryEndpoint(getAllSiteDescriptionsQuery());
+    return sites.data.data.sites;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -525,5 +546,6 @@ export {
   getSinglePublication,
   getSections,
   getPageBySection,
-  getSiteDescription
+  getSiteDescription,
+  getAllSiteDescriptions
 };

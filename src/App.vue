@@ -79,6 +79,7 @@ export default {
   async mounted() {},
   async created() {
     this.loading = true;
+
     if (!this.$store.state.isAppReady) {
       const configPromise = process.BROWSER_BUILD
         ? import("@/api/config.json")
@@ -86,7 +87,7 @@ export default {
       let config = await configPromise;
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;
-
+      console.log("Debug: ", this.$store.getters.debug);
       const routesPromise = process.BROWSER_BUILD
         ? import("@/api/routes.json")
         : Promise.resolve(require("@/api/routes.json"));
@@ -98,8 +99,6 @@ export default {
         : Promise.resolve(require("@/api/searchIndex.json"));
       let searchIndex = await searchIndexPromise;
       this.$store.dispatch("setSearchIndex", searchIndex);
-
-      console.log("Debug: ", this.$store.getters.debug);
 
       this.sections = await getSections();
       this.$store.dispatch("setSections", this.sections);

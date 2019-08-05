@@ -34,6 +34,12 @@ export default new Router({
         import(/* webpackChunkName: "news" */ "./views/NewsItem.vue")
     },
     {
+      path: "/sites",
+      name: "siteDescrisitesptions",
+      component: () =>
+        import(/* webpackChunkName: "sites" */ "./views/SiteDescriptions.vue")
+    },
+    {
       path: "/sites/:slug",
       name: "siteDescriptionSingle",
       component: () =>

@@ -44,9 +44,9 @@
       <v-layout align-center>
         <div class="banner">
           <v-flex xs12>
-            <div class="default-font carousel-large heavy carousel-main-text">
+            <h1 class="default-font carousel-large heavy carousel-main-text">
               Adult Redeploy Illinois
-            </div>
+            </h1>
             <div
               class="default-font carousel-medium mt-10 px-12 carousel-sub-text"
             >

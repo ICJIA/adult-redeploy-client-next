@@ -2,6 +2,7 @@
   <div>
     <div class="py-9 px-4" v-if="!loading">
       <slot name="title"></slot>
+      <slot name="printer"></slot>
       <slot name="content"></slot>
       <slot name="special"></slot>
       <slot name="page-list"></slot>
