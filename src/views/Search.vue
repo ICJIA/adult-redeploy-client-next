@@ -14,7 +14,10 @@
         </v-container>
       </template>
       <template v-slot:special>
-        <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
+        <v-container
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          style="padding: 0"
+        >
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
               <!-- {{ searchIndex }} -->

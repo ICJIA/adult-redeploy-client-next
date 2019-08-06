@@ -2,10 +2,7 @@
   <div>
     <base-content :loading="loading">
       <template v-slot:content>
-        <v-container
-          v-if="content"
-          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
-        >
+        <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12>
               <v-card class="mx-auto" color="white">
