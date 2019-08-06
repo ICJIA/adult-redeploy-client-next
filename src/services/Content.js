@@ -9,7 +9,7 @@ const config = require("@/api/config.json");
 const axios = require("axios");
 const api = axios.create({
   baseURL: config.baseURL,
-  timeout: 8000
+  timeout: 10000
 });
 
 api.interceptors.request.use(config => {

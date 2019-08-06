@@ -20,15 +20,26 @@
         </v-container>
       </template>
       <template slot="page-list" v-if="content.pages">
-        <base-list :items="content.pages" empty="">
-          <template slot-scope="item">
-            <v-container>
-              <v-flex xs12>
-                <div class="mb-5">{{ item }}</div>
-              </v-flex>
-            </v-container>
-          </template>
-        </base-list>
+        <v-container>
+          <ul class="pageList">
+            <base-list :items="content.pages" empty="">
+              <template slot-scope="item">
+                <!-- <v-flex xs12>
+                <div class="mb-5"></div>
+              </v-flex> -->
+                <li class="pageTitle">
+                  <router-link
+                    class="pageLink"
+                    :to="
+                      `/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`
+                    "
+                    >{{ item.title }}</router-link
+                  >
+                </li>
+              </template>
+            </base-list>
+          </ul>
+        </v-container>
       </template>
     </base-content>
   </div>
@@ -88,4 +99,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.pageList {
+  margin-left: 15px;
+  margin-top: -15px;
+}
+.pageLink {
+  text-decoration: none;
+}
+li.pageTitle {
+  margin-bottom: 10px;
+}
+</style>

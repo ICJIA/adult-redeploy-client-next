@@ -40,14 +40,6 @@
       <v-container>
         <v-layout wrap>
           <v-flex class="text-center">
-            <!-- <img
-              src="/icjia-logo.png"
-              alt="Illinois Criminal Justice Information Authority"
-              style="margin-top: 150px;"
-            /> -->
-            <!-- <h1 class="lato heavy" style="margin-top: 150px;">
-              Adult Redeploy Illinois
-            </h1> -->
             <div style="margin-top: 150px;">
               <loader></loader>
             </div>

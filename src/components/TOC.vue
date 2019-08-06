@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     scrollTo(id) {
-      console.log(id);
+      //console.log(id);
       this.$vuetify.goTo(`#${id}`, { offset: 100 });
     },
     setToc() {
@@ -107,7 +107,7 @@ ul.toc-list li {
   padding: 2px 5px 2px 5px;
   cursor: pointer;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 ul.toc-list li:hover {
