@@ -102,18 +102,21 @@ ul.toc-list {
 }
 
 ul.toc-list li {
-  color: #bbb;
+  color: #999;
 
+  padding: 2px 5px 2px 5px;
   cursor: pointer;
-  margin-bottom: 10px;
-  font-size: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
 }
 
 ul.toc-list li:hover {
-  color: #777;
+  color: #065f60;
+  background: #eee;
 }
 
 .visible {
-  color: red;
+  color: #057879;
+  font-weight: bold;
 }
 </style>
