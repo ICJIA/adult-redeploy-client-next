@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <v-container
-      ><v-flex xs10 offset-xs1>
+    <v-container fluid
+      ><v-flex xs12>
         <v-form class="pl-2">
           <v-text-field
             ref="textfield"

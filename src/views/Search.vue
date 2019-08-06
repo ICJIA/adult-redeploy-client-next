@@ -2,7 +2,7 @@
   <div>
     <base-content :loading="loading">
       <template v-slot:content>
-        <v-container v-if="content">
+        <v-container fluid v-if="content">
           <v-layout wrap>
             <v-flex xs12>
               <div v-html="renderToHtml(content[0].content)"></div>
