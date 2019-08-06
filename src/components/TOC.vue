@@ -60,7 +60,7 @@ export default {
     section.forEach(e => {
       sections[e.id] = e.offsetTop - 50;
     });
-    console.log(sections);
+    //console.log(sections);
     window.onscroll = function() {
       var scrollPosition =
         document.documentElement.scrollTop || document.body.scrollTop;
@@ -70,7 +70,7 @@ export default {
           toc.classList.remove("visible");
         });
       }
-      console.log(scrollPosition);
+      //console.log(scrollPosition);
       for (i in sections) {
         if (sections[i] <= scrollPosition) {
           const sectionItem = document.getElementById(`scrollTo-${i}`);
@@ -82,6 +82,9 @@ export default {
         }
       }
     };
+  },
+  beforeDestroy() {
+    window.onscroll = function() {};
   }
 };
 </script>
