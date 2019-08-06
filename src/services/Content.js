@@ -5,6 +5,7 @@
 
 import { EventBus } from "@/event-bus";
 const config = require("@/api/config.json");
+const xss = require("xss");
 
 const axios = require("axios");
 const api = axios.create({
@@ -395,7 +396,7 @@ const getAllSiteDescriptionsQuery = () => {
 
 const getPage = async ({ slug }) => {
   try {
-    // console.log(slug);
+    slug = xss(slug);
     let page = await queryEndpoint(getPageQuery(slug));
     return page.data.data.pages;
   } catch (e) {
@@ -407,6 +408,7 @@ const getPage = async ({ slug }) => {
 
 const getPost = async ({ slug }) => {
   try {
+    slug = xss(slug);
     let post = await queryEndpoint(getPostQuery(slug));
     return post.data.data.posts;
   } catch (e) {
@@ -418,6 +420,7 @@ const getPost = async ({ slug }) => {
 
 const getFrontPageNews = async ({ limit }) => {
   try {
+    limit = xss(limit);
     let news = await queryEndpoint(getFrontPageNewsQuery(limit));
     return news.data.data.posts;
   } catch (e) {
@@ -462,6 +465,7 @@ const getAllPublications = async () => {
 
 const getSingleMeeting = async ({ slug }) => {
   try {
+    slug = xss(slug);
     let meeting = await queryEndpoint(getSingleMeetingQuery(slug));
     return meeting.data.data.meetings;
   } catch (e) {
@@ -473,6 +477,7 @@ const getSingleMeeting = async ({ slug }) => {
 
 const getContentByTag = async ({ slug }) => {
   try {
+    slug = xss(slug);
     let content = await queryEndpoint(getContentByTagQuery(slug));
     return content.data.data.tags;
   } catch (e) {
@@ -484,6 +489,7 @@ const getContentByTag = async ({ slug }) => {
 
 const getSinglePublication = async ({ slug }) => {
   try {
+    slug = xss(slug);
     let publication = await queryEndpoint(getSinglePublicationQuery(slug));
 
     return publication.data.data.publications;
@@ -507,6 +513,8 @@ const getSections = async () => {
 
 const getPageBySection = async ({ section, slug }) => {
   try {
+    slug = xss(slug);
+    section = xss(section);
     let sections = await queryEndpoint(getPageBySectionQuery(section, slug));
     return sections.data.data.sections;
   } catch (e) {
@@ -518,6 +526,7 @@ const getPageBySection = async ({ section, slug }) => {
 
 const getSiteDescription = async ({ slug }) => {
   try {
+    slug = xss(slug);
     let sites = await queryEndpoint(getSiteDescriptionQuery(slug));
     return sites.data.data.sites;
   } catch (e) {
