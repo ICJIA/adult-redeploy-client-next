@@ -2,7 +2,8 @@
   <div class="pl-10 toc">
     <div
       style="margin-left: -3px; font-weight: bold;"
-      class="mb-4 hover"
+      ref="anchor"
+      class="mb-4 hover anchor"
       @click="$vuetify.goTo(0)"
     >
       NAVIGATION
@@ -60,19 +61,23 @@ export default {
     var section = document.querySelectorAll("h2");
     var sections = {};
     var i = 0;
-
+    this.$refs["anchor"].classList.add("visible");
     section.forEach(e => {
       sections[e.id] = e.offsetTop - 50;
     });
-    //console.log(sections);
-    window.onscroll = function() {
+
+    window.onscroll = () => {
       var scrollPosition =
         document.documentElement.scrollTop || document.body.scrollTop;
       const tocItems = document.querySelectorAll(".tocItem");
+
       if (scrollPosition < 100) {
         tocItems.forEach(toc => {
           toc.classList.remove("visible");
         });
+        this.$refs["anchor"].classList.add("visible");
+      } else {
+        this.$refs["anchor"].classList.remove("visible");
       }
       //console.log(scrollPosition);
       for (i in sections) {
@@ -88,7 +93,7 @@ export default {
     };
   },
   beforeDestroy() {
-    window.onscroll = function() {};
+    window.onscroll = () => {};
   }
 };
 </script>
@@ -125,5 +130,12 @@ ul.toc-list li:hover {
 .visible {
   color: #057879;
   font-weight: bold;
+}
+.anchor {
+  padding: 2px 5px 2px 5px;
+}
+.anchor:hover {
+  color: #057879;
+  background: #eee;
 }
 </style>
