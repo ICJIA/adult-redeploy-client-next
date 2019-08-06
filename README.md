@@ -1,4 +1,7 @@
-# adult-redeploy-next
+# Adult Redeploy Client
+
+> Results expected with Adult Redeploy Illinois include reduced prison overcrowding, lowered cost to taxpayers, and an end to the expensive and vicious cycle of crime and incarceration.
+
 
 ## Project setup
 ```
@@ -15,20 +18,17 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
 ### Lints and fixes files
 ```
 npm run lint
 ```
 
-### Run your unit tests
+### Deploy
 ```
-npm run test:unit
+npm run deploy
 ```
+
+Creates search index, builds app config, builds lambda functions, and builds app.
 
 ### Development link
 
