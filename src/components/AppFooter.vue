@@ -61,11 +61,12 @@
           >&nbsp;|&nbsp;<strong
             ><a
               href="https://github.com/ICJIA/adult-redeploy-client-next"
+              target="_blank"
               class="footer-link"
               >Github</a
             ></strong
           >&nbsp;|&nbsp;<strong
-            ><a href="/status.html" class="footer-link"
+            ><a href="/status.html" target="_blank" class="footer-link"
               >Server Status</a
             ></strong
           >
