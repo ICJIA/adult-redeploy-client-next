@@ -13,7 +13,7 @@
         <transition name="fade" mode="out-in">
           <router-view v-if="$store.getters.isApiReady"></router-view>
           <div v-else>
-             <v-alert
+            <v-alert
               type="warning"
               class="text-center"
               v-if="env === 'development'"
@@ -30,7 +30,6 @@
                 >
               </div>
             </v-alert>
-           
           </div>
         </transition>
       </v-content>

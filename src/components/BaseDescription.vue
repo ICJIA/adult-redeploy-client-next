@@ -3,13 +3,14 @@
     <v-card-title class="site-desription-title px-3">{{
       content[0].title
     }}</v-card-title>
-    <v-card-text
-      ><div
+    <v-card-text>
+      <div
         v-html="renderToHtml(content[0].content)"
         v-if="content[0].content"
         class="site-description"
       ></div>
-      <div class="text-right" v-if="showUpdated">
+
+      <div class="text-right" v-if="showUpdated && content[0].updatedAt">
         Last updated: {{ content[0].updatedAt | timeAgoFormat }}
       </div>
     </v-card-text>
@@ -36,3 +37,5 @@ export default {
   }
 };
 </script>
+
+<style></style>

@@ -18,7 +18,7 @@
                   :item="item"
                   background="#fafafa"
                   elevation="1"
-                  class="card pt-3"
+                  class="card pt-3 "
                   ><template slot="contentType">
                     <div
                       class="text-right pr-3 pt-3 heavy"

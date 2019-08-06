@@ -9,7 +9,9 @@
 
     <base-content :loading="loading">
       <template v-slot:content v-if="content">
-        <BaseDescription :content="content"></BaseDescription>
+        <div class="animated fadeIn">
+          <BaseDescription :content="content"></BaseDescription>
+        </div>
       </template>
     </base-content>
   </div>
@@ -69,4 +71,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

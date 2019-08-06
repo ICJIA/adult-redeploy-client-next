@@ -10,8 +10,17 @@
           </v-layout>
         </v-container>
       </template>
-      <!-- <template slot="page-list" v-if="content.pages">
-        <base-list :items="content.pages">
+      <template v-slot:content>
+        <v-container v-if="content">
+          <v-layout wrap>
+            <v-flex xs12>
+              <div v-html="renderToHtml(content.summary)"></div>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </template>
+      <template slot="page-list" v-if="content.pages">
+        <base-list :items="content.pages" empty="">
           <template slot-scope="item">
             <v-container>
               <v-flex xs12>
@@ -20,9 +29,8 @@
             </v-container>
           </template>
         </base-list>
-      </template> -->
+      </template>
     </base-content>
-    {{ content }}
   </div>
 </template>
 

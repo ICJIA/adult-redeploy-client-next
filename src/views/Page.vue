@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-content :loading="loading">
+    <base-content :loading="loading" id="baseContentTop">
       <template v-slot:title>
         <v-container v-if="content">
           <v-layout wrap>
@@ -11,12 +11,14 @@
         </v-container>
       </template>
       <template v-slot:content>
-        <v-container v-if="content">
+        <v-container v-if="content" id="scrollArea">
           <v-layout wrap>
             <v-flex :[dynamicFlex]="true">
               <div v-html="renderToHtml(content[0].content)"></div>
             </v-flex>
-            <v-flex xs2 v-if="showToc"><TOC></TOC></v-flex>
+            <v-flex xs2 v-if="showToc" class="hidden-sm-and-down"
+              ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
+            ></v-flex>
           </v-layout>
         </v-container>
       </template>
@@ -53,7 +55,11 @@ export default {
   },
   computed: {
     dynamicFlex() {
-      return this.showToc ? "xs10" : "xs12";
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "xs12";
+      } else {
+        return this.showToc ? "xs10" : "xs12";
+      }
     }
   },
 

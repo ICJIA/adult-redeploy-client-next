@@ -132,3 +132,9 @@ summary:hover {
   margin-bottom: 15px;
   line-height: 1.5em;
 }
+
+@media print {
+  .noprint {
+    visibility: hidden;
+  }
+}

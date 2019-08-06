@@ -1,5 +1,5 @@
 <template>
-  <v-footer dark padless>
+  <v-footer dark padless class="noprint">
     <v-card
       flat
       tile
@@ -59,14 +59,14 @@
               >Illinois Criminal Justice Information Authority</a
             ></strong
           >&nbsp;|&nbsp;<strong
-            ><a href="/status.html" class="footer-link"
-              >Server Status</a
-            ></strong
-          >&nbsp;|&nbsp;<strong
             ><a
               href="https://github.com/ICJIA/adult-redeploy-client-next"
               class="footer-link"
               >Github</a
+            ></strong
+          >&nbsp;|&nbsp;<strong
+            ><a href="/status.html" class="footer-link"
+              >Server Status</a
             ></strong
           >
         </div>

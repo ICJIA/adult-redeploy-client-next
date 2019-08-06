@@ -87,19 +87,4 @@ export default {
 };
 </script>
 
-<style>
-.site-desription-title {
-  background: #067879;
-  font-weight: 900;
-  color: #ffff;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.site-description {
-  color: #000;
-}
-.site-description h2 {
-  margin-bottom: 15px;
-  line-height: 1.5em;
-}
-</style>
+<style></style>
