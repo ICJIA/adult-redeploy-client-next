@@ -19,7 +19,7 @@
           </v-layout>
         </v-container>
       </template>
-      <template slot="page-list" v-if="content.pages">
+      <template slot="page-list" v-if="content">
         <v-container>
           <ul class="pageList">
             <base-list :items="content.pages" empty="">

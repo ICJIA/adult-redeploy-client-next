@@ -14,7 +14,10 @@
         <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
-              <div v-html="renderToHtml(content[0].content)"></div>
+              <div
+                v-html="renderToHtml(content[0].content)"
+                v-if="content[0].content"
+              ></div>
             </v-flex>
           </v-layout>
         </v-container>

@@ -14,7 +14,10 @@
         <v-container v-if="content" id="scrollArea">
           <v-layout wrap>
             <v-flex :[dynamicFlex]="true">
-              <div v-html="renderToHtml(content[0].content)"></div>
+              <div
+                v-html="renderToHtml(content[0].content)"
+                v-if="content[0].content"
+              ></div>
             </v-flex>
             <v-flex xs2 v-if="showToc" class="hidden-sm-and-down"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC

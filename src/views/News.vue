@@ -13,8 +13,24 @@
       <template v-slot:content>
         <v-container v-if="content">
           <v-layout wrap>
+            <v-flex xs12>
+              <div
+                v-html="renderToHtml(content[0].content)"
+                v-if="content[0].content"
+              ></div>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </template>
+      <template v-slot:page-list>
+        <v-container v-if="news">
+          <v-layout wrap>
             <v-flex xs12 class="mb-10">
-              {{ content[0].content }}
+              <base-list :items="news" empty="">
+                <template slot-scope="item">
+                  <div>{{ item }}</div>
+                </template>
+              </base-list>
             </v-flex>
           </v-layout>
         </v-container>
@@ -25,17 +41,21 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import { getPageBySection } from "@/services/Content";
+import BaseList from "@/components/BaseList";
+import { getPageBySection, getNews } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 export default {
   components: {
-    BaseContent
+    BaseContent,
+    BaseList
   },
   data() {
     return {
       loading: false,
-      content: []
+      content: [],
+      news: [],
+      renderToHtml
     };
   },
   created() {
@@ -56,12 +76,22 @@ export default {
         params: { section, slug }
       });
 
+      const newsName = `getNews`;
+      contentMap.set(newsName, {
+        hash: getHash(newsName),
+        query: getNews,
+        params: {}
+      });
+
       await this.$store.dispatch("cacheContent", contentMap);
 
       this.sectionContent = this.$store.getters.getContentFromCache(
         contentMap,
         name
       );
+
+      this.news = this.$store.getters.getContentFromCache(contentMap, newsName);
+      console.log(this.news);
 
       if (checkIfValidPage(this.sectionContent)) {
         this.content = this.sectionContent[0].pages;
