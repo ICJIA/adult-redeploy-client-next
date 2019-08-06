@@ -5,7 +5,7 @@
 
     <base-content :loading="loading">
       <template v-slot:content>
-        <v-container>
+        <v-container fluid>
           <v-layout wrap>
             <v-flex
               xs12
@@ -71,7 +71,7 @@ export default {
     contentMap.set("getFrontPageNews", {
       hash: getHash("getFrontPageNews-home"),
       query: getFrontPageNews,
-      params: { limit: 3 }
+      params: { limit: this.$store.getters.config.frontPageItems.news }
     });
 
     await this.$store.dispatch("cacheContent", contentMap);

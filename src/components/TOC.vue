@@ -1,6 +1,10 @@
 <template>
   <div class="pl-10 toc">
-    <div style="margin-left: -3px; font-weight: bold;" class="mb-4">
+    <div
+      style="margin-left: -3px; font-weight: bold;"
+      class="mb-4 hover"
+      @click="$vuetify.goTo(0)"
+    >
       NAVIGATION
     </div>
     <div class="divider">

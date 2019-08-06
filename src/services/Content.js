@@ -88,6 +88,7 @@ const getFrontPageNewsQuery = limit => {
       slug
     }
     summary
+    content
     createdAt
     isPublished
     
@@ -106,6 +107,7 @@ const getNewsQuery = () => {
       slug
     }
     summary
+    content
     createdAt
     isPublished
     

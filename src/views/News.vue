@@ -28,7 +28,7 @@
             <v-flex xs12 class="mb-10">
               <base-list :items="news" empty="">
                 <template slot-scope="item">
-                  <div>{{ item }}</div>
+                  <NewsCard :content="item" :height="200"></NewsCard>
                 </template>
               </base-list>
             </v-flex>
@@ -42,13 +42,15 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
+import NewsCard from "@/components/NewsCard";
 import { getPageBySection, getNews } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 export default {
   components: {
     BaseContent,
-    BaseList
+    BaseList,
+    NewsCard
   },
   data() {
     return {
