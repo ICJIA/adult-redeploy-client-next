@@ -2,7 +2,10 @@
   <div>
     <base-content :loading="loading" id="baseContentTop">
       <template v-slot:title>
-        <v-container v-if="content">
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex xs12>
               <h1 class="page-title">{{ content[0].title }}</h1>
@@ -11,7 +14,11 @@
         </v-container>
       </template>
       <template v-slot:content>
-        <v-container v-if="content" id="scrollArea">
+        <v-container
+          v-if="content"
+          id="scrollArea"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex :[dynamicFlex]="true">
               <div

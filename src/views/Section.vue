@@ -2,7 +2,10 @@
   <div>
     <base-content :loading="loading">
       <template v-slot:title>
-        <v-container v-if="content">
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex xs12>
               <h1 class="page-title">{{ content.title }}</h1>
@@ -11,7 +14,10 @@
         </v-container>
       </template>
       <template v-slot:content>
-        <v-container v-if="content">
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex xs12>
               <div v-html="renderToHtml(content.summary)"></div>
@@ -20,7 +26,7 @@
         </v-container>
       </template>
       <template slot="page-list" v-if="content">
-        <v-container>
+        <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <ul class="pageList">
             <base-list :items="content.pages" empty="">
               <template slot-scope="item">

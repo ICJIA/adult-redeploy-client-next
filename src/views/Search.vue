@@ -2,7 +2,10 @@
   <div>
     <base-content :loading="loading">
       <template v-slot:content>
-        <v-container fluid v-if="content">
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex xs12>
               <div v-html="renderToHtml(content[0].content)"></div>
@@ -11,7 +14,7 @@
         </v-container>
       </template>
       <template v-slot:special>
-        <v-container>
+        <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
               <!-- {{ searchIndex }} -->

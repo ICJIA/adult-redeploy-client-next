@@ -2,7 +2,10 @@
   <div>
     <base-content :loading="loading">
       <template v-slot:title>
-        <v-container v-if="content">
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex xs12>
               <h1 class="page-title">{{ content[0].title }}</h1>
@@ -11,7 +14,10 @@
         </v-container>
       </template>
       <template v-slot:content>
-        <v-container v-if="content">
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
               {{ content[0].content }}
@@ -20,7 +26,7 @@
         </v-container>
       </template>
       <template v-slot:special>
-        <v-container>
+        <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <v-layout wrap>
             <v-flex xs12 sm6 md6>
               <div>
