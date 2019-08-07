@@ -71,20 +71,21 @@ export default {
   async created() {
     this.fuse = new Fuse(this.searchContent, {
       shouldSort: true,
-      threshold: 0.7,
+      threshold: 0.9,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
       minMatchCharLength: 1,
       keys: [
         "searchMeta",
-        "title",
         "firstName",
         "lastName",
+        "title",
         "summary",
         "content",
         "category",
         "tags.name",
+        "alphabetizeBy",
         "createdAt"
       ]
     });
@@ -101,6 +102,7 @@ export default {
   },
   methods: {
     instantSearch() {
+      console.log(this.query);
       this.queryResults = this.fuse.search(this.query);
       //console.log(this.fuse.search(this.query));
     },

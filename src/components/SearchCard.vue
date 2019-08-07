@@ -23,8 +23,8 @@
         </div>
 
         <v-card-text class="px-3 pb-5">
-          <div v-if="item.firstName && item.lastName">
-            {{ item.content }}
+          <div v-if="item.firstName && item.lastName && item.content">
+            {{ item.content | truncate(25) }}
           </div>
           <div v-else>{{ item.summary }}</div>
         </v-card-text>

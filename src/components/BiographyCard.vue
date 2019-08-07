@@ -33,12 +33,14 @@
             style="font-size: 12px"
             v-if="displayCategory"
           >
-            <div v-if="person.category === 'board'">
-              OVERSIGHT BOARD
-            </div>
-            <div v-else>
-              STAFF
-            </div>
+            <router-link to="/about/biographies" class="no-underline">
+              <div v-if="person.category === 'board'">
+                OVERSIGHT BOARD
+              </div>
+              <div v-else>
+                STAFF
+              </div>
+            </router-link>
           </div>
         </v-list-item-content>
       </v-list-item>
