@@ -6,7 +6,11 @@
       style="min-height: 150px"
     >
       <v-list-item three-line>
-        <v-list-item-avatar tile size="100" color="grey"></v-list-item-avatar>
+        <v-list-item-avatar tile size="85" color="grey" v-if="person.headshot">
+          <v-img
+            src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+          ></v-img>
+        </v-list-item-avatar>
         <v-list-item-content>
           <div
             class="overline mb-4"
