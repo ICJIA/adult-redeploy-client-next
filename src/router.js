@@ -61,7 +61,13 @@ export default new Router({
       path: "/about/biographies",
       name: "biographies",
       component: () =>
-        import(/* webpackChunkName: "members" */ "./views/Biographies.vue")
+        import(/* webpackChunkName: "biographies" */ "./views/Biographies.vue")
+    },
+    {
+      path: "/about/biographies/:slug",
+      name: "biographiesSingle",
+      component: () =>
+        import(/* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue")
     },
     {
       path: "/about/meetings/:slug",

@@ -39,6 +39,11 @@ const getSearchIndex = async () => {
       return item;
     });
 
+    let biographies = searchIndex["biographies"].map(item => {
+      item.parentPath = "/about/biographies";
+      return item;
+    });
+
     // let publications = searchIndex["publications"].map(item => {
     //   item.parentPath = "/publications/" + item.category.slug;
 
@@ -47,7 +52,7 @@ const getSearchIndex = async () => {
 
     // return [...news, ...pages, ...meetings, ...publications];
     //console.log(sites);
-    return [...news, ...pages, ...meetings, ...sites];
+    return [...news, ...pages, ...meetings, ...sites, ...biographies];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
     console.log(e.toString());

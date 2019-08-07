@@ -79,6 +79,8 @@ export default {
       keys: [
         "searchMeta",
         "title",
+        "firstName",
+        "lastName",
         "summary",
         "content",
         "category",

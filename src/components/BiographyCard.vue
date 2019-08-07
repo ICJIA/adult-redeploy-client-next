@@ -3,18 +3,23 @@
     <v-card
       class="mx-auto white mb-8 elevation-1"
       outlined
-      style="min-height: 130px"
+      style="min-height: 150px"
     >
       <v-list-item three-line>
-        <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
+        <v-list-item-avatar tile size="100" color="grey"></v-list-item-avatar>
         <v-list-item-content>
           <div
             class="overline mb-4"
             style="font-size: 12px !important;"
             v-html="person.membership"
           ></div>
+
           <v-list-item-title class="headline mb-1"
-            >{{ person.firstName }} {{ person.lastName }}</v-list-item-title
+            ><router-link
+              :to="`/about/biographies/${person.slug}`"
+              class="no-underline"
+              >{{ person.firstName }} {{ person.lastName }}</router-link
+            ></v-list-item-title
           >
           <v-list-item-subtitle>{{ person.title }}</v-list-item-subtitle>
 
@@ -23,6 +28,18 @@
             v-if="person.content"
             v-html="renderToHtml(person.content)"
           ></div>
+          <div
+            class="mt-5 text-right heavy"
+            style="font-size: 12px"
+            v-if="displayCategory"
+          >
+            <div v-if="person.category === 'board'">
+              OVERSIGHT BOARD
+            </div>
+            <div v-else>
+              STAFF
+            </div>
+          </div>
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -41,6 +58,10 @@ export default {
     person: {
       type: Object,
       default: () => {}
+    },
+    displayCategory: {
+      type: Boolean,
+      default: false
     }
   }
 };

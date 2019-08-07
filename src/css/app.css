@@ -9,6 +9,10 @@
   font-family: "Lato", sans-serif !important;
 }
 
+a.no-underline {
+  text-decoration: none;
+}
+
 .carousel-large {
   font-size: 55px;
   color: #fff;

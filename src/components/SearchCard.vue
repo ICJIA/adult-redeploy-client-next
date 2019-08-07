@@ -10,9 +10,24 @@
       >
         <slot name="contentType" />
         <h2 class="py-2 px-3">
-          {{ item.title }}
+          <div v-if="item.firstName && item.lastName">
+            {{ item.firstName }} {{ item.lastName }}
+          </div>
+          <div v-else>{{ item.title }}</div>
         </h2>
-        <v-card-text class="px-3 pb-5">{{ item.summary }}</v-card-text>
+
+        <div v-if="item.firstName && item.lastName">
+          <h3 class="pb-2 px-3" style="color: #aaa; font-size: 14px">
+            {{ item.title }}
+          </h3>
+        </div>
+
+        <v-card-text class="px-3 pb-5">
+          <div v-if="item.firstName && item.lastName">
+            {{ item.content }}
+          </div>
+          <div v-else>{{ item.summary }}</div>
+        </v-card-text>
 
         <slot name="tags" />
       </v-card>

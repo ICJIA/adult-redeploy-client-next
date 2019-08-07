@@ -117,6 +117,25 @@ const query = `{
     siteType
   }
 
+
+  biographies (where: {isPublished: true}){
+   
+    firstName
+    lastName
+    membership
+    isPublished
+    order
+    slug
+    title
+    content
+    category
+    alphabetizeBy
+     headshot {
+      url
+      name
+    }
+  }
+
   
  
  
