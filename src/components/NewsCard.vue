@@ -24,7 +24,7 @@
           :content="renderToHtml(content.content)"
           :height="height"
           readMoreText="Read More"
-          readLessText="Less"
+          :hideReadLess="true"
           class="markdown-body"
         ></readmore>
       </v-card-text>

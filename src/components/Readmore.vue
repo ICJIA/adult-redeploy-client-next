@@ -53,6 +53,7 @@ export default {
       type: String,
       default: "Content Not Defined"
     },
+
     readMoreText: {
       type: String,
       default: "Read More"
@@ -122,6 +123,7 @@ export default {
     getTransitionSpeed() {
       return `height ${this.transitionSpeed}s ease-out`;
     },
+
     getHeight() {
       if (this.hideButton) {
         return "100%";

@@ -397,6 +397,23 @@ const getAllSiteDescriptionsQuery = () => {
 }`;
 };
 
+const getAllBiographiesQuery = () => {
+  return `
+  {
+  biographies (sort: "alphabetizeBy:asc", where: {isPublished: true}){
+   
+    firstName
+    lastName
+    membership
+    order
+    title
+    content
+    category
+    alphabetizeBy
+  }
+}`;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -550,6 +567,17 @@ const getAllSiteDescriptions = async () => {
   }
 };
 
+const getAllBiographies = async () => {
+  try {
+    let biographies = await queryEndpoint(getAllBiographiesQuery());
+    return biographies.data.data.biographies;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -563,5 +591,6 @@ export {
   getSections,
   getPageBySection,
   getSiteDescription,
-  getAllSiteDescriptions
+  getAllSiteDescriptions,
+  getAllBiographies
 };

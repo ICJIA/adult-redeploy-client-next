@@ -1,5 +1,5 @@
 <template>
-  <div id="scrollArea">
+  <div>
     <base-content :loading="loading" id="baseContentTop">
       <template v-slot:title>
         <v-container
@@ -17,6 +17,7 @@
         <v-container
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          id="scrollArea"
         >
           <v-layout wrap>
             <v-flex :[dynamicFlex]="true">
@@ -24,78 +25,15 @@
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
               ></div>
-              <h2 class="mt-12 mb-4" id="oversight-board">Oversight Board</h2>
-              <div v-for="n in 20" :key="n">
-                <v-card class="mx-auto white mb-8 elevation-1" outlined>
-                  <v-list-item three-line>
-                    <v-list-item-avatar
-                      tile
-                      size="80"
-                      color="grey"
-                    ></v-list-item-avatar>
-                    <v-list-item-content>
-                      <div
-                        class="overline mb-4"
-                        style="font-size: 12px !important;"
-                      >
-                        Director of Illinois Department of Corrections (IDOC),
-                        Co-Chair
-                      </div>
-                      <v-list-item-title class="headline mb-1"
-                        >John Baldwin</v-list-item-title
-                      >
-                      <v-list-item-subtitle
-                        >Acting Director, IDOC</v-list-item-subtitle
-                      >
-                      <div class="mt-5">
-                        Quam iter, obstitit dura ferarum terras! Ambo conplexus
-                        procul. Aeneae sic procul flammamque conversae late
-                        vates tenebras, sanguineae? Cessit gravidus mitissima
-                        tenebat et, concipe et exi formae habentem Marte.
-                        Contractosque inque vestigia egentes, Phegiaco
-                        *conatoque* inquit memorantur Alcathoi et. Mora magno
-                        procubuere causa. Imi excidit educat ignara protinus
-                        inarata Veneris mediis; tua tibi dextra ferrumque **in**
-                        dea nitidaque vulnere quotiens se deus. Omnipotens
-                        exire.
-                      </div>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-card>
+
+              <h2 class="mt-12 mb-5" id="oversight-board">Oversight Board</h2>
+
+              <div v-for="(person, index) in board" :key="`board-${index}`">
+                <BiographyCard :person="person"></BiographyCard>
               </div>
-              <h2 class="mt-12 mb-4" id="staff">Staff</h2>
-              <div v-for="n in 10" :key="`staff-${n}`">
-                <v-card class="mx-auto white mb-8" outlined>
-                  <v-list-item three-line>
-                    <v-list-item-avatar
-                      tile
-                      size="80"
-                      color="grey"
-                    ></v-list-item-avatar>
-                    <v-list-item-content>
-                      <div class="overline mb-4">OVERLINE</div>
-                      <v-list-item-title class="headline mb-1"
-                        >Headline 5</v-list-item-title
-                      >
-                      <v-list-item-subtitle
-                        >Greyhound divisely hello coldly
-                        fonwderfully</v-list-item-subtitle
-                      >
-                      <div class="mt-5">
-                        Quam iter, obstitit dura ferarum terras! Ambo conplexus
-                        procul. Aeneae sic procul flammamque conversae late
-                        vates tenebras, sanguineae? Cessit gravidus mitissima
-                        tenebat et, concipe et exi formae habentem Marte.
-                        Contractosque inque vestigia egentes, Phegiaco
-                        *conatoque* inquit memorantur Alcathoi et. Mora magno
-                        procubuere causa. Imi excidit educat ignara protinus
-                        inarata Veneris mediis; tua tibi dextra ferrumque **in**
-                        dea nitidaque vulnere quotiens se deus. Omnipotens
-                        exire.
-                      </div>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-card>
+              <h2 class="mb-5" id="staff">Staff</h2>
+              <div v-for="(person, index) in staff" :key="`staff-${index}`">
+                <BiographyCard :person="person"></BiographyCard>
               </div>
             </v-flex>
             <v-flex xs2 v-if="showToc" class="hidden-sm-and-down"
@@ -109,15 +47,14 @@
 </template>
 
 <script>
+import _ from "lodash/core";
 import BaseContent from "@/components/BaseContent";
+import BiographyCard from "@/components/BiographyCard";
 import TOC from "@/components/TOC";
-import { getPageBySection } from "@/services/Content";
+import { getPageBySection, getAllBiographies } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 export default {
-  watch: {
-    $route: "fetchContent"
-  },
   data() {
     return {
       loading: true,
@@ -125,11 +62,15 @@ export default {
       checkIfValidPage,
       renderToHtml,
       showToc: false,
-      sectionContent: null
+      sectionContent: null,
+      staff: null,
+      board: null,
+      person: {}
     };
   },
   components: {
     BaseContent,
+    BiographyCard,
     TOC
   },
   created() {
@@ -160,6 +101,13 @@ export default {
         params: { section, slug }
       });
 
+      const biographies = `getAllBiographies`;
+      contentMap.set(biographies, {
+        hash: getHash(biographies),
+        query: getAllBiographies,
+        params: {}
+      });
+
       await this.$store.dispatch("cacheContent", contentMap);
 
       this.sectionContent = this.$store.getters.getContentFromCache(
@@ -178,6 +126,20 @@ export default {
       } else {
         this.routeToError();
       }
+
+      let biographyContent = this.$store.getters.getContentFromCache(
+        contentMap,
+        biographies
+      );
+
+      this.staff = biographyContent.filter(person => {
+        return person.category === "staff";
+      });
+
+      this.board = biographyContent.filter(person => {
+        return person.category === "board";
+      });
+      this.board = _.sortBy(this.board, "order");
 
       this.loading = false;
     },

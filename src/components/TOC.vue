@@ -103,30 +103,6 @@ export default {
   border-left: 1px solid #ccc;
 }
 
-.toc {
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 125px;
-}
-
-ul.toc-list {
-  list-style-type: none;
-}
-
-ul.toc-list li {
-  color: #999;
-
-  padding: 2px 5px 2px 5px;
-  cursor: pointer;
-  margin-bottom: 8px;
-  font-size: 12px;
-}
-
-ul.toc-list li:hover {
-  color: #065f60;
-  background: #eee;
-}
-
 .visible {
   color: #057879;
   font-weight: bold;
