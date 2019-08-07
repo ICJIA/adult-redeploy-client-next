@@ -63,10 +63,15 @@
               href="https://github.com/ICJIA/adult-redeploy-client-next"
               target="_blank"
               class="footer-link"
+              rel="noreferrer"
               >Github</a
             ></strong
           >&nbsp;|&nbsp;<strong
-            ><a href="/status.html" target="_blank" class="footer-link"
+            ><a
+              href="/status.html"
+              target="_blank"
+              rel="noreferrer"
+              class="footer-link"
               >Server Status</a
             ></strong
           >
