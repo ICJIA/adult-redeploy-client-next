@@ -125,6 +125,8 @@ const query = `{
     membership
     isPublished
     order
+    prefix
+    suffix
     slug
     title
     content

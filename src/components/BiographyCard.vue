@@ -18,8 +18,9 @@
             ><router-link
               :to="`/about/biographies/${person.slug}`"
               class="no-underline"
-              >{{ person.firstName }} {{ person.lastName }}</router-link
-            ></v-list-item-title
+              >{{ person.prefix }} {{ person.firstName }} {{ person.lastName }}
+              {{ person.suffix }}
+            </router-link></v-list-item-title
           >
           <v-list-item-subtitle>{{ person.title }}</v-list-item-subtitle>
 

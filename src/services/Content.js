@@ -407,6 +407,8 @@ const getAllBiographiesQuery = () => {
     membership
     order
     slug
+    prefix
+    suffix
     title
     content
     category
@@ -428,6 +430,8 @@ const getSingleBiographiesQuery = slug => {
     lastName
     membership
     order
+    prefix
+    suffix
     slug
     title
     content

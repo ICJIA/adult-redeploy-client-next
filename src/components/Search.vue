@@ -71,7 +71,7 @@ export default {
   async created() {
     this.fuse = new Fuse(this.searchContent, {
       shouldSort: true,
-      threshold: 0.9,
+      threshold: 0.8,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
@@ -102,7 +102,6 @@ export default {
   },
   methods: {
     instantSearch() {
-      console.log(this.query);
       this.queryResults = this.fuse.search(this.query);
       //console.log(this.fuse.search(this.query));
     },
