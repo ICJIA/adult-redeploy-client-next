@@ -68,9 +68,8 @@
             ></strong
           >&nbsp;|&nbsp;<strong
             ><a
-              href="/status.html"
+              href="https://ari-dev.netlify.com/status.html"
               target="_blank"
-              rel="noreferrer"
               class="footer-link"
               >Server Status</a
             ></strong

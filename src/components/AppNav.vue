@@ -15,9 +15,11 @@
       :width="logoWidth()"
       style="margin-left: -5px; margin-right: 8px;"
       class="hover"
-      @click="$router.push('/')"
+      @click="$router.push('/').catch(err => {})"
     />&nbsp;&nbsp;&nbsp;&nbsp;
-    <v-toolbar-title class="heavy hover" @click="$router.push('/')"
+    <v-toolbar-title
+      class="heavy hover"
+      @click="$router.push('/').catch(err => {})"
       ><span style="" class="agency"
         >ADULT REDEPLOY ILLINOIS</span
       ></v-toolbar-title
@@ -54,7 +56,11 @@
               <v-list-item-group color="primary">
                 <v-list-item v-for="(subItem, i) in link.pages" :key="i">
                   <v-list-item-content
-                    @click="$router.push(`/${link.slug}/${subItem.slug}`)"
+                    @click="
+                      $router
+                        .push(`/${link.slug}/${subItem.slug}`)
+                        .catch(err => {})
+                    "
                   >
                     <v-list-item-title
                       v-text="subItem.title"

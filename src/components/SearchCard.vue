@@ -61,9 +61,11 @@ export default {
       if (!item.slug) return;
 
       if (item.parentPath === "/") {
-        this.$router.push(`/${item.slug}`);
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push(`/${item.slug}`).catch(err => {});
       } else {
-        this.$router.push(`${item.parentPath}/${item.slug}`);
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push(`${item.parentPath}/${item.slug}`).catch(err => {});
       }
     }
   }

@@ -154,9 +154,9 @@ export default new Vuex.Store({
 
         let metaInfo = {
           itemsCached: res.length,
+          totalCacheSize: state.cache.size,
           millisecondsToComplete: end,
-          previouslyCached: false,
-          cacheSize: state.cache.size
+          previouslyCached: false
         };
 
         if (state.config.debug) {
@@ -168,9 +168,9 @@ export default new Vuex.Store({
         end = new Date() - start;
         let metaInfo = {
           itemsCached: queries.length,
+          totalCacheSize: state.cache.size,
           millisecondsToComplete: end,
-          previouslyCached: true,
-          cacheSize: state.cache.size
+          previouslyCached: true
         };
         if (state.config.debug) {
           console.log(metaInfo);

@@ -28,7 +28,9 @@
             <v-list-item-content>
               <v-list-item-title
                 @click="
-                  $router.push(link.slug === 'home' ? '/' : `/${link.slug}`)
+                  $router
+                    .push(link.slug === 'home' ? '/' : `/${link.slug}`)
+                    .catch(err => {})
                 "
                 style="font-weight: 900 !important; cursor: pointer"
                 class="push-right"
@@ -51,7 +53,9 @@
                 <v-list-item-title
                   v-text="item.title"
                   class="push-right"
-                  @click="$router.push(`/${link.slug}/${item.slug}`)"
+                  @click="
+                    $router.push(`/${link.slug}/${item.slug}`).catch(err => {})
+                  "
                 ></v-list-item-title>
               </v-list-item>
             </span>

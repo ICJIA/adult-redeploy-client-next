@@ -73,14 +73,17 @@ export default {
     routeToError() {
       this.content = null;
       this.loading = false;
-      this.$router.push({
-        name: "error",
-        params: {
-          msg: "Page not found",
-          statusCode: 404,
-          debug: this.$route.params
-        }
-      });
+      this.$router
+        .push({
+          name: "error",
+          params: {
+            msg: "Page not found",
+            statusCode: 404,
+            debug: this.$route.params
+          }
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch(err => {});
     }
   }
 };
