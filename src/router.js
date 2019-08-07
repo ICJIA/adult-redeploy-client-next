@@ -58,6 +58,12 @@ export default new Router({
         import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
     },
     {
+      path: "/about/biographies",
+      name: "biographies",
+      component: () =>
+        import(/* webpackChunkName: "members" */ "./views/Biographies.vue")
+    },
+    {
       path: "/about/meetings/:slug",
       name: "meetingsSingle",
       component: () =>
@@ -74,7 +80,7 @@ export default new Router({
       path: "/sandbox",
       name: "sandbox",
       component: () =>
-        import(/* webpackChunkName: "error" */ "./views/Sandbox.vue")
+        import(/* webpackChunkName: "sandbox" */ "./views/Sandbox.vue")
     },
     {
       path: "/search",
@@ -82,6 +88,7 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "search" */ "./views/Search.vue")
     },
+
     {
       path: "/:section",
       name: "section",

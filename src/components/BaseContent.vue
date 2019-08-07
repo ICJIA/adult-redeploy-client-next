@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="py-9 px-2" v-if="!loading">
+    <div class="py-9 px-4" v-if="!loading">
       <slot name="title"></slot>
       <slot name="printer"></slot>
       <slot name="content"></slot>
       <slot name="special"></slot>
+      <slot name="member-list"></slot>
       <slot name="page-list"></slot>
       <slot name="site-list"></slot>
     </div>

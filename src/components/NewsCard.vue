@@ -3,9 +3,15 @@
     <v-card class="mx-auto py-5 mb-8" color="white">
       <v-list-item three-line>
         <v-list-item-content>
-          <div class="overline mb-4 heavy">
+          <!-- <div class="overline mb-4 heavy">
             {{ content.createdAt | format }}
-          </div>
+          </div> -->
+          <PostedDate
+            :createdAt="content.createdAt"
+            :updatedAt="content.updatedAt"
+            class=""
+            style="margin-left: -15px;"
+          ></PostedDate>
           <v-list-item-title class="headline mb-1" style="font-weight: 700"
             ><router-link :to="`/news/${content.slug}`" class="news-link">{{
               content.title | titleCase
@@ -27,8 +33,14 @@
 </template>
 
 <script>
+import Readmore from "@/components/Readmore";
+import PostedDate from "@/components/PostedDate";
 import { renderToHtml } from "@/services/Markdown";
 export default {
+  components: {
+    PostedDate,
+    Readmore
+  },
   data() {
     return {
       renderToHtml

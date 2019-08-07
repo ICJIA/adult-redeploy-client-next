@@ -5,8 +5,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import "@/filters";
 import "@/css/app.css";
-import Readmore from "vue-readmore-readless";
-Vue.use(Readmore);
+
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
 NProgress.configure({ showSpinner: false });

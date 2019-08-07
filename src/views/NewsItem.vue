@@ -8,6 +8,11 @@
         >
           <v-layout wrap>
             <v-flex xs12>
+              <PostedDate
+                :createdAt="content[0].createdAt"
+                :updatedAt="content[0].updatedAt"
+                style="margin-left: -15px"
+              ></PostedDate>
               <h1 class="page-title">{{ content[0].title }}</h1>
             </v-flex>
           </v-layout>
@@ -34,6 +39,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
+import PostedDate from "@/components/PostedDate";
 import { getPost } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
@@ -49,7 +55,8 @@ export default {
     };
   },
   components: {
-    BaseContent
+    BaseContent,
+    PostedDate
   },
   created() {
     this.fetchContent();

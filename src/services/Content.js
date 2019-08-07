@@ -327,9 +327,10 @@ const getSectionsQuery = () => {
     displayFooter
     displayDrawer
     
-    pages {
+    pages (sort: "order:asc") {
       title
       slug
+      order
       isPublished
       summary
     }
