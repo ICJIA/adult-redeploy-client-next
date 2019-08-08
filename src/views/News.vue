@@ -120,7 +120,9 @@ export default {
           params: { msg: "Page not found", statusCode: 404 }
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch(err => {
+          $vuetify.goTo(0);
+        });
     }
   },
   props: {

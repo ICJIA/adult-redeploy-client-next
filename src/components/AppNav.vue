@@ -15,11 +15,19 @@
       :width="logoWidth()"
       style="margin-left: -5px; margin-right: 8px;"
       class="hover"
-      @click="$router.push('/').catch(err => {})"
+      @click="
+        $router.push('/').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
     />&nbsp;&nbsp;&nbsp;&nbsp;
     <v-toolbar-title
       class="heavy hover"
-      @click="$router.push('/').catch(err => {})"
+      @click="
+        $router.push('/').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
       ><span style="" class="agency"
         >ADULT REDEPLOY ILLINOIS</span
       ></v-toolbar-title
@@ -59,7 +67,9 @@
                     @click="
                       $router
                         .push(`/${link.slug}/${subItem.slug}`)
-                        .catch(err => {})
+                        .catch(err => {
+                          $vuetify.goTo(0);
+                        })
                     "
                   >
                     <v-list-item-title

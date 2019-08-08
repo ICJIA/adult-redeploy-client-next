@@ -62,10 +62,14 @@ export default {
 
       if (item.parentPath === "/") {
         // eslint-disable-next-line no-unused-vars
-        this.$router.push(`/${item.slug}`).catch(err => {});
+        this.$router.push(`/${item.slug}`).catch(err => {
+          $vuetify.goTo(0);
+        });
       } else {
         // eslint-disable-next-line no-unused-vars
-        this.$router.push(`${item.parentPath}/${item.slug}`).catch(err => {});
+        this.$router.push(`${item.parentPath}/${item.slug}`).catch(err => {
+          $vuetify.goTo(0);
+        });
       }
     }
   }

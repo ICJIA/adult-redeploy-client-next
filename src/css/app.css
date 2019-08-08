@@ -4,7 +4,7 @@ h2 {
 }
 
 blockquote {
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 .heavy {
@@ -123,6 +123,10 @@ a {
 #nprogress .spinner-icon {
   border-top-color: #3f51b5;
   border-left-color: #3f51b5;
+}
+
+details {
+  margin-left: 15px;
 }
 
 summary:hover {

@@ -30,7 +30,9 @@
                 @click="
                   $router
                     .push(link.slug === 'home' ? '/' : `/${link.slug}`)
-                    .catch(err => {})
+                    .catch(err => {
+                      $vuetify.goTo(0);
+                    })
                 "
                 style="font-weight: 900 !important; cursor: pointer"
                 class="push-right"
@@ -54,7 +56,9 @@
                   v-text="item.title"
                   class="push-right"
                   @click="
-                    $router.push(`/${link.slug}/${item.slug}`).catch(err => {})
+                    $router.push(`/${link.slug}/${item.slug}`).catch(err => {
+                      $vuetify.goTo(0);
+                    })
                   "
                 ></v-list-item-title>
               </v-list-item>

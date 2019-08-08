@@ -9,11 +9,11 @@
           <v-layout wrap>
             <v-flex xs12>
               <h1 class="page-title">{{ content[0].title }}</h1>
-              <div class="text-right noprint">
+              <!-- <div class="text-right noprint my-10">
                 <v-btn small @click="print"
                   >Print<v-icon right>print</v-icon></v-btn
                 >
-              </div>
+              </div> -->
             </v-flex>
           </v-layout>
         </v-container>
@@ -37,7 +37,7 @@
             <v-container
               :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
             >
-              <v-flex xs12>
+              <v-flex xs12 class="mt-12">
                 <BaseDescription :content="[...item]"></BaseDescription>
               </v-flex>
             </v-container>

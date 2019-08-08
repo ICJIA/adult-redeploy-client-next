@@ -83,7 +83,9 @@ export default {
           }
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch(err => {
+          $vuetify.goTo(0);
+        });
     }
   }
 };

@@ -2,7 +2,11 @@
   <div class="flexbox-container hide-sm-and-down">
     <div
       class="box box-1"
-      @click="$router.push('/programs/local-programs').catch(err => {})"
+      @click="
+        $router.push('/programs/local-programs').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
     >
       <h2 class="heavy text-center">Local Programs</h2>
       <p class="pt-4">
@@ -12,7 +16,14 @@
         neque.
       </p>
     </div>
-    <div class="box box-2" @click="$router.push('/resources').catch(err => {})">
+    <div
+      class="box box-2"
+      @click="
+        $router.push('/resources').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
+    >
       <h2 class="heavy text-center">Resources</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
@@ -21,7 +32,14 @@
         neque.
       </p>
     </div>
-    <div class="box box-3" @click="$router.push('/grants').catch(err => {})">
+    <div
+      class="box box-3"
+      @click="
+        $router.push('/grants').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
+    >
       <h2 class="heavy text-center">Grants</h2>
       <p class="pt-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
