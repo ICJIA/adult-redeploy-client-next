@@ -611,6 +611,7 @@ const getAllBiographies = async () => {
 
 const getSingleBiography = async ({ slug }) => {
   try {
+    slug = xss(slug);
     let biography = await queryEndpoint(getSingleBiographiesQuery(slug));
     return biography.data.data.biographies;
   } catch (e) {

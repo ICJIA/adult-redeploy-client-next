@@ -6,10 +6,10 @@
       style="min-height: 150px"
     >
       <v-list-item three-line>
-        <v-list-item-avatar tile size="85" color="grey" v-if="person.headshot">
-          <v-img
+        <v-list-item-avatar tile size="85" color="grey">
+          <!-- <v-img
             src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-          ></v-img>
+          ></v-img> -->
         </v-list-item-avatar>
         <v-list-item-content>
           <div
@@ -22,11 +22,11 @@
             ><router-link
               :to="`/about/biographies/${person.slug}`"
               class="no-underline"
-              >{{ person.prefix }} {{ person.firstName }} {{ person.lastName }}
-              {{ person.suffix }}
+              >{{ person.prefix }} {{ person.firstName }} {{ person.lastName
+              }}{{ person.suffix }}
             </router-link></v-list-item-title
           >
-          <v-list-item-subtitle>{{ person.title }}</v-list-item-subtitle>
+          <v-list-item-subtitle v-html="person.title"></v-list-item-subtitle>
 
           <div
             class="mt-5"
@@ -38,14 +38,17 @@
             style="font-size: 12px"
             v-if="displayCategory"
           >
-            <router-link to="/about/biographies" class="no-underline">
-              <div v-if="person.category === 'board'">
+            <div v-if="person.category === 'board'">
+              <!-- <router-link to="/about/oversight" class="no-underline">
                 OVERSIGHT BOARD
-              </div>
-              <div v-else>
-                STAFF
-              </div>
-            </router-link>
+              </router-link> -->
+              <v-btn small depressed to="/about/oversight"
+                >OVERSIGHT BOARD</v-btn
+              >
+            </div>
+            <div v-else>
+              <v-btn small depressed to="/about/staff">STAFF</v-btn>
+            </div>
           </div>
         </v-list-item-content>
       </v-list-item>
