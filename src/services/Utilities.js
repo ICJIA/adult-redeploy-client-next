@@ -13,6 +13,11 @@ const checkIfValidPage = arr => {
   }
 };
 
+const stripHTML = str => {
+  let regex = /(<([^>]+)>)/gi;
+  return str.replace(regex, "");
+};
+
 const titleCase = str => {
   return str
     .toLowerCase()
@@ -23,4 +28,4 @@ const titleCase = str => {
     .join(" ");
 };
 
-export { getHash, titleCase, checkIfValidPage };
+export { getHash, titleCase, checkIfValidPage, stripHTML };

@@ -19,7 +19,7 @@
 
         <div v-if="item.firstName && item.lastName">
           <h3 class="pb-2 px-3" style="color: #aaa; font-size: 14px">
-            {{ item.title }}
+            {{ stripHTML(item.title) }}
           </h3>
         </div>
 
@@ -27,7 +27,7 @@
           <div v-if="item.firstName && item.lastName && item.content">
             {{ item.content | truncate(25) }}
           </div>
-          <div v-else>{{ item.summary }}</div>
+          <div v-else>{{ stripHTML(item.summary) }}</div>
         </v-card-text>
 
         <slot name="tags" />
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { stripHTML } from "@/services/Utilities";
 export default {
   props: {
     item: {
@@ -53,7 +54,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      stripHTML
+    };
   },
   mounted() {},
   methods: {

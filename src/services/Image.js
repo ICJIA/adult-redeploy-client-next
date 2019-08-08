@@ -17,7 +17,7 @@ const getHeadshotLink = function(headshot) {
     .smartCrop(true)
     .filter("grayscale()")
     .buildUrl();
-  //console.log(link);
+
   return link;
 };
 

@@ -41,6 +41,7 @@
 import Fuse from "fuse.js";
 import BaseList from "@/components/BaseList";
 import SearchCard from "@/components/SearchCard";
+import { stripHTML } from "@/services/Utilities";
 
 export default {
   components: {
@@ -61,7 +62,8 @@ export default {
     return {
       query: "",
       queryResults: [],
-      content: ""
+      content: "",
+      stripHTML
     };
   },
   watch: {
