@@ -25,9 +25,11 @@
 
         <v-card-text class="px-3 pb-5">
           <div v-if="item.firstName && item.lastName && item.content">
-            {{ item.content | truncate(25) }}
+            {{ stripHTML(item.content) | truncate(25) }}
           </div>
-          <div v-else>{{ stripHTML(item.summary) }}</div>
+          <div v-else>
+            <span v-if="item.summary">{{ stripHTML(item.summary) }}</span>
+          </div>
         </v-card-text>
 
         <slot name="tags" />
