@@ -71,26 +71,7 @@ export default {
     query(newValue, oldValue) {}
   },
   async created() {
-    this.fuse = new Fuse(this.searchContent, {
-      shouldSort: true,
-      threshold: 0.8,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
-      keys: [
-        "searchMeta",
-        "firstName",
-        "lastName",
-        "title",
-        "summary",
-        "content",
-        "category",
-        "tags.name",
-        "alphabetizeBy",
-        "createdAt"
-      ]
-    });
+    this.fuse = new Fuse(this.searchContent, this.$store.getters.config.search);
     this.$nextTick(() => {
       this.$refs.textfield.focus();
     });

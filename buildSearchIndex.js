@@ -19,9 +19,7 @@ const query = `{
     slug
     searchMeta
     isPublished
-    user {
-      username
-    }
+    
     section {
       title
       slug
@@ -46,9 +44,7 @@ const query = `{
     content
     isPublished
     summary
-    user {
-      username
-    }
+    
     
     tags {
       name
