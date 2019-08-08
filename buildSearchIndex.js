@@ -14,7 +14,6 @@ const query = `{
     createdAt
     updatedAt
     title
-    path
     summary
     content
     slug

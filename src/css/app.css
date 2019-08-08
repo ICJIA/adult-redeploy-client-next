@@ -1,3 +1,12 @@
+h2 {
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+blockquote {
+  padding-left: 15px;
+}
+
 .heavy {
   font-weight: 900;
 }
