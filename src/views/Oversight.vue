@@ -42,7 +42,6 @@
 import _ from "lodash/core";
 import BaseContent from "@/components/BaseContent";
 import BiographyCard from "@/components/BiographyCard";
-import TOC from "@/components/TOC";
 import { getPageBySection, getAllBiographies } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
@@ -62,8 +61,7 @@ export default {
   },
   components: {
     BaseContent,
-    BiographyCard,
-    TOC
+    BiographyCard
   },
   created() {
     this.fetchContent();

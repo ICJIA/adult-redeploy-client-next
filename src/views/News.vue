@@ -121,7 +121,7 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .catch(err => {
-          $vuetify.goTo(0);
+          this.$vuetify.goTo(0);
         });
     }
   },
