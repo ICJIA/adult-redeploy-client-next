@@ -73,9 +73,15 @@
                     "
                   >
                     <v-list-item-title
-                      v-text="subItem.title"
-                      style="font-size: 14px; font-weight: bold"
-                    ></v-list-item-title>
+                      style="font-size: 14px; font-weight: bold; "
+                    >
+                      {{ subItem.title }}
+                      <!-- <span v-if="subItem.title === 'Local Control'">
+                        <div class="mt-5">
+                          <v-divider></v-divider>
+                        </div>
+                      </span> -->
+                    </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>

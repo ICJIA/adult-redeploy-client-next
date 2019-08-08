@@ -6,10 +6,8 @@
       style="min-height: 150px"
     >
       <v-list-item three-line>
-        <v-list-item-avatar tile size="85" color="grey">
-          <!-- <v-img
-            src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-          ></v-img> -->
+        <v-list-item-avatar tile size="85" color="grey" v-if="person.headshot">
+          <v-img :src="getHeadshotLink(person.headshot)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <div
@@ -39,15 +37,14 @@
             v-if="displayCategory"
           >
             <div v-if="person.category === 'board'">
-              <!-- <router-link to="/about/oversight" class="no-underline">
-                OVERSIGHT BOARD
-              </router-link> -->
               <v-btn small depressed to="/about/oversight"
-                >OVERSIGHT BOARD</v-btn
+                >OVERSIGHT BOARD <v-icon right>list</v-icon></v-btn
               >
             </div>
             <div v-else>
-              <v-btn small depressed to="/about/staff">STAFF</v-btn>
+              <v-btn small depressed to="/about/staff"
+                >STAFF <v-icon right>list</v-icon></v-btn
+              >
             </div>
           </div>
         </v-list-item-content>
@@ -58,10 +55,12 @@
 
 <script>
 import { renderToHtml } from "@/services/Markdown";
+import { getHeadshotLink } from "@/services/Image";
 export default {
   data() {
     return {
-      renderToHtml
+      renderToHtml,
+      getHeadshotLink
     };
   },
   props: {
