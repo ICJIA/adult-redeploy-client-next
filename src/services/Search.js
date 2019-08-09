@@ -30,7 +30,7 @@ const getSearchIndex = async () => {
     });
 
     let meetings = searchIndex["meetings"].map(item => {
-      item.parentPath = "/about/meetings";
+      item.parentPath = `/about/meetings/${item.category}`;
       return item;
     });
 

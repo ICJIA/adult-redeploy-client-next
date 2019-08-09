@@ -17,11 +17,9 @@
         <h3 style="color: #222;" class="mt-10">Meeting Materials</h3>
         <ul style="color: #222;" class="mt-4 mb-12">
           <div v-for="(file, index) in content.materials" :key="index">
-            <li>
-              <span @click="downloadFile(file)" class="hover medium">
-                {{ file.name }}</span
-              >
-              &nbsp;
+            <li class="mb-4">
+              <span class=" medium"> {{ file.name }}</span>
+              <br />
               <span
                 style="font-size: 12px; "
                 class="hover onClickLink"

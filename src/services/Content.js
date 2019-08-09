@@ -433,9 +433,37 @@ const getAllMeetingsQuery = () => {
       url
       name
     }
+     tags {
+      name
+      slug
+    }
   }
 }
   `;
+};
+
+const getSingleMeetingQuery = slug => {
+  return `
+  {
+  meetings (sort: "scheduledDate:desc", where: {slug: "${slug}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    materials {
+      url
+      name
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}`;
 };
 
 const getPage = async ({ slug }) => {
@@ -613,6 +641,18 @@ const getAllMeetings = async () => {
   }
 };
 
+const getSingleMeeting = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    let meeting = await queryEndpoint(getSingleMeetingQuery(slug));
+    return meeting.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -628,5 +668,6 @@ export {
   getAllSiteDescriptions,
   getAllBiographies,
   getSingleBiography,
-  getAllMeetings
+  getAllMeetings,
+  getSingleMeeting
 };
