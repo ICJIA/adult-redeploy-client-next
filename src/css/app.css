@@ -17,7 +17,9 @@ blockquote {
 .default-font {
   font-family: "Lato", sans-serif !important;
 }
-
+a:hover {
+  color: #aaa !important;
+}
 a.no-underline {
   text-decoration: none;
 }
