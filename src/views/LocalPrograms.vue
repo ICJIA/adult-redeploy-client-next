@@ -24,8 +24,6 @@
             </v-flex>
           </v-layout>
         </v-container>
-      </template>
-      <template v-slot:special>
         <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <v-layout wrap>
             <v-flex xs12 sm6 md6>

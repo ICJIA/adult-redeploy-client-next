@@ -4,10 +4,6 @@
       <slot name="title"></slot>
       <slot name="printer"></slot>
       <slot name="content"></slot>
-      <slot name="special"></slot>
-      <slot name="member-list"></slot>
-      <slot name="page-list"></slot>
-      <slot name="site-list"></slot>
     </div>
     <div v-else>
       <v-container>

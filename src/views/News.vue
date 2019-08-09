@@ -25,15 +25,6 @@
                 v-if="content[0].content"
               ></div>
             </v-flex>
-          </v-layout>
-        </v-container>
-      </template>
-      <template v-slot:page-list>
-        <v-container
-          v-if="news"
-          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
-        >
-          <v-layout wrap>
             <v-flex xs12 class="mb-10">
               <base-list :items="news" empty="">
                 <template slot-scope="item">

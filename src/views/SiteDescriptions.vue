@@ -28,21 +28,21 @@
               <div v-html="renderToHtml(content[0].summary)"></div>
             </v-flex>
             <v-flex xs2 v-if="showToc"><TOC></TOC></v-flex>
+            <v-flex xs12 v-if="sites">
+              <base-list :items="sites">
+                <template slot-scope="item">
+                  <v-container
+                    :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+                  >
+                    <v-flex xs12 class="mt-12">
+                      <BaseDescription :content="[...item]"></BaseDescription>
+                    </v-flex>
+                  </v-container>
+                </template>
+              </base-list>
+            </v-flex>
           </v-layout>
         </v-container>
-      </template>
-      <template slot="site-list" v-if="sites">
-        <base-list :items="sites">
-          <template slot-scope="item">
-            <v-container
-              :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
-            >
-              <v-flex xs12 class="mt-12">
-                <BaseDescription :content="[...item]"></BaseDescription>
-              </v-flex>
-            </v-container>
-          </template>
-        </base-list>
       </template>
     </base-content>
   </div>

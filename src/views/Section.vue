@@ -24,8 +24,6 @@
             </v-flex>
           </v-layout>
         </v-container>
-      </template>
-      <template slot="page-list" v-if="content">
         <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <ul class="pageList">
             <base-list :items="content.pages" empty="">
