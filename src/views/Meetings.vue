@@ -28,15 +28,27 @@
               <div
                 v-for="category in $store.getters.config.categoryEnums.meetings"
                 :key="category.enum"
+                class="mb-12"
               >
                 <h2 :id="category.slug">{{ category.title }}</h2>
                 <p
                   v-html="category.description"
                   v-if="category.description"
                 ></p>
+
                 <ListTableMeeting
                   :meetings="filterMeetingData(category.enum)"
-                  class="mt-6"
+                  class="mt-8 "
+                  :class="{
+                    'pl-6':
+                      $vuetify.breakpoint.md ||
+                      $vuetify.breakpoint.lg ||
+                      $vuetify.breakpoint.xl,
+                    'pr-6':
+                      $vuetify.breakpoint.md ||
+                      $vuetify.breakpoint.lg ||
+                      $vuetify.breakpoint.xl
+                  }"
                 ></ListTableMeeting>
               </div>
             </v-flex>
