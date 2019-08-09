@@ -52,7 +52,7 @@
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
 import NewsCard from "@/components/NewsCard";
-import { getPageBySection, getNews } from "@/services/Content";
+import { getPageBySection, getAllNews } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 export default {
@@ -90,7 +90,7 @@ export default {
       const newsName = `getNews`;
       contentMap.set(newsName, {
         hash: getHash(newsName),
-        query: getNews,
+        query: getAllNews,
         params: {}
       });
 

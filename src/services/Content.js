@@ -96,7 +96,7 @@ const getFrontPageNewsQuery = limit => {
 }`;
 };
 
-const getNewsQuery = () => {
+const getAllNewsQuery = () => {
   return `{
   posts(sort: "createdAt:desc", where: {isPublished: true}) {
     title
@@ -169,33 +169,6 @@ const getAllPublicationsQuery = () => {
     
   }
 } `;
-};
-
-const getSingleMeetingQuery = slug => {
-  return `{
-  meetings (where: {slug: "${slug}", isPublished: true}) {
-    category
-    createdAt
-    updatedAt
-    isPublished
-    summary
-    title
-    slug
-    isPublished
-    content
-    scheduledDate
-    materials {
-      name
-      url
-    }
-    
-    tags {
-      slug
-      name
-    }
-  }
-
-}`;
 };
 
 const getContentByTagQuery = slug => {
@@ -313,7 +286,7 @@ const getSinglePublicationQuery = slug => {
 `;
 };
 
-const getSectionsQuery = () => {
+const getAllSectionsQuery = () => {
   return `{
   sections (sort: "order:asc") {
     title
@@ -445,6 +418,26 @@ const getSingleBiographiesQuery = slug => {
 }`;
 };
 
+const getAllMeetingsQuery = () => {
+  return `{
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    materials {
+      url
+      name
+    }
+  }
+}
+  `;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -481,9 +474,9 @@ const getFrontPageNews = async ({ limit }) => {
   }
 };
 
-const getNews = async () => {
+const getAllNews = async () => {
   try {
-    let news = await queryEndpoint(getNewsQuery());
+    let news = await queryEndpoint(getAllNewsQuery());
     return news.data.data.posts;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -507,18 +500,6 @@ const getAllPublications = async () => {
   try {
     let publications = await queryEndpoint(getAllPublicationsQuery());
     return publications.data.data.publications;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getSingleMeeting = async ({ slug }) => {
-  try {
-    slug = xss(slug);
-    let meeting = await queryEndpoint(getSingleMeetingQuery(slug));
-    return meeting.data.data.meetings;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
@@ -551,9 +532,9 @@ const getSinglePublication = async ({ slug }) => {
   }
 };
 
-const getSections = async () => {
+const getAllSections = async () => {
   try {
-    let sections = await queryEndpoint(getSectionsQuery());
+    let sections = await queryEndpoint(getAllSectionsQuery());
     return sections.data.data.sections;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -621,20 +602,31 @@ const getSingleBiography = async ({ slug }) => {
   }
 };
 
+const getAllMeetings = async () => {
+  try {
+    let meetings = await queryEndpoint(getAllMeetingsQuery());
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
   getFrontPageNews,
-  getNews,
+  getAllNews,
   getFeaturedPublications,
   getAllPublications,
-  getSingleMeeting,
   getContentByTag,
   getSinglePublication,
-  getSections,
+  getAllSections,
   getPageBySection,
   getSiteDescription,
   getAllSiteDescriptions,
   getAllBiographies,
-  getSingleBiography
+  getSingleBiography,
+  getAllMeetings
 };

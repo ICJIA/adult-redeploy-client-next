@@ -12,6 +12,11 @@ export default new Router({
     return { x: 0, y: 0 };
   },
   routes: [
+    /**
+     *
+     * Home
+     *
+     */
     {
       path: "/",
       name: "home",
@@ -21,6 +26,11 @@ export default new Router({
       }
     },
     { path: "/home", redirect: { name: "home" } },
+    /**
+     *
+     * Local Programs / Illinois Map / Sites
+     *
+     */
     {
       path: "/programs/local-programs",
       name: "localPrograms",
@@ -28,14 +38,8 @@ export default new Router({
         import(/* webpackChunkName: "programs" */ "./views/LocalPrograms.vue")
     },
     {
-      path: "/news/:slug",
-      name: "newsItem",
-      component: () =>
-        import(/* webpackChunkName: "news" */ "./views/NewsItem.vue")
-    },
-    {
       path: "/sites",
-      name: "siteDescrisitesptions",
+      name: "siteDescriptions",
       component: () =>
         import(/* webpackChunkName: "sites" */ "./views/SiteDescriptions.vue")
     },
@@ -46,17 +50,30 @@ export default new Router({
         import(/* webpackChunkName: "sites" */ "./views/SiteDescriptionSingle.vue")
     },
 
+    /**
+     *
+     * News
+     *
+     */
+    {
+      path: "/news/:slug",
+      name: "newsSingle",
+      component: () =>
+        import(/* webpackChunkName: "news" */ "./views/NewsSingle.vue")
+    },
+
     {
       path: "/news",
       name: "news",
       component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
     },
-    {
-      path: "/about/meetings",
-      name: "meetings",
-      component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
-    },
+
+    /**
+     *
+     * Biographies
+     *
+     */
+
     {
       path: "/about/oversight",
       name: "oversightBoard",
@@ -75,18 +92,47 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue")
     },
+    /**
+     *
+     * Meetings
+     *
+     */
     {
-      path: "/about/meetings/:slug",
+      path: "/about/meetings",
+      name: "meetings",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
+    },
+    {
+      path: "/about/meetings/:category/:slug",
       name: "meetingsSingle",
       component: () =>
         import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
     },
+    {
+      path: "/about/meetings/:category",
+      name: "meetingsCategory",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/MeetingsCategory.vue")
+    },
+
+    /**
+     *
+     * Error
+     *
+     */
+
     {
       path: "/error",
       name: "error",
       component: () =>
         import(/* webpackChunkName: "error" */ "./views/Error.vue")
     },
+    /**
+     *
+     * Sandbox
+     *
+     */
 
     {
       path: "/sandbox",
@@ -94,12 +140,22 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "sandbox" */ "./views/Sandbox.vue")
     },
+    /**
+     *
+     * Search
+     *
+     */
     {
       path: "/search",
       name: "search",
       component: () =>
         import(/* webpackChunkName: "search" */ "./views/Search.vue")
     },
+    /**
+     *
+     * Sections/Page
+     *
+     */
 
     {
       path: "/:section",
@@ -113,6 +169,11 @@ export default new Router({
       name: "page",
       component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")
     },
+    /**
+     *
+     * Catch-all
+     *
+     */
 
     {
       path: "*",

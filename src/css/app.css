@@ -205,3 +205,8 @@ ul.toc-list li:hover {
   color: #065f60;
   background: #eee;
 }
+
+.theme--light.v-data-table {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+}

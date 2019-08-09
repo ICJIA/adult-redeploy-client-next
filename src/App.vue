@@ -56,7 +56,7 @@ import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
-import { getSections } from "@/services/Content";
+import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
   components: {
@@ -91,7 +91,7 @@ export default {
       let searchIndex = await searchIndexPromise;
       this.$store.dispatch("setSearchIndex", searchIndex);
 
-      this.sections = await getSections();
+      this.sections = await getAllSections();
       this.$store.dispatch("setSections", this.sections);
 
       await this.$store.dispatch("setApiStatus");
