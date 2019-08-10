@@ -54,7 +54,7 @@ export default {
       search: "",
       headers: [
         {
-          text: "scheduledDate",
+          text: "Scheduled",
           align: "left",
           sortable: false,
           value: "scheduledDate"
