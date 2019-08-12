@@ -25,12 +25,28 @@
         <template v-slot:item.scheduledDate="{ item }">
           {{ item.scheduledDate | format }}
         </template>
+
         <template v-slot:item.slug="{ item }">
           <v-btn small depressed :to="getRoute(item)"
-            >Read More<v-icon right>open_in_new</v-icon></v-btn
+            ><v-icon>open_in_new</v-icon></v-btn
           >
         </template>
-        <template v-slot:expanded-item="{ item }">
+        <!-- <template v-slot:expanded-item="{ item }">
+          <td :colspan="headers.length + 1">
+            <div class="py-10">
+              <MeetingCard :content="item"></MeetingCard>
+            </div>
+          </td>
+        </template> -->
+        <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
+          <v-btn small depressed @click="expand(true)" v-if="!isExpanded"
+            >More<v-icon right>arrow_drop_down</v-icon></v-btn
+          >
+          <v-btn small depressed @click="expand(false)" v-if="isExpanded"
+            >Less<v-icon right>arrow_drop_up</v-icon></v-btn
+          >
+        </template>
+        <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 1">
             <div class="py-10">
               <MeetingCard :content="item"></MeetingCard>
