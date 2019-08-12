@@ -84,7 +84,7 @@
           </li>
         </ul>
       </div>
-      <!-- <v-container class="mt-4">
+      <v-container class="mt-4">
         <v-layout>
           <v-flex xs12 sm12 md6>
             <div class="text-left" v-if="content.createdAt">
@@ -92,25 +92,18 @@
             </div>
           </v-flex>
           <v-flex xs12 sm12 md6>
-            <div class="text-right" v-if="content.updatedAt">
+            <div
+              class="text-right"
+              v-if="
+                content.updatedAt &&
+                  displayUpdated(content.createdAt, content.updatedAt)
+              "
+            >
               Last updated: {{ content.updatedAt | timeAgoFormat }}
             </div>
           </v-flex>
         </v-layout>
-      </v-container> -->
-
-      <!-- <div class="text-right" v-if="showUpdated && content.updatedAt">
-        Last updated: {{ content.updatedAt | timeAgoFormat }}
-      </div> -->
-      <PostedDate
-        :createdAt="content.createdAt"
-        :updatedAt="content.updatedAt"
-        :displayLastPosted="true"
-        :displayLastUpdated="true"
-        lastPostedLabel="Posted:"
-        lastUpdatedLabel="Last updated:"
-        style="margin-left: -15px"
-      ></PostedDate>
+      </v-container>
     </v-card-text>
   </v-card>
 </template>
@@ -119,19 +112,30 @@
 import { getFile, getExternalFile } from "@/services/Download";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
-import PostedDate from "@/components/PostedDate";
+import moment from "moment";
+
 export default {
-  components: {
-    PostedDate
-  },
+  components: {},
   data() {
     return {
       renderToHtml,
       getExternalFile
     };
   },
+  computed: {},
   mixins: [handleClicks],
   methods: {
+    displayUpdated(createdAt, updatedAt) {
+      var posted = moment(createdAt);
+      var updated = moment(updatedAt);
+      var duration = moment.duration(updated.diff(posted)).days();
+
+      if (duration > 1) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     downloadFile(item) {
       // if (item.file) {
       //   return getFile(item.file);

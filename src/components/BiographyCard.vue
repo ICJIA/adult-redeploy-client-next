@@ -20,10 +20,11 @@
             ><router-link
               :to="`/about/biographies/${person.slug}`"
               class="no-underline"
-              >{{ person.prefix }} {{ person.firstName }} {{ person.lastName
-              }}{{ person.suffix }}
+              >{{ person.prefix }} {{ person.firstName }}
+              {{ person.middleName }} {{ person.lastName }}{{ person.suffix }}
             </router-link></v-list-item-title
           >
+
           <v-list-item-subtitle v-html="person.title"></v-list-item-subtitle>
 
           <div

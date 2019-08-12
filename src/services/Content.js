@@ -377,6 +377,7 @@ const getAllBiographiesQuery = () => {
   biographies (sort: "alphabetizeBy:asc", where: {isPublished: true}){
    
     firstName
+    middleName
     lastName
     membership
     order
@@ -401,6 +402,7 @@ const getSingleBiographiesQuery = slug => {
   biographies (where: {slug: "${slug}"}){
    
     firstName
+    middleName
     lastName
     membership
     order
