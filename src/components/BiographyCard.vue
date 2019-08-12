@@ -6,7 +6,13 @@
       style="min-height: 150px"
     >
       <v-list-item three-line>
-        <v-list-item-avatar tile size="85" color="grey" v-if="person.headshot">
+        <v-list-item-avatar
+          tile
+          size="85"
+          color="grey"
+          v-if="person.headshot"
+          class="hidden-sm-and-down"
+        >
           <v-img :src="getHeadshotLink(person.headshot)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
