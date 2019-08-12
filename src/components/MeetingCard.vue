@@ -10,7 +10,8 @@
       <div
         v-html="renderToHtml(content.content)"
         v-if="content.content"
-        class="site-description"
+        @click="handleClicks"
+        class="dynamic-content site-description"
       ></div>
 
       <div style="background: #eee" class="px-6 py-2">
@@ -64,12 +65,14 @@
 <script>
 import { getFile } from "@/services/Download";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   data() {
     return {
       renderToHtml
     };
   },
+  mixins: [handleClicks],
   methods: {
     downloadFile(item) {
       // if (item.file) {

@@ -23,6 +23,8 @@
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
+                @click="handleClicks"
+                class="dynamic-content"
               ></div>
             </v-flex>
             <v-flex xs12 class="mb-10">
@@ -46,12 +48,14 @@ import NewsCard from "@/components/NewsCard";
 import { getPageBySection, getAllNews } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   components: {
     BaseContent,
     BaseList,
     NewsCard
   },
+  mixins: [handleClicks],
   data() {
     return {
       loading: false,

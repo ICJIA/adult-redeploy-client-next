@@ -8,7 +8,11 @@
         data-collapsed="true"
         :style="{ height: getHeight, transition: getTransitionSpeed }"
       >
-        <span v-html="content"></span>
+        <span
+          v-html="content"
+          @click="handleClicks"
+          class="dynamic-content"
+        ></span>
       </div>
     </div>
     <div
@@ -44,7 +48,9 @@
 </template>
 
 <script>
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   components: {
     // Trigger
   },

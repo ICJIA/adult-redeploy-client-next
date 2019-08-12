@@ -24,7 +24,8 @@
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
-                class="mb-12"
+                @click="handleClicks"
+                class="dynamic-content mb-12"
               ></div>
 
               <div v-for="(person, index) in staff" :key="`staff-${index}`">
@@ -45,7 +46,9 @@ import BiographyCard from "@/components/BiographyCard";
 import { getPageBySection, getAllBiographies } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   data() {
     return {
       loading: true,

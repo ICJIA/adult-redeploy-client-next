@@ -7,7 +7,8 @@
       <div
         v-html="renderToHtml(content[0].content)"
         v-if="content[0].content"
-        class="site-description"
+        @click="handleClicks"
+        class="dynamic-content site-description"
       ></div>
 
       <div class="text-right" v-if="showUpdated && content[0].updatedAt">
@@ -18,8 +19,10 @@
 </template>
 
 <script>
+import { handleClicks } from "@/mixins/handleClicks";
 import { renderToHtml } from "@/services/Markdown";
 export default {
+  mixins: [handleClicks],
   data() {
     return {
       renderToHtml

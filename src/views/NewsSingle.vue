@@ -28,6 +28,8 @@
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
+                @click="handleClicks"
+                class="dynamic-content"
               ></div>
             </v-flex>
           </v-layout>
@@ -43,10 +45,12 @@ import PostedDate from "@/components/PostedDate";
 import { getPost } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
     $route: "fetchContent"
   },
+  mixins: [handleClicks],
   data() {
     return {
       loading: true,

@@ -25,7 +25,11 @@
         >
           <v-layout wrap v-if="content[0].summary">
             <v-flex :[dynamicFlex]="true">
-              <div v-html="renderToHtml(content[0].summary)"></div>
+              <div
+                v-html="renderToHtml(content[0].summary)"
+                @click="handleClicks"
+                class="dynamic-content"
+              ></div>
             </v-flex>
             <v-flex xs2 v-if="showToc"><TOC></TOC></v-flex>
             <v-flex xs12 v-if="sites">
@@ -56,10 +60,12 @@ import BaseDescription from "@/components/BaseDescription";
 import { getAllSiteDescriptions, getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
     $route: "fetchContent"
   },
+  mixins: [handleClicks],
   data() {
     return {
       loading: true,

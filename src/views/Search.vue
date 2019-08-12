@@ -8,7 +8,11 @@
         >
           <v-layout wrap>
             <v-flex xs12>
-              <div v-html="renderToHtml(content[0].content)"></div>
+              <div
+                v-html="renderToHtml(content[0].content)"
+                @click="handleClicks"
+                class="dynamic-content"
+              ></div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -32,7 +36,9 @@ import { getPage } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { getSearchIndex } from "@/services/Search";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   data() {
     return {
       loading: true,

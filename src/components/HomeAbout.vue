@@ -1,6 +1,10 @@
 <template>
   <div v-if="content">
-    <p v-html="renderToHtml(content[0].content)"></p>
+    <p
+      v-html="renderToHtml(content[0].content)"
+      @click="handleClicks"
+      class="dynamic-content"
+    ></p>
     <div class="text-center mt-6">
       <v-btn class="ma-2" to="/programs/local-programs" outlined color="primary"
         >Find a local program<v-icon right>chevron_right</v-icon></v-btn
@@ -10,8 +14,10 @@
 </template>
 
 <script>
+import { handleClicks } from "@/mixins/handleClicks";
 import { renderToHtml } from "@/services/Markdown";
 export default {
+  mixins: [handleClicks],
   props: {
     content: {
       type: Array,

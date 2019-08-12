@@ -22,6 +22,8 @@
           <v-layout wrap>
             <v-flex :[dynamicFlex]="true">
               <div
+                @click="handleClicks"
+                class="dynamic-content"
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
               ></div>
@@ -39,13 +41,16 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import TOC from "@/components/TOC";
+
 import { getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
     $route: "fetchContent"
   },
+  mixins: [handleClicks],
   data() {
     return {
       loading: true,

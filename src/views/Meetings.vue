@@ -24,6 +24,8 @@
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
+                @click="handleClicks"
+                class="dynamic-content"
               ></div>
               <div
                 v-for="category in $store.getters.config.categoryEnums.meetings"
@@ -34,6 +36,8 @@
                 <p
                   v-html="category.description"
                   v-if="category.description"
+                  @click="handleClicks"
+                  class="dynamic-content"
                 ></p>
 
                 <ListTableMeeting
@@ -69,7 +73,9 @@ import TOC from "@/components/TOC";
 import { getPageBySection, getAllMeetings } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   data() {
     return {
       loading: true,

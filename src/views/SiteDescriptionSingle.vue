@@ -13,7 +13,8 @@
                   ><div
                     v-html="renderToHtml(content[0].content)"
                     v-if="content[0].content"
-                    class="site-description"
+                    @click="handleClicks"
+                    class="dynamic-content site-description"
                   ></div
                 ></v-card-text>
               </v-card>
@@ -32,11 +33,13 @@ import { getSiteDescription } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 
 import BaseContent from "@/components/BaseContent";
+import { handleClicks } from "@/mixins/handleClicks";
 
 export default {
   components: {
     BaseContent
   },
+  mixins: [handleClicks],
   data() {
     return {
       description: null,

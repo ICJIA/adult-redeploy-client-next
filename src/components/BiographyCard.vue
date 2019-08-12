@@ -27,7 +27,8 @@
           <v-list-item-subtitle v-html="person.title"></v-list-item-subtitle>
 
           <div
-            class="mt-5"
+            @click="handleClicks"
+            class="dynamic-content mt-5"
             v-if="person.content"
             v-html="renderToHtml(person.content)"
           ></div>
@@ -56,7 +57,9 @@
 <script>
 import { renderToHtml } from "@/services/Markdown";
 import { getHeadshotLink } from "@/services/Image";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   data() {
     return {
       renderToHtml,

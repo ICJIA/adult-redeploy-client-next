@@ -20,7 +20,11 @@
         >
           <v-layout wrap>
             <v-flex xs12>
-              <div v-html="renderToHtml(content.summary)"></div>
+              <div
+                @click="handleClicks"
+                class="dynamic-content"
+                v-html="renderToHtml(content.summary)"
+              ></div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -53,7 +57,9 @@
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   watch: {
     $route: "fetchContent"
   },
