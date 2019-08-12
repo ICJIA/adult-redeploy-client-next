@@ -4,9 +4,9 @@
       content.title
     }}</v-card-title>
     <v-card-text>
-      <div class="heavy mb-4">
+      <!-- <div class="heavy mb-4">
         Scheduled: {{ content.scheduledDate | format }}
-      </div>
+      </div> -->
       <div
         v-html="renderToHtml(content.content)"
         v-if="content.content"
@@ -14,9 +14,17 @@
         class="dynamic-content site-description"
       ></div>
 
-      <div style="background: #eee" class="px-6 py-2">
+      <div
+        style="background: #eee"
+        class="px-6 py-2"
+        v-if="content.materials && content.materials.length"
+      >
         <h3 style="color: #222;" class="mt-10">Meeting Materials</h3>
-        <ul style="color: #222;" class="mt-4 mb-12">
+        <ul
+          style="color: #222;"
+          class="mt-4 mb-12"
+          v-if="content.materials && content.materials.length"
+        >
           <div v-for="(file, index) in content.materials" :key="index">
             <li class="mb-4">
               <span class=" medium"> {{ file.name }}</span>
@@ -40,7 +48,43 @@
           </div>
         </ul>
       </div>
-      <v-container class="mt-4">
+
+      <div style="background: #eee" class="px-6 py-2" v-else>
+        <h3 style="color: #222;" class="mt-10">Meeting Materials</h3>
+        <ul
+          style="color: #222;"
+          class="mt-4 mb-12"
+          v-if="content.externalURL && content.externalURL.length"
+        >
+          <li>
+            <span class=" medium">
+              <span v-if="content.externalURLName">
+                {{ content.externalURLName }}
+              </span>
+              <span v-else>
+                {{ content.externalURL }}
+              </span></span
+            >
+            <br />
+            <span
+              style="font-size: 12px; "
+              class="hover onClickLink"
+              @click="getExternalFile(content.externalURL)"
+              >[ Primary download</span
+            >
+            |
+            <span style="font-size: 12px"
+              ><a
+                :href="`${content.externalURL}`"
+                target="_blank"
+                class="hover "
+                >Alternate download ]</a
+              ></span
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- <v-container class="mt-4">
         <v-layout>
           <v-flex xs12 sm12 md6>
             <div class="text-left" v-if="content.createdAt">
@@ -53,23 +97,37 @@
             </div>
           </v-flex>
         </v-layout>
-      </v-container>
+      </v-container> -->
 
       <!-- <div class="text-right" v-if="showUpdated && content.updatedAt">
         Last updated: {{ content.updatedAt | timeAgoFormat }}
       </div> -->
+      <PostedDate
+        :createdAt="content.createdAt"
+        :updatedAt="content.updatedAt"
+        :displayLastPosted="true"
+        :displayLastUpdated="true"
+        lastPostedLabel="Posted:"
+        lastUpdatedLabel="Last updated:"
+        style="margin-left: -15px"
+      ></PostedDate>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { getFile } from "@/services/Download";
+import { getFile, getExternalFile } from "@/services/Download";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+import PostedDate from "@/components/PostedDate";
 export default {
+  components: {
+    PostedDate
+  },
   data() {
     return {
-      renderToHtml
+      renderToHtml,
+      getExternalFile
     };
   },
   mixins: [handleClicks],

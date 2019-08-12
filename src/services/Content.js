@@ -232,7 +232,8 @@ const getContentByTagQuery = slug => {
       name
       url
     }
-    
+    externalURL
+    externalURLName
     tags {
       slug
       name
@@ -429,6 +430,8 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
+    externalURL
+    externalURLName
     materials {
       url
       name
@@ -454,6 +457,8 @@ const getSingleMeetingQuery = slug => {
     summary
     category
     content
+    externalURL
+    externalURLName
     materials {
       url
       name

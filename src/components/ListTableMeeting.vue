@@ -17,7 +17,7 @@
         :items="meetings"
         :items-per-page="15"
         :search="search"
-        class="elevation-1"
+        class="elevation-1 meetingTable"
         show-expand
         item-key="title"
         :single-expand="true"
@@ -28,7 +28,7 @@
 
         <template v-slot:item.slug="{ item }">
           <v-btn small depressed :to="getRoute(item)"
-            ><v-icon>open_in_new</v-icon></v-btn
+            ><v-icon>link</v-icon></v-btn
           >
         </template>
         <!-- <template v-slot:expanded-item="{ item }">

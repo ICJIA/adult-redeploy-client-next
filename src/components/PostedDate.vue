@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-subheader light>{{ createdAt | format }}</v-subheader>
+    <v-subheader light
+      >{{ lastPostedLabel }}&nbsp;{{ createdAt | format }}</v-subheader
+    >
   </div>
 </template>
 
@@ -12,6 +14,10 @@ export default {
       default: ""
     },
     updatedAt: {
+      type: String,
+      default: ""
+    },
+    lastPostedLabel: {
       type: String,
       default: ""
     },
