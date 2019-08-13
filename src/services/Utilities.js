@@ -28,4 +28,17 @@ const titleCase = str => {
     .join(" ");
 };
 
-export { getHash, titleCase, checkIfValidPage, stripHTML };
+const truncate = function(string, maxWords = 10) {
+  let strippedString = string.trim();
+  let array = strippedString.split(" ");
+  let wordCount = array.length;
+  string = array.splice(0, maxWords).join(" ");
+
+  if (wordCount > maxWords) {
+    string += "...";
+  }
+
+  return string;
+};
+
+export { getHash, titleCase, checkIfValidPage, stripHTML, truncate };

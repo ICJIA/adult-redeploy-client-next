@@ -22,6 +22,9 @@
         item-key="title"
         :single-expand="true"
       >
+        <template v-slot:item.category="{ item }" v-if="!hideCategory">
+          {{ getCategoryTitle(item.category) }}
+        </template>
         <template v-slot:item.scheduledDate="{ item }">
           {{ item.scheduledDate | format }}
         </template>
@@ -31,13 +34,7 @@
             ><v-icon>link</v-icon></v-btn
           >
         </template>
-        <!-- <template v-slot:expanded-item="{ item }">
-          <td :colspan="headers.length + 1">
-            <div class="py-10">
-              <MeetingCard :content="item"></MeetingCard>
-            </div>
-          </td>
-        </template> -->
+
         <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
           <v-btn small depressed @click="expand(true)" v-if="!isExpanded"
             >More<v-icon right>arrow_drop_down</v-icon></v-btn
@@ -47,8 +44,8 @@
           >
         </template>
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length + 1">
-            <div class="py-10">
+          <td :colspan="headers.length + 2">
+            <div class="py-5">
               <MeetingCard :content="item"></MeetingCard>
             </div>
           </td>
@@ -60,9 +57,22 @@
 
 <script>
 import MeetingCard from "@/components/MeetingCard";
+
 export default {
   components: {
     MeetingCard
+  },
+  mounted() {
+    if (!this.hideCategory) {
+      let obj = {
+        text: "Category",
+        align: "left",
+        sortable: true,
+        value: "category"
+      };
+
+      this.headers.unshift(obj);
+    }
   },
 
   data() {
@@ -72,10 +82,10 @@ export default {
         {
           text: "Scheduled",
           align: "left",
-          sortable: false,
+          sortable: true,
           value: "scheduledDate"
         },
-        { text: "Title", value: "title" },
+        { text: "Meeting Title", value: "title" },
         {
           text: "",
           value: "slug",
@@ -99,6 +109,14 @@ export default {
         console.error("Category not found in config");
         return null;
       }
+    },
+    getCategoryTitle(catEnum) {
+      let categoryName = this.$store.getters.config.categoryEnums.meetings.filter(
+        c => {
+          return c.enum === catEnum;
+        }
+      );
+      return categoryName[0].short;
     }
   },
 
@@ -106,6 +124,10 @@ export default {
     meetings: {
       type: Array,
       default: () => []
+    },
+    hideCategory: {
+      type: Boolean,
+      default: true
     }
   }
 };

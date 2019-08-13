@@ -27,36 +27,51 @@
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-              <div
-                v-for="category in $store.getters.config.categoryEnums.meetings"
-                :key="category.enum"
-                class="mb-12"
-              >
-                <h2 :id="category.slug">{{ category.title }}</h2>
-                <p
-                  v-html="category.description"
-                  v-if="category.description"
-                  @click="handleClicks"
-                  class="dynamic-content"
-                ></p>
+              <toggle on="By Category" off="All" name="meetings"></toggle>
+              <div v-if="displayMode.message === 'By Category'">
+                <div
+                  v-for="category in $store.getters.config.categoryEnums
+                    .meetings"
+                  :key="category.enum"
+                  class="mb-12"
+                >
+                  <h2 :id="category.slug">{{ category.title }}</h2>
+                  <p
+                    v-html="category.description"
+                    v-if="category.description"
+                    @click="handleClicks"
+                    class="dynamic-content"
+                  ></p>
 
+                  <ListTableMeeting
+                    :meetings="filterMeetingData(category.enum)"
+                    class="mt-8 "
+                    :class="{
+                      'pl-6':
+                        $vuetify.breakpoint.md ||
+                        $vuetify.breakpoint.lg ||
+                        $vuetify.breakpoint.xl,
+                      'pr-6':
+                        $vuetify.breakpoint.md ||
+                        $vuetify.breakpoint.lg ||
+                        $vuetify.breakpoint.xl
+                    }"
+                  ></ListTableMeeting>
+                </div>
+              </div>
+              <div v-if="displayMode.message === 'All'">
                 <ListTableMeeting
-                  :meetings="filterMeetingData(category.enum)"
+                  :meetings="meetings"
                   class="mt-8 "
-                  :class="{
-                    'pl-6':
-                      $vuetify.breakpoint.md ||
-                      $vuetify.breakpoint.lg ||
-                      $vuetify.breakpoint.xl,
-                    'pr-6':
-                      $vuetify.breakpoint.md ||
-                      $vuetify.breakpoint.lg ||
-                      $vuetify.breakpoint.xl
-                  }"
+                  :hideCategory="false"
                 ></ListTableMeeting>
               </div>
             </v-flex>
-            <v-flex xs2 v-if="showToc" class="hidden-sm-and-down"
+
+            <v-flex
+              xs2
+              v-if="showToc && displayMode.message === 'By Category'"
+              class="hidden-sm-and-down"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
             ></v-flex>
           </v-layout>
@@ -68,12 +83,14 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
+import { EventBus } from "@/event-bus";
 import ListTableMeeting from "@/components/ListTableMeeting";
 import TOC from "@/components/TOC";
 import { getPageBySection, getAllMeetings } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+import Toggle from "@/components/Toggle";
 export default {
   mixins: [handleClicks],
   data() {
@@ -84,20 +101,29 @@ export default {
       renderToHtml,
       showToc: false,
       sectionContent: null,
-      meetings: null
+      meetings: null,
+      displayMode: {}
     };
   },
   components: {
     BaseContent,
     TOC,
-    ListTableMeeting
+    ListTableMeeting,
+    Toggle
   },
   created() {
     this.fetchContent();
   },
+  mounted() {
+    EventBus.$on("toggle", payload => {
+      this.displayMode = payload;
+    });
+  },
   computed: {
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "xs12";
+      } else if (this.displayMode.message === "All") {
         return "xs12";
       } else {
         return this.showToc ? "xs10" : "xs12";

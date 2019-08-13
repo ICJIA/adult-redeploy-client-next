@@ -15,11 +15,11 @@
           <div v-else>
             <v-alert
               type="warning"
-              class="text-center"
+              class="text-center mt-12"
               v-if="env === 'development'"
             >
-              You're running in <strong>development</strong> mode.<br />Be sure
-              the Netlify 'Status' function is running.&nbsp;&nbsp;
+              You're running in <strong>development</strong> mode.<br />Please
+              be sure the Netlify 'Status' function is running.&nbsp;&nbsp;
             </v-alert>
             <v-alert type="error" class="text-center">
               Can't connect to the Adult Redeploy Illinois

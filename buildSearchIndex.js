@@ -116,6 +116,7 @@ const query = `{
   biographies (where: {isPublished: true}){
    
     firstName
+    middleName
     lastName
     membership
     isPublished
