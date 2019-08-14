@@ -22,11 +22,12 @@
         item-key="title"
         :single-expand="true"
       >
-        <template v-slot:item.category="{ item }" v-if="!hideCategory">
-          {{ getCategoryTitle(item.category) }}
-        </template>
         <template v-slot:item.scheduledDate="{ item }">
           {{ item.scheduledDate | format }}
+        </template>
+
+        <template v-slot:item.category="{ item }" v-if="!hideCategory">
+          {{ getCategoryTitle(item.category) }}
         </template>
 
         <template v-slot:item.slug="{ item }">
@@ -69,6 +70,9 @@ export default {
   },
   mounted() {
     if (!this.hideCategory) {
+      Array.prototype.insert = function(index, item) {
+        this.splice(index, 0, item);
+      };
       let obj = {
         text: "Category",
         align: "left",
@@ -76,7 +80,7 @@ export default {
         value: "category"
       };
 
-      this.headers.unshift(obj);
+      this.headers.insert(1, obj);
     }
   },
 

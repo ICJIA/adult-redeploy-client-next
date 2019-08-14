@@ -27,7 +27,7 @@
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-              <toggle on="By Category" off="All" name="meetings"></toggle>
+              <toggle on="By Category" off="By Date" name="meetings"></toggle>
               <div v-if="displayMode.message === 'By Category'">
                 <div
                   v-for="category in $store.getters.config.categoryEnums
@@ -43,7 +43,7 @@
                     class="dynamic-content"
                   ></p>
 
-                  <ListTableMeeting
+                  <DetailTableMeeting
                     :meetings="filterMeetingData(category.enum)"
                     class="mt-8 "
                     :class="{
@@ -56,15 +56,15 @@
                         $vuetify.breakpoint.lg ||
                         $vuetify.breakpoint.xl
                     }"
-                  ></ListTableMeeting>
+                  ></DetailTableMeeting>
                 </div>
               </div>
-              <div v-if="displayMode.message === 'All'">
-                <ListTableMeeting
+              <div v-if="displayMode.message === 'By Date'">
+                <DetailTableMeeting
                   :meetings="meetings"
                   class="mt-8 "
                   :hideCategory="false"
-                ></ListTableMeeting>
+                ></DetailTableMeeting>
               </div>
             </v-flex>
 
@@ -84,7 +84,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import { EventBus } from "@/event-bus";
-import ListTableMeeting from "@/components/ListTableMeeting";
+import DetailTableMeeting from "@/components/DetailTableMeeting";
 import TOC from "@/components/TOC";
 import { getPageBySection, getAllMeetings } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -108,7 +108,7 @@ export default {
   components: {
     BaseContent,
     TOC,
-    ListTableMeeting,
+    DetailTableMeeting,
     Toggle
   },
   created() {
@@ -123,7 +123,7 @@ export default {
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
         return "xs12";
-      } else if (this.displayMode.message === "All") {
+      } else if (this.displayMode.message === "By Date") {
         return "xs12";
       } else {
         return this.showToc ? "xs10" : "xs12";

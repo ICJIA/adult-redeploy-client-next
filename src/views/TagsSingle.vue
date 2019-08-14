@@ -27,7 +27,10 @@
               >
                 <div v-if="content[0][item.plural]">
                   <div v-if="content[0][item.plural].length">
-                    <h2 :id="item.slug">{{ item.plural | titleCase }}</h2>
+                    <h2 :id="item.slug">
+                      <span v-if="item.alias">{{ item.alias | titleCase }}</span
+                      ><span v-else>{{ item.plural | titleCase }}</span>
+                    </h2>
                     <!-- {{ content[0][item.plural] }} -->
 
                     <component
