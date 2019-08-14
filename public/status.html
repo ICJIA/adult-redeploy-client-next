@@ -132,6 +132,8 @@
                 <th>Options</th>
                 <th>Server</th>
                 <th>Status</th>
+                <th>StatusMessage</th>
+                <th>Duration</th>
               </tr>
             </thead>
           </table>
@@ -166,6 +168,22 @@
           {
             targets: -1,
             className: "dt-head-center"
+          },
+           {
+            targets: -2,
+            className: "dt-body-center"
+          },
+          {
+            targets: -2,
+            className: "dt-head-center"
+          },
+           {
+            targets: -3,
+            className: "dt-body-center"
+          },
+          {
+            targets: -3,
+            className: "dt-head-center"
           }
         ];
 
@@ -197,6 +215,24 @@
               }
             }
           },
+          {
+            data: null,
+            render: function(data, type, row) {
+              if (data.statusMessage === 'OK' || data.statusMessage === 'No Content') {
+                return (
+                  "<span style='background: green; color: white; font-weight: bold; padding: 5px;'>"+data.statusMessage+"</span>"
+                );
+                
+              } else {
+                return (
+                  "<span style='background: red; color: white; padding: 5px;font-weight: bold;'>" +
+                  data.statusMessage +
+                  "</span>"
+                );
+              }
+            }
+          },
+           { data: "duration", visible: true },
           
         ];
 
