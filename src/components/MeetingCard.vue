@@ -38,7 +38,7 @@
               |
               <span style="font-size: 12px"
                 ><a
-                  :href="`${$store.getters.config.baseURL}/${file.url}`"
+                  :href="`${$store.getters.config.baseURL}${file.url}`"
                   target="_blank"
                   class="hover "
                   >Alternate download ]</a

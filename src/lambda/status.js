@@ -68,8 +68,13 @@ const headers = {
 function queryServer(server) {
   // eslint-disable-next-line no-unused-vars
   return new Promise(function(resolve, reject) {
+    let start = new Date();
     request = https.get(server.options, response => {
+      let end = new Date();
+      let duration = end - start;
       server.status = response.statusCode;
+      server.statusMessage = response.statusMessage;
+      server.duration = duration + "ms";
       // server.headers = JSON.stringify(response.headers);
       resolve(server);
     });
