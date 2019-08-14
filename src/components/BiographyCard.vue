@@ -13,7 +13,10 @@
           v-if="person.headshot"
           class="hidden-sm-and-down"
         >
-          <v-img :src="getHeadshotLink(person.headshot)"></v-img>
+          <v-img
+            :src="getHeadshotLink(person.headshot)"
+            lazy-src="/placeholder-member.png"
+          ></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <div
@@ -47,12 +50,12 @@
           >
             <div v-if="person.category === 'board'">
               <v-btn small depressed to="/about/oversight"
-                >OVERSIGHT BOARD <v-icon right>link</v-icon></v-btn
+                >OVERSIGHT BOARD <v-icon right>open_in_new</v-icon></v-btn
               >
             </div>
             <div v-else>
               <v-btn small depressed to="/about/staff"
-                >STAFF <v-icon right>link</v-icon></v-btn
+                >STAFF <v-icon right>open_in_new</v-icon></v-btn
               >
             </div>
           </div>

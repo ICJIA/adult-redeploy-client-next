@@ -152,7 +152,7 @@ export default {
      * One way to get a unique id -- the component's own interal id. But folks say to avoid this.
      */
     //this.id = this._uid;
-    console.log(this.fullHeight);
+
     this.id = this.create_UUID();
     this.$nextTick(() => {
       let sectionHeight = document.getElementById(this.id).scrollHeight;
