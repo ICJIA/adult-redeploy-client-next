@@ -8,7 +8,11 @@
         >
           <v-layout wrap>
             <v-flex xs12 class="mb-10">
-              <NewsCard :content="content[0]" :fullHeight="true"></NewsCard>
+              <NewsCard
+                :content="content[0]"
+                :fullHeight="true"
+                :elevation="false"
+              ></NewsCard>
             </v-flex>
           </v-layout>
         </v-container>
@@ -19,7 +23,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import PostedDate from "@/components/PostedDate";
+
 import NewsCard from "@/components/NewsCard";
 import { getPost } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -40,7 +44,7 @@ export default {
   },
   components: {
     BaseContent,
-    PostedDate,
+
     NewsCard
   },
   created() {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      class="mx-auto white mb-8 elevation-1"
+      class="mx-auto white mb-8 pb-8 elevation-1"
       outlined
       style="min-height: 150px"
     >

@@ -5,19 +5,7 @@
         <v-container v-if="content">
           <v-layout wrap>
             <v-flex xs12>
-              <v-card class="mx-auto" color="white">
-                <v-card-title class="site-desription-title px-3">{{
-                  content[0].title
-                }}</v-card-title>
-                <v-card-text
-                  ><div
-                    v-html="renderToHtml(content[0].content)"
-                    v-if="content[0].content"
-                    @click="handleClicks"
-                    class="dynamic-content site-description"
-                  ></div
-                ></v-card-text>
-              </v-card>
+              <BaseDescription :content="content"></BaseDescription>
             </v-flex>
           </v-layout>
         </v-container>
@@ -33,11 +21,13 @@ import { getSiteDescription } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 
 import BaseContent from "@/components/BaseContent";
+import BaseDescription from "@/components/BaseDescription";
 import { handleClicks } from "@/mixins/handleClicks";
 
 export default {
   components: {
-    BaseContent
+    BaseContent,
+    BaseDescription
   },
   mixins: [handleClicks],
   data() {

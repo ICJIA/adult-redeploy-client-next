@@ -174,87 +174,81 @@ const getAllPublicationsQuery = () => {
 const getContentByTagQuery = slug => {
   return `
   {
-  tags (where: {slug: "${slug}"}){
+  tags(where: { slug: "${slug}" }) {
     name
     slug
     content
-    pages(sort: "title:asc", where: {isPublished: true}) {
+    sites(sort: "title:asc", where: { isPublished: true }) {
+      id
       title
-			slug
-      path
+      slug
+      summary
+      content
+      siteType
+      showToc
+      createdAt
+      updatedAt
+      tags {
+        name
+        slug
+      }
+    }
+    pages(sort: "title:asc", where: { isPublished: true }) {
+      title
+      slug
+      summary
       content
       showToc
       isPublished
       updatedAt
       createdAt
+      section {
+      title
+      slug
+    }
       tags {
         name
         slug
       }
-     
     }
-    publications(sort: "year:desc, title:asc", where: {isPublished: true}) {
+    biographies(sort: "alphabetizeBy:asc", where: { isPublished: true }) {
+      firstName
+      middleName
+      lastName
+      membership
+      order
+      slug
+      prefix
+      suffix
       title
-    slug
-    category
-    
-    tags {
-      name
-      slug
+      content
+      category
+      tags {
+        name
+        slug
+      }
+      alphabetizeBy
+      headshot {
+        url
+        name
+      }
     }
-    summary
-    createdAt
-    isPublished
-    year
-    file {
-      name
-      url
-    }
-    externalURL
-    thumbnail {
-      url
-      name
-    }
-    
-    },
-     meetings(sort: "scheduledDate:desc", where: {isPublished: true}) {
-      createdAt
-    updatedAt
-    isPublished
-    summary
-    title
-    category
-    slug
-    isPublished
-    content
-    scheduledDate
-    materials {
-      name
-      url
-    }
-    externalURL
-    externalURLName
-    tags {
-      slug
-      name
-    }
-    }
-    
-    news: posts(sort: "createdAt:desc", where: {isPublished: true}) {
+    news: posts(sort: "createdAt:desc", where: { isPublished: true }) {
       title
       slug
       isPublished
-      createdAt
-      updatedAt
-      content
       tags {
         name
         slug
       }
-     
+      summary
+      content
+      createdAt
+      isPublished
     }
   }
 }
+  
   `;
 };
 
@@ -562,6 +556,7 @@ const getContentByTag = async ({ slug }) => {
   try {
     slug = xss(slug);
     let content = await queryEndpoint(getContentByTagQuery(slug));
+
     return content.data.data.tags;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());

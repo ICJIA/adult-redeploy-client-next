@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-card class="mx-auto py-5 mb-8" color="white">
+    <v-card
+      class="mx-auto py-5 mb-8"
+      color="white"
+      :class="{ 'elevation-1': !elevation }"
+    >
       <v-list-item three-line>
         <v-list-item-content>
           <PostedDate
@@ -56,8 +60,8 @@ export default {
       default: () => {}
     },
     elevation: {
-      type: Number,
-      default: 2
+      type: Boolean,
+      default: true
     },
     fullHeight: {
       type: Boolean,
