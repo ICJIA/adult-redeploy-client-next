@@ -3,9 +3,6 @@
     <v-card class="mx-auto py-5 mb-8" color="white">
       <v-list-item three-line>
         <v-list-item-content>
-          <!-- <div class="overline mb-4 heavy">
-            {{ content.createdAt | format }}
-          </div> -->
           <PostedDate
             :createdAt="content.createdAt"
             :updatedAt="content.updatedAt"
@@ -22,10 +19,12 @@
       <v-card-text style="font-size: 14px">
         <readmore
           :content="renderToHtml(content.content)"
+          :tags="content.tags"
           :height="height"
           readMoreText="Read More"
           :hideReadLess="true"
           class="markdown-body"
+          :fullHeight="fullHeight"
         ></readmore>
       </v-card-text>
     </v-card>
@@ -55,6 +54,14 @@ export default {
     content: {
       type: Object,
       default: () => {}
+    },
+    elevation: {
+      type: Number,
+      default: 2
+    },
+    fullHeight: {
+      type: Boolean,
+      default: false
     }
   }
 };

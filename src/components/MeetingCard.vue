@@ -86,6 +86,13 @@
       </div>
       <v-container class="mt-4">
         <v-layout>
+          <v-flex xs12>
+            <TagList :tags="content.tags"></TagList>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <v-container class="mt-10">
+        <v-layout>
           <v-flex xs12 sm12 md6>
             <div class="text-left" v-if="content.createdAt">
               Posted: {{ content.createdAt | timeAgoFormat }}
@@ -113,9 +120,11 @@ import { getFile, getExternalFile } from "@/services/Download";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
-
+import TagList from "@/components/TagList";
 export default {
-  components: {},
+  components: {
+    TagList
+  },
   data() {
     return {
       renderToHtml,

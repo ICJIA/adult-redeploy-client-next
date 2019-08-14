@@ -351,6 +351,10 @@ const getSiteDescriptionQuery = slug => {
     siteType
     createdAt
     updatedAt
+    tags {
+      name
+      slug
+    }
   }
 }`;
 };
@@ -367,6 +371,10 @@ const getAllSiteDescriptionsQuery = () => {
     showToc
      createdAt
     updatedAt
+    tags {
+      name
+      slug
+    }
   }
 }`;
 };
@@ -387,6 +395,10 @@ const getAllBiographiesQuery = () => {
     title
     content
     category
+    tags {
+      name
+      slug
+    }
     alphabetizeBy
      headshot {
       url
@@ -412,6 +424,10 @@ const getSingleBiographiesQuery = slug => {
     title
     content
     category
+     tags {
+      name
+      slug
+    }
     alphabetizeBy
      headshot {
       url

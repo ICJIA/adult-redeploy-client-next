@@ -36,7 +36,12 @@
         </template>
 
         <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
-          <v-btn small depressed @click="expand(true)" v-if="!isExpanded"
+          <v-btn
+            color="grey lighten-2"
+            small
+            depressed
+            @click="expand(true)"
+            v-if="!isExpanded"
             >More<v-icon right>arrow_drop_down</v-icon></v-btn
           >
           <v-btn small depressed @click="expand(false)" v-if="isExpanded"

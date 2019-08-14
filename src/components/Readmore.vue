@@ -13,6 +13,7 @@
           @click="handleClicks"
           class="dynamic-content"
         ></span>
+        <TagList :tags="tags" class="mt-5"></TagList>
       </div>
     </div>
     <div
@@ -49,15 +50,20 @@
 
 <script>
 import { handleClicks } from "@/mixins/handleClicks";
+import TagList from "@/components/TagList";
 export default {
   mixins: [handleClicks],
   components: {
-    // Trigger
+    TagList
   },
   props: {
     content: {
       type: String,
       default: "Content Not Defined"
+    },
+    tags: {
+      type: Array,
+      default: () => []
     },
 
     readMoreText: {
@@ -107,6 +113,10 @@ export default {
     triggerFontSize: {
       type: Number,
       default: 11
+    },
+    fullHeight: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -142,12 +152,17 @@ export default {
      * One way to get a unique id -- the component's own interal id. But folks say to avoid this.
      */
     //this.id = this._uid;
+    console.log(this.fullHeight);
     this.id = this.create_UUID();
     this.$nextTick(() => {
       let sectionHeight = document.getElementById(this.id).scrollHeight;
       this.sectionHeight = sectionHeight;
       //console.log(sectionHeight, this.height);
       if (this.sectionHeight === this.height) {
+        this.hideButton = true;
+        this.removeFade = true;
+      }
+      if (this.fullHeight) {
         this.hideButton = true;
         this.removeFade = true;
       }

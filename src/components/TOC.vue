@@ -59,38 +59,40 @@ export default {
   async mounted() {
     await this.setToc();
     var section = document.querySelectorAll("h2");
-    var sections = {};
-    var i = 0;
-    this.$refs["anchor"].classList.add("visible");
-    section.forEach(e => {
-      sections[e.id] = e.offsetTop - 50;
-    });
+    if (section) {
+      var sections = {};
+      var i = 0;
+      this.$refs["anchor"].classList.add("visible");
+      section.forEach(e => {
+        sections[e.id] = e.offsetTop - 50;
+      });
 
-    window.onscroll = () => {
-      var scrollPosition =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      const tocItems = document.querySelectorAll(".tocItem");
+      window.onscroll = () => {
+        var scrollPosition =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        const tocItems = document.querySelectorAll(".tocItem");
 
-      if (scrollPosition < 100) {
-        tocItems.forEach(toc => {
-          toc.classList.remove("visible");
-        });
-        this.$refs["anchor"].classList.add("visible");
-      } else {
-        this.$refs["anchor"].classList.remove("visible");
-      }
-      //console.log(scrollPosition);
-      for (i in sections) {
-        if (sections[i] <= scrollPosition) {
-          const sectionItem = document.getElementById(`scrollTo-${i}`);
-
+        if (scrollPosition < 100) {
           tocItems.forEach(toc => {
             toc.classList.remove("visible");
           });
-          sectionItem.classList.add("visible");
+          this.$refs["anchor"].classList.add("visible");
+        } else {
+          this.$refs["anchor"].classList.remove("visible");
         }
-      }
-    };
+        //console.log(scrollPosition);
+        for (i in sections) {
+          if (sections[i] <= scrollPosition) {
+            const sectionItem = document.getElementById(`scrollTo-${i}`);
+
+            tocItems.forEach(toc => {
+              toc.classList.remove("visible");
+            });
+            sectionItem.classList.add("visible");
+          }
+        }
+      };
+    }
   },
   beforeDestroy() {
     window.onscroll = () => {};

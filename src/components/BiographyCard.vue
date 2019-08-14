@@ -39,6 +39,7 @@
             v-if="person.content"
             v-html="renderToHtml(person.content)"
           ></div>
+          <TagList :tags="person.tags"></TagList>
           <div
             class="mt-5 text-right heavy"
             style="font-size: 12px"
@@ -46,12 +47,12 @@
           >
             <div v-if="person.category === 'board'">
               <v-btn small depressed to="/about/oversight"
-                >OVERSIGHT BOARD <v-icon right>list</v-icon></v-btn
+                >OVERSIGHT BOARD <v-icon right>link</v-icon></v-btn
               >
             </div>
             <div v-else>
               <v-btn small depressed to="/about/staff"
-                >STAFF <v-icon right>list</v-icon></v-btn
+                >STAFF <v-icon right>link</v-icon></v-btn
               >
             </div>
           </div>
@@ -65,8 +66,12 @@
 import { renderToHtml } from "@/services/Markdown";
 import { getHeadshotLink } from "@/services/Image";
 import { handleClicks } from "@/mixins/handleClicks";
+import TagList from "@/components/TagList";
 export default {
   mixins: [handleClicks],
+  components: {
+    TagList
+  },
   data() {
     return {
       renderToHtml,

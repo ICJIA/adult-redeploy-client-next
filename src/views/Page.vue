@@ -27,6 +27,7 @@
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
               ></div>
+              <TagList :tags="content[0].tags" class="mt-5"></TagList>
             </v-flex>
             <v-flex xs2 v-if="showToc" class="hidden-sm-and-down"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
@@ -40,6 +41,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
+import TagList from "@/components/TagList";
 import TOC from "@/components/TOC";
 
 import { getPageBySection } from "@/services/Content";
@@ -63,7 +65,8 @@ export default {
   },
   components: {
     BaseContent,
-    TOC
+    TOC,
+    TagList
   },
   created() {
     this.fetchContent();
