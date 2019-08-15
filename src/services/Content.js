@@ -193,6 +193,8 @@ const getContentByTagQuery = slug => {
         slug
       }
     }
+
+
     pages(sort: "title:asc", where: { isPublished: true }) {
       title
       slug
@@ -211,6 +213,33 @@ const getContentByTagQuery = slug => {
         slug
       }
     }
+
+
+    resources (sort: "publicationDate:desc", where: {isPublished: true}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    publicationDate
+    summary
+    category
+    content
+    externalURL
+    externalURLName
+    materials {
+      url
+      name
+    }
+     tags {
+      name
+      slug
+    }
+  }
+
+    
+
+
+
     biographies(sort: "alphabetizeBy:asc", where: { isPublished: true }) {
       firstName
       middleName

@@ -37,11 +37,17 @@ export default {
     singletonPath: {
       type: String,
       default: ""
+    },
+    appendCategory: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     getRoute(item) {
-      if (this.singletonPath.length) {
+      if (this.singletonPath.length && this.appendCategory) {
+        return `${this.singletonPath}/${item.category}/${item.slug}`;
+      } else if (this.singletonPath.length) {
         return `${this.singletonPath}/${item.slug}`;
       } else {
         return `/${item.section.slug}/${item.slug}`;

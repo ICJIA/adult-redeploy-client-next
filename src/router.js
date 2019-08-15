@@ -143,6 +143,13 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "resources" */ "./views/Resources.vue")
     },
+    {
+      path: "/resources/:category/:slug",
+      name: "resourcesSingle",
+
+      component: () =>
+        import(/* webpackChunkName: "resources" */ "./views/ResourcesSingle.vue")
+    },
 
     /**
      *

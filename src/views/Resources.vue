@@ -20,18 +20,6 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-layout wrap>
-            <!-- <v-flex
-              xs12
-              sm12
-              md2
-              class="hidden-md-and-up mb-12"
-              v-if="showToc && displayMode.message === 'By Category'"
-              ><TOC
-                selector="#scrollArea"
-                top="#baseContentTop"
-                :mini="true"
-              ></TOC
-            ></v-flex> -->
             <v-flex :[dynamicFlex]="true" order-md1 order-xs2 order-sm2>
               <div
                 @click="handleClicks"

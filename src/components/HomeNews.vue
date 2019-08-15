@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="item in content" :key="item.slug" class="mb-3">
-      <NewsCard :content="item" :height="130"></NewsCard>
+      <NewsCard :content="item" :height="250"></NewsCard>
     </div>
     <div class="text-center mt-6">
       <v-btn

@@ -40,6 +40,7 @@
                       :displayContentType="true"
                       :contentType="item.type"
                       :singletonPath="item.singletonPath"
+                      :appendCategory="item.appendCategory"
                       class="mb-5"
                     />
                   </div>
@@ -60,6 +61,7 @@
 import BaseContent from "@/components/BaseContent";
 import ListTable from "@/components/ListTable";
 import ListTableBiography from "@/components/ListTableBiography";
+
 import TOC from "@/components/TOC";
 
 import { getContentByTag } from "@/services/Content";
