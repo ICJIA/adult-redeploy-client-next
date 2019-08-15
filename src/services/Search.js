@@ -17,10 +17,17 @@ const getSearchIndex = async () => {
         item.parentPath = "/";
       } else {
         if (item.section) {
-          item.parentPath = `/${item.section.slug}`;
+          if (item.slug === item.section.slug) {
+            item.parentPath = `/`;
+          } else {
+            item.parentPath = `/${item.section.slug}`;
+          }
         }
-      }
 
+        // else {
+        //   item.parentPath = `/resources`;
+        // }
+      }
       return item;
     });
 
@@ -44,15 +51,19 @@ const getSearchIndex = async () => {
       return item;
     });
 
-    // let publications = searchIndex["publications"].map(item => {
-    //   item.parentPath = "/publications/" + item.category.slug;
+    let resources = searchIndex["resources"].map(item => {
+      item.parentPath = `/resources/${item.category}`;
+      return item;
+    });
 
-    //   return item;
-    // });
-
-    // return [...news, ...pages, ...meetings, ...publications];
-    //console.log(sites);
-    return [...news, ...pages, ...meetings, ...sites, ...biographies];
+    return [
+      ...news,
+      ...pages,
+      ...meetings,
+      ...sites,
+      ...biographies,
+      ...resources
+    ];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
     console.log(e.toString());

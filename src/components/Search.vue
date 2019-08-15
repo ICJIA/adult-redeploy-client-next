@@ -89,12 +89,12 @@ export default {
       //console.log(this.fuse.search(this.query));
     },
     getCategory(item) {
-      let cat = item.parentPath.split("/");
-      if (cat[1]) {
-        return cat[1];
-      } else {
-        return "";
-      }
+      // let cat = item.parentPath.split("/");
+      // if (cat[1]) {
+      //   return cat[1];
+      // } else {
+      //   return "";
+      // }
       // let returnCat;
       // if (cat[1].length) {
       //   switch (cat[1]) {
@@ -114,6 +114,7 @@ export default {
       // } else {
       //   return "";
       // }
+      return "";
     }
   }
 };

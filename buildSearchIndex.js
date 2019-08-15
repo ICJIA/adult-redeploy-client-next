@@ -53,31 +53,10 @@ const query = `{
    
     
   }
-  publications (sort: "year:desc, title:asc", where: {isPublished: true}) {
-    createdAt
-    updatedAt
-    title
-    slug
-    summary
-    externalURL
-    year
-    searchMeta
-    category
-    thumbnail {
-            url
-        }
-    isPublished
-   
-    tags {
-      name
-      slug
-    }
-    file {
-      url
-      name
-    }
-    
-  }
+
+
+
+
   meetings (sort: "scheduledDate:desc", where: {isPublished: true}){
     title
     createdAt
@@ -131,6 +110,26 @@ const query = `{
      headshot {
       url
       name
+    }
+  }
+
+  resources (sort: "publicationDate:desc", where: {isPublished: true}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    publicationDate
+    summary
+    category
+    content
+    externalURLName
+    materials {
+      url
+      name
+    }
+     tags {
+      name
+      slug
     }
   }
 
