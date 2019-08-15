@@ -10,6 +10,12 @@
       <template v-slot:item.title="{ item }">
         <span style="font-weight:bold">{{ item.title }}</span>
       </template>
+      <template v-slot:item.scheduledDate="{ item }">
+        {{ item.scheduledDate | format }}
+      </template>
+      <template v-slot:item.publicationDate="{ item }">
+        {{ item.publicationDate | format }}
+      </template>
       <template v-slot:item.summary="{ item }">
         {{ truncate(stripHTML(item.summary), 10) }}
       </template>
@@ -25,6 +31,32 @@
 <script>
 import { truncate, stripHTML } from "@/services/Utilities";
 export default {
+  mounted() {
+    Array.prototype.insert = function(index, item) {
+      this.splice(index, 0, item);
+    };
+    if (this.contentType === "meeting") {
+      let obj = {
+        text: "Scheduled",
+        align: "left",
+        sortable: true,
+        value: "scheduledDate"
+      };
+
+      this.headers.insert(0, obj);
+    }
+
+    if (this.contentType === "resource") {
+      let obj = {
+        text: "Publication Date",
+        align: "left",
+        sortable: true,
+        value: "publicationDate"
+      };
+
+      this.headers.insert(1, obj);
+    }
+  },
   props: {
     items: {
       type: Array,
