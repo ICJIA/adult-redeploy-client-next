@@ -20,14 +20,7 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-layout wrap>
-            <v-flex xs12 sm12 md2 v-if="showToc" class="hidden-md-and-up mb-12"
-              ><TOC
-                selector="#scrollArea"
-                top="#baseContentTop"
-                :mini="true"
-              ></TOC
-            ></v-flex>
-            <v-flex :[dynamicFlex]="true">
+            <v-flex :[dynamicFlex]="true" order-md1 order-xs2 order-sm2>
               <div
                 @click="handleClicks"
                 class="dynamic-content"
@@ -36,7 +29,7 @@
               ></div>
               <TagList :tags="content[0].tags" class="mt-5"></TagList>
             </v-flex>
-            <v-flex md2 v-if="showToc" class="hidden-sm-and-down"
+            <v-flex xs12 sm12 md2 order-md2 order-xs1 order-sm1 v-if="showToc"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
             ></v-flex>
           </v-layout>

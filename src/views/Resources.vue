@@ -20,7 +20,19 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-layout wrap>
-            <v-flex :[dynamicFlex]="true">
+            <!-- <v-flex
+              xs12
+              sm12
+              md2
+              class="hidden-md-and-up mb-12"
+              v-if="showToc && displayMode.message === 'By Category'"
+              ><TOC
+                selector="#scrollArea"
+                top="#baseContentTop"
+                :mini="true"
+              ></TOC
+            ></v-flex> -->
+            <v-flex :[dynamicFlex]="true" order-md1 order-xs2 order-sm2>
               <div
                 @click="handleClicks"
                 class="dynamic-content"
@@ -28,8 +40,8 @@
                 v-if="content[0].content"
               ></div>
               <toggle
-                on="By Category"
-                off="By Publication Date"
+                toggleOn="By Category"
+                toggleOff="By Publication Date"
                 name="resources"
               ></toggle>
               <div v-if="displayMode.message === 'By Category'">
@@ -69,9 +81,13 @@
               </div>
             </v-flex>
             <v-flex
-              xs2
+              xs12
+              sm12
+              md2
+              order-md2
+              order-xs1
+              order-sm1
               v-if="showToc && displayMode.message === 'By Category'"
-              class="hidden-sm-and-down"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
             ></v-flex>
           </v-layout>
@@ -203,7 +219,6 @@ export default {
       });
     },
     checkCategoryLength(category) {
-      console.log(category.enum);
       let test = this.resources.filter(resource => {
         return resource.category === category.enum;
       });

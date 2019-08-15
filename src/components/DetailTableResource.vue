@@ -30,9 +30,23 @@
           {{ getCategoryTitle(item.category) }}
         </template>
 
-        <template v-slot:item.slug="{ item }">
-          <v-btn small depressed :to="getRoute(item)"
-            ><v-icon>link</v-icon></v-btn
+        <template v-slot:item.materials="{ item }">
+          <v-btn
+            small
+            depressed
+            v-if="checkForSingleFile(item)"
+            @click="getFile(item)"
+            >DOWNLOAD <v-icon right>cloud_download</v-icon></v-btn
+          >
+        </template>
+
+        <template v-slot:item.externalURL="{ item }">
+          <v-btn
+            small
+            depressed
+            v-if="checkForExternalURL(item)"
+            @click="gotoExternalURL(item)"
+            >OPEN <v-icon right>open_in_new</v-icon></v-btn
           >
         </template>
 
@@ -52,7 +66,7 @@
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
-              {{ item }}
+              <ResourceCard :content="item"></ResourceCard>
             </div>
           </td>
         </template>
@@ -62,8 +76,12 @@
 </template>
 
 <script>
+import { getFile } from "@/services/Download";
+import ResourceCard from "@/components/ResourceCard";
 export default {
-  components: {},
+  components: {
+    ResourceCard
+  },
   mounted() {
     if (!this.hideCategory) {
       Array.prototype.insert = function(index, item) {
@@ -93,7 +111,13 @@ export default {
         { text: "Title", value: "title" },
         {
           text: "",
-          value: "slug",
+          value: "materials",
+          align: "center",
+          sortable: false
+        },
+        {
+          text: "",
+          value: "externalURL",
           align: "center",
           sortable: false
         }
@@ -101,6 +125,30 @@ export default {
     };
   },
   methods: {
+    checkForSingleFile(item) {
+      if (item.materials.length === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    checkForExternalURL(item) {
+      if (item.externalURL) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    getFile(item) {
+      if (item.materials.length === 1) {
+        return getFile(item.materials[0]);
+      }
+    },
+    gotoExternalURL(item) {
+      if (item.externalURL) {
+        window.open(item.externalURL, "_blank");
+      }
+    },
     getRoute(resource) {
       let parentPath = this.$store.getters.config.categoryEnums.resources.filter(
         cat => {

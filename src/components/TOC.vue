@@ -1,7 +1,14 @@
 <template>
   <div
     class="toc"
-    :class="{ 'pl-10': !mini, 'pl-2': mini, shaded: mini }"
+    :class="{
+      'pl-2': $vuetify.breakpoint.xs || $vuetify.breakpoint.xs,
+      'pl-10':
+        $vuetify.breakpoint.md ||
+        $vuetify.breakpoint.lg ||
+        $vuetify.breakpoint.xl,
+      shaded: $vuetify.breakpoint.xs || $vuetify.breakpoint.xs
+    }"
     style=""
   >
     <div
@@ -128,11 +135,40 @@ export default {
 .shaded {
   background: #eee;
   padding: 15px;
+  margin-bottom: 25px;
 }
 
+.toc {
+  position: -webkit-sticky !important; /* Safari */
+  position: sticky !important;
+  top: 125px !important;
+}
+
+ul.toc-list {
+  list-style-type: none;
+}
+
+ul.toc-list li {
+  color: #333;
+
+  padding: 2px 5px 2px 5px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+ul.toc-list li:hover {
+  color: #065f60;
+  background: #eee;
+}
 @media only screen and (max-width: 1024px) {
   .divider {
     border-left: 0px solid #ccc;
+  }
+
+  ul.toc-list li:hover {
+    color: #fff;
+    background: #aaa;
   }
 }
 </style>

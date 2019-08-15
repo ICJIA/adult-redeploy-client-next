@@ -17,16 +17,17 @@ export default {
 
   methods: {
     displayLabel() {
-      return this.toggle ? this.on : this.off;
+      return this.toggle ? this.toggleOn : this.toggleOff;
     },
     emitToggle() {
       let payload = {};
       if (this.toggle) {
-        payload.message = this.on;
+        payload.message = this.toggleOn;
       } else {
-        payload.message = this.off;
+        payload.message = this.toggleOff;
       }
       payload.name = this.name;
+      console.log("toggle: ", payload.message);
       EventBus.$emit("toggle", payload);
     }
   },
@@ -41,11 +42,11 @@ export default {
   },
   beforeDestroy() {},
   props: {
-    on: {
+    toggleOn: {
       type: String,
       default: "on"
     },
-    off: {
+    toggleOff: {
       type: String,
       default: "off"
     },

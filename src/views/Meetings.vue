@@ -20,7 +20,7 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-layout wrap>
-            <v-flex
+            <!-- <v-flex
               xs12
               sm12
               md2
@@ -31,7 +31,7 @@
                 top="#baseContentTop"
                 :mini="true"
               ></TOC
-            ></v-flex>
+            ></v-flex> -->
             <v-flex :[dynamicFlex]="true">
               <div
                 v-html="renderToHtml(content[0].content)"
@@ -39,7 +39,11 @@
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-              <toggle on="By Category" off="By Date" name="meetings"></toggle>
+              <toggle
+                toggleOn="By Category"
+                toggleOff="By Date"
+                name="meetings"
+              ></toggle>
               <div v-if="displayMode.message === 'By Category'">
                 <div
                   v-for="category in $store.getters.config.categoryEnums
