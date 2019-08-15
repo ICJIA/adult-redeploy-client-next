@@ -1,12 +1,16 @@
 <template>
-  <div class="pl-10 toc">
+  <div
+    class="toc"
+    :class="{ 'pl-10': !mini, 'pl-2': mini, shaded: mini }"
+    style=""
+  >
     <div
       style="margin-left: -3px; font-weight: bold;"
       ref="anchor"
       class="mb-4 hover anchor"
       @click="$vuetify.goTo(0)"
     >
-      NAVIGATION
+      TABLE OF CONTENTS
     </div>
     <div class="divider">
       <ul class="toc-list">
@@ -39,6 +43,10 @@ export default {
     top: {
       type: String,
       default: "#baseContentTop"
+    },
+    mini: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -115,5 +123,16 @@ export default {
 .anchor:hover {
   color: #057879;
   background: #eee;
+}
+
+.shaded {
+  background: #eee;
+  padding: 15px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .divider {
+    border-left: 0px solid #ccc;
+  }
 }
 </style>

@@ -483,6 +483,32 @@ const getSingleMeetingQuery = slug => {
 }`;
 };
 
+const getAllResourcesQuery = () => {
+  return `{
+  resources (sort: "publicationDate:desc", where: {isPublished: true}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    publicationDate
+    summary
+    category
+    content
+    externalURL
+    externalURLName
+    materials {
+      url
+      name
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -671,6 +697,17 @@ const getSingleMeeting = async ({ slug }) => {
   }
 };
 
+const getAllResources = async () => {
+  try {
+    let resources = await queryEndpoint(getAllResourcesQuery());
+    return resources.data.data.resources;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -687,5 +724,6 @@ export {
   getAllBiographies,
   getSingleBiography,
   getAllMeetings,
-  getSingleMeeting
+  getSingleMeeting,
+  getAllResources
 };

@@ -209,6 +209,7 @@ ul.toc-list li:hover {
 }
 
 .theme--light.v-data-table.meetingTable,
+.theme--light.v-data-table.detailTable,
 .theme--light.v-data-table.tagTable {
   background-color: #fff !important;
   color: rgba(0, 0, 0, 0.87);

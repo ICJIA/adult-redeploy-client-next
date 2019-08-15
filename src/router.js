@@ -116,12 +116,32 @@ export default new Router({
     //     import(/* webpackChunkName: "meetings" */ "./views/MeetingsCategory.vue")
     // },
 
+    /**
+     *
+     * Tags
+     *
+     */
+
     {
       path: "/tags/:slug",
       name: "tagsSingle",
 
       component: () =>
         import(/* webpackChunkName: "tags" */ "./views/TagsSingle.vue")
+    },
+
+    /**
+     *
+     * Resources
+     *
+     */
+
+    {
+      path: "/resources",
+      name: "resources",
+
+      component: () =>
+        import(/* webpackChunkName: "resources" */ "./views/Resources.vue")
     },
 
     /**

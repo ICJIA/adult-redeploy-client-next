@@ -20,68 +20,56 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-layout wrap>
-            <v-flex
-              xs12
-              sm12
-              md2
-              class="hidden-md-and-up mb-12"
-              v-if="showToc && displayMode.message === 'By Category'"
-              ><TOC
-                selector="#scrollArea"
-                top="#baseContentTop"
-                :mini="true"
-              ></TOC
-            ></v-flex>
             <v-flex :[dynamicFlex]="true">
               <div
-                v-html="renderToHtml(content[0].content)"
-                v-if="content[0].content"
                 @click="handleClicks"
                 class="dynamic-content"
+                v-html="renderToHtml(content[0].content)"
+                v-if="content[0].content"
               ></div>
-              <toggle on="By Category" off="By Date" name="meetings"></toggle>
+              <toggle
+                on="By Category"
+                off="By Publication Date"
+                name="resources"
+              ></toggle>
               <div v-if="displayMode.message === 'By Category'">
                 <div
                   v-for="category in $store.getters.config.categoryEnums
-                    .meetings"
+                    .resources"
                   :key="category.enum"
-                  class="mb-12"
                 >
-                  <h2 :id="category.slug">{{ category.title }}</h2>
-                  <p
-                    v-html="category.description"
-                    v-if="category.description"
-                    @click="handleClicks"
-                    class="dynamic-content"
-                  ></p>
-
-                  <DetailTableMeeting
-                    :meetings="filterMeetingData(category.enum)"
-                    class="mt-8 "
-                    :class="{
-                      'pl-6':
-                        $vuetify.breakpoint.md ||
-                        $vuetify.breakpoint.lg ||
-                        $vuetify.breakpoint.xl,
-                      'pr-6':
-                        $vuetify.breakpoint.md ||
-                        $vuetify.breakpoint.lg ||
-                        $vuetify.breakpoint.xl
-                    }"
-                  ></DetailTableMeeting>
+                  <div v-if="checkCategoryLength(category)">
+                    <h2 :id="category.slug">{{ category.title }}</h2>
+                    <p
+                      v-html="category.description"
+                      v-if="category.description"
+                      @click="handleClicks"
+                      class="dynamic-content"
+                    ></p>
+                    <DetailTableResource
+                      :resources="filterResourceData(category.enum)"
+                      :hideCategory="true"
+                      class="mt-8 "
+                      :class="{
+                        'pl-6':
+                          $vuetify.breakpoint.md ||
+                          $vuetify.breakpoint.lg ||
+                          $vuetify.breakpoint.xl,
+                        'pr-6':
+                          $vuetify.breakpoint.md ||
+                          $vuetify.breakpoint.lg ||
+                          $vuetify.breakpoint.xl
+                      }"
+                    ></DetailTableResource>
+                  </div>
                 </div>
               </div>
-              <div v-if="displayMode.message === 'By Date'">
-                <DetailTableMeeting
-                  :meetings="meetings"
-                  class="mt-8 "
-                  :hideCategory="false"
-                ></DetailTableMeeting>
+              <div v-if="displayMode.message === 'By Publication Date'">
+                Resource by Publication Date here
               </div>
             </v-flex>
-
             <v-flex
-              md2
+              xs2
               v-if="showToc && displayMode.message === 'By Category'"
               class="hidden-sm-and-down"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
@@ -95,15 +83,18 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
+import DetailTableResource from "@/components/DetailTableResource";
 import { EventBus } from "@/event-bus";
-import DetailTableMeeting from "@/components/DetailTableMeeting";
 import TOC from "@/components/TOC";
-import { getPageBySection, getAllMeetings } from "@/services/Content";
+import Toggle from "@/components/Toggle";
+import { getPageBySection, getAllResources } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
-import Toggle from "@/components/Toggle";
 export default {
+  watch: {
+    $route: "fetchContent"
+  },
   mixins: [handleClicks],
   data() {
     return {
@@ -113,14 +104,14 @@ export default {
       renderToHtml,
       showToc: false,
       sectionContent: null,
-      meetings: null,
-      displayMode: {}
+      displayMode: {},
+      resources: null
     };
   },
   components: {
     BaseContent,
+    DetailTableResource,
     TOC,
-    DetailTableMeeting,
     Toggle
   },
   created() {
@@ -135,7 +126,7 @@ export default {
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
         return "xs12";
-      } else if (this.displayMode.message === "By Date") {
+      } else if (this.displayMode.message === "By Publication Date") {
         return "xs12";
       } else {
         return this.showToc ? "xs10" : "xs12";
@@ -148,8 +139,8 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
-      const section = "about";
-      const slug = "meetings";
+      const section = "resources";
+      const slug = "resources";
 
       const name = `getPageBySection-${section}${slug}`;
       contentMap.set(name, {
@@ -158,10 +149,10 @@ export default {
         params: { section, slug }
       });
 
-      const meetingsName = "getAllMeetings";
-      contentMap.set(meetingsName, {
-        hash: getHash(meetingsName),
-        query: getAllMeetings,
+      const resourcesName = "getAllResources";
+      contentMap.set(resourcesName, {
+        hash: getHash(resourcesName),
+        query: getAllResources,
         params: {}
       });
 
@@ -184,17 +175,12 @@ export default {
         this.routeToError();
       }
 
-      this.meetings = this.$store.getters.getContentFromCache(
+      this.resources = this.$store.getters.getContentFromCache(
         contentMap,
-        meetingsName
+        resourcesName
       );
 
       this.loading = false;
-    },
-    filterMeetingData(categoryEnum) {
-      return this.meetings.filter(meeting => {
-        return meeting.category === categoryEnum;
-      });
     },
     routeToError() {
       this.content = null;
@@ -210,6 +196,22 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .catch(err => {});
+    },
+    filterResourceData(categoryEnum) {
+      return this.resources.filter(resource => {
+        return resource.category === categoryEnum;
+      });
+    },
+    checkCategoryLength(category) {
+      console.log(category.enum);
+      let test = this.resources.filter(resource => {
+        return resource.category === category.enum;
+      });
+      if (test.length) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };
