@@ -20,7 +20,7 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-layout wrap>
-            <v-flex xs10>
+            <v-flex :[dynamicFlex]="true" order-md1 order-xs2 order-sm2>
               <div
                 v-for="(item, index) in $store.getters.config.taggableContent"
                 :key="index"
@@ -46,7 +46,7 @@
                 </div>
               </div>
             </v-flex>
-            <v-flex xs2 v-if="showToc" class="hidden-sm-and-down"
+            <v-flex xs12 sm12 md2 order-md2 order-xs1 order-sm1 v-if="showToc"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
             ></v-flex>
           </v-layout>
@@ -90,7 +90,15 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {},
+  computed: {
+    dynamicFlex() {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "xs12";
+      } else {
+        return this.showToc ? "xs10" : "xs12";
+      }
+    }
+  },
 
   methods: {
     async fetchContent() {
