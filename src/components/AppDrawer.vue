@@ -8,7 +8,7 @@
     clipped
     disable-resize-watcher
   >
-    <v-layout column fill-height>
+    <v-row class="fill-height">
       <v-list class="drawer" rounded>
         <v-list-item>
           <v-list-item-content>
@@ -88,7 +88,7 @@
           ></strong
         >
       </div>
-    </v-layout>
+    </v-row>
   </v-navigation-drawer>
 </template>
 

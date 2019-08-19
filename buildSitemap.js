@@ -9,34 +9,31 @@ var sm = require("sitemap");
 const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
-const sections = ["pages", "news", "tags", "publications", "meetings"];
+const sections = ["pages", "news", "tags", "resources", "meetings"];
 let routes = [];
 
 const query = `{
   pages (where: {isPublished: true}) {
     slug
-    category {
+    section {
       slug
     }
+    
   }
 
   news: posts (where: {isPublished: true}) {
     slug
-    category {
-      slug
-    }
+    
+   
   }
-  publications (where: {isPublished: true}) {
+  resources (where: {isPublished: true}) {
     slug
-    category {
-      slug
-    }
+    category 
+    
   }
   meetings (where: {isPublished: true}){
     slug
-    category {
-      slug
-    }
+    category
   }
 
   tags {
@@ -50,63 +47,67 @@ if (!fs.existsSync(apiDir)) {
   console.log(`Created: ${apiDir}/`);
 }
 
+// request(api, query).then(res => {
+//   sections.forEach(section => {
+//     let sectionRoutes = res[section].map(item => {
+//       let path;
+//       if (section === "pages") {
+//         path = `/${item.slug}`;
+//       } else if (section === "resources" || section === "meetings") {
+//         path = `/${section}/${item.category.slug}/${item.slug}`;
+//       } else if (section === "news" || section === "tags") {
+//         path = `/${section}/${item.slug}`;
+//       } else {
+//         path = "/";
+//       }
+//       return path;
+//     });
+//     routes.push(...sectionRoutes);
+//   });
+
+//   sections.forEach(section => {
+//     let sectionRoutes = res[section].map(item => {
+//       let path;
+//       if (section === "resources" || section === "meetings") {
+//         path = `/${section}/${item.category.slug}`;
+//       }
+
+//       return path;
+//     });
+//     routes.push(...sectionRoutes);
+//   });
+
+//   // filter nulls
+//   let temp = routes.filter(Boolean);
+//   // remove dupes
+//   let paths = [...new Set(temp)];
+//   // add root
+//   paths.push("/");
+
+//   jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
+//     if (err) console.error(err);
+//     console.log(`Created: ${apiDir}/${filename}`);
+//   });
+
+//   let urls = paths.map(route => {
+//     let obj = {};
+//     obj.url = route;
+//     obj.changefreq = "weekly";
+//     obj.priority = 0.8;
+//     // obj.lastmodrealtime = true;
+//     return obj;
+//   });
+
+//   let sitemap = sm.createSitemap({
+//     hostname: config.clientURL,
+//     cacheTime: 600000, //600 sec (10 min) cache purge period
+//     urls
+//   });
+
+//   fs.writeFileSync("./public/sitemap.xml", sitemap.toString());
+//   console.log(`Created: ./public/sitemap.xml`);
+// });
+
 request(api, query).then(res => {
-  sections.forEach(section => {
-    let sectionRoutes = res[section].map(item => {
-      let path;
-      if (section === "pages") {
-        path = `/${item.slug}`;
-      } else if (section === "publications" || section === "meetings") {
-        path = `/${section}/${item.category.slug}/${item.slug}`;
-      } else if (section === "news" || section === "tags") {
-        path = `/${section}/${item.slug}`;
-      } else {
-        path = "/";
-      }
-      return path;
-    });
-    routes.push(...sectionRoutes);
-  });
-
-  sections.forEach(section => {
-    let sectionRoutes = res[section].map(item => {
-      let path;
-      if (section === "publications" || section === "meetings") {
-        path = `/${section}/${item.category.slug}`;
-      }
-
-      return path;
-    });
-    routes.push(...sectionRoutes);
-  });
-
-  // filter nulls
-  let temp = routes.filter(Boolean);
-  // remove dupes
-  let paths = [...new Set(temp)];
-  // add root
-  paths.push("/");
-
-  jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
-    if (err) console.error(err);
-    console.log(`Created: ${apiDir}/${filename}`);
-  });
-
-  let urls = paths.map(route => {
-    let obj = {};
-    obj.url = route;
-    obj.changefreq = "weekly";
-    obj.priority = 0.8;
-    // obj.lastmodrealtime = true;
-    return obj;
-  });
-
-  let sitemap = sm.createSitemap({
-    hostname: config.clientURL,
-    cacheTime: 600000, //600 sec (10 min) cache purge period
-    urls
-  });
-
-  fs.writeFileSync("./public/sitemap.xml", sitemap.toString());
-  console.log(`Created: ./public/sitemap.xml`);
+  console.log(res);
 });

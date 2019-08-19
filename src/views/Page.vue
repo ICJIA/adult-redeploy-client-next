@@ -6,11 +6,11 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -19,8 +19,8 @@
           id="scrollArea"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex :[dynamicFlex]="true" order-md1 order-xs2 order-sm2>
+          <v-row>
+            <v-col :[dynamicFlex]="true" order-md="1" order="2" order-sm="2">
               <div
                 @click="handleClicks"
                 class="dynamic-content"
@@ -28,11 +28,18 @@
                 v-if="content[0].content"
               ></div>
               <TagList :tags="content[0].tags" class="mt-5"></TagList>
-            </v-flex>
-            <v-flex xs12 sm12 md2 order-md2 order-xs1 order-sm1 v-if="showToc"
+            </v-col>
+            <v-col
+              cols="12"
+              sm="12"
+              md="2"
+              order-md="2"
+              order="1"
+              order-sm="1"
+              v-if="showToc"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
-            ></v-flex>
-          </v-layout>
+            ></v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

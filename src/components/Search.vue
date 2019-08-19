@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <v-container fluid
-      ><v-flex xs12>
+      ><v-col cols="12">
         <v-form class="pl-2">
           <v-text-field
             ref="textfield"
@@ -32,7 +32,7 @@
             </base-list>
           </div>
         </v-form>
-      </v-flex></v-container
+      </v-col></v-container
     >
   </div>
 </template>

@@ -6,11 +6,11 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -19,8 +19,8 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
           id="scrollArea"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
@@ -31,8 +31,8 @@
               <div v-for="(person, index) in board" :key="`board-${index}`">
                 <BiographyCard :person="person"></BiographyCard>
               </div>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

@@ -6,23 +6,23 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <div
                 v-html="renderToHtml(content[0].content)"
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
         <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
-          <v-layout wrap>
-            <v-flex xs12 class="mb-10">
+          <v-row>
+            <v-col cols="12" class="mb-10">
               <!-- {{ searchIndex }} -->
               <search :search-content="searchIndex" class="search" style="" />
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

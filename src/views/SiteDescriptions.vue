@@ -6,16 +6,16 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
               <!-- <div class="text-right noprint my-10">
                 <v-btn small @click="print"
                   >Print<v-icon right>print</v-icon></v-btn
                 >
               </div> -->
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -23,29 +23,29 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap v-if="content[0].summary">
-            <v-flex :[dynamicFlex]="true">
+          <v-row v-if="content[0].summary">
+            <v-col :[dynamicFlex]="true">
               <div
                 v-html="renderToHtml(content[0].summary)"
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-            </v-flex>
-            <v-flex xs2 v-if="showToc"><TOC></TOC></v-flex>
-            <v-flex xs12 v-if="sites">
+            </v-col>
+            <v-col cols="2" v-if="showToc"><TOC></TOC></v-col>
+            <v-col cols="12" v-if="sites">
               <base-list :items="sites">
                 <template slot-scope="item">
                   <v-container
                     :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
                   >
-                    <v-flex xs12 class="mt-12">
+                    <v-col cols="12" class="mt-12">
                       <BaseDescription :content="[...item]"></BaseDescription>
-                    </v-flex>
+                    </v-col>
                   </v-container>
                 </template>
               </base-list>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

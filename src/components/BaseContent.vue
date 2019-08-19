@@ -7,11 +7,11 @@
     </div>
     <div v-else>
       <v-container>
-        <v-layout wrap>
-          <v-flex>
+        <v-row>
+          <v-col>
             <loader></loader>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
     </div>
   </div>

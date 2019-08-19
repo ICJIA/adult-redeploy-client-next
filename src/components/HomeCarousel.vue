@@ -40,10 +40,14 @@
     aspect-ratio="1"
     class="grey lighten-2"
     max-height="600"
-    ><v-container fluid fill-height text-center style="margin: 0; padding: 0">
-      <v-layout align-center>
+    ><v-container
+      class="fill-height text-center"
+      fluid
+      style="margin: 0; padding: 0"
+    >
+      <v-row align="center">
         <div class="banner">
-          <v-flex xs12>
+          <v-col cols="12">
             <h1 class="default-font carousel-large heavy carousel-main-text">
               Adult Redeploy Illinois
             </h1>
@@ -60,9 +64,9 @@
             <v-btn class="mt-6" to="/about/faqs" outlined color="white"
               >FAQs</v-btn
             >
-          </v-flex>
+          </v-col>
         </div>
-      </v-layout>
+      </v-row>
     </v-container>
   </v-img>
 </template>

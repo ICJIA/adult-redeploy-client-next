@@ -3,11 +3,11 @@
     <base-content :loading="loading">
       <template v-slot:content>
         <v-container v-if="content">
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <BaseDescription :content="content"></BaseDescription>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

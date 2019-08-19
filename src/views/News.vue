@@ -6,11 +6,11 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -18,23 +18,23 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-            </v-flex>
-            <v-flex xs12 class="mb-10">
+            </v-col>
+            <v-col cols="12" class="mb-10">
               <base-list :items="news" empty="">
                 <template slot-scope="item">
-                  <NewsCard :content="item" :height="200"></NewsCard>
+                  <NewsCard :content="item" :height="400"></NewsCard>
                 </template>
               </base-list>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

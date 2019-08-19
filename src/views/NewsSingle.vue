@@ -6,15 +6,15 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12 class="mb-10">
+          <v-row>
+            <v-col cols="12" class="mb-10">
               <NewsCard
                 :content="content[0]"
                 :fullHeight="true"
                 :elevation="false"
               ></NewsCard>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

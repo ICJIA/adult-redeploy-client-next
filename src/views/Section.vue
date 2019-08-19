@@ -6,11 +6,11 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content.title }}</h1>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -18,15 +18,15 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <div
                 @click="handleClicks"
                 class="dynamic-content"
                 v-html="renderToHtml(content.summary)"
               ></div>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
         <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <ul class="pageList">

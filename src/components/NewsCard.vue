@@ -3,7 +3,7 @@
     <v-card
       class="mx-auto py-5 mb-8"
       color="white"
-      :class="{ 'elevation-1': !elevation }"
+      :class="{ 'elevation-1': elevation, 'elevation-0': !elevation }"
     >
       <v-list-item three-line>
         <v-list-item-content>
@@ -13,7 +13,9 @@
             class=""
             style="margin-left: -15px;"
           ></PostedDate>
-          <v-list-item-title class="headline mb-1" style="font-weight: 700"
+          <v-list-item-title
+            class="headline mb-1"
+            style="font-weight: 700; font-size: 28px !important; margin: 0; padding: 0;"
             ><router-link :to="`/news/${content.slug}`" class="news-link">{{
               content.title | titleCase
             }}</router-link></v-list-item-title
