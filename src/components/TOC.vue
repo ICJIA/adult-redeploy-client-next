@@ -16,8 +16,9 @@
       ref="anchor"
       class="mb-4 hover anchor"
       @click="$vuetify.goTo(0)"
+      v-if="tocHeading.length"
     >
-      TABLE OF CONTENTS
+      {{ tocHeading | upperCase }}
     </div>
     <div class="divider">
       <ul class="toc-list">
@@ -46,6 +47,10 @@ export default {
     selector: {
       type: String,
       default: "#scrollArea"
+    },
+    tocHeading: {
+      type: String,
+      default: "NAVIGATION"
     },
     top: {
       type: String,

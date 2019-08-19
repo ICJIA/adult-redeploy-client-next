@@ -6,11 +6,11 @@
     <base-content :loading="loading">
       <template v-slot:content>
         <v-container fluid>
-          <v-layout wrap>
-            <v-flex
-              xs12
-              sm12
-              md6
+          <v-row>
+            <v-col
+              cols="12"
+              sm="12"
+              md="6"
               style="padding-left: 30px; padding-right: 30px"
               class="mb-10"
             >
@@ -19,13 +19,13 @@
               </h2>
 
               <home-about :content="about" v-if="about"></home-about>
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12 sm12 md6 class="mb-10">
+            <v-col cols="12" sm="12" md="6" class="mb-10">
               <h2 class="heavy rule uppercase">News & Events</h2>
               <home-news :content="news" v-if="news"></home-news>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

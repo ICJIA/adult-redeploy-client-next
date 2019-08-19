@@ -5,7 +5,7 @@
         <v-container v-if="content">
           <v-row>
             <v-col cols="12">
-              <BaseDescription :content="content"></BaseDescription>
+              <SiteDescriptionCard :content="content"></SiteDescriptionCard>
             </v-col>
           </v-row>
         </v-container>
@@ -21,13 +21,13 @@ import { getSiteDescription } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 
 import BaseContent from "@/components/BaseContent";
-import BaseDescription from "@/components/BaseDescription";
+import SiteDescriptionCard from "@/components/SiteDescriptionCard";
 import { handleClicks } from "@/mixins/handleClicks";
 
 export default {
   components: {
     BaseContent,
-    BaseDescription
+    SiteDescriptionCard
   },
   mixins: [handleClicks],
   data() {

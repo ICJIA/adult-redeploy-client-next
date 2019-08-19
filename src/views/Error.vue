@@ -1,9 +1,9 @@
 <template>
   <error-content>
     <template v-slot:content>
-      <v-container grid-list-md text-center>
-        <v-layout wrap align-center>
-          <v-flex>
+      <v-container class="text-center">
+        <v-row align="center">
+          <v-col>
             <h1 style="font-size: 48px; color: #067879">Oops.</h1>
             <h2
               class="mt-10"
@@ -23,8 +23,8 @@
               color="primary"
               ><v-icon left>chevron_left</v-icon>Go back home</v-btn
             >
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
     </template>
   </error-content>

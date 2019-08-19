@@ -20,7 +20,15 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
-            <v-col :[dynamicFlex]="true" order-md="1" order="2" order-sm="2">
+            <v-col
+              cols="12"
+              sm="12"
+              :md="dynamicFlex()"
+              order-md="1"
+              order="2"
+              order-sm="2"
+              style="margin-top: -50px"
+            >
               <div
                 v-for="(item, index) in $store.getters.config.taggableContent"
                 :key="index"
@@ -55,7 +63,11 @@
               order="1"
               order-sm="1"
               v-if="showToc"
-              ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
+              ><TOC
+                selector="#scrollArea"
+                top="#baseContentTop"
+                tocHeading="Tagged Categories"
+              ></TOC
             ></v-col>
           </v-row>
         </v-container>
@@ -99,17 +111,16 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {
-    dynamicFlex() {
-      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
-        return "xs12";
-      } else {
-        return this.showToc ? "xs10" : "xs12";
-      }
-    }
-  },
+  computed: {},
 
   methods: {
+    dynamicFlex() {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "12";
+      } else {
+        return this.showToc ? "10" : "12";
+      }
+    },
     async fetchContent() {
       this.loading = true;
 

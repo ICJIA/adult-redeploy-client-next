@@ -6,11 +6,11 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -19,7 +19,7 @@
           id="scrollArea"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
+          <v-row>
             <!-- <v-flex
               xs12
               sm12
@@ -32,7 +32,7 @@
                 :mini="true"
               ></TOC
             ></v-flex> -->
-            <v-flex :[dynamicFlex]="true">
+            <v-col :[dynamicFlex]="true">
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
@@ -82,15 +82,19 @@
                   :hideCategory="false"
                 ></DetailTableMeeting>
               </div>
-            </v-flex>
+            </v-col>
 
-            <v-flex
-              md2
+            <v-col
+              md="2"
               v-if="showToc && displayMode.message === 'By Category'"
               class="hidden-sm-and-down"
-              ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
-            ></v-flex>
-          </v-layout>
+              ><TOC
+                selector="#scrollArea"
+                top="#baseContentTop"
+                tocHeading="Meeting Categories"
+              ></TOC
+            ></v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

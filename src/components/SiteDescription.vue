@@ -10,7 +10,7 @@
     <base-content :loading="loading">
       <template v-slot:content v-if="content">
         <div class="animated fadeIn">
-          <BaseDescription :content="content"></BaseDescription>
+          <SiteDescriptionCard :content="content"></SiteDescriptionCard>
         </div>
       </template>
     </base-content>
@@ -22,15 +22,14 @@ import { EventBus } from "@/event-bus";
 
 import { renderToHtml } from "@/services/Markdown";
 import { getSiteDescription } from "@/services/Content";
-// eslint-disable-next-line no-unused-vars
-import { getHash, checkIfValidPage } from "@/services/Utilities";
+import { getHash } from "@/services/Utilities";
 import BaseContent from "@/components/BaseContent";
-import BaseDescription from "@/components/BaseDescription";
+import SiteDescriptionCard from "@/components/SiteDescriptionCard";
 
 export default {
   components: {
     BaseContent,
-    BaseDescription
+    SiteDescriptionCard
   },
   data() {
     return {

@@ -7,14 +7,14 @@
           id="scrollArea"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex>
+          <v-row>
+            <v-col>
               <BiographyCard
                 :person="content[0]"
                 :displayCategory="true"
               ></BiographyCard>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

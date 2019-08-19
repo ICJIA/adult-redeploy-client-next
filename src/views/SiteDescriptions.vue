@@ -24,22 +24,21 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row v-if="content[0].summary">
-            <v-col :[dynamicFlex]="true">
+            <v-col cols="12">
               <div
                 v-html="renderToHtml(content[0].summary)"
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
-            </v-col>
-            <v-col cols="2" v-if="showToc"><TOC></TOC></v-col>
-            <v-col cols="12" v-if="sites">
               <base-list :items="sites">
                 <template slot-scope="item">
                   <v-container
                     :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
                   >
                     <v-col cols="12" class="mt-12">
-                      <BaseDescription :content="[...item]"></BaseDescription>
+                      <SiteDescriptionCard
+                        :content="[...item]"
+                      ></SiteDescriptionCard>
                     </v-col>
                   </v-container>
                 </template>
@@ -55,7 +54,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
-import BaseDescription from "@/components/BaseDescription";
+import SiteDescriptionCard from "@/components/SiteDescriptionCard";
 
 import { getAllSiteDescriptions, getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -72,7 +71,7 @@ export default {
       content: null,
       checkIfValidPage,
       renderToHtml,
-      showToc: false,
+      showToc: true,
       sectionContent: null,
       descriptionDisplay: [],
       expand: false,
@@ -82,7 +81,7 @@ export default {
   components: {
     BaseContent,
     BaseList,
-    BaseDescription
+    SiteDescriptionCard
   },
   created() {
     this.fetchContent();

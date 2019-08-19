@@ -6,11 +6,11 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12>
+          <v-row>
+            <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -18,25 +18,25 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-layout wrap>
-            <v-flex xs12 class="mb-10">
+          <v-row>
+            <v-col cols="12" class="mb-10">
               {{ content[0].content }}
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
         <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
-          <v-layout wrap>
-            <v-flex xs12 sm6 md6>
+          <v-row>
+            <v-col cols="12" sm="6" md="6">
               <div>
                 <site-illinois :maxWidth="400"></site-illinois>
               </div>
-            </v-flex>
-            <v-flex xs12 sm6 md6>
+            </v-col>
+            <v-col cols="12" sm="6" md="6">
               <SiteDescription
                 :class="{ pull: $vuetify.breakpoint.xs }"
               ></SiteDescription>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>

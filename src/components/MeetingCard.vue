@@ -91,7 +91,7 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-container class="mt-10">
+      <v-container class="mt-4">
         <v-row>
           <v-col cols="12" sm="12" md="6">
             <div class="text-left" v-if="content.createdAt">

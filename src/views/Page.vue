@@ -20,7 +20,14 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
-            <v-col :[dynamicFlex]="true" order-md="1" order="2" order-sm="2">
+            <v-col
+              cols="12"
+              sm="12"
+              :md="dynamicFlex()"
+              order-md="1"
+              order="2"
+              order-sm="2"
+            >
               <div
                 @click="handleClicks"
                 class="dynamic-content"
@@ -78,15 +85,7 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {
-    dynamicFlex() {
-      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
-        return "xs12";
-      } else {
-        return this.showToc ? "xs10" : "xs12";
-      }
-    }
-  },
+  computed: {},
 
   methods: {
     async fetchContent() {
@@ -138,6 +137,13 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .catch(err => {});
+    },
+    dynamicFlex() {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "12";
+      } else {
+        return this.showToc ? "10" : "12";
+      }
     }
   }
 };

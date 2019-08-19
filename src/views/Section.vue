@@ -32,9 +32,6 @@
           <ul class="pageList">
             <base-list :items="content.pages" empty="">
               <template slot-scope="item">
-                <!-- <v-flex xs12>
-                <div class="mb-5"></div>
-              </v-flex> -->
                 <li class="pageTitle">
                   <router-link
                     class="pageLink"
