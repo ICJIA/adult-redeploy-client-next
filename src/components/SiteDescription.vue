@@ -6,18 +6,29 @@
     <div v-if="error">
       Not found. Please try again.
     </div>
-
-    <base-content :loading="loading" ref="description">
-      <template v-slot:content v-if="content">
-        <div class="animated fadeIn">
-          <SiteDescriptionCard :content="content"></SiteDescriptionCard>
-        </div>
-      </template>
-    </base-content>
+    <div ref="description" id="siteDescriptionBox">
+      <base-content :loading="loading">
+        <template v-slot:content v-if="content">
+          <div class="animated fadeIn">
+            <SiteDescriptionCard :content="content"></SiteDescriptionCard>
+          </div>
+        </template>
+      </base-content>
+    </div>
   </div>
 </template>
 
 <script>
+function getOffset(el) {
+  var _x = 0;
+  var _y = 0;
+  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+    _x += el.offsetLeft - el.scrollLeft;
+    _y += el.offsetTop - el.scrollTop;
+    el = el.offsetParent;
+  }
+  return { top: _y, left: _x };
+}
 import { EventBus } from "@/event-bus";
 
 import { renderToHtml } from "@/services/Markdown";
@@ -45,7 +56,10 @@ export default {
       this.error = null;
       this.fetchData(mapData);
       if (this.$vuetify.breakpoint.xs) {
-        this.$vuetify.goTo(this.$refs.description, { offset: 210 });
+        let offset = getOffset(document.getElementById("siteDescriptionBox"))
+          .top;
+        console.log(offset);
+        this.$vuetify.goTo(offset - 65);
       }
     });
   },
