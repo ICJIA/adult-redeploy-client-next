@@ -7,7 +7,7 @@
       Not found. Please try again.
     </div>
 
-    <base-content :loading="loading">
+    <base-content :loading="loading" ref="description">
       <template v-slot:content v-if="content">
         <div class="animated fadeIn">
           <SiteDescriptionCard :content="content"></SiteDescriptionCard>
@@ -44,6 +44,9 @@ export default {
     EventBus.$on("mapClick", mapData => {
       this.error = null;
       this.fetchData(mapData);
+      if (this.$vuetify.breakpoint.xs) {
+        this.$vuetify.goTo(this.$refs.description, { offset: 210 });
+      }
     });
   },
   methods: {
