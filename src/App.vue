@@ -5,6 +5,9 @@
 
     <breadcrumb></breadcrumb>
     <div v-if="!loading">
+      <div v-if="$browserDetect.ieIE">
+        <OutdatedBrowser></OutdatedBrowser>
+      </div>
       <v-content
         id="content-top"
         aria-live="polite"
@@ -38,13 +41,13 @@
     </div>
     <div v-if="loading">
       <v-container>
-        <v-layout wrap>
-          <v-flex class="text-center">
+        <v-row>
+          <v-col class="text-center">
             <div style="margin-top: 150px;">
               <loader></loader>
             </div>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
     </div>
   </v-app>
@@ -56,6 +59,7 @@ import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
+import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
@@ -64,7 +68,8 @@ export default {
     AppDrawer,
     AppFooter,
     Breadcrumb,
-    Loader
+    Loader,
+    OutdatedBrowser
   },
   methods: {},
   async mounted() {},

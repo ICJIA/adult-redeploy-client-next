@@ -8,12 +8,12 @@ const getFile = urlObj => {
   }&name=${encodeURIComponent(urlObj.name)}`;
   //console.log(fileserverUrl);
   //location.href = fileserverUrl;
-  window.open(fileserverUrl, "_blank");
+  window.open(fileserverUrl, "_blank,noreferrer,noopener");
 };
 
 const getExternalFile = url => {
   //location.href = url;
-  window.open(url, "_blank");
+  window.open(url, "_blank,noreferrer,noopener");
 };
 
 export { getFile, getExternalFile };

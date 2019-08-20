@@ -25,8 +25,8 @@
                       class="pl-3 pr-3 pt-3 heavy"
                       style="color: #065f60; font-size: 12px;"
                     >
-                      {{ $store.getters.config.baseURL }}
-                      {{ getCategory(item) | lowerCase }}
+                      {{ $store.getters.config.clientURL
+                      }}{{ getCategory(item) | lowerCase }}
                     </div>
                   </template>
                 </search-card>

@@ -5,7 +5,7 @@
       class="px-6 py-2"
       v-if="content.materials && content.materials.length"
     >
-      <h3 style="color: #222;" class="mt-10">Meeting Materials</h3>
+      <h3 style="color: #222;" class="mt-10">{{ header }}</h3>
       <ul
         style="color: #222;"
         class="mt-4 mb-12"
@@ -19,7 +19,7 @@
               style="font-size: 12px; "
               class="hover onClickLink"
               @click="downloadFile(file)"
-              >[ Primary download</span
+              >[ Primary {{ linkHeader }}</span
             >
             |
             <span style="font-size: 12px"
@@ -27,7 +27,7 @@
                 :href="`${$store.getters.config.baseURL}${file.url}`"
                 target="_blank"
                 class="hover "
-                >Alternate download ]</a
+                >Alternate {{ linkHeader }} ]</a
               ></span
             >
           </li>
@@ -36,7 +36,7 @@
     </div>
 
     <div style="background: #eee" class="px-6 py-2" v-else>
-      <h3 style="color: #222;" class="mt-10">Meeting Materials</h3>
+      <h3 style="color: #222;" class="mt-10">{{ header }}</h3>
       <ul
         style="color: #222;"
         class="mt-4 mb-12"
@@ -56,13 +56,7 @@
             style="font-size: 12px; "
             class="hover onClickLink"
             @click="getExternalFile(content.externalURL)"
-            >[ Primary download</span
-          >
-          |
-          <span style="font-size: 12px"
-            ><a :href="`${content.externalURL}`" target="_blank" class="hover "
-              >Alternate download ]</a
-            ></span
+            >[ External link ]</span
           >
         </li>
       </ul>
@@ -90,8 +84,16 @@ export default {
 
   props: {
     content: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
+    },
+    header: {
+      type: String,
+      default: "Meeting Materials"
+    },
+    linkHeader: {
+      type: String,
+      default: ""
     }
   }
 };
