@@ -19,12 +19,14 @@
                   background="#fafafa"
                   elevation="1"
                   class="card pt-3 "
-                  ><template slot="contentType">
+                >
+                  <template slot="contentType">
                     <div
-                      class="text-right pr-3 pt-3 heavy"
-                      style="color: #065f60"
+                      class="pl-3 pr-3 pt-3 heavy"
+                      style="color: #065f60; font-size: 12px;"
                     >
-                      {{ getCategory(item) | upperCase }}
+                      {{ $store.getters.config.baseURL }}
+                      {{ getCategory(item) | lowerCase }}
                     </div>
                   </template>
                 </search-card>
@@ -90,6 +92,11 @@ export default {
     },
     getCategory(item) {
       // let cat = item.parentPath.split("/");
+      // cat = cat
+      //   .toString()
+      //   .substring(1)
+      //   .replace(/,/g, "/");
+      // return `/${cat}`;
       // if (cat[1]) {
       //   return cat[1];
       // } else {
@@ -114,7 +121,14 @@ export default {
       // } else {
       //   return "";
       // }
-      return "";
+      // return "";
+      if (!item.slug) return;
+
+      if (item.parentPath === "/") {
+        return `/${item.slug}`;
+      } else {
+        return `${item.parentPath}/${item.slug}`;
+      }
     }
   }
 };

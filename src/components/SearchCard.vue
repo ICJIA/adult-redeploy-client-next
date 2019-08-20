@@ -5,11 +5,10 @@
         slot-scope="{ hover }"
         :style="{ background: background }"
         :class="`elevation-${hover ? 12 : elevation}`"
-        class="hover px-3 py-3"
+        class="hover px-5 pt-1 pb-10"
         @click="route(item)"
       >
-        <slot name="contentType" />
-        <h2 class="py-2 px-3">
+        <h2 class="">
           <div v-if="item.firstName && item.lastName">
             {{ item.prefix }} {{ item.firstName }} {{ item.middleName }}
             {{ item.lastName }}
@@ -19,12 +18,12 @@
         </h2>
 
         <div v-if="item.firstName && item.lastName">
-          <h3 class="pb-2 px-3" style="color: #aaa; font-size: 14px">
+          <h3 class="" style="color: #aaa; font-size: 14px">
             {{ stripHTML(item.title) }}
           </h3>
         </div>
 
-        <v-card-text class="px-3 pb-5">
+        <v-card-text class="">
           <div v-if="item.firstName && item.lastName && item.content">
             {{ stripHTML(item.content) | truncate(25) }}
           </div>
@@ -34,6 +33,7 @@
         </v-card-text>
 
         <slot name="tags" />
+        <slot name="contentType" />
       </v-card>
     </v-hover>
   </div>

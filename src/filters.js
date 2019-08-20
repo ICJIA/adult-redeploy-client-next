@@ -55,6 +55,10 @@ Vue.filter("upperCase", function(str) {
   return str.toUpperCase();
 });
 
+Vue.filter("lowerCase", function(str) {
+  return str.toLowerCase();
+});
+
 // Vue.filter("deSlugify", function(str) {
 //   return str.replace(/-/g, " ");
 // });

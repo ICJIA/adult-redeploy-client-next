@@ -21,6 +21,7 @@
 <script>
 import { handleClicks } from "@/mixins/handleClicks";
 import { renderToHtml } from "@/services/Markdown";
+
 import TagList from "@/components/TagList";
 export default {
   mixins: [handleClicks],
