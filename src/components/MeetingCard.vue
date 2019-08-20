@@ -13,8 +13,8 @@
         @click="handleClicks"
         class="dynamic-content site-description"
       ></div>
-
-      <div
+      <DownloadBox :content="content"></DownloadBox>
+      <!-- <div
         style="background: #eee"
         class="px-6 py-2"
         v-if="content.materials && content.materials.length"
@@ -83,7 +83,7 @@
             >
           </li>
         </ul>
-      </div>
+      </div> -->
       <v-container class="mt-4">
         <v-row>
           <v-col cols="12">
@@ -121,9 +121,11 @@ import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
 import TagList from "@/components/TagList";
+import DownloadBox from "@/components/DownloadBox";
 export default {
   components: {
-    TagList
+    TagList,
+    DownloadBox
   },
   data() {
     return {

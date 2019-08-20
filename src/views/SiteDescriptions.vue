@@ -9,11 +9,6 @@
           <v-row>
             <v-col cols="12">
               <h1 class="page-title">{{ content[0].title }}</h1>
-              <!-- <div class="text-right noprint my-10">
-                <v-btn small @click="print"
-                  >Print<v-icon right>print</v-icon></v-btn
-                >
-              </div> -->
             </v-col>
           </v-row>
         </v-container>

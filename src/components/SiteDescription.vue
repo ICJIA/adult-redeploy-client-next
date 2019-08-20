@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div ref="description" id="siteDescriptionBox">
     <div v-if="!$store.getters.selectedCountyData" class="text-center">
       <h2>Select a county or judicial circuit for more information.</h2>
     </div>
     <div v-if="error">
       Not found. Please try again.
     </div>
-    <div ref="description" id="siteDescriptionBox">
+    <div>
       <base-content :loading="loading">
         <template v-slot:content v-if="content">
           <div class="animated fadeIn">
@@ -19,21 +19,12 @@
 </template>
 
 <script>
-function getOffset(el) {
-  var _x = 0;
-  var _y = 0;
-  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-    _x += el.offsetLeft - el.scrollLeft;
-    _y += el.offsetTop - el.scrollTop;
-    el = el.offsetParent;
-  }
-  return { top: _y, left: _x };
-}
 import { EventBus } from "@/event-bus";
 
 import { renderToHtml } from "@/services/Markdown";
 import { getSiteDescription } from "@/services/Content";
-import { getHash } from "@/services/Utilities";
+// eslint-disable-next-line no-unused-vars
+import { getHash, getOffset } from "@/services/Utilities";
 import BaseContent from "@/components/BaseContent";
 import SiteDescriptionCard from "@/components/SiteDescriptionCard";
 
@@ -56,10 +47,10 @@ export default {
       this.error = null;
       this.fetchData(mapData);
       if (this.$vuetify.breakpoint.xs) {
-        let offset = getOffset(document.getElementById("siteDescriptionBox"))
-          .top;
-        console.log(offset);
-        this.$vuetify.goTo(offset - 65);
+        // let offset = getOffset(document.getElementById("siteDescriptionBox"))
+        //   .top;
+        // console.log(offset);
+        this.$vuetify.goTo("#siteDescriptionBox");
       }
     });
   },

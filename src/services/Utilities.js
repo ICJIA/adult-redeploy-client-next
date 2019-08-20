@@ -28,6 +28,17 @@ const titleCase = str => {
     .join(" ");
 };
 
+const getOffset = function(el) {
+  var _x = 0;
+  var _y = 0;
+  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+    _x += el.offsetLeft - el.scrollLeft;
+    _y += el.offsetTop - el.scrollTop;
+    el = el.offsetParent;
+  }
+  return { top: _y, left: _x };
+};
+
 const truncate = function(string, maxWords = 10) {
   let strippedString = string.trim();
   let array = strippedString.split(" ");
@@ -41,4 +52,4 @@ const truncate = function(string, maxWords = 10) {
   return string;
 };
 
-export { getHash, titleCase, checkIfValidPage, stripHTML, truncate };
+export { getHash, titleCase, checkIfValidPage, stripHTML, truncate, getOffset };

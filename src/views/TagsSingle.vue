@@ -66,7 +66,7 @@
               ><TOC
                 selector="#scrollArea"
                 top="#baseContentTop"
-                tocHeading="Tagged Categories"
+                tocHeading="Tagged Content"
               ></TOC
             ></v-col>
           </v-row>

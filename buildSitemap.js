@@ -47,67 +47,90 @@ if (!fs.existsSync(apiDir)) {
   console.log(`Created: ${apiDir}/`);
 }
 
-// request(api, query).then(res => {
-//   sections.forEach(section => {
-//     let sectionRoutes = res[section].map(item => {
-//       let path;
-//       if (section === "pages") {
-//         path = `/${item.slug}`;
-//       } else if (section === "resources" || section === "meetings") {
-//         path = `/${section}/${item.category.slug}/${item.slug}`;
-//       } else if (section === "news" || section === "tags") {
-//         path = `/${section}/${item.slug}`;
-//       } else {
-//         path = "/";
-//       }
-//       return path;
-//     });
-//     routes.push(...sectionRoutes);
-//   });
-
-//   sections.forEach(section => {
-//     let sectionRoutes = res[section].map(item => {
-//       let path;
-//       if (section === "resources" || section === "meetings") {
-//         path = `/${section}/${item.category.slug}`;
-//       }
-
-//       return path;
-//     });
-//     routes.push(...sectionRoutes);
-//   });
-
-//   // filter nulls
-//   let temp = routes.filter(Boolean);
-//   // remove dupes
-//   let paths = [...new Set(temp)];
-//   // add root
-//   paths.push("/");
-
-//   jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
-//     if (err) console.error(err);
-//     console.log(`Created: ${apiDir}/${filename}`);
-//   });
-
-//   let urls = paths.map(route => {
-//     let obj = {};
-//     obj.url = route;
-//     obj.changefreq = "weekly";
-//     obj.priority = 0.8;
-//     // obj.lastmodrealtime = true;
-//     return obj;
-//   });
-
-//   let sitemap = sm.createSitemap({
-//     hostname: config.clientURL,
-//     cacheTime: 600000, //600 sec (10 min) cache purge period
-//     urls
-//   });
-
-//   fs.writeFileSync("./public/sitemap.xml", sitemap.toString());
-//   console.log(`Created: ./public/sitemap.xml`);
-// });
-
 request(api, query).then(res => {
-  console.log(res);
+  sections.forEach(section => {
+    let sectionRoutes = res[section].map(item => {
+      let path;
+      /**
+       *
+       * Pages
+       *
+       */
+      if (section === "pages") {
+        if (item.section.slug === item.slug) {
+          path = `/${item.section.slug}`;
+        } else {
+          path = `/${item.section.slug}/${item.slug}`;
+        }
+      }
+      /**
+       *
+       * News
+       *
+       */
+      if (section === "news") {
+        path = `/news/${item.slug}`;
+      }
+      /**
+       *
+       * Tags
+       *
+       */
+      if (section === "tags") {
+        path = `/tags/${item.slug}`;
+      }
+      /**
+       *
+       * Resources
+       *
+       */
+      if (section === "resources") {
+        let catEnum = config.categoryEnums.resources.filter(cat => {
+          return item.category === cat.enum;
+        });
+
+        path = `/resources/${catEnum[0].slug}/${item.slug}`;
+      }
+      /**
+       *
+       * Meetings
+       *
+       */
+      let catEnum = config.categoryEnums.meetings.filter(cat => {
+        return item.category === cat.enum;
+      });
+      if (section === "meetings") {
+        path = `/meetings/${catEnum[0].slug}/${item.slug}`;
+      }
+      return path;
+    });
+    routes.push(...sectionRoutes);
+  });
+  let temp = routes.filter(Boolean);
+  // remove dupes
+  let paths = [...new Set(temp)];
+  // add root
+  paths.push("/");
+  jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
+    if (err) console.error(err);
+    console.log(`Created: ${apiDir}/${filename}`);
+  });
+
+  let urls = paths.map(route => {
+    let obj = {};
+    obj.url = route;
+    obj.changefreq = "weekly";
+    obj.priority = 0.8;
+    // obj.lastmodrealtime = true;
+    return obj;
+  });
+
+  let sitemap = sm.createSitemap({
+    hostname: config.clientURL,
+    cacheTime: 600000, //600 sec (10 min) cache purge period
+    urls
+  });
+
+  fs.writeFileSync("./public/sitemap.xml", sitemap.toString());
+  console.log(`Created: ./public/sitemap.xml`);
 });
