@@ -7,6 +7,17 @@ import vuetify from "./plugins/vuetify";
 import "@/filters";
 import "@/css/app.css";
 
+(function() {
+  if (typeof NodeList.prototype.forEach === "function") return false;
+  NodeList.prototype.forEach = Array.prototype.forEach;
+})();
+
+(function() {
+  if (!Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.msMatchesSelector;
+  }
+})();
+
 import browserDetect from "vue-browser-detect-plugin";
 Vue.use(browserDetect);
 

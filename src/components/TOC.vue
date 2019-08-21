@@ -37,10 +37,6 @@
 </template>
 
 <script>
-(function() {
-  if (typeof NodeList.prototype.forEach === "function") return false;
-  NodeList.prototype.forEach = Array.prototype.forEach;
-})();
 export default {
   data() {
     return {
