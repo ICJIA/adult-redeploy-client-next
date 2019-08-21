@@ -9,9 +9,9 @@
       }
 
       function isIE() {
-        const isIE10orLess = window.navigator.userAgent.indexOf("MSIE") > -1;
+        var isIE10orLess = window.navigator.userAgent.indexOf("MSIE") > -1;
 
-        const isIE11 = window.navigator.userAgent.indexOf("Trident/") > -1;
+        var isIE11 = window.navigator.userAgent.indexOf("Trident/") > -1;
 
         return isIE10orLess || isIE11;
       }
