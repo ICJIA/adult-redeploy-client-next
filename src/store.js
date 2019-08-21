@@ -97,6 +97,7 @@ export default new Vuex.Store({
         }
       } catch (e) {
         console.log("Can't connect to status server.");
+        console.log(e);
         commit("SET_API_STATUS", 500);
       }
     },
