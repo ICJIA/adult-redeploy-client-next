@@ -1,27 +1,22 @@
-function isIE() {
-  const isIE10orLess = window.navigator.userAgent.indexOf("MSIE") > -1;
+import "babel-polyfill";
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import vuetify from "./plugins/vuetify";
+import "@/filters";
+import "@/css/app.css";
 
-  const isIE11 = window.navigator.userAgent.indexOf("Trident/") > -1;
+import browserDetect from "vue-browser-detect-plugin";
+Vue.use(browserDetect);
 
-    return isIE10orLess || isIE11;
-  //return true;
-}
+Vue.config.productionTip = false;
+// eslint-disable-next-line no-undef
+NProgress.configure({ showSpinner: false });
 
-
-
-if (isIE()) {
-  var banner =
-    "<div style='font-family: Lato, sans-serif; margin-top: 50px; padding-top: 20px; padding-bottom:20px; background: #eee; text-align: center'>";
-
-  banner =
-    banner +
-    "<h1>The <a href='/'>Adult Redeploy Illinois website</a> does not support Internet Explorer.";
-  banner =
-    banner +
-    "<br><br>Please upgrade to a modern, secure browser such as <a href='https://www.google.com/chrome/'>Chrome</a>, <a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a>, or <a href='https://www.microsoft.com/en-us/windows/microsoft-edge'>MS Edge</a>.</h1>";
-  banner = banner + "</div>";
-  banner = banner + "<div style='text-align: center; margin-top: 50px'>";
-  banner = banner + "<img src='/icjia-logo.png' alt='ICJIA Logo'>";
-  banner = banner + "</div>";
-  document.querySelector("#app").innerHTML = banner;
-} else require("./_main");
+new Vue({
+  router,
+  store,
+  vuetify,
+  render: h => h(App)
+}).$mount("#app");

@@ -56,7 +56,7 @@ import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
-import OutdatedBrowser from "@/components/OutdatedBrowser";
+
 import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
@@ -65,8 +65,7 @@ export default {
     AppDrawer,
     AppFooter,
     Breadcrumb,
-    Loader,
-    OutdatedBrowser
+    Loader
   },
   methods: {},
   async mounted() {},
