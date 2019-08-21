@@ -20,8 +20,13 @@
         >
           <v-row>
             <v-col cols="12" class="mb-10">
-              {{ content[0].content }}
-            </v-col>
+              <div
+                @click="handleClicks"
+                class="dynamic-content"
+                v-html="renderToHtml(content[0].content)"
+                v-if="content[0].content"
+              ></div
+            ></v-col>
           </v-row>
         </v-container>
         <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
@@ -44,13 +49,16 @@
 </template>
 
 <script>
+import { renderToHtml } from "@/services/Markdown";
 import BaseContent from "@/components/BaseContent";
 import { getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import SiteDescription from "@/components/SiteDescription";
 import SiteIllinois from "@/components/SiteIllinois";
-// import { renderToHtml } from "@/services/Markdown";
+
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
+  mixins: [handleClicks],
   components: {
     SiteIllinois,
     BaseContent,
@@ -59,7 +67,8 @@ export default {
   data() {
     return {
       loading: false,
-      content: null
+      content: null,
+      renderToHtml
     };
   },
   created() {

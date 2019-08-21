@@ -6,8 +6,8 @@
     <h1 style="color: #555; font-size: 20px">
       You're using an outdated version of
       <strong>Internet Explorer</strong>.<br /><br />We recommend updating to a
-      more secure, modern browser.<br /><br />Please update to the latest
-      version of
+      more secure, modern browser.<br /><br />Please download the latest version
+      of
       <a href="https://www.google.com/chrome" target="_blank" rel="noreferrer"
         >Chrome</a
       >,
