@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import Vue from "vue";
 import Vuex from "vuex";
-import "unfetch/polyfill";
 
 Vue.use(Vuex);
 
@@ -190,6 +189,7 @@ export default new Vuex.Store({
       if (state.apiStatus === 200 || state.apiStatus === 204) {
         return true;
       } else {
+        //TODO: Fix for IE11
         return true;
       }
     },
