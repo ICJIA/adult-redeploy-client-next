@@ -13,7 +13,11 @@
         ></div>
 
         <div v-if="item.materials.length || item.externalURL">
-          <DownloadBox :content="item" header="Links"></DownloadBox>
+          <DownloadBox
+            :content="item"
+            header="Links"
+            class="mt-10"
+          ></DownloadBox>
         </div>
 
         <v-container class="mt-4">

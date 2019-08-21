@@ -65,7 +65,21 @@
                 </div>
               </div>
               <div v-if="displayMode.message === 'By Publication Date'">
-                Resource by Publication Date here
+                <DetailTableResource
+                  :resources="resources"
+                  class="mt-8 "
+                  :class="{
+                    'pl-6':
+                      $vuetify.breakpoint.md ||
+                      $vuetify.breakpoint.lg ||
+                      $vuetify.breakpoint.xl,
+                    'pr-6':
+                      $vuetify.breakpoint.md ||
+                      $vuetify.breakpoint.lg ||
+                      $vuetify.breakpoint.xl
+                  }"
+                  :hideCategory="false"
+                ></DetailTableResource>
               </div>
             </v-col>
             <v-col

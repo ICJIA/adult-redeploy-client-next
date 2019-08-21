@@ -5,9 +5,6 @@
 
     <breadcrumb></breadcrumb>
     <div v-if="!loading">
-      <div v-if="$browserDetect.ieIE">
-        <OutdatedBrowser></OutdatedBrowser>
-      </div>
       <v-content
         id="content-top"
         aria-live="polite"
