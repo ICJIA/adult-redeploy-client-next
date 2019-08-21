@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="py-9 px-4" v-if="!loading">
+    <div
+      class="px-4"
+      v-if="!loading"
+      :class="{ 'py-10': !$browserDetect.isIE }"
+    >
       <slot name="title"></slot>
       <slot name="printer"></slot>
       <slot name="content"></slot>

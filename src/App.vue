@@ -4,7 +4,7 @@
     <app-drawer :sections="sections"></app-drawer>
 
     <breadcrumb></breadcrumb>
-    <outdated-browser></outdated-browser>
+    <outdated-browser v-if="$browserDetect.ieIE"></outdated-browser>
     <div v-if="!loading">
       <v-content
         id="content-top"

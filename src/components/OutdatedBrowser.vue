@@ -3,9 +3,11 @@
     class="text-center"
     style="margin-top: 130px; background: #eee; padding-top: 35px; padding-bottom: 25px; padding-right: 25px; padding-left: 25px"
   >
-    <h1 style="color: #333; font-size: 20px">
-      For the best experience, we recommend updating your browser to a more
-      secure, modern browser.<br />Please update to the latest version of
+    <h1 style="color: #555; font-size: 20px">
+      You're using an outdated version of
+      <strong>Internet Explorer</strong>.<br /><br />We recommend updating to a
+      more secure, modern browser.<br /><br />Please update to the latest
+      version of
       <a href="https://www.google.com/chrome" target="_blank" rel="noreferrer"
         >Chrome</a
       >,
@@ -26,7 +28,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    console.log("Browser info: ", this.$browserDetect.meta);
+  }
+};
 </script>
 
 <style scoped>
