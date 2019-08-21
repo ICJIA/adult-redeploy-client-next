@@ -4,6 +4,7 @@
     <app-drawer :sections="sections"></app-drawer>
 
     <breadcrumb></breadcrumb>
+    <outdated-browser></outdated-browser>
     <div v-if="!loading">
       <v-content
         id="content-top"
@@ -12,9 +13,8 @@
       >
         <transition name="fade" mode="out-in">
           <router-view></router-view>
-          <!-- <router-view v-if="$store.getters.isApiReady"></router-view> -->
-
-          <!-- <div v-else>
+          <!-- <router-view v-if="$store.getters.isApiReady"></router-view>
+          <div v-else>
             <v-alert
               type="warning"
               class="text-center mt-12"
@@ -58,7 +58,7 @@ import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
-
+import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
@@ -67,7 +67,8 @@ export default {
     AppDrawer,
     AppFooter,
     Breadcrumb,
-    Loader
+    Loader,
+    OutdatedBrowser
   },
   methods: {},
   async mounted() {},

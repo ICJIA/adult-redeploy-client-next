@@ -1,7 +1,9 @@
 <template>
   <div>
-    <home-carousel></home-carousel>
-    <home-boxes></home-boxes>
+    <div v-if="!$browserDetect.isIE">
+      <home-carousel></home-carousel>
+      <home-boxes></home-boxes>
+    </div>
 
     <base-content :loading="loading">
       <template v-slot:content>

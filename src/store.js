@@ -189,7 +189,7 @@ export default new Vuex.Store({
       if (state.apiStatus === 200 || state.apiStatus === 204) {
         return true;
       } else {
-        return false;
+        return true;
       }
     },
     config: state => {

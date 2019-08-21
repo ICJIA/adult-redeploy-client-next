@@ -7,6 +7,9 @@ import vuetify from "./plugins/vuetify";
 import "@/filters";
 import "@/css/app.css";
 
+import browserDetect from "vue-browser-detect-plugin";
+Vue.use(browserDetect);
+
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
 NProgress.configure({ showSpinner: false });
