@@ -49,6 +49,11 @@
             >OPEN <v-icon right>open_in_new</v-icon></v-btn
           >
         </template>
+        <template v-slot:item.slug="{ item }">
+          <v-btn small depressed :to="getRoute(item)"
+            ><v-icon>link</v-icon></v-btn
+          >
+        </template>
 
         <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
           <v-btn
@@ -66,7 +71,7 @@
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
-              <ResourceCard :content="item"></ResourceCard>
+              <resource-display :item="item"></resource-display>
             </div>
           </td>
         </template>
@@ -77,10 +82,10 @@
 
 <script>
 import { getFile } from "@/services/Download";
-import ResourceCard from "@/components/ResourceCard";
+import ResourceDisplay from "@/components/ResourceDisplay";
 export default {
   components: {
-    ResourceCard
+    ResourceDisplay
   },
   mounted() {
     if (!this.hideCategory) {
@@ -115,9 +120,15 @@ export default {
           align: "center",
           sortable: false
         },
+        // {
+        //   text: "External",
+        //   value: "externalURL",
+        //   align: "center",
+        //   sortable: false
+        // },
         {
-          text: "",
-          value: "externalURL",
+          text: "Link",
+          value: "slug",
           align: "center",
           sortable: false
         }
@@ -157,7 +168,7 @@ export default {
       );
 
       if (parentPath) {
-        return `/about/resources/${parentPath[0].slug}/${resource.slug}`;
+        return `/resources/${parentPath[0].slug}/${resource.slug}`;
       } else {
         console.error("Category not found in config");
         return null;
