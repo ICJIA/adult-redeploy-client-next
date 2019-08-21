@@ -12,7 +12,7 @@ module.exports = {
       }
     }
   },
-  transpileDependencies: ["vuetify", "markdown-it-attrs"],
+  transpileDependencies: ["vuetify"],
   pluginOptions: {
     moment: {
       locales: ["en"]
