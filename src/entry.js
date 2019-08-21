@@ -16,11 +16,8 @@ if (isIE()) {
   banner = banner + "</div>";
 
   document.querySelector("#app").innerHTML = banner;
-} else {
-  alert("not ie");
-}
-
-// else require("./main");
+  alert("test");
+} else require("./main");
 
 function isIE() {
   const isIE10orLess = window.navigator.userAgent.indexOf("MSIE") > -1;

@@ -19,9 +19,7 @@ import { renderToHtml } from "@/services/Markdown";
 import { getSingleResource } from "@/services/Content";
 // eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
-
 import BaseContent from "@/components/BaseContent";
-
 import { handleClicks } from "@/mixins/handleClicks";
 import ResourceDisplay from "@/components/ResourceDisplay";
 export default {
