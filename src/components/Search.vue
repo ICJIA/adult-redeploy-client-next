@@ -91,37 +91,6 @@ export default {
       //console.log(this.fuse.search(this.query));
     },
     getCategory(item) {
-      // let cat = item.parentPath.split("/");
-      // cat = cat
-      //   .toString()
-      //   .substring(1)
-      //   .replace(/,/g, "/");
-      // return `/${cat}`;
-      // if (cat[1]) {
-      //   return cat[1];
-      // } else {
-      //   return "";
-      // }
-      // let returnCat;
-      // if (cat[1].length) {
-      //   switch (cat[1]) {
-      //     case "publications":
-      //       returnCat = "publication";
-      //       break;
-      //     case "meetings":
-      //       returnCat = "meeting";
-      //       break;
-      //     case "sites":
-      //       returnCat = "site";
-      //       break;
-      //     default:
-      //       returnCat = cat[1];
-      //   }
-      //   return returnCat;
-      // } else {
-      //   return "";
-      // }
-      // return "";
       if (!item.slug) return;
 
       if (item.parentPath === "/") {

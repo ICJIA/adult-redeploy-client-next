@@ -57,7 +57,7 @@ export default new Router({
      */
 
     {
-      path: "/archives/meeting-archive",
+      path: "/archives/meeting-archives",
       name: "meetingsArchive",
       component: () =>
         import(/* webpackChunkName: "meetings" */ "./views/MeetingsArchive.vue")

@@ -5,6 +5,7 @@
         <v-container
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          data-aos="fade-right"
         >
           <v-row>
             <v-col cols="12">
@@ -18,6 +19,7 @@
           v-if="content"
           id="scrollArea"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          data-aos="fade-right"
         >
           <v-row>
             <v-col

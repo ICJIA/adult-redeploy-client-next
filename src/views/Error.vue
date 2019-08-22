@@ -1,7 +1,7 @@
 <template>
   <error-content>
     <template v-slot:content>
-      <v-container class="text-center">
+      <v-container class="text-center" data-aos="fade-right">
         <v-row align="center">
           <v-col>
             <h1 style="font-size: 48px; color: #067879">Oops.</h1>

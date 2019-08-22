@@ -15,7 +15,7 @@
         <div v-if="item.materials.length || item.externalURL">
           <DownloadBox
             :content="item"
-            header="Links"
+            header="Downloads"
             class="mt-10"
           ></DownloadBox>
         </div>

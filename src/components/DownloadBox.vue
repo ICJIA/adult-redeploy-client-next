@@ -2,13 +2,13 @@
   <div>
     <div
       style="background: #eee"
-      class="px-6 py-2"
+      class="px-8 py-8"
       v-if="content.materials && content.materials.length"
     >
-      <h3 style="color: #222;" class="mt-10">{{ header }}</h3>
+      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
       <ul
         style="color: #222;"
-        class="mt-4 mb-12"
+        class=""
         v-if="content.materials && content.materials.length"
       >
         <div v-for="(file, index) in content.materials" :key="index">
@@ -36,10 +36,10 @@
     </div>
 
     <div style="background: #eee" class="px-6 py-2" v-else>
-      <h3 style="color: #222;" class="mt-10">{{ header }}</h3>
+      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
       <ul
         style="color: #222;"
-        class="mt-4 mb-12"
+        class=""
         v-if="content.externalURL && content.externalURL.length"
       >
         <li>

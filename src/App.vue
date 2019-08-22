@@ -21,7 +21,7 @@
               v-if="env === 'development'"
             >
               You're running in <strong>development</strong> mode.<br />Please
-              be sure the Netlify 'Status' function is running.&nbsp;&nbsp;
+              be sure the Netlify functions are running.&nbsp;&nbsp;
             </v-alert>
             <v-alert type="error" class="text-center">
               Can't connect to the Adult Redeploy Illinois

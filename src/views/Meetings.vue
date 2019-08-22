@@ -43,6 +43,7 @@
                 toggleOn="By Category"
                 toggleOff="By Date"
                 name="meetings"
+                class="mt-10"
               ></toggle>
               <div v-if="displayMode.message === 'By Category'">
                 <div
@@ -94,6 +95,16 @@
                 tocHeading="Meeting Categories"
               ></TOC
             ></v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <p>
+                For meeting materials prior to 2019, please see
+                <router-link to="/archives/meeting-archives"
+                  >the meeting archives</router-link
+                >.
+              </p>
+            </v-col>
           </v-row>
         </v-container>
       </template>

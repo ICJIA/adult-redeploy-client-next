@@ -12,6 +12,7 @@
               <BiographyCard
                 :person="content[0]"
                 :displayCategory="true"
+                data-aos="fade-right"
               ></BiographyCard>
             </v-col>
           </v-row>

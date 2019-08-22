@@ -20,7 +20,12 @@
           <v-row>
             <v-col cols="12" class="mb-10">
               <!-- {{ searchIndex }} -->
-              <search :search-content="searchIndex" class="search" style="" />
+              <search
+                :search-content="searchIndex"
+                class="search"
+                style=""
+                data-aos="zoom-in-down"
+              />
             </v-col>
           </v-row>
         </v-container>

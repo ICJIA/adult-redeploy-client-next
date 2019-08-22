@@ -7,6 +7,9 @@ import vuetify from "./plugins/vuetify";
 import "@/filters";
 import "@/css/app.css";
 
+// import AOS from "aos";
+// import "aos/dist/aos.css";
+
 (function() {
   if (typeof NodeList.prototype.forEach === "function") return false;
   NodeList.prototype.forEach = Array.prototype.forEach;
@@ -28,6 +31,9 @@ NProgress.configure({ showSpinner: false });
 new Vue({
   router,
   store,
+  // created() {
+  //   AOS.init();
+  // },
   vuetify,
   render: h => h(App)
 }).$mount("#app");

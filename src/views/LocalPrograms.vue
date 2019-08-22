@@ -5,6 +5,7 @@
         <v-container
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          data-aos="fade-right"
         >
           <v-row>
             <v-col cols="12">
@@ -17,6 +18,7 @@
         <v-container
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          data-aos="fade-right"
         >
           <v-row>
             <v-col cols="12" class="mb-10">
@@ -33,12 +35,16 @@
           <v-row>
             <v-col cols="12" sm="6" md="6">
               <div>
-                <site-illinois :maxWidth="400"></site-illinois>
+                <site-illinois
+                  :maxWidth="400"
+                  data-aos="fade-right"
+                ></site-illinois>
               </div>
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <SiteDescription
                 :class="{ pull: $vuetify.breakpoint.xs }"
+                data-aos="fade-left"
               ></SiteDescription>
             </v-col>
           </v-row>

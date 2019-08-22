@@ -89,7 +89,7 @@ export default {
 
       const contentMap = new Map();
       const section = "archives";
-      const slug = "meeting-archive";
+      const slug = "meeting-archives";
       const name = `getPageBySection-${section}${slug}`;
       contentMap.set(name, {
         hash: getHash(name),

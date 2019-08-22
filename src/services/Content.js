@@ -244,8 +244,7 @@ const getContentByTagQuery = slug => {
     summary
     category
     content
-    externalURL
-    externalURLName
+    
     materials {
       url
       name
@@ -545,8 +544,7 @@ const getAllResourcesQuery = () => {
     summary
     category
     content
-    externalURL
-    externalURLName
+    
     materials {
       url
       name
@@ -572,8 +570,7 @@ const getSingleResourceQuery = slug => {
     summary
     category
     content
-    externalURL
-    externalURLName
+    
     materials {
       url
       name
