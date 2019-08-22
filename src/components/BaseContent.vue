@@ -28,7 +28,7 @@ export default {
     Loader
   },
   mounted() {
-    console.log(this.$browserDetect.isIE);
+    //console.log(this.$browserDetect.isIE);
   },
   props: {
     loading: {

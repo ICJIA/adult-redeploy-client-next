@@ -189,8 +189,7 @@ export default new Vuex.Store({
       if (state.apiStatus === 200 || state.apiStatus === 204) {
         return true;
       } else {
-        //TODO: Fix for IE11
-        return true;
+        return false;
       }
     },
     config: state => {
