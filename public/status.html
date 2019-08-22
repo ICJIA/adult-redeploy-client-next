@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
     <title>Adult Redeploy Illinois | Status</title>
-    <meta name="description" content="Status page for Adult Redeploy Illinois" />
+    <meta
+      name="description"
+      content="Status page for Adult Redeploy Illinois"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="manifest" href="site.webmanifest" />
@@ -12,6 +15,32 @@
     <!-- Place favicon.ico in the root directory -->
 
     <meta name="theme-color" content="#fafafa" />
+    <script>
+      if (typeof Object.assign != "function") {
+        (function() {
+          Object.assign = function(target) {
+            "use strict";
+            // We must check against these specific cases.
+            if (target === undefined || target === null) {
+              throw new TypeError("Cannot convert undefined or null to object");
+            }
+
+            var output = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+              var source = arguments[index];
+              if (source !== undefined && source !== null) {
+                for (var nextKey in source) {
+                  if (source.hasOwnProperty(nextKey)) {
+                    output[nextKey] = source[nextKey];
+                  }
+                }
+              }
+            }
+            return output;
+          };
+        })();
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.5/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
@@ -86,50 +115,53 @@
       </p>
     <![endif]-->
     <header>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="/icjia-logo.png" alt="ICJIA Logo" />&nbsp;&nbsp;<span
-            style="font-weight: 900"
-            >ADULT REDEPLOY ILLINOIS | STATUS</span
-          >
-        </a>
-      </div>
-    </nav>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img src="/icjia-logo.png" alt="ICJIA Logo" />&nbsp;&nbsp;<span
+              style="font-weight: 900"
+              >ADULT REDEPLOY ILLINOIS | STATUS</span
+            >
+          </a>
+        </div>
+      </nav>
     </header>
     <main>
-    <section class="section">
-      <div class="container">
-        <div class="columns is-multiline is-desktop">
-          
-          <!-- <div class="column has-text-left-mobile">
+      <section class="section">
+        <div class="container">
+          <div class="columns is-multiline is-desktop">
+            <!-- <div class="column has-text-left-mobile">
             <div class="is-size-5 has-text-weight-bold is-uppercase">
               Server Status
              
             </div>
           </div> -->
 
-          <div class="column has-text-left has-text-center-mobile extras">
-            <div class="has-text-weight-bold " style="text-transform: uppercase;">
-              <span style="font-size: 14px;">Last deployed: </span>
-              <span style="font-size: 14px; color: green" id="deploy"></span>
+            <div class="column has-text-left has-text-center-mobile extras">
+              <div
+                class="has-text-weight-bold "
+                style="text-transform: uppercase;"
+              >
+                <span style="font-size: 14px;">Last deployed: </span>
+                <span style="font-size: 14px; color: green" id="deploy"></span>
+              </div>
+            </div>
+
+            <div class="column has-text-left-mobile has-text-right extras">
+              <img
+                src="https://api.netlify.com/api/v1/badges/c72a7e19-1f67-4b2a-8e91-0ee6df8fa2e9/deploy-status"
+                alt="Netliy deployment status"
+              />
             </div>
           </div>
 
-
-          <div class="column has-text-left-mobile has-text-right extras">
-            <img src="https://api.netlify.com/api/v1/badges/c72a7e19-1f67-4b2a-8e91-0ee6df8fa2e9/deploy-status" alt="Netliy deployment status" />
-          </div>
-          
-        </div>
-    
           <div class="columns is-centered">
             <div class="loader spacer"></div>
           </div>
           <table id="status" class="display stripe" style="width:100%">
             <thead>
-              <tr >
-                <th >Name</th>
+              <tr>
+                <th>Name</th>
                 <th>Options</th>
                 <th>Server</th>
                 <th>Status</th>
@@ -147,10 +179,8 @@
             </a>
           </div> -->
         </div>
-      </div>
-    </section>
-</main>
-    
+      </section>
+    </main>
 
     <script type="text/babel">
       var app = (function() {
@@ -170,7 +200,7 @@
             targets: -1,
             className: "dt-head-center"
           },
-           {
+          {
             targets: -2,
             className: "dt-body-center"
           },
@@ -178,7 +208,7 @@
             targets: -2,
             className: "dt-head-center"
           },
-           {
+          {
             targets: -3,
             className: "dt-body-center"
           },
@@ -206,7 +236,6 @@
                   data.status +
                   "</span>"
                 );
-                
               } else {
                 return (
                   "<span style='background: red; color: white; padding: 5px;font-weight: bold;'>" +
@@ -219,11 +248,15 @@
           {
             data: null,
             render: function(data, type, row) {
-              if (data.statusMessage === 'OK' || data.statusMessage === 'No Content') {
+              if (
+                data.statusMessage === "OK" ||
+                data.statusMessage === "No Content"
+              ) {
                 return (
-                  "<span style='background: green; color: white; font-weight: bold; padding: 5px;'>"+data.statusMessage+"</span>"
+                  "<span style='background: green; color: white; font-weight: bold; padding: 5px;'>" +
+                  data.statusMessage +
+                  "</span>"
                 );
-                
               } else {
                 return (
                   "<span style='background: red; color: white; padding: 5px;font-weight: bold;'>" +
@@ -233,8 +266,7 @@
               }
             }
           },
-           { data: "duration", visible: true },
-          
+          { data: "duration", visible: true }
         ];
 
         function buildStatusUrl() {
@@ -265,43 +297,45 @@
 
         function getLastSuccessfulDeploy(logs) {
           let lastDeploy;
-          const success=logs.filter((log)=> {
-            
+          const success = logs.filter(log => {
             if (log.event === "deploy-succeeded") {
-            return log;
-          }
-          })
+              return log;
+            }
+          });
           if (success.length) {
             lastDeploy = success[0]["datetimestamp"];
           } else {
-            lastDeploy = null
+            lastDeploy = null;
           }
           return lastDeploy;
         }
 
         async function init() {
-          let lastDeploy = null
+          let lastDeploy = null;
           $("#status").hide();
           $(".extras").hide();
           let status = await fetchData(buildStatusUrl());
           try {
-          let logs = await fetchData(`https://ari.icjia-api.cloud/logs?_sort=createdAt:DESC`)
-           lastDeploy = getLastSuccessfulDeploy(logs)
-          lastDeploy = moment(lastDeploy).fromNow()
-          } catch(e) {
-            console.error('Error: ARI API not reachable. Please try again later.')
-            lastDeploy = null
+            let logs = await fetchData(
+              `https://ari.icjia-api.cloud/logs?_sort=createdAt:DESC`
+            );
+            lastDeploy = getLastSuccessfulDeploy(logs);
+            lastDeploy = moment(lastDeploy).fromNow();
+          } catch (e) {
+            console.error(
+              "Error: ARI API not reachable. Please try again later."
+            );
+            lastDeploy = null;
           }
-          
-          
+
           $(document).ready(() => {
             buildStatusTable(status);
 
             $(".loader").hide();
             if (lastDeploy) {
-              $("#deploy").html(lastDeploy)
+              $("#deploy").html(lastDeploy);
             }
-            
+
             $(".extras").show();
           });
         }
