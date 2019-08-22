@@ -1,13 +1,12 @@
 <template>
   <div
     class="text-center"
-    style="margin-top: 130px; background: #eee; padding-top: 35px; padding-bottom: 25px; padding-right: 25px; padding-left: 25px"
+    style="margin-top: 110px; background: #eee; padding-top: 35px; padding-bottom: 25px; padding-right: 25px; padding-left: 25px"
   >
     <h1 style="color: #555; font-size: 20px">
-      You're using an outdated version of
-      <strong>Internet Explorer</strong>.<br /><br />We recommend updating to a
-      more secure, modern browser.<br /><br />Please download the latest version
-      of
+      You're using an <strong>outdated</strong> version of Internet Explorer.<br /><br />We
+      recommend updating to a more secure, modern browser.<br /><br />Please
+      download the latest version of
       <a href="https://www.google.com/chrome" target="_blank" rel="noreferrer"
         >Chrome</a
       >,
@@ -30,7 +29,7 @@
 <script>
 export default {
   mounted() {
-    console.log("Browser info: ", this.$browserDetect.meta);
+    //console.log("Browser info: ", this.$browserDetect.meta);
   }
 };
 </script>
