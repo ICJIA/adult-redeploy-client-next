@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  margin: 0;
+  padding: 0;
+}
 .flexbox-container {
   display: -ms-flex;
   display: -webkit-flex;
