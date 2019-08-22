@@ -75,12 +75,12 @@
                     <v-list-item-title
                       style="font-size: 14px; font-weight: bold; "
                     >
-                      {{ subItem.title }}
-                      <!-- <span v-if="subItem.title === 'Local Control'">
-                        <div class="mt-5">
+                      <span v-if="subItem.addDivider">
+                        <div class="mb-5">
                           <v-divider></v-divider>
                         </div>
-                      </span> -->
+                      </span>
+                      {{ subItem.title }}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>

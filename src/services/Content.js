@@ -42,6 +42,7 @@ const getPageQuery = slug => {
     updatedAt
     title
     showToc
+    addDivider
     slug
     content
     isPublished
@@ -218,6 +219,7 @@ const getContentByTagQuery = slug => {
       slug
       summary
       content
+      addDivider
       showToc
       isPublished
       updatedAt
@@ -348,6 +350,7 @@ const getAllSectionsQuery = () => {
       order
       isPublished
       summary
+      addDivider
     }
   }
 }`;
@@ -367,6 +370,7 @@ const getPageBySectionQuery = (section, slug) => {
       updatedAt
       title
       showToc
+      addDivider
       slug
       content
       isPublished
