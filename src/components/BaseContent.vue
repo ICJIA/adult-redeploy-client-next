@@ -41,6 +41,6 @@ export default {
 
 <style scoped>
 .iePull {
-  margin-top: -50px;
+  margin-top: -75px;
 }
 </style>
