@@ -47,7 +47,7 @@
       >.
 
       <template v-slot:actions>
-        <v-btn text @click="dismiss">I understand</v-btn>
+        <v-btn text @click="dismiss">Dismiss</v-btn>
       </template>
     </v-banner>
   </div>
