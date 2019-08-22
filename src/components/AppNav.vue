@@ -62,28 +62,30 @@
 
             <v-list nav dense flat elevation="1">
               <v-list-item-group color="primary">
-                <v-list-item v-for="(subItem, i) in link.pages" :key="i">
-                  <v-list-item-content
-                    @click="
-                      $router
-                        .push(`/${link.slug}/${subItem.slug}`)
-                        .catch(err => {
-                          $vuetify.goTo(0);
-                        })
-                    "
-                  >
-                    <v-list-item-title
-                      style="font-size: 14px; font-weight: bold; "
+                <div v-for="(subItem, i) in link.pages" :key="i">
+                  <v-list-item v-if="subItem.displayNav">
+                    <v-list-item-content
+                      @click="
+                        $router
+                          .push(`/${link.slug}/${subItem.slug}`)
+                          .catch(err => {
+                            $vuetify.goTo(0);
+                          })
+                      "
                     >
-                      <span v-if="subItem.addDivider">
-                        <div class="mb-5">
-                          <v-divider></v-divider>
-                        </div>
-                      </span>
-                      {{ subItem.title }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+                      <v-list-item-title
+                        style="font-size: 14px; font-weight: bold; "
+                      >
+                        <span v-if="subItem.addDivider">
+                          <div class="mb-5">
+                            <v-divider></v-divider>
+                          </div>
+                        </span>
+                        {{ subItem.title }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </div>
               </v-list-item-group>
             </v-list>
           </v-menu>
@@ -97,6 +99,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-use-v-if-with-v-for */
 import { EventBus } from "@/event-bus";
 export default {
   props: {

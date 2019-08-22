@@ -51,17 +51,19 @@
             </template>
 
             <span v-if="link.pages.length > 0">
-              <v-list-item v-for="(item, i) in link.pages" :key="i" link>
-                <v-list-item-title
-                  v-text="item.title"
-                  class="push-right"
-                  @click="
-                    $router.push(`/${link.slug}/${item.slug}`).catch(err => {
-                      $vuetify.goTo(0);
-                    })
-                  "
-                ></v-list-item-title>
-              </v-list-item>
+              <div v-for="(item, i) in link.pages" :key="i" link>
+                <v-list-item v-if="item.displayNav">
+                  <v-list-item-title
+                    v-text="item.title"
+                    class="push-right"
+                    @click="
+                      $router.push(`/${link.slug}/${item.slug}`).catch(err => {
+                        $vuetify.goTo(0);
+                      })
+                    "
+                  ></v-list-item-title>
+                </v-list-item>
+              </div>
             </span>
           </v-list-group>
         </v-list>

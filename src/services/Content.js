@@ -47,6 +47,7 @@ const getPageQuery = slug => {
     content
     isPublished
     summary
+    displayNav
     tags {
       name
       slug
@@ -348,6 +349,7 @@ const getAllSectionsQuery = () => {
       slug
       order
       isPublished
+      displayNav
       summary
       addDivider
     }
