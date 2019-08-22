@@ -89,6 +89,9 @@
           </v-menu>
         </span>
       </span>
+      <v-btn depressed small color="white" to="/search"
+        ><v-icon>search</v-icon></v-btn
+      >
     </v-toolbar-items>
   </v-app-bar>
 </template>

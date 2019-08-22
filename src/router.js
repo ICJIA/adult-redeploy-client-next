@@ -52,6 +52,19 @@ export default new Router({
 
     /**
      *
+     * Archives
+     *
+     */
+
+    {
+      path: "/archives/meeting-archive",
+      name: "meetingsArchive",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/MeetingsArchive.vue")
+    },
+
+    /**
+     *
      * News
      *
      */
