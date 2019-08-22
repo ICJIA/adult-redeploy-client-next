@@ -46,9 +46,9 @@
         >Microsoft Edge</a
       >.
 
-      <template v-slot:actions>
+      <!-- <template v-slot:actions>
         <v-btn text @click="dismiss">Dismiss</v-btn>
-      </template>
+      </template> -->
     </v-banner>
   </div>
 </template>
