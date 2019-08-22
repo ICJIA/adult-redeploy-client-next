@@ -72,7 +72,7 @@
               target="_blank"
               rel="noreferrer"
               class="footer-link"
-              >Server Status</a
+              >Status</a
             ></strong
           >
         </div>
