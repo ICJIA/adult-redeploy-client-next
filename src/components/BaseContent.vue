@@ -3,7 +3,7 @@
     <div
       class="px-4"
       v-if="!loading"
-      :class="{ 'py-10': !$browserDetect.isIE }"
+      :class="{ 'py-10': !$browserDetect.isIE, iePull: $browserDetect.isIE }"
     >
       <slot name="title"></slot>
       <slot name="printer"></slot>
@@ -27,6 +27,9 @@ export default {
   components: {
     Loader
   },
+  mounted() {
+    console.log(this.$browserDetect.isIE);
+  },
   props: {
     loading: {
       type: Boolean,
@@ -36,4 +39,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.iePull {
+  margin-top: -50px;
+}
+</style>
