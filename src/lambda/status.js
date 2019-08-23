@@ -36,7 +36,7 @@ const servers = [
     // users: ["ARI"],
     options: {
       hostname: "ari.icjia-api.cloud",
-      path: "/_health",
+      path: "/",
       method: "HEAD"
     },
     server: "api"
@@ -52,6 +52,15 @@ const servers = [
       method: "GET"
     },
     server: "web"
+  },
+  {
+    name: "archive server",
+    options: {
+      hostname: "ari.icjia-api.cloud",
+      path: "/",
+      method: "HEAD"
+    },
+    server: "archive"
   }
 ];
 
