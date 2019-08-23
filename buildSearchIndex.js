@@ -122,7 +122,7 @@ const query = `{
     summary
     category
     content
-    externalURLName
+    
     materials {
       url
       name
