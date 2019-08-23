@@ -56,7 +56,7 @@ const servers = [
   {
     name: "archive server",
     options: {
-      hostname: "ari.icjia-api.cloud",
+      hostname: "archive.icjia.cloud",
       path: "/",
       method: "HEAD"
     },
