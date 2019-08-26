@@ -68,6 +68,14 @@
             ></strong
           >&nbsp;|&nbsp;<strong
             ><a
+              :href="getArchive()"
+              target="_blank"
+              rel="noreferrer"
+              class="footer-link"
+              >ICJIA Archive</a
+            ></strong
+          >&nbsp;|&nbsp;<strong
+            ><a
               :href="`${$store.getters.config.clientURL}/status.html`"
               target="_blank"
               rel="noreferrer"
@@ -83,6 +91,14 @@
 
 <script>
 export default {
+  mounted() {
+    //console.log(process.env);
+  },
+  methods: {
+    getArchive() {
+      return `https://${process.env.VUE_APP_ARCHIVE_SERVER_URL}`;
+    }
+  },
   props: {
     sections: {
       type: Array,

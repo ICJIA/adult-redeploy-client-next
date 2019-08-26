@@ -19,8 +19,9 @@
         :search="search"
         class="elevation-1 meetingTable"
         show-expand
-        item-key="title"
-        :single-expand="true"
+        item-key="slug"
+        :single-expand="singleExpand"
+        :expanded.sync="expanded"
       >
         <template v-slot:item.scheduledDate="{ item }">
           {{ item.scheduledDate | format }}
@@ -43,7 +44,7 @@
             depressed
             @click="expand(true)"
             v-if="!isExpanded"
-            >More<v-icon right>arrow_drop_down</v-icon></v-btn
+            >More <v-icon right>arrow_drop_down</v-icon></v-btn
           >
           <v-btn small depressed @click="expand(false)" v-if="isExpanded"
             >Less<v-icon right>arrow_drop_up</v-icon></v-btn
@@ -87,6 +88,8 @@ export default {
   data() {
     return {
       search: "",
+      expanded: [],
+      singleExpand: true,
       headers: [
         {
           text: "Scheduled",
