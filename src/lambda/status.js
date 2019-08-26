@@ -1,6 +1,6 @@
 var https = require("https");
 require("dotenv").config();
-console.log(process.env);
+
 let request;
 
 const servers = [
