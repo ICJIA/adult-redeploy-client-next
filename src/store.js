@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Vue from "vue";
 import Vuex from "vuex";
+const config = require("./api/config.json");
 
 Vue.use(Vuex);
 
@@ -10,8 +11,9 @@ function buildStatusUrl() {
   if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
     url = `http://localhost:9000${endpoint}`;
   } else {
-    url = `https://ari-dev.netlify.com${endpoint}`;
+    url = `${config.clientURL}/${endpoint}`;
   }
+
   return url;
 }
 

@@ -1,7 +1,9 @@
 exports.handler = function(event, context, callback) {
   const axios = require("axios");
   require("dotenv").config();
-  const api = axios.create({ baseURL: process.env.VUE_APP_BASE_API_URL });
+  const api = axios.create({
+    baseURL: `https://${process.env.VUE_APP_BASE_API_URL}`
+  });
 
   api
     .post("/auth/local", {

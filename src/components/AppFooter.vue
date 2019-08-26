@@ -68,7 +68,7 @@
             ></strong
           >&nbsp;|&nbsp;<strong
             ><a
-              href="https://ari-dev.netlify.com/status.html"
+              :href="`${$store.getters.config.clientURL}/status.html`"
               target="_blank"
               rel="noreferrer"
               class="footer-link"

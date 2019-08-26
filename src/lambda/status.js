@@ -1,15 +1,14 @@
 var https = require("https");
 require("dotenv").config();
+console.log(process.env);
 let request;
 
 const servers = [
   {
     name: "image server",
-    // provider: "Thumbor",
-    // providerURL: "https://thumbor.readthedocs.io/en/latest/index.html",
-    // users: ["ARI", "ICJIA"],
+
     options: {
-      hostname: "image.icjia.cloud",
+      hostname: `${process.env.VUE_APP_IMAGE_SERVER_URL}`,
       path: "/healthcheck",
       method: "GET"
     },
@@ -17,25 +16,18 @@ const servers = [
   },
   {
     name: "file server",
-    // provider: "ARI",
-    // providerURL:
-    //   "https://gist.github.com/cschweda/8315c54d04ddb14519214b0af941030e",
-    // users: ["ARI"],
     options: {
-      hostname: "ari.icjia-api.cloud",
-      path:
-        "/file?path=/uploads/8171e679ad8544f4b81f55f0efe56b0f.pdf&name=healthcheck.pdf",
+      hostname: `${process.env.VUE_APP_BASE_API_URL}`,
+      path: `${process.env.VUE_APP_FILE_SERVER_HEALTHCHECK}`,
       method: "GET"
     },
     server: "file"
   },
   {
     name: "api server",
-    // provider: "Strapi",
-    // providerURL: "https://strapi.io/",
-    // users: ["ARI"],
+
     options: {
-      hostname: "ari.icjia-api.cloud",
+      hostname: `${process.env.VUE_APP_BASE_API_URL}`,
       path: "/",
       method: "HEAD"
     },
@@ -43,11 +35,9 @@ const servers = [
   },
   {
     name: "web server",
-    // provider: "Netlify",
-    // providerURL: "https://www.netlify.com/",
-    // users: ["ARI"],
+
     options: {
-      hostname: "ari-dev.netlify.com",
+      hostname: `${process.env.VUE_APP_BASE_CLIENT_URL}`,
       path: "/.netlify/functions/healthcheck",
       method: "GET"
     },
@@ -56,7 +46,7 @@ const servers = [
   {
     name: "archive server",
     options: {
-      hostname: "archive.icjia.cloud",
+      hostname: `${process.env.VUE_APP_ARCHIVE_SERVER_URL}`,
       path: "/",
       method: "HEAD"
     },

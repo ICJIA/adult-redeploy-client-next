@@ -161,6 +161,9 @@
     <script type="text/babel">
       var app = (function() {
         let baseURL = "https://ari.icjia-api.cloud";
+        let clientURL = "https://ari-dev.netlify.com";
+        let netlifyStatusBadge =
+          "https://api.netlify.com/api/v1/badges/c72a7e19-1f67-4b2a-8e91-0ee6df8fa2e9/deploy-status";
         async function fetchData(endpoint) {
           let data;
           let response = await fetch(endpoint);
@@ -254,7 +257,7 @@
           ) {
             url = `http://localhost:9000${endpoint}`;
           } else {
-            url = `https://ari-dev.netlify.com${endpoint}`;
+            url = `${clientURL}${endpoint}`;
           }
           return url;
         }
@@ -292,9 +295,7 @@
           $(".extras").hide();
           let status = await fetchData(buildStatusUrl());
           try {
-            let logs = await fetchData(
-              `https://ari.icjia-api.cloud/logs?_sort=createdAt:DESC`
-            );
+            let logs = await fetchData(`${baseURL}/logs?_sort=createdAt:DESC`);
             lastDeploy = getLastSuccessfulDeploy(logs);
             lastDeploy = moment(lastDeploy).fromNow();
           } catch (e) {
