@@ -31,5 +31,5 @@ request(api, query).then(res => {
       console.log(`Created: ${apiDir}/${fileName}`);
     }
   );
-  console.log(res);
+  //console.log(res);
 });
