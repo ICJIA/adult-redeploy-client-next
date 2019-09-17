@@ -14,15 +14,15 @@ const servers = [
     },
     server: "image"
   },
-  {
-    name: "file server",
-    options: {
-      hostname: `${process.env.VUE_APP_BASE_API_URL}`,
-      path: `${process.env.VUE_APP_FILE_SERVER_HEALTHCHECK}`,
-      method: "GET"
-    },
-    server: "file"
-  },
+  // {
+  //   name: "file server",
+  //   options: {
+  //     hostname: `${process.env.VUE_APP_BASE_API_URL}`,
+  //     path: `${process.env.VUE_APP_FILE_SERVER_HEALTHCHECK}`,
+  //     method: "GET"
+  //   },
+  //   server: "file"
+  // },
   {
     name: "api server",
 

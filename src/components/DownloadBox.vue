@@ -13,9 +13,15 @@
       >
         <div v-for="(file, index) in content.materials" :key="index">
           <li class="mb-4">
-            <span class=" medium"> {{ file.name }}</span>
+            <span class="hover medium"
+              ><a
+                :href="`${$store.getters.config.baseURL}${file.url}`"
+                target="_blank"
+                >{{ file.name }}</a
+              ></span
+            >
             <br />
-            <span
+            <!-- <span
               style="font-size: 12px; "
               class="hover onClickLink"
               @click="downloadFile(file)"
@@ -29,7 +35,7 @@
                 class="hover "
                 >Alternate {{ linkHeader }} ]</a
               ></span
-            >
+            > -->
           </li>
         </div>
       </ul>

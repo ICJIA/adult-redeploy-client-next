@@ -27,9 +27,10 @@
         </v-icon>
       </v-avatar>
 
-      You're using an <strong>outdated</strong> version of Internet Explorer. We
-      recommend updating to a more secure, modern browser. Please download the
-      latest version of
+      You're using Internet Explorer. Internet Explorer is outdated and will not
+      display everything correctly for this website. ICJIA strongly recommends
+      updating to a more secure, modern browser. Please download the latest
+      version of
       <a href="https://www.google.com/chrome" target="_blank" rel="noreferrer"
         >Chrome</a
       >,
@@ -44,6 +45,11 @@
         rel="noreferrer"
         target="_blank"
         >Microsoft Edge</a
+      >. For more information on the perils of using Internet Explorer, please
+      see
+      <a
+        href="https://techcommunity.microsoft.com/t5/Windows-IT-Pro-Blog/The-perils-of-using-Internet-Explorer-as-your-default-browser/ba-p/331732"
+        >this Microsoft post</a
       >.
 
       <!-- <template v-slot:actions>
