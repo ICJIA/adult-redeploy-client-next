@@ -66,7 +66,9 @@
               rel="noreferrer"
               >Github</a
             ></strong
-          >&nbsp;|&nbsp;<strong
+          >
+
+          <!-- &nbsp;|&nbsp;<strong
             ><a
               :href="getArchive()"
               target="_blank"
@@ -74,7 +76,9 @@
               class="footer-link"
               >ICJIA Archive</a
             ></strong
-          >&nbsp;|&nbsp;<strong
+          > -->
+
+          &nbsp;|&nbsp;<strong
             ><a
               :href="`${$store.getters.config.clientURL}/status.html`"
               target="_blank"

@@ -19,7 +19,7 @@
         :search="search"
         class="elevation-1 detailTable"
         show-expand
-        item-key="title"
+        item-key="slug"
         :single-expand="true"
       >
         <template v-slot:item.publicationDate="{ item }">
