@@ -5,7 +5,7 @@
       class="px-8 py-8"
       v-if="content.mediaMaterial && content.mediaMaterial.length"
     >
-      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
+      <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
 
       <ul
         style="color: #222;"
@@ -31,7 +31,7 @@
           content.externalMediaMaterial && content.externalMediaMaterial.length
         "
       >
-        <h3 style="color: #222;" class="mb-5">Additional links</h3>
+        <h3 style="color: #222;" class="mb-5">{{ header[1] }}</h3>
 
         <ul
           style="color: #222;"
@@ -76,8 +76,8 @@ export default {
       default: () => {}
     },
     header: {
-      type: String,
-      default: "Materials"
+      type: Array,
+      default: () => ["Materials", "Additional Links"]
     },
     linkHeader: {
       type: String,

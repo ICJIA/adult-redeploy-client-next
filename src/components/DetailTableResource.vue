@@ -30,7 +30,7 @@
           {{ getCategoryTitle(item.category) }}
         </template>
 
-        <template v-slot:item.materials="{ item }">
+        <!-- <template v-slot:item.materials="{ item }">
           <v-btn
             small
             depressed
@@ -38,7 +38,7 @@
             @click="getFile(item)"
             >DOWNLOAD <v-icon right>cloud_download</v-icon></v-btn
           >
-        </template>
+        </template> -->
 
         <template v-slot:item.externalURL="{ item }">
           <v-btn
@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import { getFile } from "@/services/Download";
 import ResourceDisplay from "@/components/ResourceDisplay";
 export default {
   components: {
@@ -136,30 +135,30 @@ export default {
     };
   },
   methods: {
-    checkForSingleFile(item) {
-      if (item.materials.length === 1) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    checkForExternalURL(item) {
-      if (item.externalURL) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    getFile(item) {
-      if (item.materials.length === 1) {
-        return getFile(item.materials[0]);
-      }
-    },
-    gotoExternalURL(item) {
-      if (item.externalURL) {
-        window.open(item.externalURL, "_blank");
-      }
-    },
+    // checkForSingleFile(item) {
+    //   if (item.materials.length === 1) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // },
+    // checkForExternalURL(item) {
+    //   if (item.externalURL) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // },
+    // getFile(item) {
+    //   if (item.materials.length === 1) {
+    //     return getFile(item.materials[0]);
+    //   }
+    // },
+    // gotoExternalURL(item) {
+    //   if (item.externalURL) {
+    //     window.open(item.externalURL, "_blank");
+    //   }
+    // },
     getRoute(resource) {
       let parentPath = this.$store.getters.config.categoryEnums.resources.filter(
         cat => {

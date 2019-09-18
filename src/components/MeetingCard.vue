@@ -10,7 +10,7 @@
         @click="handleClicks"
         class="dynamic-content site-description"
       ></div>
-      <DownloadBox :content="content" linkHeader="download"></DownloadBox>
+      <DownloadBox :content="content"></DownloadBox>
 
       <v-container class="mt-4">
         <v-row>
