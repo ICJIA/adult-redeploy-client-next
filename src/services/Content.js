@@ -494,19 +494,11 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
-    externalMediaMaterial {
-      name
+    externalURL
+    externalURLName
+    materials {
       url
-      summary
-    }
-    mediaMaterial {
       name
-      summary
-      file {
-        name
-        hash
-        url
-      }
     }
      tags {
       name
@@ -521,7 +513,7 @@ const getSingleMeetingQuery = slug => {
   return `
   {
   meetings (sort: "scheduledDate:desc", where: {slug: "${slug}"}) {
-   createdAt
+    createdAt
     updatedAt
     title
     slug
@@ -529,21 +521,13 @@ const getSingleMeetingQuery = slug => {
     summary
     category
     content
-    externalMediaMaterial {
-      name
+    externalURL
+    externalURLName
+    materials {
       url
-      summary
-    }
-    mediaMaterial {
       name
-      summary
-      file {
-        name
-        hash
-        url
-      }
     }
-    tags {
+     tags {
       name
       slug
     }

@@ -3,72 +3,104 @@
     <div
       style="background: #eee"
       class="px-8 py-8"
-      v-if="content.mediaMaterial && content.mediaMaterial.length"
+      v-if="content.materials && content.materials.length"
     >
+<<<<<<< HEAD
       <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
 
+=======
+      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
+>>>>>>> parent of 8548148... fix: temporarily bypassed status server / meeting layout update with Strapi groups
       <ul
         style="color: #222;"
         class=""
-        v-if="content.mediaMaterial && content.mediaMaterial.length"
+        v-if="content.materials && content.materials.length"
       >
-        <div v-for="(item, index) in content.mediaMaterial" :key="index">
+        <div v-for="(file, index) in content.materials" :key="index">
           <li class="mb-4">
-            <span class="hover medium">
-              <a
-                :href="`${$store.getters.config.baseURL}${item.file.url}`"
+            <span class="hover medium"
+              ><a
+                :href="`${$store.getters.config.baseURL}${file.url}`"
                 target="_blank"
-                >{{ item.name }}</a
-              >
-              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
-            </span>
+                >{{ file.name }}</a
+              ></span
+            >
             <br />
+            <!-- <span
+              style="font-size: 12px; "
+              class="hover onClickLink"
+              @click="downloadFile(file)"
+              >[ Primary {{ linkHeader }}</span
+            >
+            |
+            <span style="font-size: 12px"
+              ><a
+                :href="`${$store.getters.config.baseURL}${file.url}`"
+                target="_blank"
+                class="hover "
+                >Alternate {{ linkHeader }} ]</a
+              ></span
+            > -->
           </li>
         </div>
       </ul>
+<<<<<<< HEAD
       <div
         v-if="
           content.externalMediaMaterial && content.externalMediaMaterial.length
         "
       >
         <h3 style="color: #222;" class="mb-5">{{ header[1] }}</h3>
+=======
+    </div>
+>>>>>>> parent of 8548148... fix: temporarily bypassed status server / meeting layout update with Strapi groups
 
-        <ul
-          style="color: #222;"
-          class=""
-          v-if="
-            content.externalMediaMaterial &&
-              content.externalMediaMaterial.length
-          "
-        >
-          <div
-            v-for="(item, index) in content.externalMediaMaterial"
-            :key="index"
+    <div style="background: #eee" class="px-6 py-2" v-else>
+      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
+      <ul
+        style="color: #222;"
+        class=""
+        v-if="content.externalURL && content.externalURL.length"
+      >
+        <li>
+          <span class=" medium">
+            <span v-if="content.externalURLName">
+              {{ content.externalURLName }}
+            </span>
+            <span v-else>
+              {{ content.externalURL }}
+            </span></span
           >
-            <li class="mb-4">
-              <a :href="`${item.url}`" target="_blank">{{ item.name }}</a>
-              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
-
-              <br />
-            </li>
-          </div>
-        </ul>
-      </div>
+          <br />
+          <span
+            style="font-size: 12px; "
+            class="hover onClickLink"
+            @click="getExternalFile(content.externalURL)"
+            >[ External link ]</span
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import { renderToHtml } from "@/services/Markdown";
-import { handleClicks } from "@/mixins/handleClicks";
+import { getFile, getExternalFile } from "@/services/Download";
 export default {
   data() {
     return {
-      renderToHtml
+      getExternalFile
     };
   },
-  mixins: [handleClicks],
-  methods: {},
+  methods: {
+    downloadFile(item) {
+      // if (item.file) {
+      //   return getFile(item.file);
+      // }
+      console.log(item);
+      return getFile(item);
+    }
+  },
 
   props: {
     content: {
@@ -76,8 +108,13 @@ export default {
       default: () => {}
     },
     header: {
+<<<<<<< HEAD
       type: Array,
       default: () => ["Materials", "Additional Links"]
+=======
+      type: String,
+      default: "Meeting Materials"
+>>>>>>> parent of 8548148... fix: temporarily bypassed status server / meeting layout update with Strapi groups
     },
     linkHeader: {
       type: String,
