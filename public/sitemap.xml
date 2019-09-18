@@ -6,192 +6,202 @@
     xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
     xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
     <url>
-        <loc>https://ari-dev.netlify.com/home</loc>
+        <loc>https://adultredeployil.netlify.com/home</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/about/contact</loc>
+        <loc>https://adultredeployil.netlify.com/about/contact</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/about/overview</loc>
+        <loc>https://adultredeployil.netlify.com/about/overview</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/about/meetings</loc>
+        <loc>https://adultredeployil.netlify.com/about/meetings</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/search</loc>
+        <loc>https://adultredeployil.netlify.com/search</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/about/faqs</loc>
+        <loc>https://adultredeployil.netlify.com/about/faqs</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/programs/local-programs</loc>
+        <loc>https://adultredeployil.netlify.com/programs/local-programs</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/news</loc>
+        <loc>https://adultredeployil.netlify.com/news</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/programs/test-page-1</loc>
+        <loc>https://adultredeployil.netlify.com/about/oversight</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/about/oversight</loc>
+        <loc>https://adultredeployil.netlify.com/about/staff</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/about/staff</loc>
+        <loc>https://adultredeployil.netlify.com/approach/local-control</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/approach/local-control</loc>
+        <loc>https://adultredeployil.netlify.com/approach/ebps</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/approach/ebps</loc>
+        <loc>https://adultredeployil.netlify.com/approach/peformace-measurement</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/approach/peformace-measurement</loc>
+        <loc>https://adultredeployil.netlify.com/approach/evaluation</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/approach/evaluation</loc>
+        <loc>https://adultredeployil.netlify.com/grants/explore</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/grants/explore</loc>
+        <loc>https://adultredeployil.netlify.com/grants/apply</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/grants/apply</loc>
+        <loc>https://adultredeployil.netlify.com/grants/implement</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/grants/implement</loc>
+        <loc>https://adultredeployil.netlify.com/resources</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/resources</loc>
+        <loc>https://adultredeployil.netlify.com/archives/meeting-archives</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/archives/meeting-archives</loc>
+        <loc>https://adultredeployil.netlify.com/resources/annual-report</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/resources/annual-report</loc>
+        <loc>https://adultredeployil.netlify.com/resources/webinars</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/news/test-post-1</loc>
+        <loc>https://adultredeployil.netlify.com/resources/summits</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/news/test-post-2</loc>
+        <loc>https://adultredeployil.netlify.com/news/test-post-1</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/news/test-post-3</loc>
+        <loc>https://adultredeployil.netlify.com/news/test-post-2</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/news/test-post-5</loc>
+        <loc>https://adultredeployil.netlify.com/news/test-post-3</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/tags/tag-1</loc>
+        <loc>https://adultredeployil.netlify.com/news/test-post-5</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/tags/tag-2</loc>
+        <loc>https://adultredeployil.netlify.com/tags/tag-1</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/tags/tag-3</loc>
+        <loc>https://adultredeployil.netlify.com/tags/tag-2</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/tags/tag-4</loc>
+        <loc>https://adultredeployil.netlify.com/tags/tag-3</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/tags/tag-5</loc>
+        <loc>https://adultredeployil.netlify.com/tags/tag-4</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/resources/webinar/test-webinar-1</loc>
+        <loc>https://adultredeployil.netlify.com/tags/tag-5</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/resources/webinar/test-webinar-2</loc>
+        <loc>https://adultredeployil.netlify.com/resources/webinar/test-webinar-1</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/resources/annual-report/annual-report-2018</loc>
+        <loc>https://adultredeployil.netlify.com/resources/webinar/test-webinar-2</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/meetings/performance/performance-08-15-2019</loc>
+        <loc>https://adultredeployil.netlify.com/resources/annual-report/annual-report-2018</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/meetings/outreach/outreach-07-30-2019</loc>
+        <loc>https://adultredeployil.netlify.com/meetings/performance/performance-08-15-2019</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/meetings/site-selection/site-selection-05-09-2019</loc>
+        <loc>https://adultredeployil.netlify.com/meetings/outreach/outreach-07-30-2019</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/meetings/regular-oversight/regular-meeting-08-19-2019</loc>
+        <loc>https://adultredeployil.netlify.com/meetings/site-selection/site-selection-05-09-2019</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ari-dev.netlify.com/</loc>
+        <loc>https://adultredeployil.netlify.com/meetings/regular-oversight/regular-meeting-08-19-2019</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://adultredeployil.netlify.com/meetings/regular-oversight/oversight-05-20-2019</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://adultredeployil.netlify.com/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>

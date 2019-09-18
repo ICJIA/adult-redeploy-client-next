@@ -3,90 +3,72 @@
     <div
       style="background: #eee"
       class="px-8 py-8"
-      v-if="content.materials && content.materials.length"
+      v-if="content.mediaMaterial && content.mediaMaterial.length"
     >
       <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
+
       <ul
         style="color: #222;"
         class=""
-        v-if="content.materials && content.materials.length"
+        v-if="content.mediaMaterial && content.mediaMaterial.length"
       >
-        <div v-for="(file, index) in content.materials" :key="index">
+        <div v-for="(item, index) in content.mediaMaterial" :key="index">
           <li class="mb-4">
-            <span class="hover medium"
-              ><a
-                :href="`${$store.getters.config.baseURL}${file.url}`"
+            <span class="hover medium">
+              <a
+                :href="`${$store.getters.config.baseURL}${item.file.url}`"
                 target="_blank"
-                >{{ file.name }}</a
-              ></span
-            >
+                >{{ item.name }}</a
+              >
+              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+            </span>
             <br />
-            <!-- <span
-              style="font-size: 12px; "
-              class="hover onClickLink"
-              @click="downloadFile(file)"
-              >[ Primary {{ linkHeader }}</span
-            >
-            |
-            <span style="font-size: 12px"
-              ><a
-                :href="`${$store.getters.config.baseURL}${file.url}`"
-                target="_blank"
-                class="hover "
-                >Alternate {{ linkHeader }} ]</a
-              ></span
-            > -->
           </li>
         </div>
       </ul>
-    </div>
-
-    <div style="background: #eee" class="px-6 py-2" v-else>
-      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
-      <ul
-        style="color: #222;"
-        class=""
-        v-if="content.externalURL && content.externalURL.length"
+      <div
+        v-if="
+          content.externalMediaMaterial && content.externalMediaMaterial.length
+        "
       >
-        <li>
-          <span class=" medium">
-            <span v-if="content.externalURLName">
-              {{ content.externalURLName }}
-            </span>
-            <span v-else>
-              {{ content.externalURL }}
-            </span></span
+        <h3 style="color: #222;" class="mb-5">Additional links</h3>
+
+        <ul
+          style="color: #222;"
+          class=""
+          v-if="
+            content.externalMediaMaterial &&
+              content.externalMediaMaterial.length
+          "
+        >
+          <div
+            v-for="(item, index) in content.externalMediaMaterial"
+            :key="index"
           >
-          <br />
-          <span
-            style="font-size: 12px; "
-            class="hover onClickLink"
-            @click="getExternalFile(content.externalURL)"
-            >[ External link ]</span
-          >
-        </li>
-      </ul>
+            <li class="mb-4">
+              <a :href="`${item.url}`" target="_blank">{{ item.name }}</a>
+              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+
+              <br />
+            </li>
+          </div>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getFile, getExternalFile } from "@/services/Download";
+import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   data() {
     return {
-      getExternalFile
+      renderToHtml
     };
   },
-  methods: {
-    downloadFile(item) {
-      // if (item.file) {
-      //   return getFile(item.file);
-      // }
-      console.log(item);
-      return getFile(item);
-    }
-  },
+  mixins: [handleClicks],
+  methods: {},
 
   props: {
     content: {
@@ -95,7 +77,7 @@ export default {
     },
     header: {
       type: String,
-      default: "Meeting Materials"
+      default: "Materials"
     },
     linkHeader: {
       type: String,
