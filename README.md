@@ -32,4 +32,4 @@ Creates search index, builds app config, builds lambda functions, and builds app
 
 ### Development link
 
-https://ari-dev.netlify.com/
+https://adultredeployil.netlify.com
