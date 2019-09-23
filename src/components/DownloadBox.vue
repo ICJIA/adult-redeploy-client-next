@@ -5,12 +5,7 @@
       class="px-8 py-8"
       v-if="content.materials && content.materials.length"
     >
-<<<<<<< HEAD
-      <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
-
-=======
       <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
->>>>>>> parent of 8548148... fix: temporarily bypassed status server / meeting layout update with Strapi groups
       <ul
         style="color: #222;"
         class=""
@@ -25,7 +20,7 @@
                 >{{ file.name }}</a
               ></span
             >
-            <br />
+
             <!-- <span
               style="font-size: 12px; "
               class="hover onClickLink"
@@ -44,16 +39,7 @@
           </li>
         </div>
       </ul>
-<<<<<<< HEAD
-      <div
-        v-if="
-          content.externalMediaMaterial && content.externalMediaMaterial.length
-        "
-      >
-        <h3 style="color: #222;" class="mb-5">{{ header[1] }}</h3>
-=======
     </div>
->>>>>>> parent of 8548148... fix: temporarily bypassed status server / meeting layout update with Strapi groups
 
     <div style="background: #eee" class="px-6 py-2" v-else>
       <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
@@ -108,13 +94,8 @@ export default {
       default: () => {}
     },
     header: {
-<<<<<<< HEAD
-      type: Array,
-      default: () => ["Materials", "Additional Links"]
-=======
       type: String,
       default: "Meeting Materials"
->>>>>>> parent of 8548148... fix: temporarily bypassed status server / meeting layout update with Strapi groups
     },
     linkHeader: {
       type: String,

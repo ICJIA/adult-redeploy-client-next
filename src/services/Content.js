@@ -496,10 +496,7 @@ const getAllMeetingsQuery = () => {
     content
     externalURL
     externalURLName
-    materials {
-      url
-      name
-    }
+   
      tags {
       name
       slug
@@ -523,10 +520,7 @@ const getSingleMeetingQuery = slug => {
     content
     externalURL
     externalURLName
-    materials {
-      url
-      name
-    }
+   
      tags {
       name
       slug
@@ -547,10 +541,7 @@ const getAllResourcesQuery = () => {
     category
     content
     
-    materials {
-      url
-      name
-    }
+    
      tags {
       name
       slug
@@ -573,10 +564,7 @@ const getSingleResourceQuery = slug => {
     category
     content
     
-    materials {
-      url
-      name
-    }
+  
      tags {
       name
       slug

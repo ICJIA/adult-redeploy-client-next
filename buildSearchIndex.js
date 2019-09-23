@@ -68,10 +68,7 @@ const query = `{
     category
     slug
     isPublished
-    materials {
-      name
-      url
-    }
+    
    
     tags {
       name
@@ -123,10 +120,7 @@ const query = `{
     category
     content
     
-    materials {
-      url
-      name
-    }
+   
      tags {
       name
       slug
