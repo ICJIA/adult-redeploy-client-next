@@ -12,19 +12,14 @@
       <v-list class="drawer" rounded>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="text-center heavy"
-              >ADULT REDEPLOY ILLINOIS</v-list-item-title
-            >
+            <v-list-item-title class="text-center heavy">ADULT REDEPLOY ILLINOIS</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
         <v-divider></v-divider>
 
         <v-list dense v-for="link in sections" :key="link.name">
-          <v-list-item
-            class="link-item"
-            v-if="!link.hasSubMenus && link.pages.length > 0"
-          >
+          <v-list-item class="link-item" v-if="!link.hasSubMenus && link.pages.length > 0">
             <v-list-item-content>
               <v-list-item-title
                 @click="
@@ -36,17 +31,18 @@
                 "
                 style="font-weight: 900 !important; cursor: pointer"
                 class="push-right"
-                >{{ link.title }}</v-list-item-title
-              >
+              >{{ link.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-group no-action sub-group v-if="link.hasSubMenus">
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title style="font-weight: 900 !important">{{
+                <v-list-item-title style="font-weight: 900 !important">
+                  {{
                   link.title
-                }}</v-list-item-title>
+                  }}
+                </v-list-item-title>
               </v-list-item-content>
             </template>
 
@@ -81,14 +77,13 @@
         </a>
         <br />
 
-        <strong
-          ><a
+        <strong>
+          <a
             href="http://www.icjia.state.il.us"
             class="footer-link"
             style="font-size: 10px;"
-            >Illinois Criminal Justice Information Authority</a
-          ></strong
-        >
+          >Illinois Criminal Justice Information Authority</a>
+        </strong>
       </div>
     </v-row>
   </v-navigation-drawer>
