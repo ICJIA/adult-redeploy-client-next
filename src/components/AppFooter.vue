@@ -1,36 +1,24 @@
 <template>
   <v-footer dark padless class="noprint">
-    <v-card
-      flat
-      tile
-      class="white--text text-center"
-      color="secondary"
-      style="width: 100%"
-    >
+    <v-card flat tile class="white--text text-center" color="secondary" style="width: 100%">
       <v-card-text>
         <span v-for="link in sections" :key="link.title" class="flexitem">
           <span v-if="link.displayFooter">
             <v-btn
               :to="link.slug === 'home' ? '/' : `/${link.slug}`"
               depressed
-              class="heavy "
+              class="heavy"
               dark
               color="secondary"
               :aria-label="link.name"
             >
-              <span style="font-size: 12px"> {{ link.slug }}</span>
+              <span style="font-size: 12px">{{ link.slug }}</span>
             </v-btn>
           </span>
         </span>
       </v-card-text>
     </v-card>
-    <v-card
-      flat
-      tile
-      class="white--text text-center"
-      color="primary"
-      style="width: 100%"
-    >
+    <v-card flat tile class="white--text text-center" color="primary" style="width: 100%">
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
@@ -42,31 +30,26 @@
         />
         <br />
 
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="white--text"
-          icon
-          :aria-label="icon"
-        >
+        <v-btn v-for="icon in icons" :key="icon" class="white--text" icon :aria-label="icon">
           <v-icon size="18px">{{ icon }}</v-icon>
         </v-btn>
         <br />
         <div style="font-size: 12px">
           {{ new Date().getFullYear() }}
-          <strong
-            ><a href="http://www.icjia.state.il.us" class="footer-link"
-              >Illinois Criminal Justice Information Authority</a
-            ></strong
-          >&nbsp;|&nbsp;<strong
-            ><a
+          <strong>
+            <a
+              href="http://www.icjia.state.il.us"
+              class="footer-link"
+            >Illinois Criminal Justice Information Authority</a>
+          </strong>&nbsp;|&nbsp;
+          <strong>
+            <a
               href="https://github.com/ICJIA/adult-redeploy-client-next"
               target="_blank"
               class="footer-link"
               rel="noreferrer"
-              >Github</a
-            ></strong
-          >
+            >Github</a>
+          </strong>
 
           <!-- &nbsp;|&nbsp;<strong
             ><a
@@ -76,17 +59,16 @@
               class="footer-link"
               >ICJIA Archive</a
             ></strong
-          > -->
-
-          &nbsp;|&nbsp;<strong
-            ><a
+          >-->
+          &nbsp;|&nbsp;
+          <strong>
+            <a
               :href="`${$store.getters.config.clientURL}/status.html`"
               target="_blank"
               rel="noreferrer"
               class="footer-link"
-              >Status</a
-            ></strong
-          >
+            >Status</a>
+          </strong>
         </div>
       </v-card-text>
     </v-card>
