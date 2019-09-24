@@ -86,8 +86,8 @@
             href="http://www.icjia.state.il.us"
             class="footer-link"
             style="font-size: 10px;"
-            >Illinois Criminal Justice Information Authority</a
-          >
+            >Illinois Criminal Justice Information Authority
+          </a>
         </strong>
       </div>
     </v-row>
