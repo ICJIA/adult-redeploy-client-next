@@ -11,12 +11,13 @@ function buildStatusUrl() {
   if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
     url = `http://localhost:9000${endpoint}`;
   } else {
-    url = `${config.clientURL}/${endpoint}`;
+    url = `${config.clientURL}${config.publicPath}${endpoint}`;
   }
 
   return url;
 }
 
+// eslint-disable-next-line no-unused-vars
 async function fetchData(endpoint) {
   // eslint-disable-next-line no-unused-vars
   let data;
@@ -83,25 +84,27 @@ export default new Vuex.Store({
       commit("SET_APP_READY", true);
     },
     async setApiStatus({ commit }) {
-      try {
-        let status = await fetchData(buildStatusUrl());
-        let apiStatus = status.filter(server => {
-          if (server.server === "api") {
-            return server;
-          }
-        });
-        if (apiStatus.length) {
-          console.log("Successfully connected to status server.");
-          commit("SET_API_STATUS", apiStatus[0]["status"]);
-        } else {
-          console.error("Status server error");
-          commit("SET_API_STATUS", 500);
-        }
-      } catch (e) {
-        console.log("Can't connect to status server.");
-        console.log(e);
-        commit("SET_API_STATUS", 500);
-      }
+      // try {
+      //   let status = await fetchData(buildStatusUrl());
+      //   let apiStatus = status.filter(server => {
+      //     if (server.server === "api") {
+      //       return server;
+      //     }
+      //   });
+      //   if (apiStatus.length) {
+      //     console.log("Successfully connected to status server.");
+      //     commit("SET_API_STATUS", apiStatus[0]["status"]);
+      //   } else {
+      //     console.error("Status server error");
+      //     commit("SET_API_STATUS", 500);
+      //   }
+      // } catch (e) {
+      //   console.log("Can't connect to status server.");
+      //   console.log(e);
+      //   commit("SET_API_STATUS", 500);
+      // }
+      commit("SET_API_STATUS", 200);
+      console.log("status server bypassed");
     },
     setConfig({ commit }, config) {
       commit("SET_CONFIG", config);

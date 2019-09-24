@@ -1,5 +1,6 @@
 {
   "clientURL": "https://adultredeployil.netlify.com",
+  "publicPath": "/",
   "publications": { "truncateSummaryAt": 28 },
   "search": {
     "shouldSort": true,
@@ -168,6 +169,6 @@
     "typographer": false,
     "quotes": "“”‘’"
   },
-  "statusURL": "https://adultredeployil.netlify.com/.netlify/functions/status",
+
   "baseURL": "https://ari.icjia-api.cloud"
 }

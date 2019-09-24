@@ -12,8 +12,8 @@
         style="background: #fafafa; min-height: 68vh"
       >
         <transition name="fade" mode="out-in">
-          <!-- <router-view></router-view> -->
-          <router-view v-if="$store.getters.isApiReady"></router-view>
+          <router-view></router-view>
+          <!-- <router-view v-if="$store.getters.isApiReady"></router-view>
           <div v-else>
             <v-alert
               type="warning"
@@ -32,7 +32,7 @@
                 >
               </div>
             </v-alert>
-          </div>
+          </div> -->
         </transition>
       </v-content>
 
