@@ -1,5 +1,7 @@
+const config = require("./api/config.json");
+
 module.exports = {
-  publicPath: process.env.NODE_ENV === `production` ? "/adultredeploy" : "/",
+  publicPath: process.env.NODE_ENV === `production` ? config.publicPath : "/",
   chainWebpack: config => {
     config
       .entry("app")

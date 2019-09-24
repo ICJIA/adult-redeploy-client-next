@@ -1,6 +1,6 @@
 {
   "clientURL": "https://adultredeployil.netlify.com",
-  "publicPath": "/",
+  "publicPath": "/adultredeploy",
   "publications": { "truncateSummaryAt": 28 },
   "search": {
     "shouldSort": true,
