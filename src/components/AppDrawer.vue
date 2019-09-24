@@ -12,14 +12,19 @@
       <v-list class="drawer" rounded>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="text-center heavy">ADULT REDEPLOY ILLINOIS</v-list-item-title>
+            <v-list-item-title class="text-center heavy"
+              >ADULT REDEPLOY ILLINOIS</v-list-item-title
+            >
           </v-list-item-content>
         </v-list-item>
 
         <v-divider></v-divider>
 
         <v-list dense v-for="link in sections" :key="link.name">
-          <v-list-item class="link-item" v-if="!link.hasSubMenus && link.pages.length > 0">
+          <v-list-item
+            class="link-item"
+            v-if="!link.hasSubMenus && link.pages.length > 0"
+          >
             <v-list-item-content>
               <v-list-item-title
                 @click="
@@ -31,7 +36,8 @@
                 "
                 style="font-weight: 900 !important; cursor: pointer"
                 class="push-right"
-              >{{ link.title }}</v-list-item-title>
+                >{{ link.title }}</v-list-item-title
+              >
             </v-list-item-content>
           </v-list-item>
 
@@ -39,9 +45,7 @@
             <template v-slot:activator>
               <v-list-item-content>
                 <v-list-item-title style="font-weight: 900 !important">
-                  {{
-                  link.title
-                  }}
+                  {{ link.title }}
                 </v-list-item-title>
               </v-list-item-content>
             </template>
@@ -69,7 +73,7 @@
       <div class="text-center px-3 py-5" style="color: #fff">
         <a href="http://www.icjia.state.il.us">
           <img
-            src="/icjia-logo-white.png"
+            :src="require('@/assets/icjia-logo-white.png')"
             alt="Illinois Criminal Justice Information Authority"
             width="65"
             class="mt-3"
@@ -82,7 +86,8 @@
             href="http://www.icjia.state.il.us"
             class="footer-link"
             style="font-size: 10px;"
-          >Illinois Criminal Justice Information Authority</a>
+            >Illinois Criminal Justice Information Authority</a
+          >
         </strong>
       </div>
     </v-row>

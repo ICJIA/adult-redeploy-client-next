@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === `production` ? "/adultredeploy" : "/",
   chainWebpack: config => {
     config
       .entry("app")

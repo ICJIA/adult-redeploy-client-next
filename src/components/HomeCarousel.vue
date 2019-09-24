@@ -1,42 +1,7 @@
 <template>
-  <!-- <v-carousel
-    height="500"
-    hide-delimiter-background
-    show-arrows-on-hover
-    class="home"
-  >
-    <v-carousel-item v-for="(slide, i) in slides" :key="i">
-      <v-sheet :color="colors[i]" height="100%">
-       
-        <v-container fill-height text-center>
-          <v-layout align-center>
-            <v-flex xs12>
-              <div class="default-font carousel-large heavy carousel-main-text">
-                Adult Redeploy Illinois
-              </div>
-              <div class="default-font carousel-medium mt-10 carousel-sub-text">
-                Results expected with Adult Redeploy Illinois include reduced
-                prison overcrowding, lowered cost to taxpayers, and an end to
-                the expensive and vicious cycle of crime and incarceration.
-              </div>
-            
-              <v-btn
-                class="mt-12 mb-12"
-                to="/about"
-                aria-label="Return home"
-                outlined
-                >Learn More</v-btn
-              >
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel> -->
-
   <v-img
-    src="/ari-splash-01.jpg"
-    lazy-src="/ari-splash-01-tiny.jpg"
+    :src="require('@/assets/ari-splash-01.jpg')"
+    :lazy-src="require('@/assets/ari-splash-01-tiny.jpg')"
     aspect-ratio="1"
     class="grey lighten-2"
     max-height="600"
