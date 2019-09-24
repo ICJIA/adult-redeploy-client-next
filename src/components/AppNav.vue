@@ -10,7 +10,7 @@
     <div style="width: 15px"></div>
 
     <img
-      src="/icjia-logo.png"
+      :src="require('@/assets/icjia-logo.png')"
       alt="Illinois Criminal Justice Information Authority"
       :width="logoWidth()"
       style="margin-left: -5px; margin-right: 8px;"

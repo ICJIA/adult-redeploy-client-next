@@ -5,11 +5,12 @@ const config = require("./api/config.json");
 
 Vue.use(Vuex);
 
+// eslint-disable-next-line no-unused-vars
 function buildStatusUrl() {
   let url;
-  let endpoint = "/.netlify/functions/status";
+  let endpoint = ".netlify/functions/status";
   if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-    url = `http://localhost:9000${endpoint}`;
+    url = `http://localhost:9000/${endpoint}`;
   } else {
     url = `${config.clientURL}${config.publicPath}${endpoint}`;
   }
