@@ -170,5 +170,6 @@
     "quotes": "“”‘’"
   },
 
-  "baseURL": "https://ari.icjia-api.cloud"
+  "baseURL": "https://ari.icjia-api.cloud",
+  "archiveBaseURL": "https://archive.icjia.cloud"
 }
