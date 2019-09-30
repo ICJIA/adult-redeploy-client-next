@@ -206,8 +206,7 @@ const getContentByTagQuery = slug => {
     summary
     category
     content
-    externalURL
-    externalURLName
+    
     
      tags {
       name
@@ -246,10 +245,7 @@ const getContentByTagQuery = slug => {
     category
     content
     
-    materials {
-      url
-      name
-    }
+    
      tags {
       name
       slug
@@ -494,8 +490,7 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
-    externalURL
-    externalURLName
+    
    
      tags {
       name
@@ -518,8 +513,7 @@ const getSingleMeetingQuery = slug => {
     summary
     category
     content
-    externalURL
-    externalURLName
+   
    
      tags {
       name
@@ -684,7 +678,12 @@ const getPageBySection = async ({ section, slug }) => {
     slug = xss(slug);
     section = xss(section);
     let sections = await queryEndpoint(getPageBySectionQuery(section, slug));
-    return sections.data.data.sections;
+
+    if (sections.data.data.sections[0].pages[0].isPublished) {
+      return sections.data.data.sections;
+    } else {
+      return [];
+    }
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
