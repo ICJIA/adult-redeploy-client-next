@@ -328,9 +328,10 @@ const getSinglePublicationQuery = slug => {
 
 const getAllSectionsQuery = () => {
   return `{
-  sections (sort: "order:asc") {
+  sections (sort: "order:asc" where: { isPublished: true}) {
     title
     slug
+    isPublished
     summary
     searchMeta
     summary
