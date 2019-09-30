@@ -32,15 +32,17 @@
           <ul class="pageList">
             <base-list :items="content.pages" empty="">
               <template slot-scope="item">
-                <li class="pageTitle">
-                  <router-link
-                    class="pageLink"
-                    :to="
-                      `/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`
-                    "
-                    >{{ item.title }}</router-link
-                  >
-                </li>
+                <div v-if="item.isPublished">
+                  <li class="pageTitle">
+                    <router-link
+                      class="pageLink"
+                      :to="
+                        `/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`
+                      "
+                      >{{ item.title }}</router-link
+                    >
+                  </li>
+                </div>
               </template>
             </base-list>
           </ul>

@@ -78,7 +78,7 @@
               >ICJIA Archive</a
             ></strong
           >-->
-          &nbsp;|&nbsp;
+          <!-- &nbsp;|&nbsp;
           <strong>
             <a
               :href="`${$store.getters.config.clientURL}/status.html`"
@@ -87,7 +87,7 @@
               class="footer-link"
               >Status</a
             >
-          </strong>
+          </strong> -->
         </div>
       </v-card-text>
     </v-card>

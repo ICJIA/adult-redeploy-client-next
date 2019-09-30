@@ -36,7 +36,7 @@ async function queryEndpoint(query) {
 
 const getPageQuery = slug => {
   return `{
-  pages (where: {slug: "${slug}"}) {
+  pages (where: {slug: "${slug}", isPublished: true}) {
     id
     createdAt
     updatedAt
@@ -60,7 +60,7 @@ const getPageQuery = slug => {
 
 const getPostQuery = slug => {
   return `{
-  posts  (where: {slug: "${slug}"}) {
+  posts  (where: {slug: "${slug}", isPublished: true}) {
     id
     createdAt
     updatedAt
@@ -147,7 +147,7 @@ const getFeaturedPublicationsQuery = () => {
 
 const getAllPublicationsQuery = () => {
   return `{
-  publications (sort: "title:asc") {
+  publications (sort: "title:asc", where: {isPublished: true}) {
     title
     slug
     category
@@ -299,7 +299,7 @@ const getContentByTagQuery = slug => {
 
 const getSinglePublicationQuery = slug => {
   return `{
-  publications (where: {slug: "${slug}"})  {
+  publications (where: {slug: "${slug}", isPublished: true})  {
     title
     slug
     category
@@ -340,7 +340,7 @@ const getAllSectionsQuery = () => {
     displayFooter
     displayDrawer
     
-    pages (sort: "order:asc") {
+    pages (sort: "order:asc", where: { isPublished: true}) {
       title
       slug
       order
@@ -361,7 +361,7 @@ const getPageBySectionQuery = (section, slug) => {
     summary
     hasSubMenus
     searchMeta
-    pages(where: { slug: "${slug}" }) {
+    pages(where: { isPublished: true, slug: "${slug}" }) {
       id
       createdAt
       updatedAt
@@ -425,7 +425,7 @@ const getAllBiographiesQuery = () => {
   return `
   {
   biographies (sort: "alphabetizeBy:asc", where: {isPublished: true}){
-   
+    isPublished,
     firstName
     middleName
     lastName
@@ -453,8 +453,8 @@ const getAllBiographiesQuery = () => {
 const getSingleBiographiesQuery = slug => {
   return `
   {
-  biographies (where: {slug: "${slug}"}){
-   
+  biographies (where: {slug: "${slug}", isPublished: true}){
+    isPublished
     firstName
     middleName
     lastName
@@ -678,12 +678,7 @@ const getPageBySection = async ({ section, slug }) => {
     slug = xss(slug);
     section = xss(section);
     let sections = await queryEndpoint(getPageBySectionQuery(section, slug));
-
-    if (sections.data.data.sections[0].pages[0].isPublished) {
-      return sections.data.data.sections;
-    } else {
-      return [];
-    }
+    return sections.data.data.sections;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());

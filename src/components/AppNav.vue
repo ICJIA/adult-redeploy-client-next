@@ -63,7 +63,7 @@
             <v-list nav dense flat elevation="1">
               <v-list-item-group color="primary">
                 <div v-for="(subItem, i) in link.pages" :key="i">
-                  <v-list-item v-if="subItem.displayNav">
+                  <v-list-item v-if="subItem.displayNav && subItem.isPublished">
                     <v-list-item-content
                       @click="
                         $router
