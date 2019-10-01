@@ -505,7 +505,7 @@ const getAllMeetingsQuery = () => {
 const getSingleMeetingQuery = slug => {
   return `
   {
-  meetings (sort: "scheduledDate:desc", where: {slug: "${slug}"}) {
+  meetings (sort: "scheduledDate:desc", where: {slug: "${slug}", isPublished: true}) {
     createdAt
     updatedAt
     title
@@ -546,10 +546,31 @@ const getAllResourcesQuery = () => {
   `;
 };
 
+const getResourceByCategoryQuery = category => {
+  return `{
+  resources (where: {isPublished: true, category: "${category}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    publicationDate
+    summary
+    category
+    content
+    
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
 const getSingleResourceQuery = slug => {
   return `
   {
-  resources (sort: "publicationDate:desc", where: {slug: "${slug}"}) {
+  resources (sort: "publicationDate:desc", where: {slug: "${slug}", isPublished: true}) {
     createdAt
     updatedAt
     title
@@ -767,6 +788,18 @@ const getAllResources = async () => {
   }
 };
 
+const getResourceByCategory = async ({ category }) => {
+  try {
+    category = xss(category);
+    let resource = await queryEndpoint(getResourceByCategoryQuery(category));
+    return resource.data.data.resources;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 const getSingleResource = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -797,5 +830,6 @@ export {
   getAllMeetings,
   getSingleMeeting,
   getAllResources,
-  getSingleResource
+  getSingleResource,
+  getResourceByCategory
 };

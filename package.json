@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "node buildSearchIndex.js && node buildFilemap.js && vue-cli-service serve",
-    "build": "node buildSearchIndex.js && node buildFilemap.js && vue-cli-service build",
+    "serve": "node buildSearchIndex.js && node buildSitemap.js && vue-cli-service serve",
+    "build": "node buildSearchIndex.js && node buildSitemap.js && vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "node buildSearchIndex.js && node buildFilemap.js && vue-cli-service build  && npm run build:lambda",
+    "deploy": "node buildSearchIndex.js && node buildSitemap.js && vue-cli-service build  && npm run build:lambda",
     "test:unit": "vue-cli-service test:unit",
     "build:lambda": "netlify-lambda build ./src/lambda",
     "start:lambda": "netlify-lambda serve ./src/lambda"

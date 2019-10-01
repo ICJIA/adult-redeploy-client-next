@@ -1,5 +1,5 @@
 {
-  "clientURL": "https://adultredeployil.netlify.com",
+  "clientURL": "https://icjia.illinois.gov",
   "publicPath": "/adultredeploy",
   "publications": { "truncateSummaryAt": 28 },
   "search": {
@@ -88,7 +88,7 @@
   ],
   "status": {
     "dev": "http://localhost:9000/.netlify/functions/status",
-    "prod": "https://adultredeployil.netlify.com/.netlify/functions/status"
+    "prod": "https://adultredeploy.netlify.com/.netlify/functions/status"
   },
   "debug": true,
   "categoryEnums": {
@@ -98,6 +98,13 @@
         "slug": "annual-report",
         "title": "Annual Reports",
         "short": "Annual Report",
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
+      },
+      {
+        "enum": "summit",
+        "slug": "summit",
+        "title": "Summits",
+        "short": "Summits",
         "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
       },
       {

@@ -6,6 +6,7 @@
           <v-row>
             <v-col cols="12">
               <resource-display :item="content[0]"></resource-display>
+              <!-- {{ content[0] }} -->
             </v-col>
           </v-row>
         </v-container>

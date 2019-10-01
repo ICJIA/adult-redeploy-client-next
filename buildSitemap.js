@@ -102,7 +102,7 @@ request(api, query).then(res => {
       if (section === "meetings") {
         path = `/meetings/${catEnum[0].slug}/${item.slug}`;
       }
-      return path;
+      return `${config.publicPath}${path}`;
     });
     routes.push(...sectionRoutes);
   });
@@ -126,7 +126,7 @@ request(api, query).then(res => {
   });
 
   let sitemap = sm.createSitemap({
-    hostname: config.clientURL,
+    hostname: `${config.clientURL}`,
     cacheTime: 600000, //600 sec (10 min) cache purge period
     urls
   });

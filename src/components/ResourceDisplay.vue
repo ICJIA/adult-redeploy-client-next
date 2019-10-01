@@ -12,14 +12,6 @@
           class="dynamic-content site-description"
         ></div>
 
-        <div v-if="item.materials.length || item.externalURL">
-          <DownloadBox
-            :content="item"
-            header="Downloads"
-            class="mt-10"
-          ></DownloadBox>
-        </div>
-
         <v-container class="mt-4">
           <v-row>
             <v-col cols="12">
