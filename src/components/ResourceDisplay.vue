@@ -53,6 +53,7 @@ import DownloadBox from "@/components/DownloadBox";
 export default {
   components: {
     TagList,
+    // eslint-disable-next-line vue/no-unused-components
     DownloadBox
   },
   data() {

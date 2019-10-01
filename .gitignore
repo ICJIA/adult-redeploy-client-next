@@ -23,3 +23,5 @@ yarn-error.log*
 # search index
 
 .env
+
+package-lock.json
