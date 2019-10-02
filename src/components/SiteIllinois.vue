@@ -1450,7 +1450,7 @@
 <script>
 /* eslint-disable */
 import { EventBus } from "@/event-bus";
-import { usiljsconfig } from "@/api/usiljsconfig";
+import { usiljsconfig } from "@/assets/data/usiljsconfig";
 export default {
   methods: {
     getCountyData(data) {

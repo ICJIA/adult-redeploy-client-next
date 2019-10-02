@@ -1,4 +1,4 @@
-const config = require("./src/api/config.json");
+const config = require("./src/config.json");
 
 module.exports = {
   publicPath: process.env.NODE_ENV === `production` ? config.publicPath : "/",

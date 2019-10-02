@@ -1,6 +1,6 @@
 const axios = require("axios");
 const jsonfile = require("jsonfile");
-const config = require("./src/api/config.json");
+const config = require("./src/config.json");
 const fs = require("fs");
 const api = `${config.baseURL}/upload/files`;
 const apiDir = "./src/api";

@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 
 import { EventBus } from "@/event-bus";
-const config = require("@/api/config.json");
+const config = require("@/config.json");
 const xss = require("xss");
 
 const axios = require("axios");

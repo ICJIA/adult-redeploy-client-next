@@ -77,8 +77,8 @@ export default {
 
     if (!this.$store.state.isAppReady) {
       const configPromise = process.BROWSER_BUILD
-        ? import("@/api/config.json")
-        : Promise.resolve(require("@/api/config.json"));
+        ? import("@/config.json")
+        : Promise.resolve(require("@/config.json"));
       let config = await configPromise;
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;

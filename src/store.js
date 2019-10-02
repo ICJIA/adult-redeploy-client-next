@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import Vue from "vue";
 import Vuex from "vuex";
-const config = require("./api/config.json");
+const config = require("@/config.json");
 
 Vue.use(Vuex);
 

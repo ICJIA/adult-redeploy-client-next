@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const { request } = require("graphql-request");
 const jsonfile = require("jsonfile");
-const config = require("./src/api/config.json");
+const config = require("./src/config.json");
 const fs = require("fs");
 var sm = require("sitemap");
 // const slug = require("slug");

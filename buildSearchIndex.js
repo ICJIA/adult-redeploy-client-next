@@ -2,7 +2,7 @@
 const { request } = require("graphql-request");
 const jsonfile = require("jsonfile");
 
-const config = require("./src/api/config.json");
+const config = require("./src/config.json");
 const fs = require("fs");
 
 const api = `${config.baseURL}/graphql`;

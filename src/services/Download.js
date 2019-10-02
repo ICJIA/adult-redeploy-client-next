@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const config = require("@/api/config.json");
+const config = require("@/config.json");
 import { EventBus } from "@/event-bus.js";
 
 const getFile = urlObj => {

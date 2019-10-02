@@ -1,14 +1,32 @@
 // This is similar to "map-config.js" with basic settings (colors, info., etc)
+
+/**
+ * ARI Colors:
+ *
+ * For counties:
+ * upColor: #3eb2b2
+ * overColor: #0eea50
+ * downColor: #3f51b5
+ *
+ * For circuits:
+ *
+ *
+ *
+ * For planning grants:
+ *
+ *
+ */
 const usiljsconfig = {
   usiljs1: {
     hover: "ADAMS", //info of the popup
     url: "", //link to any webpage
     target: "vue", // use "new_window", "same_window", "modal", or "none"
-    upColor: "#42A5F5", //default color
-    overColor: "#2979FF", //highlight color
+    upColor: "#3eb2b2", //default color
+    overColor: "#0eea50", //highlight color
     downColor: "#cae9af", //clicking color
     active: true,
     slug: "adams-county",
+    name: "Adams",
     circuit: null
   },
   usiljs2: {
@@ -16,7 +34,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -25,7 +43,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -33,19 +51,18 @@ const usiljsconfig = {
     hover: "BOONE",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    slug: "boone-county",
-    circuit: null
+    slug: "boone-county"
   },
   usiljs5: {
     hover: "BROWN",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -54,7 +71,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -63,7 +80,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -72,7 +89,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -81,7 +98,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -90,7 +107,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -98,17 +115,19 @@ const usiljsconfig = {
     hover: "CHRISTIAN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Christian",
+    slug: "fourth-judicial-circuit"
   },
   usiljs12: {
     hover: "CLARK",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -117,7 +136,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -126,7 +145,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -135,7 +154,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -143,28 +162,30 @@ const usiljsconfig = {
     hover: "COOK",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "031",
+    name: "Cook",
     slug: "cook-county"
   },
   usiljs17: {
     hover: "CRAWFORD",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Crawford",
+    slug: "second-judicial-circuit"
   },
   usiljs18: {
     hover: "CUMBERLAND",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -172,10 +193,11 @@ const usiljsconfig = {
     hover: "DEKALB",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "DeKalb",
     circuit: null,
     slug: "dekalb-county"
   },
@@ -184,7 +206,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -193,7 +215,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -201,10 +223,11 @@ const usiljsconfig = {
     hover: "DUPAGE",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
+    name: "DuPage",
     circuit: null,
     slug: "dupage-county"
   },
@@ -213,7 +236,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -221,26 +244,30 @@ const usiljsconfig = {
     hover: "EDWARDS",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Edwards",
+    slug: "second-judicial-circuit"
   },
   usiljs25: {
     hover: "EFFINGHAM",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Effingham",
+    slug: "fourth-judicial-circuit"
   },
   usiljs26: {
     hover: "FAYETTE",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -249,7 +276,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -257,35 +284,40 @@ const usiljsconfig = {
     hover: "FRANKLIN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    slug: "second-judicial-circuit"
   },
   usiljs29: {
     hover: "FULTON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Fulton",
+    slug: "ninth-judicial-circuit"
   },
   usiljs30: {
     hover: "GALLATIN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Gallatin",
+    slug: "second-judicial-circuit"
   },
   usiljs31: {
     hover: "GREENE",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -293,26 +325,30 @@ const usiljsconfig = {
     hover: "GRUNDY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Grundy",
+    slug: "grundy-county"
   },
   usiljs33: {
     hover: "HAMILTON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Hamilton",
+    slug: "second-judicial-circuit"
   },
   usiljs34: {
     hover: "HANCOCK",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -320,17 +356,19 @@ const usiljsconfig = {
     hover: "HARDIN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Hardin",
+    slug: "second-judicial-circuit"
   },
   usiljs36: {
     hover: "HENDERSON",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -339,7 +377,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -348,7 +386,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -357,7 +395,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -366,7 +404,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -374,26 +412,30 @@ const usiljsconfig = {
     hover: "JEFFERSON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Jefferson",
+    slug: "second-judicial-circuit"
   },
   usiljs42: {
     hover: "JERSEY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Jersey",
+    slug: "jersey-county"
   },
   usiljs43: {
     hover: "JO DAVIESS",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -402,7 +444,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -411,7 +453,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -420,7 +462,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -428,55 +470,63 @@ const usiljsconfig = {
     hover: "KENDALL",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Kendall",
+    slug: "kendall-county"
   },
   usiljs48: {
     hover: "KNOX",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Knox",
+    slug: "ninth-judicial-circuit"
   },
   usiljs49: {
     hover: "LAKE",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "083",
+    name: "Lake",
     slug: "lake-county"
   },
   usiljs50: {
     hover: "LASALLE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "LaSalle",
+    slug: "lasalle-county"
   },
   usiljs51: {
     hover: "LAWRENCE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Lawrence",
+    slug: "second-judicial-circuit"
   },
   usiljs52: {
     hover: "LEE",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -485,7 +535,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -494,7 +544,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -502,17 +552,19 @@ const usiljsconfig = {
     hover: "MACON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Macon",
+    slug: "macon-county"
   },
   usiljs56: {
     hover: "MACOUPIN",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -520,17 +572,19 @@ const usiljsconfig = {
     hover: "MADISON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Madison",
+    slug: "madison-county"
   },
   usiljs58: {
     hover: "MARION",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -539,7 +593,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -548,7 +602,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -557,7 +611,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -565,31 +619,31 @@ const usiljsconfig = {
     hover: "MCDONOUGH",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "McDonough",
+    slug: "ninth-judicial-circuit"
   },
   usiljs63: {
     hover: "MCHENRY",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#FFFFFF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: true,
-    // cid: "111",
-    slug: "test-county"
+    active: false
   },
   usiljs64: {
     hover: "MCLEAN",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "113",
+    name: "McClean",
     slug: "mclean-county"
   },
   usiljs65: {
@@ -597,7 +651,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -606,7 +660,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -614,17 +668,19 @@ const usiljsconfig = {
     hover: "MONROE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Monroe",
+    slug: "twentieth-judicial-circuit"
   },
   usiljs68: {
     hover: "MONTGOMERY",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -633,7 +689,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -642,7 +698,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -651,7 +707,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -659,26 +715,30 @@ const usiljsconfig = {
     hover: "PEORIA",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Peoria",
+    slug: "peoria-county"
   },
   usiljs73: {
     hover: "PERRY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Perry",
+    slug: "washington-perry-counties"
   },
   usiljs74: {
     hover: "PIATT",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -687,7 +747,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -696,7 +756,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -705,7 +765,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -714,7 +774,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -722,26 +782,30 @@ const usiljsconfig = {
     hover: "RANDOLPH",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Randolph",
+    slug: "twentieth-judicial-circuit"
   },
   usiljs80: {
     hover: "RICHLAND",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Richland",
+    slug: "second-judicial-circuit"
   },
   usiljs81: {
     hover: "ROCK ISLAND",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -750,7 +814,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -758,17 +822,19 @@ const usiljsconfig = {
     hover: "SANGAMON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Sangamon",
+    slug: "sangamon-county"
   },
   usiljs84: {
     hover: "SCHUYLER",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -777,7 +843,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -786,7 +852,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -794,19 +860,19 @@ const usiljsconfig = {
     hover: "ST. CLAIR",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "163",
-    slug: "st-clair-county"
+    name: "St. Clair",
+    slug: "twentieth-judicial-circuit"
   },
   usiljs88: {
     hover: "STARK",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -815,7 +881,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -824,7 +890,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -833,7 +899,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -842,7 +908,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -850,17 +916,19 @@ const usiljsconfig = {
     hover: "WABASH",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Wabash",
+    slug: "second-judicial-circuit"
   },
   usiljs94: {
     hover: "WARREN",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -868,35 +936,41 @@ const usiljsconfig = {
     hover: "WASHINGTON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Washington",
+    slug: "washington-perry-counties"
   },
   usiljs96: {
     hover: "WAYNE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Wayne",
+    slug: "second-judicial-circuit"
   },
   usiljs97: {
     hover: "WHITE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "White",
+    slug: "second-judicial-circuit"
   },
   usiljs98: {
     hover: "WHITESIDE",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -904,17 +978,19 @@ const usiljsconfig = {
     hover: "WILL",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Will",
+    slug: "will-county"
   },
   usiljs100: {
     hover: "WILLIAMSON",
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },
@@ -922,11 +998,11 @@ const usiljsconfig = {
     hover: "WINNEBAGO",
     url: "",
     target: "vue",
-    upColor: "#42A5F5",
-    overColor: "#2979FF",
+    upColor: "#3eb2b2",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    // cid: "201",
+    name: "Winnebago",
     slug: "winnebago-county"
   },
   usiljs102: {
@@ -934,7 +1010,7 @@ const usiljsconfig = {
     url: "",
     target: "vue",
     upColor: "#FFFFFF",
-    overColor: "#2979FF",
+    overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
   },

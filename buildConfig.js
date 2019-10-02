@@ -6,7 +6,7 @@ const jsonfile = require("jsonfile");
 const fs = require("fs");
 
 const api = `https://${process.env.VUE_APP_BASE_API_URL}/graphql`;
-const apiDir = "./src/api";
+const apiDir = "./src";
 const fileName = "config.json";
 
 const query = `
