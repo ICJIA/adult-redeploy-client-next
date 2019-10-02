@@ -32,4 +32,4 @@ Creates search index, builds app config, builds lambda functions, and builds app
 
 ### Development link
 
-https://adultredeployil.netlify.com
+https://icjia.illinois.gov/adultredeploy

@@ -9,7 +9,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    console.log("Loader route", this.$route);
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

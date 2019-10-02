@@ -1,25 +1,17 @@
 <template>
-  <div v-if="!loading">
-    {{ searchIndex }}
-  </div>
-  <div v-else>
-    Loading...
-  </div>
+  <v-sheet
+    :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+    class="px-3 pt-3 pb-3"
+  >
+    <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
+  </v-sheet>
 </template>
 
 <script>
-import { getSearchIndex } from "@/services/Search";
 export default {
-  async created() {
-    this.loading = true;
-    this.searchIndex = await getSearchIndex();
-    this.loading = false;
-  },
-  data: () => ({
-    searchIndex: null,
-    loading: true
-  })
+  // Vuetify components provide
+  // a theme variable that is
+  // used to determine dark
+  inject: ["theme"]
 };
 </script>
-
-<style></style>
