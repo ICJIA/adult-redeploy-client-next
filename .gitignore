@@ -27,3 +27,4 @@ yarn-error.log*
 package-lock.json
 src/api/routes.json
 src/api/searchIndex.json
+public/sitemap.xml
