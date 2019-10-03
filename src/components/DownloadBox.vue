@@ -8,7 +8,7 @@
 
         <ul style="color: #222;" class="" v-if="content.mediaMaterial.length">
           <div v-for="(item, index) in content.mediaMaterial" :key="index">
-            <li class="mb-4">
+            <li class="mb-4" v-if="item.file">
               <span class="hover medium">
                 <a
                   :href="`${$store.getters.config.baseURL}${item.file.url}`"
@@ -34,7 +34,7 @@
             v-for="(item, index) in content.externalMediaMaterial"
             :key="index"
           >
-            <li class="mb-4">
+            <li class="mb-4" v-if="item.url">
               <a :href="`${item.url}`" target="_blank">{{ item.name }}</a>
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
 
