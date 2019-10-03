@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    v-if="content.mediaMaterial.length || content.externalMediaMaterial.length"
+  >
     <div style="background: #eee" class="px-8 py-8">
       <div v-if="content.mediaMaterial.length">
         <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
