@@ -12,6 +12,12 @@
           class="dynamic-content site-description"
         ></div>
 
+        <div
+          v-if="item.mediaMaterial.length || item.externalMediaMaterial.length"
+        >
+          <DownloadBox :content="item" class="mt-10"></DownloadBox>
+        </div>
+
         <v-container class="mt-4">
           <v-row>
             <v-col cols="12">
@@ -53,7 +59,6 @@ import DownloadBox from "@/components/DownloadBox";
 export default {
   components: {
     TagList,
-    // eslint-disable-next-line vue/no-unused-components
     DownloadBox
   },
   data() {

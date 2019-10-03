@@ -10,9 +10,7 @@
 
 <script>
 export default {
-  mounted() {
-    console.log("Loader route", this.$route);
-  }
+  mounted() {}
 };
 </script>
 

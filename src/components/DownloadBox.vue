@@ -1,92 +1,61 @@
 <template>
   <div>
-    <div
-      style="background: #eee"
-      class="px-8 py-8"
-      v-if="content.materials && content.materials.length"
-    >
-      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
-      <ul
-        style="color: #222;"
-        class=""
-        v-if="content.materials && content.materials.length"
-      >
-        <div v-for="(file, index) in content.materials" :key="index">
-          <li class="mb-4">
-            <span class="hover medium"
-              ><a
-                :href="`${$store.getters.config.baseURL}${file.url}`"
-                target="_blank"
-                >{{ file.name }}</a
-              ></span
-            >
+    <div style="background: #eee" class="px-8 py-8">
+      <div v-if="content.mediaMaterial.length">
+        <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
 
-            <!-- <span
-              style="font-size: 12px; "
-              class="hover onClickLink"
-              @click="downloadFile(file)"
-              >[ Primary {{ linkHeader }}</span
-            >
-            |
-            <span style="font-size: 12px"
-              ><a
-                :href="`${$store.getters.config.baseURL}${file.url}`"
-                target="_blank"
-                class="hover "
-                >Alternate {{ linkHeader }} ]</a
-              ></span
-            > -->
-          </li>
-        </div>
-      </ul>
-    </div>
+        <ul style="color: #222;" class="" v-if="content.mediaMaterial.length">
+          <div v-for="(item, index) in content.mediaMaterial" :key="index">
+            <li class="mb-4">
+              <span class="hover medium">
+                <a
+                  :href="`${$store.getters.config.baseURL}${item.file.url}`"
+                  target="_blank"
+                  >{{ item.name }}</a
+                >
+                <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+              </span>
+              <br />
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div v-if="content.externalMediaMaterial.length">
+        <h3 style="color: #222;" class="mt-10 mb-5">{{ header[1] }}</h3>
 
-    <div style="background: #eee" class="px-6 py-2" v-else>
-      <h3 style="color: #222;" class="mb-5">{{ header }}</h3>
-      <ul
-        style="color: #222;"
-        class=""
-        v-if="content.externalURL && content.externalURL.length"
-      >
-        <li>
-          <span class=" medium">
-            <span v-if="content.externalURLName">
-              {{ content.externalURLName }}
-            </span>
-            <span v-else>
-              {{ content.externalURL }}
-            </span></span
+        <ul
+          style="color: #222;"
+          class=""
+          v-if="content.externalMediaMaterial.length"
+        >
+          <div
+            v-for="(item, index) in content.externalMediaMaterial"
+            :key="index"
           >
-          <br />
-          <span
-            style="font-size: 12px; "
-            class="hover onClickLink"
-            @click="getExternalFile(content.externalURL)"
-            >[ External link ]</span
-          >
-        </li>
-      </ul>
+            <li class="mb-4">
+              <a :href="`${item.url}`" target="_blank">{{ item.name }}</a>
+              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+
+              <br />
+            </li>
+          </div>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getFile, getExternalFile } from "@/services/Download";
+import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
 export default {
   data() {
     return {
-      getExternalFile
+      renderToHtml
     };
   },
-  methods: {
-    downloadFile(item) {
-      // if (item.file) {
-      //   return getFile(item.file);
-      // }
-      console.log(item);
-      return getFile(item);
-    }
-  },
+  mixins: [handleClicks],
+  methods: {},
 
   props: {
     content: {
@@ -94,8 +63,8 @@ export default {
       default: () => {}
     },
     header: {
-      type: String,
-      default: "Meeting Materials"
+      type: Array,
+      default: () => ["Materials", "External Links"]
     },
     linkHeader: {
       type: String,

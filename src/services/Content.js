@@ -491,8 +491,20 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
-    
-   
+    externalMediaMaterial {
+      name
+      url
+      summary
+    }
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
      tags {
       name
       slug
@@ -506,7 +518,7 @@ const getSingleMeetingQuery = slug => {
   return `
   {
   meetings (sort: "scheduledDate:desc", where: {slug: "${slug}", isPublished: true}) {
-    createdAt
+   createdAt
     updatedAt
     title
     slug
@@ -514,9 +526,21 @@ const getSingleMeetingQuery = slug => {
     summary
     category
     content
-   
-   
-     tags {
+    externalMediaMaterial {
+      name
+      url
+      summary
+    }
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+    tags {
       name
       slug
     }
@@ -535,7 +559,20 @@ const getAllResourcesQuery = () => {
     summary
     category
     content
-    
+    externalMediaMaterial {
+      name
+      url
+      summary
+    }
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
     
      tags {
       name
@@ -557,7 +594,20 @@ const getResourceByCategoryQuery = category => {
     summary
     category
     content
-    
+    externalMediaMaterial {
+      name
+      url
+      summary
+    }
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
      tags {
       name
       slug
@@ -579,7 +629,20 @@ const getSingleResourceQuery = slug => {
     summary
     category
     content
-    
+    externalMediaMaterial {
+      name
+      url
+      summary
+    }
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
   
      tags {
       name
