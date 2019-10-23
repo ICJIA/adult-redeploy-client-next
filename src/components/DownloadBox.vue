@@ -1,9 +1,13 @@
 <template>
   <div
-    v-if="content.mediaMaterial.length || content.externalMediaMaterial.length"
+    v-if="
+      content.mediaMaterial ||
+        content.externalMediaMaterial ||
+        content.meetingMaterial
+    "
   >
     <div style="background: #eee" class="px-8 py-8">
-      <div v-if="content.mediaMaterial.length">
+      <div v-if="content.mediaMaterial && content.mediaMaterial.length">
         <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
 
         <ul style="color: #222;" class="" v-if="content.mediaMaterial.length">
@@ -22,7 +26,11 @@
           </div>
         </ul>
       </div>
-      <div v-if="content.externalMediaMaterial.length">
+      <div
+        v-if="
+          content.externalMediaMaterial && content.externalMediaMaterial.length
+        "
+      >
         <h3 style="color: #222;" class="mt-10 mb-5">{{ header[1] }}</h3>
 
         <ul
@@ -36,6 +44,25 @@
           >
             <li class="mb-4" v-if="item.url">
               <a :href="`${item.url}`" target="_blank">{{ item.name }}</a>
+              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+
+              <br />
+            </li>
+          </div>
+        </ul>
+      </div>
+
+      <div v-if="content.meetingMaterial && content.meetingMaterial.length">
+        <h3 style="color: #222;" class="mt-10 mb-5">{{ header[2] }}</h3>
+
+        <ul style="color: #222;" class="" v-if="content.meetingMaterial.length">
+          <div v-for="(item, index) in content.meetingMaterial" :key="index">
+            <li class="mb-4">
+              <a
+                :href="`${$store.getters.config.baseURL}${item.file[0].url}`"
+                target="_blank"
+                >{{ item.name }}</a
+              >
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
 
               <br />
@@ -66,7 +93,7 @@ export default {
     },
     header: {
       type: Array,
-      default: () => ["Materials", "External Links"]
+      default: () => ["Materials", "External Links", "Meeting Materials"]
     },
     linkHeader: {
       type: String,

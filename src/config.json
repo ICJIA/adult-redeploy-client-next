@@ -91,11 +91,11 @@
     "prod": "https://adultredeploy.netlify.com/.netlify/functions/status"
   },
   "debug": true,
-  "categoryEnums": {
+  "strapiEnums": {
     "resources": [
       {
         "enum": "annualReport",
-        "slug": "annual-report",
+        "slug": "annual-reports",
         "title": "Annual Reports",
         "short": "Annual Report",
         "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."

@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     getRoute(meeting) {
-      let parentPath = this.$store.getters.config.categoryEnums.meetings.filter(
+      let parentPath = this.$store.getters.config.strapiEnums.meetings.filter(
         cat => {
           return cat.enum === meeting.category;
         }
@@ -123,7 +123,7 @@ export default {
       }
     },
     getCategoryTitle(catEnum) {
-      let categoryName = this.$store.getters.config.categoryEnums.meetings.filter(
+      let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
         c => {
           return c.enum === catEnum;
         }

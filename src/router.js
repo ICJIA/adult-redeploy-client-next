@@ -122,12 +122,12 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
     },
-    // {
-    //   path: "/about/meetings/:category",
-    //   name: "meetingsCategory",
-    //   component: () =>
-    //     import(/* webpackChunkName: "meetings" */ "./views/MeetingsCategory.vue")
-    // },
+    {
+      path: "/about/meetings/:category",
+      name: "meetingsByCategory",
+      component: () =>
+        import(/* webpackChunkName: "meetings" */ "./views/MeetingsByCategory.vue")
+    },
 
     /**
      *
@@ -156,13 +156,13 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "resources" */ "./views/Resources.vue")
     },
-    // {
-    //   path: "/resources/:category",
-    //   name: "resourcesByCategory",
+    {
+      path: "/resources/:category",
+      name: "resourcesByCategory",
 
-    //   component: () =>
-    //     import(/* webpackChunkName: "resources" */ "./views/ResourcesByCategory.vue")
-    // },
+      component: () =>
+        import(/* webpackChunkName: "resources" */ "./views/ResourcesByCategory.vue")
+    },
     {
       path: "/resources/:category/:slug",
       name: "resourcesSingle",

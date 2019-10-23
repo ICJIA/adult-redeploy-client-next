@@ -10,11 +10,15 @@ const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
 const sections = ["pages", "news", "tags", "resources", "meetings"];
+const categories = ["meetings", "resources"];
+const publicPath = "/adultredeploy";
 let routes = [];
+const lastModMap = new Map();
 
 const query = `{
   pages (where: {isPublished: true}) {
     slug
+    updatedAt
     section {
       slug
     }
@@ -23,21 +27,25 @@ const query = `{
 
   news: posts (where: {isPublished: true}) {
     slug
+    updatedAt
     
    
   }
   resources (where: {isPublished: true}) {
     slug
+    updatedAt
     category 
     
   }
   meetings (where: {isPublished: true}){
     slug
+    updatedAt
     category
   }
 
   tags {
     slug
+    updatedAt
   }
   
 }`;
@@ -85,7 +93,7 @@ request(api, query).then(res => {
        *
        */
       if (section === "resources") {
-        let catEnum = config.categoryEnums.resources.filter(cat => {
+        let catEnum = config.strapiEnums.resources.filter(cat => {
           return item.category === cat.enum;
         });
 
@@ -96,21 +104,33 @@ request(api, query).then(res => {
        * Meetings
        *
        */
-      let catEnum = config.categoryEnums.meetings.filter(cat => {
+      let catEnum = config.strapiEnums.meetings.filter(cat => {
         return item.category === cat.enum;
       });
       if (section === "meetings") {
-        path = `/meetings/${catEnum[0].slug}/${item.slug}`;
+        path = `/about/meetings/${catEnum[0].slug}/${item.slug}`;
       }
+      lastModMap.set(`${publicPath}${path}`, item.updatedAt);
       return `${config.publicPath}${path}`;
     });
     routes.push(...sectionRoutes);
   });
+
+  let categoryRoutes = categories.map(c => {
+    return config.strapiEnums[c].map(m => {
+      let singleRoute = `${publicPath}/${c}/${m.slug}`;
+      lastModMap.set(`${singleRoute}`, new Date());
+      return singleRoute;
+    });
+  });
+  routes.push(...categoryRoutes.flat());
+  // console.log(routes);
   let temp = routes.filter(Boolean);
   // remove dupes
   let paths = [...new Set(temp)];
   // add root
-  paths.push("/");
+  paths.push(`${publicPath}`);
+  lastModMap.set(`${publicPath}`, new Date());
   jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
     if (err) console.error(err);
     console.log(`Created: ${apiDir}/${filename}`);
@@ -121,7 +141,7 @@ request(api, query).then(res => {
     obj.url = route;
     obj.changefreq = "weekly";
     obj.priority = 0.8;
-    // obj.lastmodrealtime = true;
+    obj.lastmod = lastModMap.get(route);
     return obj;
   });
 

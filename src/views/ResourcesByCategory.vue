@@ -1,14 +1,15 @@
 <template>
   <div>
-    <base-content :loading="loading" id="baseContentTop">
+    <base-content
+      :loading="loading"
+      id="baseContentTop"
+      v-if="resourceCategory"
+    >
       <template v-slot:title>
-        <v-container
-          v-if="content"
-          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
-        >
+        <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
           <v-row>
             <v-col cols="12">
-              <h1 class="page-title">{{ $route.params.category }}</h1>
+              <h1 class="page-title">{{ categoryTitle }}</h1>
             </v-col>
           </v-row>
         </v-container>
@@ -18,37 +19,21 @@
           <v-row>
             <v-col>
               <div>
-                {{ resourceCategory }}
-                <!-- <div
-                  v-for="category in $store.getters.config.categoryEnums
-                    .resources"
-                  :key="category.enum"
-                >
-                  <div v-if="checkCategoryLength(category)">
-                    <h2 :id="category.slug">{{ category.title }}</h2>
-                    <p
-                      v-html="category.description"
-                      v-if="category.description"
-                      @click="handleClicks"
-                      class="dynamic-content"
-                    ></p>
-                    <DetailTableResource
-                      :resources="filterResourceData(category.enum)"
-                      :hideCategory="true"
-                      class="mt-8 "
-                      :class="{
-                        'pl-6':
-                          $vuetify.breakpoint.md ||
-                          $vuetify.breakpoint.lg ||
-                          $vuetify.breakpoint.xl,
-                        'pr-6':
-                          $vuetify.breakpoint.md ||
-                          $vuetify.breakpoint.lg ||
-                          $vuetify.breakpoint.xl
-                      }"
-                    ></DetailTableResource>
-                  </div>
-                </div> -->
+                <DetailTableResource
+                  :resources="resourceCategory"
+                  :hideCategory="true"
+                  class="mt-8 "
+                  :class="{
+                    'pl-6':
+                      $vuetify.breakpoint.md ||
+                      $vuetify.breakpoint.lg ||
+                      $vuetify.breakpoint.xl,
+                    'pr-6':
+                      $vuetify.breakpoint.md ||
+                      $vuetify.breakpoint.lg ||
+                      $vuetify.breakpoint.xl
+                  }"
+                ></DetailTableResource>
               </div>
             </v-col>
           </v-row>
@@ -64,8 +49,12 @@ import DetailTableResource from "@/components/DetailTableResource";
 // eslint-disable-next-line no-unused-vars
 import { EventBus } from "@/event-bus";
 
-import { getResourceByCategory } from "@/services/Content";
-import { getHash, checkIfValidPage } from "@/services/Utilities";
+import { getResourcesByCategory } from "@/services/Content";
+import {
+  getHash,
+  checkIfValidPage,
+  strapiSlugToObject
+} from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
@@ -82,7 +71,10 @@ export default {
       showToc: false,
       sectionContent: null,
       displayMode: {},
-      resources: null
+      resources: null,
+      categoryTitle: "",
+      categoryDescription: "",
+      resourceCategory: null
     };
   },
   components: {
@@ -101,21 +93,31 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
-      let category = "webinar";
-      const resourcesName = "getResourceByCategory" + "_" + category;
-      contentMap.set(resourcesName, {
-        hash: getHash(resourcesName),
-        query: getResourceByCategory,
-        params: { category }
-      });
-
-      await this.$store.dispatch("cacheContent", contentMap);
-
-      this.resourceCategory = this.$store.getters.getContentFromCache(
-        contentMap,
-        resourcesName
+      const strapiEnum = strapiSlugToObject(
+        "resources",
+        this.$route.params.category
       );
 
+      if (strapiEnum.length) {
+        const category = strapiEnum[0].enum;
+        this.categoryTitle = strapiEnum[0].title;
+        this.categoryDescription = category[0].description;
+        const resourcesName = "getResourceByCategory" + "_" + category;
+        contentMap.set(resourcesName, {
+          hash: getHash(resourcesName),
+          query: getResourcesByCategory,
+          params: { category }
+        });
+
+        await this.$store.dispatch("cacheContent", contentMap);
+
+        this.resourceCategory = this.$store.getters.getContentFromCache(
+          contentMap,
+          resourcesName
+        );
+      } else {
+        this.routeToError();
+      }
       this.loading = false;
     },
     routeToError() {

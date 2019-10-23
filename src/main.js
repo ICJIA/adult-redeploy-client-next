@@ -24,6 +24,20 @@ import "@/css/app.css";
 import browserDetect from "vue-browser-detect-plugin";
 Vue.use(browserDetect);
 
+import VueMeta from "vue-meta";
+Vue.use(VueMeta, {
+  // optional pluginOptions
+  refreshOnceOnNavigation: true
+});
+
+import VueAnalytics from "vue-analytics";
+Vue.use(VueAnalytics, {
+  id: "UA-150735523-1",
+  debug: {
+    sendHitTask: process.env.NODE_ENV === "production"
+  }
+});
+
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
 NProgress.configure({ showSpinner: false });

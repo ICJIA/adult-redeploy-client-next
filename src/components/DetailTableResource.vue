@@ -160,7 +160,7 @@ export default {
     //   }
     // },
     getRoute(resource) {
-      let parentPath = this.$store.getters.config.categoryEnums.resources.filter(
+      let parentPath = this.$store.getters.config.strapiEnums.resources.filter(
         cat => {
           return cat.enum === resource.category;
         }
@@ -174,7 +174,7 @@ export default {
       }
     },
     getCategoryTitle(catEnum) {
-      let categoryName = this.$store.getters.config.categoryEnums.resources.filter(
+      let categoryName = this.$store.getters.config.strapiEnums.resources.filter(
         c => {
           return c.enum === catEnum;
         }

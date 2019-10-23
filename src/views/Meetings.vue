@@ -47,8 +47,7 @@
               ></toggle>
               <div v-if="displayMode.message === 'By Category'">
                 <div
-                  v-for="category in $store.getters.config.categoryEnums
-                    .meetings"
+                  v-for="category in $store.getters.config.strapiEnums.meetings"
                   :key="category.enum"
                   class="mb-12"
                 >

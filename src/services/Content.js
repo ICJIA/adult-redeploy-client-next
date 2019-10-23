@@ -548,6 +548,35 @@ const getSingleMeetingQuery = slug => {
 }`;
 };
 
+const getMeetingsByCategoryQuery = category => {
+  return `{
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true, category: "${category}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
 const getAllResourcesQuery = () => {
   return `{
   resources (sort: "publicationDate:desc", where: {isPublished: true}) {
@@ -583,7 +612,7 @@ const getAllResourcesQuery = () => {
   `;
 };
 
-const getResourceByCategoryQuery = category => {
+const getResourcesByCategoryQuery = category => {
   return `{
   resources (where: {isPublished: true, category: "${category}"}) {
     createdAt
@@ -840,6 +869,22 @@ const getSingleMeeting = async ({ slug }) => {
   }
 };
 
+const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
+  try {
+    strapiEnumCategory = xss(strapiEnumCategory);
+    //console.log("category: ", strapiEnumCategory);
+    let meetings = await queryEndpoint(
+      getMeetingsByCategoryQuery(strapiEnumCategory)
+    );
+    //console.log(meetings.data);
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 const getAllResources = async () => {
   try {
     let resources = await queryEndpoint(getAllResourcesQuery());
@@ -851,10 +896,12 @@ const getAllResources = async () => {
   }
 };
 
-const getResourceByCategory = async ({ category }) => {
+const getResourcesByCategory = async ({ category }) => {
   try {
     category = xss(category);
-    let resource = await queryEndpoint(getResourceByCategoryQuery(category));
+
+    let resource = await queryEndpoint(getResourcesByCategoryQuery(category));
+    // console.log(resource);
     return resource.data.data.resources;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -893,6 +940,7 @@ export {
   getAllMeetings,
   getSingleMeeting,
   getAllResources,
+  getMeetingsByCategory,
   getSingleResource,
-  getResourceByCategory
+  getResourcesByCategory
 };
