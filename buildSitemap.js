@@ -10,7 +10,6 @@ const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
 const sections = ["pages", "news", "tags", "resources", "meetings"];
-const categories = ["meetings", "resources"];
 const publicPath = "/adultredeploy";
 let routes = [];
 const lastModMap = new Map();
@@ -116,14 +115,25 @@ request(api, query).then(res => {
     routes.push(...sectionRoutes);
   });
 
-  let categoryRoutes = categories.map(c => {
-    return config.strapiEnums[c].map(m => {
-      let singleRoute = `${publicPath}/${c}/${m.slug}`;
+  /**
+   * Add categories: /:category/:slug
+   */
+
+  for (let category in config.strapiEnums) {
+    let categoryRoutes = config.strapiEnums[category].map(m => {
+      let singleRoute;
+      if (category === "meetings") {
+        singleRoute = `${publicPath}/about/${category}/${m.slug}`;
+      } else {
+        singleRoute = `${publicPath}/${category}/${m.slug}`;
+      }
+
       lastModMap.set(`${singleRoute}`, new Date());
       return singleRoute;
     });
-  });
-  routes.push(...categoryRoutes.flat());
+    routes.push(...categoryRoutes);
+  }
+
   // console.log(routes);
   let temp = routes.filter(Boolean);
   // remove dupes
