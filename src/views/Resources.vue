@@ -20,6 +20,7 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
+            <!-- eslint-disable-next-line vuetify/grid-unknown-attributes -->
             <v-col :[dynamicFlex]="true" order-md="1" order="2" order-sm="2">
               <div
                 @click="handleClicks"

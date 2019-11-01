@@ -32,6 +32,8 @@
                 :mini="true"
               ></TOC
             ></v-flex> -->
+
+            <!-- eslint-disable-next-line vuetify/grid-unknown-attributes -->
             <v-col :[dynamicFlex]="true">
               <div
                 v-html="renderToHtml(content[0].content)"
