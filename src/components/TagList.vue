@@ -3,20 +3,20 @@
     <span v-if="tags.length" class="pt-3">
       <span v-for="(tag, index) in tags" :key="index">
         <!-- <div :to="`/tags/${tag.slug}`" class="tag-link"> -->
+
         <span @click.prevent.stop="routeTo(`/tags/${tag.slug}`)">
           <v-chip
             :small="true"
             label
             color="green darken-4"
-            class="chip"
+            class="chip mt-2"
             text-color="white"
           >
             <v-icon left color="grey lighten-4">label</v-icon
             >{{ tag.name | upperCase }}
           </v-chip>
         </span>
-
-        &nbsp;
+        <span class="pr-2"></span>
       </span>
     </span>
     <!-- <span v-else :class="background" class="no-tags">No tags here!</span> -->
