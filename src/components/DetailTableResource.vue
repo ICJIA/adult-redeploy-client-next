@@ -17,10 +17,12 @@
         :items="resources"
         :items-per-page="15"
         :search="search"
-        class="elevation-1 detailTable"
+        class="elevation-1 detailTable hover"
         show-expand
         item-key="slug"
-        :single-expand="true"
+        :single-expand="singleExpand"
+        :expanded.sync="expanded"
+        @click:row="clicked"
       >
         <template v-slot:item.publicationDate="{ item }">
           {{ item.publicationDate | format }}
@@ -55,7 +57,7 @@
           >
         </template>
 
-        <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
+        <!-- <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
           <v-btn
             color="grey lighten-2"
             small
@@ -67,7 +69,7 @@
           <v-btn small depressed @click="expand(false)" v-if="isExpanded"
             >Less<v-icon right>arrow_drop_up</v-icon></v-btn
           >
-        </template>
+        </template> -->
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
@@ -105,6 +107,8 @@ export default {
   data() {
     return {
       search: "",
+      expanded: [],
+      singleExpand: true,
       headers: [
         {
           text: "Publication Date",
@@ -180,6 +184,19 @@ export default {
         }
       );
       return categoryName[0].short;
+    },
+    clicked(value) {
+      if (value === this.expanded[0]) {
+        this.expanded = [];
+      } else {
+        if (this.expanded.length) {
+          this.expanded.push(value);
+          this.expanded.shift();
+        } else {
+          this.expanded.push(value);
+        }
+      }
+      //console.dir(value);
     }
   },
 
