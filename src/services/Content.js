@@ -491,12 +491,7 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
-    mediaMaterial {
+    meetingMaterial {
       name
       summary
       file {
@@ -526,12 +521,7 @@ const getSingleMeetingQuery = slug => {
     summary
     category
     content
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
-    mediaMaterial {
+    meetingMaterial {
       name
       summary
       file {
@@ -559,7 +549,7 @@ const getMeetingsByCategoryQuery = category => {
     summary
     category
     content
-    mediaMaterial {
+    meetingMaterial {
       name
       summary
       file {

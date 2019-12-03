@@ -6,7 +6,7 @@
         content.meetingMaterial
     "
   >
-    <div style="background: #eee" class="px-8 py-8">
+    <!-- <div style="background: #eee" class="mt-8 px-8 py-8">
       <div v-if="content.mediaMaterial && content.mediaMaterial.length">
         <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
 
@@ -17,6 +17,7 @@
                 <a
                   :href="`${$store.getters.config.baseURL}${item.file.url}`"
                   target="_blank"
+                  @click="fireDownloadEvent(item)"
                   >{{ item.name }}</a
                 >
                 <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
@@ -61,6 +62,29 @@
               <a
                 :href="`${$store.getters.config.baseURL}${item.file[0].url}`"
                 target="_blank"
+                @click="fireDownloadEvent(item)"
+                >{{ item.name }}</a
+              >
+              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+
+              <br />
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div> -->
+
+    <div style="background: #eee" class="mt-8 px-8 py-8">
+      <div v-if="content.meetingMaterial && content.meetingMaterial.length">
+        <h3 style="color: #222;" class="mb-5">{{ header[2] }}</h3>
+
+        <ul style="color: #222;" class="" v-if="content.meetingMaterial.length">
+          <div v-for="(item, index) in content.meetingMaterial" :key="index">
+            <li class="mb-4">
+              <a
+                :href="`${$store.getters.config.baseURL}${item.file.url}`"
+                target="_blank"
+                @click="fireDownloadEvent(item)"
                 >{{ item.name }}</a
               >
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
@@ -84,7 +108,20 @@ export default {
     };
   },
   mixins: [handleClicks],
-  methods: {},
+  methods: {
+    fireDownloadEvent(item) {
+      if (item.file[0]) {
+        let ext = item.file[0].name.split(".").pop();
+        console.log("Download event: ", item.file[0].hash + "." + ext);
+        //console.log(item.file);
+        // this.$ga.event({
+        //   eventCategory: "File",
+        //   eventAction: "Download",
+        //   eventLabel: item.file[0].hash + "." + ext
+        // });
+      }
+    }
+  },
 
   props: {
     content: {
