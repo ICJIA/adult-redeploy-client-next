@@ -1,6 +1,7 @@
 <template>
   <div v-if="content">
     <p
+      id="about"
       v-html="renderToHtml(content[0].content)"
       @click="handleClicks"
       class="dynamic-content"

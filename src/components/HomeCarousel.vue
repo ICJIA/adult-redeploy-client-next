@@ -23,7 +23,10 @@
               prison overcrowding, lowered cost to taxpayers, and an end to the
               expensive and vicious cycle of crime and incarceration.
             </div>
-            <v-btn class="mt-6" color="white" to="/about/overview"
+            <v-btn
+              class="mt-6"
+              color="white"
+              @click="$vuetify.goTo('#about', { offset: 180 })"
               >Learn More</v-btn
             >&nbsp;&nbsp;
             <v-btn class="mt-6" to="/about/faqs" outlined color="white"

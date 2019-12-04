@@ -1,8 +1,8 @@
 const { MD5 } = require("crypto-js");
 const config = require("@/config.json");
 
-const getHash = salt => {
-  let hash = MD5(salt).toString();
+const getHash = str => {
+  let hash = MD5(str).toString();
   return hash;
 };
 
@@ -15,11 +15,13 @@ const checkIfValidPage = arr => {
 };
 
 const stripHTML = str => {
+  if (!str) return;
   let regex = /(<([^>]+)>)/gi;
   return str.replace(regex, "");
 };
 
 const titleCase = str => {
+  if (!str) return;
   return str
     .toLowerCase()
     .split(" ")
@@ -41,6 +43,7 @@ const getOffset = function(el) {
 };
 
 const truncate = function(string, maxWords = 10) {
+  if (!string) return;
   let strippedString = string.trim();
   let array = strippedString.split(" ");
   let wordCount = array.length;
@@ -76,16 +79,55 @@ const strapiSlugToObject = function(contentType, strapiSlug) {
     }
   ];
 
-  console.log(strapiSlug);
-
-  let type = content.filter(e => {
-    if (e.slug === strapiSlug) {
-      return e;
-    }
-    //console.log(e.slug, strapiSlug);
+  return content.filter(e => {
+    return e.slug === strapiSlug;
   });
+};
 
-  return type;
+const addAttributeToElement = function(className, attribute, text) {
+  return function() {
+    let elements = document.getElementsByClassName(className);
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].setAttribute(attribute, text);
+    }
+  };
+};
+
+const dateFormat = function(d) {
+  var monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  function pad(n) {
+    return n < 10 ? "0" + n : n;
+  }
+  const t = new Date(d);
+  /**
+   *
+   * Timezone offset correction:
+   * https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off/31732581#31732581
+   *
+   */
+  const target = new Date(
+    t.getTime() + Math.abs(t.getTimezoneOffset() * 60000)
+  );
+  const date = target.getDate();
+  const month = target.getMonth();
+  const year = target.getFullYear();
+  //const monthDateYear = pad(month + 1) + '/' + pad(date) + '/' + year
+  const dateWithFullMonthName =
+    monthNames[month] + " " + pad(date) + ", " + year;
+  return dateWithFullMonthName;
 };
 
 export {
@@ -96,5 +138,7 @@ export {
   truncate,
   getOffset,
   strapiEnumToObject,
-  strapiSlugToObject
+  strapiSlugToObject,
+  addAttributeToElement,
+  dateFormat
 };
