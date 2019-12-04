@@ -27,12 +27,14 @@
           </div>
         </ul>
       </div>
-      <div
-        v-if="
-          content.externalMediaMaterial && content.externalMediaMaterial.length
-        "
-      >
-        <h3 style="color: #222;" class="mt-10 mb-5">{{ header[1] }}</h3>
+    </div>
+    <div
+      v-if="
+        content.externalMediaMaterial && content.externalMediaMaterial.length
+      "
+    >
+      <div style="background: #eee" class="mt-8 px-8 py-8">
+        <h3 style="color: #222;" class="mt-5 mb-5">{{ header[1] }}</h3>
 
         <ul
           style="color: #222;"
@@ -53,6 +55,7 @@
         </ul>
       </div>
     </div>
+
     <div v-if="content.meetingMaterial && content.meetingMaterial.length">
       <div style="background: #eee" class="mt-8 px-8 py-8">
         <h3 style="color: #222;" class="mb-5">{{ header[2] }}</h3>
