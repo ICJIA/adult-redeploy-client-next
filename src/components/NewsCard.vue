@@ -13,13 +13,14 @@
             class=""
             style="margin-left: -15px;"
           ></PostedDate>
-          <v-list-item-title
+          <div
             class="headline mb-1"
             style="font-weight: 700; font-size: 28px !important; margin: 0; padding: 0;"
-            ><router-link :to="`/news/${content.slug}`" class="news-link">{{
-              content.title | titleCase
-            }}</router-link></v-list-item-title
           >
+            <router-link :to="`/news/${content.slug}`" class="news-link">{{
+              content.title
+            }}</router-link>
+          </div>
         </v-list-item-content>
       </v-list-item>
       <v-card-text style="font-size: 14px">
