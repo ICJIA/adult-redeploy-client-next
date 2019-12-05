@@ -1454,8 +1454,14 @@ import { usiljsconfig } from "@/assets/data/usiljsconfig";
 export default {
   methods: {
     getCountyData(data) {
+      //console.log("Map click: ", data.hover);
       this.$store.dispatch("setSelectedCountyData", data);
       EventBus.$emit("mapClick", data);
+      this.$ga.event({
+        eventCategory: "Site Map",
+        eventAction: "Click",
+        eventLabel: data.hover
+      });
     }
   },
   props: {
