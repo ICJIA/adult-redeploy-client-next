@@ -1,9 +1,8 @@
 <template>
   <div>
     <span v-if="tags.length" class="pt-3">
-      <span v-for="(tag, index) in tags" :key="index">
+      <span v-for="(tag, index) in tags" :key="index" class="pl-1 pr-1 ">
         <!-- <div :to="`/tags/${tag.slug}`" class="tag-link"> -->
-
         <span @click.prevent.stop="routeTo(`/tags/${tag.slug}`)">
           <v-chip
             :small="true"
@@ -16,8 +15,18 @@
             >{{ tag.name | upperCase }}
           </v-chip>
         </span>
-        <span class="pr-2"></span>
+
+        &nbsp;
       </span>
+      <!-- <v-chip
+        :small="true"
+        label
+        color="grey"
+        class="chip mt-2"
+        text-color="black"
+      >
+        <v-icon color="grey lighten-4">more_horiz</v-icon>
+      </v-chip> -->
     </span>
     <!-- <span v-else :class="background" class="no-tags">No tags here!</span> -->
   </div>
@@ -26,6 +35,12 @@
 <script>
 // import { EventBus } from "@/event-bus";
 export default {
+  data() {
+    return {
+      maxTags: 2,
+      showAll: false
+    };
+  },
   props: {
     tags: {
       type: Array,
@@ -39,7 +54,9 @@ export default {
   mounted() {},
   methods: {
     routeTo(route) {
-      this.$router.push(route);
+      this.$router.push(route).catch(() => {
+        this.$vuetify.goTo(0);
+      });
     }
   }
 };
@@ -56,7 +73,7 @@ a.tag-link:hover {
 
 .v-chip--label .v-chip__content {
   cursor: pointer;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
 }
 

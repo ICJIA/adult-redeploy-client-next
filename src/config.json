@@ -47,8 +47,8 @@
       "type": "meeting",
       "plural": "meetings",
       "slug": "meetings",
-      "listComponent": "ListTable",
-      "singletonPath": "/about/meetings",
+      "listComponent": "ListTableMeeting",
+      "singletonPath": "/meetings",
       "appendCategory": true
     },
     {
@@ -56,7 +56,7 @@
       "type": "post",
       "alias": "news",
       "slug": "news",
-      "listComponent": "ListTable",
+      "listComponent": "ListTableNews",
       "singletonPath": "/news",
       "appendCategory": false
     },

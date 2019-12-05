@@ -8,7 +8,19 @@
         >
           <v-row>
             <v-col cols="12">
+              <div style="font-size: 14px; font-weight: bold; color: #666">
+                Items tagged with:
+              </div>
               <h1 class="page-title">{{ content[0].name }}</h1>
+            </v-col>
+          </v-row>
+          <v-row v-if="content[0].content">
+            <v-col>
+              <div
+                @click="handleClicks"
+                class="dynamic-content mb-12"
+                v-html="renderToHtml(content[0].content)"
+              ></div>
             </v-col>
           </v-row>
         </v-container>
@@ -36,10 +48,27 @@
                 <div v-if="content[0][item.plural]">
                   <div v-if="content[0][item.plural].length">
                     <h2 :id="item.slug">
-                      <span v-if="item.alias">{{ item.alias | titleCase }}</span
-                      ><span v-else>{{ item.plural | titleCase }}</span>
+                      <div class="mt-8"></div>
+                      <span
+                        v-if="item.alias"
+                        class="mt-8 catLink"
+                        :class="{
+                          hoverColor:
+                            item.singletonPath && item.singletonPath.length
+                        }"
+                        @click.prevent="routeToPath(item)"
+                        >{{ item.alias | titleCase }}</span
+                      ><span
+                        v-else
+                        @click.prevent="routeToPath(item)"
+                        class="mt-8"
+                        :class="{
+                          hoverColor:
+                            item.singletonPath && item.singletonPath.length
+                        }"
+                        >{{ item.plural | titleCase }}</span
+                      >
                     </h2>
-                    <!-- {{ content[0][item.plural] }} -->
 
                     <component
                       :is="item.listComponent"
@@ -80,7 +109,9 @@
 import BaseContent from "@/components/BaseContent";
 import ListTable from "@/components/ListTable";
 import ListTableBiography from "@/components/ListTableBiography";
-
+// import ListTablePublication from "@/components/ListTablePublication";
+import ListTableMeeting from "@/components/ListTableMeeting";
+import ListTableNews from "@/components/ListTableNews";
 import TOC from "@/components/TOC";
 
 import { getContentByTag } from "@/services/Content";
@@ -91,6 +122,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   mixins: [handleClicks],
   data() {
     return {
@@ -99,21 +135,34 @@ export default {
       checkIfValidPage,
       renderToHtml,
       showToc: true,
-      sectionContent: null
+      sectionContent: null,
+      title: ""
     };
   },
   components: {
     BaseContent,
     TOC,
     ListTable,
-    ListTableBiography
+    ListTableBiography,
+    // ListTablePublication,
+    ListTableMeeting,
+    ListTableNews
   },
   created() {
     this.fetchContent();
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
+    routeToPath(item) {
+      if (item.singletonPath && item.singletonPath.length) {
+        this.$router.push(item.singletonPath);
+      }
+    },
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
         return "12";
@@ -141,6 +190,12 @@ export default {
 
       if (checkIfValidPage(this.content)) {
         this.showToc = true;
+        this.title = this.content[0].name;
+        this.$ga.page({
+          page: this.$route.path,
+          title: this.title,
+          location: window.location.href
+        });
       } else {
         this.routeToError();
       }
@@ -166,4 +221,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.hoverColor:hover {
+  color: purple;
+  cursor: pointer;
+}
+</style>

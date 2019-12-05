@@ -6,11 +6,16 @@ export const handleClicks = {
   methods: {
     handleClicks($event) {
       // intercepts <a></a> tag clicks and routes within app
+      //console.log($event);
       const { target } = $event;
+      const href = $event.target.href;
+
+      //console.log(target);
       // handle only links that occur inside the component and do not reference external resources
       if (!Element.prototype.matches) {
         Element.prototype.matches = Element.prototype.msMatchesSelector;
       }
+
       if (
         target &&
         target.matches(".dynamic-content a:not([href*='://'])") &&
@@ -42,9 +47,27 @@ export const handleClicks = {
         const to = url.pathname;
         if (window.location.pathname !== to && $event.preventDefault) {
           $event.preventDefault();
+
           this.$router.push(to);
         }
       }
+
+      if (
+        /^.*\.(pdf|doc|docx)$/i.test(href) &&
+        href.indexOf("icjia-api.cloud") > 1
+      ) {
+        $event.preventDefault();
+        const filename = href.split("/").pop();
+        console.log("register download event: ", filename);
+        this.$ga.event({
+          eventCategory: "File",
+          eventAction: "Download",
+          eventLabel: filename
+        });
+        const win = window.open(href, "_blank");
+        win.focus();
+      }
+      // TODO: Add YouTube Event tracking
     }
   }
 };
