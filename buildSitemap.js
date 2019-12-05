@@ -9,7 +9,15 @@ var sm = require("sitemap");
 const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
-const sections = ["pages", "news", "tags", "resources", "meetings"];
+const sections = [
+  "pages",
+  "news",
+  "tags",
+  "resources",
+  "meetings",
+  "sites",
+  "sections"
+];
 const publicPath = "/adultredeploy";
 let routes = [];
 const lastModMap = new Map();
@@ -42,9 +50,24 @@ const query = `{
     category
   }
 
-  tags {
+  sites (where: {isPublished: true}){
+    title
     slug
     updatedAt
+  }
+
+  tags  {
+    slug
+    updatedAt
+  }
+
+  sections (where: {isPublished: true}) {
+   
+    title
+    updatedAt
+    slug
+    
+    
   }
   
 }`;
@@ -56,6 +79,7 @@ if (!fs.existsSync(apiDir)) {
 
 request(api, query).then(res => {
   sections.forEach(section => {
+    console.log(section);
     let sectionRoutes = res[section].map(item => {
       let path;
       /**
@@ -85,6 +109,22 @@ request(api, query).then(res => {
        */
       if (section === "tags") {
         path = `/tags/${item.slug}`;
+      }
+      /**
+       *
+       * Sites
+       *
+       */
+      if (section === "sites") {
+        path = `/sites/${item.slug}`;
+      }
+      /**
+       *
+       * Sections
+       *
+       */
+      if (section === "sections") {
+        path = `/${item.slug}`;
       }
       /**
        *
@@ -150,7 +190,7 @@ request(api, query).then(res => {
     let obj = {};
     obj.url = route;
     obj.changefreq = "weekly";
-    obj.priority = 0.8;
+    obj.priority = 0.5;
     obj.lastmod = lastModMap.get(route);
     return obj;
   });

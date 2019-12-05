@@ -46,7 +46,8 @@
             :key="index"
           >
             <li class="mb-4" v-if="item.url">
-              <a :href="`${item.url}`" target="_blank">{{ item.name }}</a>
+              <a :href="`${item.url}`" target="_blank">{{ item.name }}</a
+              ><v-icon class="ml-2" color="green darken-4">open_in_new</v-icon>
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
 
               <br />

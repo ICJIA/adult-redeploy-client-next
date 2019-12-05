@@ -30,13 +30,19 @@ export default {
     SiteDescriptionCard
   },
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       description: null,
       loading: false,
       content: null,
       renderToHtml,
-      error: null
+      error: null,
+      title: null
     };
   },
   watch: {
@@ -44,6 +50,11 @@ export default {
   },
   mounted() {
     this.fetchData();
+  },
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
   },
   methods: {
     async fetchData() {
@@ -62,6 +73,12 @@ export default {
       this.content = this.$store.getters.getContentFromCache(contentMap, name);
 
       checkIfValidPage(this.content) ? null : this.routeToError();
+      this.title = this.content[0].title;
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
       this.loading = false;
     },
     routeToError() {

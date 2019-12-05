@@ -59,6 +59,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.title
+    };
+  },
   mixins: [handleClicks],
   data() {
     return {
@@ -70,7 +75,8 @@ export default {
       sectionContent: null,
       descriptionDisplay: [],
       expand: false,
-      sites: null
+      sites: null,
+      title: "All Sites"
     };
   },
   components: {
@@ -121,6 +127,12 @@ export default {
         contentMap,
         getSitesName
       );
+
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
 
       this.loading = false;
     },
