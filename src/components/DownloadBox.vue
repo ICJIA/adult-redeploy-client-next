@@ -95,12 +95,12 @@ export default {
       if (item.file[0]) {
         let ext = item.file[0].name.split(".").pop();
         console.log("Download event: ", item.file[0].hash + "." + ext);
-        //console.log(item.file);
-        // this.$ga.event({
-        //   eventCategory: "File",
-        //   eventAction: "Download",
-        //   eventLabel: item.file[0].hash + "." + ext
-        // });
+        console.log(item.file);
+        this.$ga.event({
+          eventCategory: "File",
+          eventAction: "Download",
+          eventLabel: item.file[0].hash + "." + ext
+        });
       }
     }
   },
