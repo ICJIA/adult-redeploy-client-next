@@ -9,7 +9,7 @@
     "distance": 100,
     "maxPatternLength": 32,
     "minMatchCharLength": 3,
-    "keys": ["searchMeta", "title", "summary", "name"]
+    "keys": ["searchMeta", "title", "summary", "name", "slug"]
   },
   "frontPageItems": {
     "news": 2,
