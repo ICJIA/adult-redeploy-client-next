@@ -101,8 +101,8 @@
             <v-col>
               <p>
                 For meeting materials prior to 2019, please see
-                <router-link to="/archives/meeting-archives"
-                  >the meeting archives</router-link
+                <a href="https://archive.icjia.cloud/files/adult-redeploy"
+                  >the ARI archives</a
                 >.
               </p>
             </v-col>
