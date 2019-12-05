@@ -35,6 +35,15 @@ const getSearchIndex = async () => {
       item.parentPath = "/news";
       return item;
     });
+    let sections = searchIndex["sections"].map(item => {
+      item.parentPath = "";
+      return item;
+    });
+
+    let tags = searchIndex["tags"].map(item => {
+      item.parentPath = `/tags`;
+      return item;
+    });
 
     let meetings = searchIndex["meetings"].map(item => {
       item.parentPath = `/about/meetings/${item.category}`;
@@ -62,7 +71,9 @@ const getSearchIndex = async () => {
       ...meetings,
       ...sites,
       ...biographies,
-      ...resources
+      ...resources,
+      ...sections,
+      ...tags
     ];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());

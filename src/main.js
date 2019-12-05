@@ -32,11 +32,14 @@ Vue.use(VueMeta, {
 
 import VueAnalytics from "vue-analytics";
 Vue.use(VueAnalytics, {
-  id: "UA-150735523-1",
+  id: "UA-150082887-3",
   debug: {
     sendHitTask: process.env.NODE_ENV === "production"
   }
 });
+
+import VueRouterBackButton from "vue-router-back-button";
+Vue.use(VueRouterBackButton, { router });
 
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef

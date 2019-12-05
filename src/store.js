@@ -2,6 +2,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 const config = require("@/config.json");
+const LS_ROUTE_KEY = process.env.VUE_APP_LS_ROUTE_KEY;
+//console.log("LS_ROUTE_KEY", LS_ROUTE_KEY);
 
 Vue.use(Vuex);
 
@@ -46,6 +48,12 @@ export default new Vuex.Store({
       state.cache.clear();
       console.log("Cache cleared");
     },
+    CLEAR_LOCAL_STORAGE(state) {
+      localStorage.removeItem(LS_ROUTE_KEY);
+      if (state.config.debug) {
+        console.log("Local storage cleared");
+      }
+    },
     SET_APP_READY(state, bool) {
       state.isAppReady = bool;
       console.log("isAppReady", bool);
@@ -82,6 +90,7 @@ export default new Vuex.Store({
   actions: {
     async initApp({ commit }) {
       commit("CLEAR_CACHE");
+      commit("CLEAR_LOCAL_STORAGE");
       commit("SET_APP_READY", true);
     },
     async setApiStatus({ commit }) {

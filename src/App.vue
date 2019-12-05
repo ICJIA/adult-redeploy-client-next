@@ -62,6 +62,32 @@ import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
+  metaInfo() {
+    return {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: "Adult Redeploy Illinois",
+      // all titles will be injected into this template
+      titleTemplate: "ARI | %s",
+      htmlAttrs: {
+        lang: "en"
+      },
+      link: [{ rel: "canonical", href: this.canonical }],
+      meta: [
+        { charset: "utf-8" },
+        {
+          vmid: "robots",
+          name: "robots",
+          content: "index, follow"
+        },
+        {
+          vmid: "description",
+          name: "description",
+          content:
+            "Adult Redeploy Illinois was established by the Crime Reduction Act (Public Act 96-0761) to provide financial incentives to local jurisdictions for programs that allow diversion of individuals from state prisons by providing community-based services."
+        }
+      ]
+    };
+  },
   components: {
     AppNav,
     AppDrawer,
@@ -71,6 +97,12 @@ export default {
     OutdatedBrowser
   },
   methods: {},
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    $route(to, from) {
+      this.canonical = this.$store.getters.config.clientURL + this.$route.path;
+    }
+  },
   async mounted() {},
   async created() {
     this.loading = true;
@@ -83,11 +115,11 @@ export default {
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;
       console.log("Debug: ", this.$store.getters.debug);
-      const routesPromise = process.BROWSER_BUILD
-        ? import("@/api/routes.json")
-        : Promise.resolve(require("@/api/routes.json"));
-      let routes = await routesPromise;
-      this.$store.dispatch("setRoutes", routes);
+      // const routesPromise = process.BROWSER_BUILD
+      //   ? import("@/api/routes.json")
+      //   : Promise.resolve(require("@/api/routes.json"));
+      // let routes = await routesPromise;
+      // this.$store.dispatch("setRoutes", routes);
 
       const searchIndexPromise = process.BROWSER_BUILD
         ? import("@/api/searchIndex.json")
@@ -109,7 +141,8 @@ export default {
       sections: [],
       loading: true,
       test: [],
-      env: process.env.NODE_ENV
+      env: process.env.NODE_ENV,
+      canonical: null
     };
   }
 };

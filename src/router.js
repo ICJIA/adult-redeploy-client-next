@@ -4,7 +4,9 @@ import Home from "./views/Home.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const LS_ROUTE_KEY = process.env.VUE_APP_LS_ROUTE_KEY;
+
+const router = new Router({
   mode: "history",
   base: `${process.env.BASE_URL}`,
   // eslint-disable-next-line no-unused-vars
@@ -238,3 +240,13 @@ export default new Router({
     }
   ]
 });
+
+router.afterEach((to, from) => {
+  try {
+    localStorage.setItem(LS_ROUTE_KEY, from.path);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+export default router;

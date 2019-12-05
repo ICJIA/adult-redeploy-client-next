@@ -14,6 +14,7 @@
             {{ item.lastName }}
             {{ item.suffix }}
           </div>
+          <div v-else-if="item.name">Tag: {{ item.name }}</div>
           <div v-else>{{ item.title }}</div>
         </h2>
 
@@ -54,6 +55,10 @@ export default {
     elevation: {
       type: String,
       default: "1"
+    },
+    query: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -65,13 +70,28 @@ export default {
   methods: {
     route(item) {
       if (!item.slug) return;
+      console.log("query: ", this.query);
 
       if (item.parentPath === "/") {
+        this.$ga.event({
+          eventCategory: "Search Conversion",
+          eventAction: "Click",
+          eventLabel: "Query: '" + this.query + "' --> " + item.slug
+        });
         // eslint-disable-next-line no-unused-vars
         this.$router.push(`/${item.slug}`).catch(err => {
           this.$vuetify.goTo(0);
         });
       } else {
+        this.$ga.event({
+          eventCategory: "Search Conversion",
+          eventAction: "Click",
+          eventLabel:
+            "Query: '" +
+            this.query +
+            "' --> " +
+            `${item.parentPath}/${item.slug}`
+        });
         // eslint-disable-next-line no-unused-vars
         this.$router.push(`${item.parentPath}/${item.slug}`).catch(err => {
           this.$vuetify.goTo(0);

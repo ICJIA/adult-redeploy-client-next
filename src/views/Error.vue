@@ -7,13 +7,15 @@
             <h1 style="font-size: 48px; color: #067879">Oops.</h1>
             <h2
               class="mt-10"
-              v-if="$route.params.statusCode && $route.params.msg"
+              v-if="
+                $route.params && $route.params.statusCode && $route.params.msg
+              "
             >
               {{ $route.params.statusCode }} | {{ $route.params.msg }}
             </h2>
 
             <div v-if="$store.getters.debug" class="mt-5">
-              {{ $route.params.debug }}
+              {{ debug }}
             </div>
             <v-btn
               class="mt-12"
@@ -36,8 +38,39 @@ export default {
   components: {
     ErrorContent
   },
+  metaInfo() {
+    return {
+      title: "Error"
+    };
+  },
+  data() {
+    return {
+      debug: null
+    };
+  },
   mounted() {
     this.$store.commit("CLEAR_CACHE");
+
+    try {
+      const referrer = localStorage.getItem(process.env.VUE_APP_LS_ROUTE_KEY);
+      this.debug = {};
+      this.debug["meta"] = this.$route.params.msg;
+      this.debug["referrer"] = referrer;
+      //console.table(this.debug);
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
+
+      this.$ga.event({
+        eventCategory: "Error",
+        eventAction: this.$route.params.msg,
+        eventLabel: JSON.stringify(this.debug)
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 </script>

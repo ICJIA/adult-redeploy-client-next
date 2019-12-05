@@ -111,6 +111,7 @@ const getAllNewsQuery = () => {
     summary
     content
     createdAt
+    updatedAt
     isPublished
     
   }
@@ -129,6 +130,7 @@ const getFeaturedPublicationsQuery = () => {
     }
     summary
     createdAt
+    updatedAt
     isPublished
     year
     file {
@@ -157,6 +159,7 @@ const getAllPublicationsQuery = () => {
     }
     summary
     createdAt
+    updatedAt
     isPublished
     year
     file {
@@ -289,6 +292,7 @@ const getContentByTagQuery = slug => {
       summary
       content
       createdAt
+      updatedAt
       isPublished
     }
   }
@@ -309,6 +313,7 @@ const getSinglePublicationQuery = slug => {
     }
     summary
     createdAt
+    updatedAt
     isPublished
     year
     file {
