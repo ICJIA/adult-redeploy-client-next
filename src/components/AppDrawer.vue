@@ -71,24 +71,9 @@
       <v-spacer></v-spacer>
       <v-divider></v-divider>
       <div class="text-center px-3 py-5" style="color: #fff">
-        <a href="http://www.icjia.state.il.us">
-          <img
-            :src="require('@/assets/icjia-logo-white.png')"
-            alt="Illinois Criminal Justice Information Authority"
-            width="65"
-            class="mt-3"
-          />
-        </a>
         <br />
 
-        <strong>
-          <a
-            href="http://www.icjia.state.il.us"
-            class="footer-link"
-            style="font-size: 10px;"
-            >Illinois Criminal Justice Information Authority
-          </a>
-        </strong>
+        <strong> </strong>
       </div>
     </v-row>
   </v-navigation-drawer>
