@@ -44,6 +44,11 @@ import { getSearchIndex } from "@/services/Search";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: "Search"
+    };
+  },
   data() {
     return {
       loading: true,
@@ -79,6 +84,11 @@ export default {
       checkIfValidPage(this.content) ? null : this.routeToError();
 
       this.searchIndex = await getSearchIndex();
+      this.$ga.page({
+        page: this.$route.path,
+        title: "Search",
+        location: window.location.href
+      });
       this.loading = false;
     },
     routeToError() {

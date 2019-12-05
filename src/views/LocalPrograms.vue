@@ -70,6 +70,11 @@ export default {
     BaseContent,
     SiteDescription
   },
+  metaInfo() {
+    return {
+      title: "Local Programs"
+    };
+  },
   data() {
     return {
       loading: false,
@@ -105,6 +110,11 @@ export default {
 
       if (checkIfValidPage(this.sectionContent)) {
         this.content = this.sectionContent[0].pages;
+        this.$ga.page({
+          page: this.$route.path,
+          title: "Local Programs",
+          location: window.location.href
+        });
 
         if (checkIfValidPage(this.content)) {
           this.showToc = this.content[0].showToc;

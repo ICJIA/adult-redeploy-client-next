@@ -12,6 +12,14 @@
             <v-col cols="12">
               <MeetingCard :content="content[0]"></MeetingCard>
             </v-col>
+            <!-- <v-col cols="12">
+              <router-link
+                v-if="$routerHistory.hasPrevious()"
+                :to="{ path: $routerHistory.previous().path }"
+              >
+                &laquo;GO BACK
+              </router-link>
+            </v-col> -->
           </v-row>
         </v-container>
       </template>
@@ -29,6 +37,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
@@ -36,7 +49,8 @@ export default {
       checkIfValidPage,
       renderToHtml,
 
-      sectionContent: null
+      sectionContent: null,
+      title: ""
     };
   },
   components: {
@@ -46,7 +60,11 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
     async fetchContent() {
@@ -68,6 +86,13 @@ export default {
 
       if (!checkIfValidPage(this.content)) {
         this.routeToError();
+      } else {
+        this.title = this.content[0].title;
+        this.$ga.page({
+          page: this.$route.path,
+          title: this.title,
+          location: window.location.href
+        });
       }
 
       this.loading = false;

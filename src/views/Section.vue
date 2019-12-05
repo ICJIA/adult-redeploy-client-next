@@ -28,7 +28,10 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
+        <v-container
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          v-if="content"
+        >
           <ul class="pageList">
             <base-list :items="content.pages" empty="">
               <template slot-scope="item">
@@ -62,11 +65,17 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: null,
       content: [],
-      renderToHtml
+      renderToHtml,
+      title: ""
     };
   },
   components: {
@@ -99,7 +108,14 @@ export default {
         );
         if (!this.content) {
           this.routeToError();
+          return;
         }
+        this.title = this.content.title;
+        this.$ga.page({
+          page: this.$route.path,
+          title: this.title,
+          location: window.location.href
+        });
       }
 
       this.loading = false;
@@ -107,6 +123,11 @@ export default {
   },
   created() {
     this.fetchContent();
+  },
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
   }
 };
 </script>

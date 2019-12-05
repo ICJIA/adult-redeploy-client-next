@@ -32,6 +32,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
@@ -39,7 +44,8 @@ export default {
       checkIfValidPage,
       renderToHtml,
       showToc: false,
-      sectionContent: null
+      sectionContent: null,
+      title: ""
     };
   },
   components: {
@@ -49,7 +55,11 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
     async fetchContent() {
@@ -68,6 +78,16 @@ export default {
       await this.$store.dispatch("cacheContent", contentMap);
 
       this.content = this.$store.getters.getContentFromCache(contentMap, name);
+
+      if (!checkIfValidPage(this.content)) {
+        this.routeToError();
+      }
+      this.title = this.content[0].firstName + " " + this.content[0].lastName;
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
 
       this.loading = false;
     },

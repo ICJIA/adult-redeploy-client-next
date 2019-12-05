@@ -69,6 +69,11 @@ export default {
     $route: "fetchContent"
   },
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
@@ -76,7 +81,8 @@ export default {
       checkIfValidPage,
       renderToHtml,
       showToc: false,
-      sectionContent: null
+      sectionContent: null,
+      title: ""
     };
   },
   components: {
@@ -87,7 +93,12 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
+  mounted() {},
 
   methods: {
     async fetchContent() {
@@ -113,9 +124,14 @@ export default {
 
       if (checkIfValidPage(this.sectionContent)) {
         this.content = this.sectionContent[0].pages;
-
         if (checkIfValidPage(this.content)) {
           this.showToc = this.content[0].showToc;
+          this.title = this.content[0].title;
+          this.$ga.page({
+            page: this.$route.path,
+            title: this.title,
+            location: window.location.href
+          });
         } else {
           this.routeToError();
         }

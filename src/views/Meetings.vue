@@ -20,27 +20,21 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
-            <!-- <v-flex
-              xs12
-              sm12
-              md2
-              class="hidden-md-and-up mb-12"
-              v-if="showToc && displayMode.message === 'By Category'"
-              ><TOC
-                selector="#scrollArea"
-                top="#baseContentTop"
-                :mini="true"
-              ></TOC
-            ></v-flex> -->
-
-            <!-- eslint-disable-next-line vuetify/grid-unknown-attributes -->
-            <v-col :[dynamicFlex]="true">
+            <v-col
+              cols="12"
+              sm="12"
+              :md="dynamicFlex()"
+              order-md="1"
+              order="2"
+              order-sm="2"
+            >
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
+
               <toggle
                 toggleOn="By Category"
                 toggleOff="By Date"
@@ -61,9 +55,10 @@
                     class="dynamic-content"
                   ></p>
 
-                  <DetailTableMeeting
-                    :meetings="filterMeetingData(category.enum)"
+                  <ListTableMeeting
+                    :items="filterMeetingData(category.enum)"
                     class="mt-8 "
+                    :hideCategory="true"
                     :class="{
                       'pl-6':
                         $vuetify.breakpoint.md ||
@@ -74,26 +69,30 @@
                         $vuetify.breakpoint.lg ||
                         $vuetify.breakpoint.xl
                     }"
-                  ></DetailTableMeeting>
+                  ></ListTableMeeting>
                 </div>
               </div>
               <div v-if="displayMode.message === 'By Date'">
-                <DetailTableMeeting
-                  :meetings="meetings"
+                <ListTableMeeting
+                  :items="meetings"
                   class="mt-8 "
                   :hideCategory="false"
-                ></DetailTableMeeting>
+                ></ListTableMeeting>
               </div>
             </v-col>
 
             <v-col
+              cols="12"
+              sm="12"
               md="2"
-              v-if="showToc && displayMode.message === 'By Category'"
-              class="hidden-sm-and-down"
+              order-md="2"
+              order="1"
+              order-sm="1"
+              v-if="displayMode.message === 'By Category'"
               ><TOC
                 selector="#scrollArea"
                 top="#baseContentTop"
-                tocHeading="Meeting Categories"
+                tocHeading="Categories"
               ></TOC
             ></v-col>
           </v-row>
@@ -116,7 +115,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import { EventBus } from "@/event-bus";
-import DetailTableMeeting from "@/components/DetailTableMeeting";
+import ListTableMeeting from "@/components/ListTableMeeting";
 import TOC from "@/components/TOC";
 import { getPageBySection, getAllMeetings } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -125,22 +124,28 @@ import { handleClicks } from "@/mixins/handleClicks";
 import Toggle from "@/components/Toggle";
 export default {
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
       content: null,
       checkIfValidPage,
       renderToHtml,
-      showToc: false,
+      showToc: true,
       sectionContent: null,
       meetings: null,
-      displayMode: {}
+      displayMode: {},
+      title: ""
     };
   },
   components: {
     BaseContent,
     TOC,
-    DetailTableMeeting,
+    ListTableMeeting,
     Toggle
   },
   created() {
@@ -152,14 +157,8 @@ export default {
     });
   },
   computed: {
-    dynamicFlex() {
-      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
-        return "xs12";
-      } else if (this.displayMode.message === "By Date") {
-        return "xs12";
-      } else {
-        return this.showToc ? "xs10" : "xs12";
-      }
+    computedTitle() {
+      return this.title;
     }
   },
 
@@ -196,7 +195,13 @@ export default {
         this.content = this.sectionContent[0].pages;
 
         if (checkIfValidPage(this.content)) {
-          this.showToc = this.content[0].showToc;
+          this.showToc = true;
+          this.title = this.content[0].title;
+          this.$ga.page({
+            page: this.$route.path,
+            title: this.title,
+            location: window.location.href
+          });
         } else {
           this.routeToError();
         }
@@ -208,13 +213,24 @@ export default {
         contentMap,
         meetingsName
       );
-
+      //console.log(this.meetings);
       this.loading = false;
     },
     filterMeetingData(categoryEnum) {
       return this.meetings.filter(meeting => {
         return meeting.category === categoryEnum;
       });
+    },
+    dynamicFlex() {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "12";
+      } else {
+        if (this.displayMode.message === "By Category") {
+          return "10";
+        } else {
+          return "12";
+        }
+      }
     },
     routeToError() {
       this.content = null;

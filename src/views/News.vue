@@ -8,7 +8,7 @@
         >
           <v-row>
             <v-col cols="12">
-              <h1 class="page-title">{{ content[0].title }}</h1>
+              <h1 class="page-title">News Archive</h1>
             </v-col>
           </v-row>
         </v-container>
@@ -18,21 +18,10 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
+          <v-row> </v-row>
           <v-row>
-            <v-col cols="12">
-              <div
-                v-html="renderToHtml(content[0].content)"
-                v-if="content[0].content"
-                @click="handleClicks"
-                class="dynamic-content"
-              ></div>
-            </v-col>
             <v-col cols="12" class="mb-10">
-              <base-list :items="news" empty="">
-                <template slot-scope="item">
-                  <NewsCard :content="item" :height="400"></NewsCard>
-                </template>
-              </base-list>
+              <ListTableNews :items="newsSorted"></ListTableNews>
             </v-col>
           </v-row>
         </v-container>
@@ -43,25 +32,36 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import BaseList from "@/components/BaseList";
-import NewsCard from "@/components/NewsCard";
+
+import ListTableNews from "@/components/ListTableNews";
+// eslint-disable-next-line no-unused-vars
 import { getPageBySection, getAllNews } from "@/services/Content";
+import { sortBy } from "lodash";
+// eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   components: {
     BaseContent,
-    BaseList,
-    NewsCard
+
+    ListTableNews
   },
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.title
+    };
+  },
   data() {
     return {
       loading: false,
       content: [],
+      sectionContent: [],
       news: [],
-      renderToHtml
+      renderToHtml,
+      title: "News Archive",
+      newsSorted: []
     };
   },
   created() {
@@ -72,15 +72,15 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
-      const section = "news";
-      const slug = "news";
+      // const section = "news";
+      // const slug = "news";
 
-      const name = `getPageBySection-${section}${slug}`;
-      contentMap.set(name, {
-        hash: getHash(name),
-        query: getPageBySection,
-        params: { section, slug }
-      });
+      // const name = `getPageBySection-${section}${slug}`;
+      // contentMap.set(name, {
+      //   hash: getHash(name),
+      //   query: getPageBySection,
+      //   params: { section, slug }
+      // });
 
       const newsName = `getNews`;
       contentMap.set(newsName, {
@@ -97,13 +97,19 @@ export default {
       );
 
       this.news = this.$store.getters.getContentFromCache(contentMap, newsName);
-      console.log(this.news);
+      this.newsSorted = sortBy(this.news, "createdAt").reverse();
 
-      if (checkIfValidPage(this.sectionContent)) {
-        this.content = this.sectionContent[0].pages;
-      } else {
-        this.routeToError();
-      }
+      // if (checkIfValidPage(this.sectionContent)) {
+      //   this.content = this.sectionContent[0].summary;
+      // } else {
+      //   this.routeToError();
+      // }
+
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
 
       this.loading = false;
     },

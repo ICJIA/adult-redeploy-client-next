@@ -54,19 +54,6 @@ const router = new Router({
 
     /**
      *
-     * Archives
-     *
-     */
-
-    {
-      path: "/archives/meeting-archives",
-      name: "meetingsArchive",
-      component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/MeetingsArchive.vue")
-    },
-
-    /**
-     *
      * News
      *
      */
