@@ -20,7 +20,7 @@
                 })
               "
             >
-              SPAC News
+              Adult Redeploy Illinois News
             </div>
           </div>
         </v-col>
