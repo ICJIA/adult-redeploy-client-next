@@ -16,6 +16,7 @@
               <template slot-scope="item">
                 <search-card
                   :item="item"
+                  :query="query"
                   background="#fafafa"
                   elevation="1"
                   class="card pt-3 "
