@@ -16,7 +16,8 @@ const sections = [
   "resources",
   "meetings",
   "sites",
-  "sections"
+  "sections",
+  "biographies"
 ];
 const publicPath = "/adultredeploy";
 let routes = [];
@@ -66,8 +67,13 @@ const query = `{
     title
     updatedAt
     slug
+  }
+
+  biographies (where: {isPublished: true}){
     
-    
+    slug
+    updatedAt
+    category
   }
   
 }`;
@@ -125,6 +131,14 @@ request(api, query).then(res => {
        */
       if (section === "sections") {
         path = `/${item.slug}`;
+      }
+      /**
+       *
+       * Biographies
+       *
+       */
+      if (section === "biographies") {
+        path = `/about/biographies/${item.slug}`;
       }
       /**
        *
