@@ -11,7 +11,9 @@ h3 {
 blockquote {
   padding-left: 10px;
 }
-
+/* p {
+  line-height: 20px;
+} */
 .heavy {
   font-weight: 900;
 }

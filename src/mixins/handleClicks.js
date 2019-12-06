@@ -6,9 +6,10 @@ export const handleClicks = {
   methods: {
     handleClicks($event) {
       // intercepts <a></a> tag clicks and routes within app
-      //console.log($event);
+
       const { target } = $event;
       const href = $event.target.href;
+      const mailto = /mailto/g;
 
       //console.log(target);
       // handle only links that occur inside the component and do not reference external resources
@@ -19,7 +20,8 @@ export const handleClicks = {
       if (
         target &&
         target.matches(".dynamic-content a:not([href*='://'])") &&
-        target.href
+        target.href &&
+        !href.match(mailto)
       ) {
         // some sanity checks taken from vue-router:
         // https://github.com/vuejs/vue-router/blob/dev/src/components/link.js#L106

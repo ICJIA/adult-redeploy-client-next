@@ -175,9 +175,15 @@ export default {
     handleClicks(event) {
       const href = event.target.href;
       const { target } = event;
+      const mailto = /mailto/g;
 
       // handle only links that do not reference external resources
-      if (target && target.matches("a:not([href*='://'])") && target.href) {
+      if (
+        target &&
+        target.matches("a:not([href*='://'])") &&
+        target.href &&
+        !href.match(mailto)
+      ) {
         // some sanity checks taken from vue-router:
         // https://github.com/vuejs/vue-router/blob/dev/src/components/link.js#L106
         const {
