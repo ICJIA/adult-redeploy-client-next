@@ -113,6 +113,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: "Resources"
+    };
+  },
   mixins: [handleClicks],
   data() {
     return {
@@ -186,6 +191,11 @@ export default {
 
         if (checkIfValidPage(this.content)) {
           this.showToc = this.content[0].showToc;
+          this.$ga.page({
+            page: this.$route.path,
+            title: "Resources",
+            location: window.location.href
+          });
         } else {
           this.routeToError();
         }

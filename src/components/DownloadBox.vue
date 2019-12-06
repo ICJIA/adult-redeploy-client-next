@@ -97,7 +97,7 @@ export default {
       if (item.file.name) {
         let ext = item.file.name.split(".").pop();
         console.log("Download event: ", item.file.hash + "." + ext);
-        console.log(item.file);
+        //console.log(item.file);
         this.$ga.event({
           eventCategory: "File",
           eventAction: "Download",

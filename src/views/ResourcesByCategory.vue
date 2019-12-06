@@ -61,6 +61,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   mixins: [handleClicks],
   data() {
     return {
@@ -74,7 +79,8 @@ export default {
       resources: null,
       categoryTitle: "",
       categoryDescription: "",
-      resourceCategory: null
+      resourceCategory: null,
+      title: null
     };
   },
   components: {
@@ -86,7 +92,11 @@ export default {
     this.fetchContent();
   },
   mounted() {},
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
     async fetchContent() {
@@ -115,6 +125,12 @@ export default {
           contentMap,
           resourcesName
         );
+        this.title = this.resourceCategory[0].title;
+        this.$ga.page({
+          page: this.$route.path,
+          title: this.title,
+          location: window.location.href
+        });
       } else {
         this.routeToError();
       }
