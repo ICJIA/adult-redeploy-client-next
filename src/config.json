@@ -70,7 +70,7 @@
       "type": "resource",
       "plural": "resources",
       "slug": "resources",
-      "listComponent": "ListTable",
+      "listComponent": "ListTableResource",
       "singletonPath": "/resources",
       "appendCategory": true
     }

@@ -247,6 +247,20 @@ const getContentByTagQuery = slug => {
     summary
     category
     content
+     externalMediaMaterial {
+      name
+      url
+      summary
+    }
+    mediaMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
     
     
      tags {

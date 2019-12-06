@@ -28,16 +28,16 @@
           <span v-html="displayNewLabel(item.createdAt)"></span>
         </template>
 
-        <template v-slot:item.year="{ item }">
-          <b>&nbsp;&nbsp;{{ item.year }}&nbsp;&nbsp;</b>
+        <template v-slot:item.publicationDate="{ item }">
+          &nbsp;&nbsp;{{ item.publicationDate | format }}&nbsp;&nbsp;
         </template>
 
         <template v-slot:item.title="{ item }">
-          <span :class="{ bold: hideCategory }">{{ item.title }}</span>
+          <span class="bold">{{ item.title }}</span>
         </template>
 
-        <template v-slot:item.category="{ item }" v-if="!hideCategory">
-          <b>{{ getCategoryTitle(item.category) }}</b>
+        <template v-slot:item.category="{ item }">
+          {{ getCategoryTitle(item.category) }}
         </template>
 
         <template v-slot:item.slug="{ item }">
@@ -63,7 +63,7 @@
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
-              <pub-preview
+              <ResourceDisplay
                 :item="item"
                 mode="max"
                 class="post default-font mb-3"
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import PubPreview from "@/components/PubPreview";
+import ResourceDisplay from "@/components/ResourceDisplay";
 // import { EventBus } from "@/event-bus";
 import {
   strapiEnumToObject,
@@ -87,7 +87,7 @@ import {
 import moment from "moment";
 export default {
   components: {
-    PubPreview
+    ResourceDisplay
   },
   mounted() {
     addAttributeToElement(
@@ -95,20 +95,6 @@ export default {
       "aria-label",
       "Read More / Read Less"
     )();
-
-    if (!this.hideCategory) {
-      Array.prototype.insert = function(index, item) {
-        this.splice(index, 0, item);
-      };
-      let obj = {
-        text: "Category",
-        align: "left",
-        sortable: true,
-        value: "category"
-      };
-
-      this.headers.insert(2, obj);
-    }
   },
 
   data() {
@@ -118,8 +104,9 @@ export default {
       key: 0,
       singleExpand: true,
       headers: [
-        { text: "", value: "createdAt" },
-        { text: "Year", value: "year" },
+        { text: "Published", value: "publicationDate" },
+        { text: "Category", value: "category" },
+
         { text: "Title", value: "title" },
         {
           text: "",
@@ -144,7 +131,7 @@ export default {
           //console.log("send preview event here: ", this.expanded[0].title);
           if (this.expanded[0].title) {
             this.$ga.event({
-              eventCategory: "Publication",
+              eventCategory: "Resource",
               eventAction: "Preview",
               eventLabel: "Preview: " + this.expanded[0].title
             });
@@ -154,7 +141,7 @@ export default {
           //console.log("send preview event here: ", this.expanded[0].title);
           if (this.expanded[0].title) {
             this.$ga.event({
-              eventCategory: "Publication",
+              eventCategory: "Resource",
               eventAction: "Preview",
               eventLabel: "Preview: " + this.expanded[0].title
             });
@@ -186,7 +173,7 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     getCategoryTitle(catEnum) {
-      let cat = strapiEnumToObject("publications", catEnum);
+      let cat = strapiEnumToObject("resources", catEnum);
       //console.log(cat);
       //   let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
       //     c => {

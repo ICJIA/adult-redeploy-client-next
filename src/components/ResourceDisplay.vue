@@ -5,6 +5,9 @@
         item.title
       }}</v-card-title>
       <v-card-text>
+        <div>
+          <h3>{{ item.publicationDate | format }}</h3>
+        </div>
         <div
           v-html="renderToHtml(item.content)"
           v-if="item.content"
@@ -12,11 +15,7 @@
           class="dynamic-content site-description"
         ></div>
 
-        <div
-          v-if="item.mediaMaterial.length || item.externalMediaMaterial.length"
-        >
-          <DownloadBox :content="item" class="mt-10"></DownloadBox>
-        </div>
+        <DownloadBox :content="item" class="mt-10"></DownloadBox>
 
         <v-container class="mt-4">
           <v-row>
@@ -27,12 +26,7 @@
         </v-container>
         <v-container class="mt-4">
           <v-row>
-            <v-col cols="12" sm="12" md="6">
-              <div class="text-left" v-if="item.createdAt">
-                Posted: {{ item.createdAt | timeAgoFormat }}
-              </div>
-            </v-col>
-            <v-col cols="12" sm="12" md="6">
+            <v-col cols="12" sm="12" md="12">
               <div
                 class="text-right"
                 v-if="
@@ -51,6 +45,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-unused-components */
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
@@ -74,7 +69,7 @@ export default {
       var updated = moment(updatedAt);
       var duration = moment.duration(updated.diff(posted)).days();
 
-      if (duration > 1) {
+      if (duration >= 1) {
         return true;
       } else {
         return false;

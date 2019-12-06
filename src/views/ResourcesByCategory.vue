@@ -19,9 +19,9 @@
           <v-row>
             <v-col>
               <div>
-                <DetailTableResource
-                  :resources="resourceCategory"
-                  :hideCategory="true"
+                <ListTableResource
+                  :items="resourceCategory"
+                  :hideCategory="false"
                   class="mt-8 "
                   :class="{
                     'pl-6':
@@ -33,7 +33,7 @@
                       $vuetify.breakpoint.lg ||
                       $vuetify.breakpoint.xl
                   }"
-                ></DetailTableResource>
+                ></ListTableResource>
               </div>
             </v-col>
           </v-row>
@@ -45,7 +45,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import DetailTableResource from "@/components/DetailTableResource";
+import ListTableResource from "@/components/ListTableResource";
 // eslint-disable-next-line no-unused-vars
 import { EventBus } from "@/event-bus";
 
@@ -79,8 +79,8 @@ export default {
   },
   components: {
     BaseContent,
-    // eslint-disable-next-line vue/no-unused-components
-    DetailTableResource
+
+    ListTableResource
   },
   created() {
     this.fetchContent();

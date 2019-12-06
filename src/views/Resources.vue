@@ -47,8 +47,8 @@
                       @click="handleClicks"
                       class="dynamic-content"
                     ></p>
-                    <DetailTableResource
-                      :resources="filterResourceData(category.enum)"
+                    <ListTableResource
+                      :items="filterResourceData(category.enum)"
                       :hideCategory="true"
                       class="mt-8 "
                       :class="{
@@ -61,13 +61,13 @@
                           $vuetify.breakpoint.lg ||
                           $vuetify.breakpoint.xl
                       }"
-                    ></DetailTableResource>
+                    ></ListTableResource>
                   </div>
                 </div>
               </div>
               <div v-if="displayMode.message === 'By Publication Date'">
-                <DetailTableResource
-                  :resources="resources"
+                <ListTableResource
+                  :items="resources"
                   class="mt-8 "
                   :class="{
                     'pl-6':
@@ -79,8 +79,7 @@
                       $vuetify.breakpoint.lg ||
                       $vuetify.breakpoint.xl
                   }"
-                  :hideCategory="false"
-                ></DetailTableResource>
+                ></ListTableResource>
               </div>
             </v-col>
             <v-col
@@ -102,7 +101,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import DetailTableResource from "@/components/DetailTableResource";
+import ListTableResource from "@/components/ListTableResource";
 import { EventBus } from "@/event-bus";
 import TOC from "@/components/TOC";
 import Toggle from "@/components/Toggle";
@@ -129,7 +128,7 @@ export default {
   },
   components: {
     BaseContent,
-    DetailTableResource,
+    ListTableResource,
     TOC,
     Toggle
   },

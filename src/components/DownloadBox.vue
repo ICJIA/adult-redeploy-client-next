@@ -93,14 +93,15 @@ export default {
   mixins: [handleClicks],
   methods: {
     fireDownloadEvent(item) {
-      if (item.file[0]) {
-        let ext = item.file[0].name.split(".").pop();
-        console.log("Download event: ", item.file[0].hash + "." + ext);
+      console.dir(item.file);
+      if (item.file.name) {
+        let ext = item.file.name.split(".").pop();
+        console.log("Download event: ", item.file.hash + "." + ext);
         console.log(item.file);
         this.$ga.event({
           eventCategory: "File",
           eventAction: "Download",
-          eventLabel: item.file[0].hash + "." + ext
+          eventLabel: item.file.hash + "." + ext
         });
       }
     }
