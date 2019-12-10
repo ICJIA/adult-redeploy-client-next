@@ -8,28 +8,14 @@
         })
       "
     >
-      <h2 class="heavy text-center">Local Programs</h2>
+      <div class="text-center home-font">
+        <i class="fas fa-users"></i>
+      </div>
+      <h2 class="heavy text-center mt-3">Local Programs</h2>
+
       <p class="pt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
-        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
-        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque.
-      </p>
-    </div>
-    <div
-      class="box box-2"
-      @click="
-        $router.push('/resources').catch(err => {
-          $vuetify.goTo(0);
-        })
-      "
-    >
-      <h2 class="heavy text-center">Resources</h2>
-      <p class="pt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
-        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
-        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque.
+        ARI is based on local control and design because communities know best
+        how to protect public safety and reduce recidivism.
       </p>
     </div>
     <div
@@ -40,12 +26,30 @@
         })
       "
     >
-      <h2 class="heavy text-center">Grants</h2>
+      <div class="text-center home-font">
+        <i class="far fa-money-bill-alt"></i>
+      </div>
+      <h2 class="heavy text-center mt-3">Grants</h2>
       <p class="pt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
-        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
-        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque dssds.
+        ARI provides training and technical assistance and fosters a statewide
+        learning community.
+      </p>
+    </div>
+    <div
+      class="box box-2"
+      @click="
+        $router.push('/resources').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
+    >
+      <div class="text-center home-font">
+        <i class="fas fa-cogs"></i>
+      </div>
+      <h2 class="heavy text-center mt-3">Resources</h2>
+      <p class="pt-4">
+        ARI uses “performance incentive funding” to support local investment in
+        more effective and less expensive alternatives to incarceration.
       </p>
     </div>
   </div>
@@ -110,6 +114,10 @@ h2 {
   transition: all 100ms ease-in;
   transform: scale(1.01);
   cursor: pointer;
+}
+
+.home-font {
+  font-size: 66px;
 }
 
 @media only screen and (max-width: 800px) {
