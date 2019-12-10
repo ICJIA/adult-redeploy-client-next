@@ -28,6 +28,7 @@
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
               ></div>
+
               <toggle
                 toggleOn="By Category"
                 toggleOff="By Publication Date"
@@ -106,7 +107,12 @@ import { EventBus } from "@/event-bus";
 import TOC from "@/components/TOC";
 import Toggle from "@/components/Toggle";
 import { getPageBySection, getAllResources } from "@/services/Content";
-import { getHash, checkIfValidPage } from "@/services/Utilities";
+import {
+  getHash,
+  checkIfValidPage,
+  // eslint-disable-next-line no-unused-vars
+  getSectionContent
+} from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
@@ -128,7 +134,8 @@ export default {
       showToc: false,
       sectionContent: null,
       displayMode: {},
-      resources: null
+      resources: null,
+      testContent: null
     };
   },
   components: {
@@ -185,6 +192,12 @@ export default {
         contentMap,
         name
       );
+
+      // this.testContent = getSectionContent(
+      //   this.$store.state.sections,
+      //   "resources"
+      // );
+      // console.log(this.testContent);
 
       if (checkIfValidPage(this.sectionContent)) {
         this.content = this.sectionContent[0].pages;

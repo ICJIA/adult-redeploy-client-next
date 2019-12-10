@@ -6,6 +6,16 @@ const getHash = str => {
   return hash;
 };
 
+const getSectionContent = (sections, slug) => {
+  // console.log("sections: ", sections);
+  // console.log("section: ", slug);
+  const content = sections.filter(sec => {
+    return sec.slug === slug;
+  });
+  //console.log(content);
+  return content;
+};
+
 const checkIfValidPage = arr => {
   if (arr) {
     return !!arr.length;
@@ -133,6 +143,7 @@ const dateFormat = function(d) {
 export {
   getHash,
   titleCase,
+  getSectionContent,
   checkIfValidPage,
   stripHTML,
   truncate,

@@ -31,8 +31,8 @@
       </div>
       <h2 class="heavy text-center mt-3">Grants</h2>
       <p class="pt-4">
-        ARI provides training and technical assistance and fosters a statewide
-        learning community.
+        ARI uses “performance incentive funding” to support local investment in
+        more effective and less expensive alternatives to incarceration.
       </p>
     </div>
     <div
@@ -48,8 +48,8 @@
       </div>
       <h2 class="heavy text-center mt-3">Resources</h2>
       <p class="pt-4">
-        ARI uses “performance incentive funding” to support local investment in
-        more effective and less expensive alternatives to incarceration.
+        ARI provides training and technical assistance, collects and analyzes
+        data, and fosters a statewide learning community.
       </p>
     </div>
   </div>

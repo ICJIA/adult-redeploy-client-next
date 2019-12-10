@@ -23,7 +23,7 @@
               <div
                 @click="handleClicks"
                 class="dynamic-content"
-                v-html="renderToHtml(content.summary)"
+                v-html="renderToHtml(content.content)"
               ></div>
             </v-col>
           </v-row>

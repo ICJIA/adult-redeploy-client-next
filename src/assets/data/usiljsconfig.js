@@ -135,10 +135,12 @@ const usiljsconfig = {
     hover: "CLAY",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Clay",
+    slug: "fourth-judicial-circuit"
   },
   usiljs14: {
     hover: "CLINTON",
@@ -266,10 +268,12 @@ const usiljsconfig = {
     hover: "FAYETTE",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Fayette",
+    slug: "fourth-judicial-circuit"
   },
   usiljs27: {
     hover: "FORD",
@@ -347,10 +351,12 @@ const usiljsconfig = {
     hover: "HANCOCK",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Hancock",
+    slug: "ninth-judicial-circuit"
   },
   usiljs35: {
     hover: "HARDIN",
@@ -367,10 +373,12 @@ const usiljsconfig = {
     hover: "HENDERSON",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Henderson",
+    slug: "ninth-judicial-circuit"
   },
   usiljs37: {
     hover: "HENRY",
@@ -403,10 +411,12 @@ const usiljsconfig = {
     hover: "JASPER",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Jasper",
+    slug: "fourth-judicial-circuit"
   },
   usiljs41: {
     hover: "JEFFERSON",
@@ -785,9 +795,7 @@ const usiljsconfig = {
     upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: true,
-    name: "Randolph",
-    slug: "twentieth-judicial-circuit"
+    active: false
   },
   usiljs80: {
     hover: "RICHLAND",
@@ -927,10 +935,12 @@ const usiljsconfig = {
     hover: "WARREN",
     url: "",
     target: "vue",
-    upColor: "#FFFFFF",
+    upColor: "#3eb2b2",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: true,
+    name: "Warren",
+    slug: "ninth-judicial-circuit"
   },
   usiljs95: {
     hover: "WASHINGTON",

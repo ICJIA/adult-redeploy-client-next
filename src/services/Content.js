@@ -352,6 +352,7 @@ const getAllSectionsQuery = () => {
     slug
     isPublished
     summary
+    content
     searchMeta
     summary
     order
@@ -379,6 +380,7 @@ const getPageBySectionQuery = (section, slug) => {
     title
     slug
     summary
+    content
     hasSubMenus
     searchMeta
     pages(where: { isPublished: true, slug: "${slug}" }) {
