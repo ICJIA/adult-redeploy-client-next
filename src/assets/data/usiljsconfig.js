@@ -792,7 +792,7 @@ const usiljsconfig = {
     hover: "RANDOLPH",
     url: "",
     target: "vue",
-    upColor: "#3eb2b2",
+    upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: false
