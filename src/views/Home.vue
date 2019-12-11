@@ -114,6 +114,6 @@ export default {
 
 <style>
 .news-title:hover {
-  color: #065f60;
+  color: #065f60 !important;
 }
 </style>
