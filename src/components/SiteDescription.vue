@@ -1,7 +1,7 @@
 <template>
   <div ref="description" id="siteDescriptionBox">
     <div v-if="!$store.getters.selectedCountyData" class="text-center">
-      <h2>Select a county or judicial circuit for more information.</h2>
+      <h2>Select a shaded county for ARI program information.</h2>
     </div>
     <div v-if="error">
       Not found. Please try again.
