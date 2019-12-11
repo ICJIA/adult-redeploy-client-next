@@ -361,6 +361,7 @@ const getAllSectionsQuery = () => {
     displayFooter
     displayDrawer
     
+    
     pages (sort: "order:asc", where: { isPublished: true}) {
       title
       slug

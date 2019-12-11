@@ -106,7 +106,7 @@ import ListTableResource from "@/components/ListTableResource";
 import { EventBus } from "@/event-bus";
 import TOC from "@/components/TOC";
 import Toggle from "@/components/Toggle";
-import { getPageBySection, getAllResources } from "@/services/Content";
+import { getAllResources } from "@/services/Content";
 import {
   getHash,
   checkIfValidPage,
@@ -134,8 +134,7 @@ export default {
       showToc: false,
       sectionContent: null,
       displayMode: {},
-      resources: null,
-      testContent: null
+      resources: null
     };
   },
   components: {
@@ -168,17 +167,9 @@ export default {
     async fetchContent() {
       this.loading = true;
 
+      this.content = getSectionContent(this.$store.state.sections, "resources");
+
       const contentMap = new Map();
-      const section = "resources";
-      const slug = "resources";
-
-      const name = `getPageBySection-${section}${slug}`;
-      contentMap.set(name, {
-        hash: getHash(name),
-        query: getPageBySection,
-        params: { section, slug }
-      });
-
       const resourcesName = "getAllResources";
       contentMap.set(resourcesName, {
         hash: getHash(resourcesName),
@@ -188,30 +179,13 @@ export default {
 
       await this.$store.dispatch("cacheContent", contentMap);
 
-      this.sectionContent = this.$store.getters.getContentFromCache(
-        contentMap,
-        name
-      );
-
-      // this.testContent = getSectionContent(
-      //   this.$store.state.sections,
-      //   "resources"
-      // );
-      // console.log(this.testContent);
-
-      if (checkIfValidPage(this.sectionContent)) {
-        this.content = this.sectionContent[0].pages;
-
-        if (checkIfValidPage(this.content)) {
-          this.showToc = this.content[0].showToc;
-          this.$ga.page({
-            page: this.$route.path,
-            title: "Resources",
-            location: window.location.href
-          });
-        } else {
-          this.routeToError();
-        }
+      if (checkIfValidPage(this.content)) {
+        this.showToc = true;
+        this.$ga.page({
+          page: this.$route.path,
+          title: "Resources",
+          location: window.location.href
+        });
       } else {
         this.routeToError();
       }
