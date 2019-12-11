@@ -84,8 +84,8 @@
     "resources": [
       {
         "enum": "annualReport",
-        "slug": "annual-reports",
-        "title": "Annual Reports",
+        "slug": "annual-report",
+        "title": "Annual Report",
         "short": "Annual Report",
         "description": ""
       },
@@ -94,6 +94,13 @@
         "slug": "evaluation",
         "title": "Evaluation Report",
         "short": "Evaluation",
+        "description": ""
+      },
+      {
+        "enum": "researchReport",
+        "slug": "research-report",
+        "title": "Research Report",
+        "short": "Research",
         "description": ""
       },
       {
