@@ -8,7 +8,7 @@
     ><v-container
       class="fill-height text-center"
       fluid
-      style="margin: 0; padding: 0"
+      style="margin: 0 !important; padding: 0 !important; margin-left: 12px;"
     >
       <v-row align="center">
         <div class="banner">
