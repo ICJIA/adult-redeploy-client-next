@@ -39,13 +39,24 @@ const getDefaultThumbnail = function(mediaMaterial) {
   return link;
 };
 
+// const getHeadshotLink = function(headshot) {
+//   const imagePath = headshot.url;
+//   const link = thumborURL
+//     .setImagePath(`${config.baseURL}${imagePath}`)
+//     .resize(85, 85)
+//     .smartCrop(true)
+//     .filter("grayscale()")
+//     .buildUrl();
+
+//   return link;
+// };
+
 const getHeadshotLink = function(headshot) {
   const imagePath = headshot.url;
   const link = thumborURL
     .setImagePath(`${config.baseURL}${imagePath}`)
     .resize(85, 85)
     .smartCrop(true)
-    .filter("grayscale()")
     .buildUrl();
 
   return link;
