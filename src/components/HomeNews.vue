@@ -3,7 +3,7 @@
     <div v-for="item in content" :key="item.slug" class="mb-3">
       <NewsCard :content="item" :height="150" :elevation="false"></NewsCard>
     </div>
-    <div class="text-center mt-6">
+    <!-- <div class="text-center mt-6">
       <v-btn
         class="ma-2"
         to="/news"
@@ -12,7 +12,7 @@
         color="primary"
         >News & Events Archive<v-icon right>chevron_right</v-icon></v-btn
       >
-    </div>
+    </div> -->
   </div>
 </template>
 

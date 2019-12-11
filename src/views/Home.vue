@@ -16,9 +16,12 @@
               style="padding-left: 30px; padding-right: 30px"
               class="mb-10"
             >
-              <h2 class="heavy rule uppercase">
-                About Adult Redeploy Illinois
-              </h2>
+              <span
+                style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
+                class="news-title hover"
+                @click="$router.push('/about/overview')"
+                >ABOUT ADULT REDEPLOY</span
+              >
 
               <home-about
                 :content="about"
@@ -28,7 +31,12 @@
             </v-col>
 
             <v-col cols="12" sm="12" md="6" class="mb-10">
-              <h2 class="heavy rule uppercase">News & Events</h2>
+              <span
+                style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
+                class="news-title hover"
+                @click="$router.push('/news')"
+                >NEWS</span
+              >
               <home-news
                 :content="news"
                 v-if="news"
@@ -104,4 +112,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.news-title:hover {
+  color: #065f60;
+}
+</style>

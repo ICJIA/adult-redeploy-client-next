@@ -1,4 +1,6 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c7e823e6-a057-4b1c-b711-2ec38f960118/deploy-status)](https://app.netlify.com/sites/adultredeploy/deploys)
+<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/c7e823e6-a057-4b1c-b711-2ec38f960118/deploy-status)](https://app.netlify.com/sites/adultredeploy/deploys) -->
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c5bb4929-d406-4cf0-a82c-e803c3eaeb34/deploy-status)](https://app.netlify.com/sites/adultredeploy-dev/deploys)
 
 # Adult Redeploy Client
 
