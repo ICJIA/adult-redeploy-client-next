@@ -167,4 +167,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.dynamic-content ul {
+  margin-bottom: 20px;
+}
+</style>
