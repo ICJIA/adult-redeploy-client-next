@@ -1,9 +1,7 @@
 <template>
   <div>
     <v-card class="mx-auto elevation-8" color="white" style="width: 100%">
-      <v-card-title class="site-desription-title px-3">{{
-        item.title
-      }}</v-card-title>
+      <h3 class="site-desription-title px-4 py-4">{{ item.title }}</h3>
       <v-card-text>
         <div>
           <h3>{{ item.publicationDate | format }}</h3>
