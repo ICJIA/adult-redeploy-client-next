@@ -209,6 +209,10 @@ export default {
 </script>
 
 <style>
+td {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
 tr:nth-of-type(even) {
   background-color: rgba(0, 0, 0, 0.04);
 }
