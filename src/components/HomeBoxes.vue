@@ -3,7 +3,7 @@
     <div
       class="box box-1"
       @click="
-        $router.push('/programs/local-programs').catch(err => {
+        $router.push('/programs').catch(err => {
           $vuetify.goTo(0);
         })
       "

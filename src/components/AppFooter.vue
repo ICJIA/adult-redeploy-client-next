@@ -16,9 +16,9 @@
               class="heavy"
               dark
               color="secondary"
-              :aria-label="link.name"
+              :aria-label="link.title"
             >
-              <span style="font-size: 12px">{{ link.slug }}</span>
+              <span style="font-size: 12px">{{ link.title }}</span>
             </v-btn>
           </span>
         </span>
