@@ -34,10 +34,10 @@ const router = new Router({
      *
      */
     {
-      path: "/programs/local-programs",
-      name: "localPrograms",
+      path: "/programs",
+      name: "programs",
       component: () =>
-        import(/* webpackChunkName: "programs" */ "./views/LocalPrograms.vue")
+        import(/* webpackChunkName: "programs" */ "./views/Programs.vue")
     },
     {
       path: "/sites",
