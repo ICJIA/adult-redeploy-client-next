@@ -26,7 +26,7 @@
             <v-btn
               class="mt-6"
               color="white"
-              @click="$vuetify.goTo('#about', { offset: 180 })"
+              @click="$vuetify.goTo('#about', { offset: 210 })"
               >Learn More</v-btn
             >&nbsp;&nbsp;
             <v-btn class="mt-6" to="/about/faqs" outlined color="white"
