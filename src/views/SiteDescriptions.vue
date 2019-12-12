@@ -3,29 +3,29 @@
     <base-content :loading="loading">
       <template v-slot:title>
         <v-container
-          v-if="content"
+          v-if="sites"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
             <v-col cols="12">
-              <h1 class="page-title">{{ content[0].title }}</h1>
+              <h1 class="page-title">ARI Sites</h1>
             </v-col>
           </v-row>
         </v-container>
       </template>
       <template v-slot:content>
         <v-container
-          v-if="content"
+          v-if="sites"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-row v-if="content[0].summary">
+          <v-row>
             <v-col cols="12">
-              <div
+              <!-- <div
                 v-html="renderToHtml(content[0].summary)"
                 @click="handleClicks"
                 class="dynamic-content"
-              ></div>
-              <base-list :items="sites">
+              ></div> -->
+              <base-list :items="sites" style="margin-top: -20px">
                 <template slot-scope="item">
                   <v-container
                     :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-unused-components */
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
 import SiteDescriptionCard from "@/components/SiteDescriptionCard";
@@ -98,16 +99,16 @@ export default {
       this.loading = true;
 
       const contentMap = new Map();
-      const section = "sites";
-      const slug = "sites";
+      // const section = "sites";
+      // const slug = "sites";
 
-      const getPageName = `getPageBySection-${section}${slug}`;
+      // const getPageName = `getPageBySection-${section}${slug}`;
 
-      contentMap.set(getPageName, {
-        hash: getHash(getPageName),
-        query: getPageBySection,
-        params: { section, slug }
-      });
+      // contentMap.set(getPageName, {
+      //   hash: getHash(getPageName),
+      //   query: getPageBySection,
+      //   params: { section, slug }
+      // });
 
       const getSitesName = "getAllSiteDescriptions";
 
@@ -119,10 +120,10 @@ export default {
 
       await this.$store.dispatch("cacheContent", contentMap);
 
-      this.content = this.$store.getters.getContentFromCache(
-        contentMap,
-        getPageName
-      );
+      // this.content = this.$store.getters.getContentFromCache(
+      //   contentMap,
+      //   getPageName
+      // );
       this.sites = this.$store.getters.getContentFromCache(
         contentMap,
         getSitesName
