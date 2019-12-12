@@ -95,4 +95,8 @@ export default {
 }
 </style>
 
-<style lang="scss" scoped></style>
+<style>
+.dynamic-content h2 {
+  margin-top: -5px !important;
+}
+</style>

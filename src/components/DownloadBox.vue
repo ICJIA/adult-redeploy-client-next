@@ -17,9 +17,14 @@
                 <a
                   :href="`${$store.getters.config.baseURL}${item.file.url}`"
                   target="_blank"
+                  style="text-decoration: none !important"
                   @click="fireDownloadEvent(item)"
-                  >{{ item.name }}</a
+                  >{{ item.name
+                  }}<v-icon class="ml-2" color="green darken-4"
+                    >cloud_download</v-icon
+                  ></a
                 >
+
                 <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
               </span>
               <br />
@@ -46,8 +51,15 @@
             :key="index"
           >
             <li class="mb-4" v-if="item.url">
-              <a :href="`${item.url}`" target="_blank">{{ item.name }}</a
-              ><v-icon class="ml-2" color="green darken-4">open_in_new</v-icon>
+              <a
+                :href="`${item.url}`"
+                target="_blank"
+                style="text-decoration: none !important"
+                >{{ item.name
+                }}<v-icon class="ml-2" color="green darken-4"
+                  >open_in_new</v-icon
+                ></a
+              >
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
 
               <br />
@@ -68,7 +80,11 @@
                 :href="`${$store.getters.config.baseURL}${item.file.url}`"
                 target="_blank"
                 @click="fireDownloadEvent(item)"
-                >{{ item.name }}</a
+                style="text-decoration: none !important"
+                >{{ item.name
+                }}<v-icon class="ml-2" color="green darken-4"
+                  >cloud_download</v-icon
+                ></a
               >
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
 
