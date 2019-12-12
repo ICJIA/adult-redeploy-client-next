@@ -85,21 +85,21 @@
       {
         "enum": "annualReport",
         "slug": "annual-report",
-        "title": "Annual Report",
-        "short": "Annual Report",
+        "title": "Annual Reports",
+        "short": "Annual Reports",
         "description": ""
       },
       {
         "enum": "evaluation",
         "slug": "evaluation",
-        "title": "Evaluation Report",
+        "title": "Evaluation Reports",
         "short": "Evaluation",
         "description": ""
       },
       {
         "enum": "researchReport",
         "slug": "research-report",
-        "title": "Research Report",
+        "title": "Research Reports",
         "short": "Research",
         "description": ""
       },

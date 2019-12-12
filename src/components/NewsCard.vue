@@ -110,7 +110,6 @@ export default {
       var posted = moment(createdAt);
       var updated = moment(updatedAt);
       var duration = moment.duration(updated.diff(posted)).days();
-
       if (duration > 1) {
         return true;
       } else {

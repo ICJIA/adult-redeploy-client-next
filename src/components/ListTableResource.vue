@@ -29,7 +29,7 @@
         </template>
 
         <template v-slot:item.publicationDate="{ item }">
-          &nbsp;&nbsp;{{ item.publicationDate | format }}&nbsp;&nbsp;
+          &nbsp;&nbsp;{{ item.publicationDate | dateFormatShort }}&nbsp;&nbsp;
         </template>
 
         <template v-slot:item.title="{ item }">

@@ -77,19 +77,13 @@ export default {
       expanded: [],
       singleExpand: true,
       headers: [
-        { text: "Title", value: "title" },
         {
           text: "Posted",
           align: "left",
           sortable: true,
           value: "createdAt"
         },
-        {
-          text: "Updated",
-          align: "left",
-          sortable: false,
-          value: "updatedAt"
-        }
+        { text: "Title", value: "title" }
       ]
     };
   },
