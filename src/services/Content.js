@@ -706,7 +706,7 @@ const getSingleResourceQuery = slug => {
 
 const getRecentArticlesQuery = () => {
   return `{
-    articles (sort: "createdAt:desc", limit: 3) {
+    articles (sort: "createdAt:desc", limit: 2) {
       title
       status
      createdAt

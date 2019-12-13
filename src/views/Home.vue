@@ -48,17 +48,32 @@
                 style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >ICJIA RESEARCH</span
+                >LATEST ICJIA RESEARCH</span
               >
-              <h2 style="color: orange">
-                TODO: Add proper images and styling here
-              </h2>
+
               <div v-for="article in articles" :key="article.slug">
-                <v-card class="px-5 py-5 mb-5">
-                  <p>{{ article.createdAt | format }}</p>
-                  <b>{{ article.title }}</b>
-                  <p class="mt-3 mb-3">{{ article.authors }}</p>
-                  <p>{{ article.abstract }}</p>
+                <v-card class="mx-auto mb-5 py-5">
+                  <v-img
+                    class="white--text align-end"
+                    height="200px"
+                    :src="article.splash"
+                  >
+                    <v-card-title>{{ article.title }}</v-card-title>
+                  </v-img>
+
+                  <v-card-subtitle class="pb-0">{{
+                    article.createdAt | format
+                  }}</v-card-subtitle>
+
+                  <v-card-text class="text--primary">
+                    {{ article.abstract }}
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-btn outlined color="green darken-4">
+                      Read on the Research Hub
+                    </v-btn>
+                  </v-card-actions>
                 </v-card>
                 <!-- <v-img :src="article.thumbnail" max-width="100"></v-img> -->
               </div>
