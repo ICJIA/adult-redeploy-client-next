@@ -34,6 +34,17 @@ async function queryEndpoint(query) {
   return content;
 }
 
+async function queryResearchHub(query) {
+  let content = await api({
+    url: "https://researchhub.icjia-api.cloud/graphql",
+    method: "post",
+    data: {
+      query
+    }
+  });
+  return content;
+}
+
 const getPageQuery = slug => {
   return `{
   pages (where: {slug: "${slug}", isPublished: true}) {
@@ -693,6 +704,21 @@ const getSingleResourceQuery = slug => {
 }`;
 };
 
+const getRecentArticlesQuery = () => {
+  return `{
+    articles (sort: "createdAt:desc", limit: 3) {
+      title
+      status
+     createdAt
+      abstract
+      authors 
+      slug
+      thumbnail
+      splash
+    }
+  }`;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -934,6 +960,17 @@ const getSingleResource = async ({ slug }) => {
   }
 };
 
+const getRecentArticles = async () => {
+  try {
+    let articles = await queryResearchHub(getRecentArticlesQuery());
+    console.log(articles.data.data.articles);
+    return articles.data.data.articles;
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -954,5 +991,6 @@ export {
   getAllResources,
   getMeetingsByCategory,
   getSingleResource,
-  getResourcesByCategory
+  getResourcesByCategory,
+  getRecentArticles
 };

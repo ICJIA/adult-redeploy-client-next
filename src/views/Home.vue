@@ -12,7 +12,7 @@
             <v-col
               cols="12"
               sm="12"
-              md="6"
+              md="12"
               style="padding-left: 30px; padding-right: 30px"
               class="mb-10"
             >
@@ -20,7 +20,7 @@
                 style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/about/overview')"
-                >ABOUT ADULT REDEPLOY</span
+                >ABOUT ADULT REDEPLOY ILLINOIS</span
               >
 
               <home-about
@@ -35,13 +35,29 @@
                 style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >NEWS</span
+                >ARI NEWS</span
               >
               <home-news
                 :content="news"
                 v-if="news"
                 data-aos="fade"
               ></home-news>
+            </v-col>
+            <v-col cols="12" sm="12" md="6" class="mb-10">
+              <span
+                style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
+                class="news-title hover"
+                @click="$router.push('/news')"
+                >ICJIA RESEARCH</span
+              >
+              <h2 style="color: orange">
+                TODO: Add proper images and styling here
+              </h2>
+              <div v-for="article in articles" :key="article.slug">
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.abstract }}</p>
+                <!-- <v-img :src="article.thumbnail" max-width="100"></v-img> -->
+              </div>
             </v-col>
           </v-row>
         </v-container>
@@ -56,7 +72,11 @@ import HomeBoxes from "@/components/HomeBoxes";
 import HomeNews from "@/components/HomeNews";
 import HomeAbout from "@/components/HomeAbout";
 import BaseContent from "@/components/BaseContent";
-import { getPage, getFrontPageNews } from "@/services/Content";
+import {
+  getPage,
+  getFrontPageNews,
+  getRecentArticles
+} from "@/services/Content";
 import { getHash } from "@/services/Utilities";
 // import Illinois from "@/components/Illinois";
 export default {
@@ -72,7 +92,8 @@ export default {
     return {
       loading: true,
       about: null,
-      news: null
+      news: null,
+      articles: null
     };
   },
   async created() {
@@ -92,6 +113,14 @@ export default {
       params: { limit: this.$store.getters.config.frontPageItems.news }
     });
 
+    contentMap.set("getRecentArticles", {
+      hash: getHash("getRecentArticles-home"),
+      query: getRecentArticles,
+      params: {}
+    });
+
+    getRecentArticles;
+
     await this.$store.dispatch("cacheContent", contentMap);
 
     this.about = this.$store.getters.getContentFromCache(contentMap, "getPage");
@@ -99,6 +128,11 @@ export default {
     this.news = this.$store.getters.getContentFromCache(
       contentMap,
       "getFrontPageNews"
+    );
+
+    this.articles = this.$store.getters.getContentFromCache(
+      contentMap,
+      "getRecentArticles"
     );
 
     this.$ga.page({
