@@ -54,8 +54,12 @@
                 TODO: Add proper images and styling here
               </h2>
               <div v-for="article in articles" :key="article.slug">
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.abstract }}</p>
+                <v-card class="px-5 py-5 mb-5">
+                  <p>{{ article.createdAt | format }}</p>
+                  <b>{{ article.title }}</b>
+                  <p class="mt-3 mb-3">{{ article.authors }}</p>
+                  <p>{{ article.abstract }}</p>
+                </v-card>
                 <!-- <v-img :src="article.thumbnail" max-width="100"></v-img> -->
               </div>
             </v-col>
