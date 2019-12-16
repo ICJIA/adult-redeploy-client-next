@@ -6,13 +6,19 @@
       et haec pleni, cum deos Sicelidas quid orbis utque; incumbens vincla?
       Morti fuerunt patent, move renuente dracones squamas fiuntque, tellus.
     </p>
+    <div class="text-right">
+      <a href="https://icjia.illinois.gov" target="_blank"
+        >Visit ICJIA's Research Hub&nbsp;&raquo;</a
+      >
+    </div>
+
     <v-pagination
       small
       v-model="page"
       :length="length"
       :total-visible="visible"
       @input="fetchContent($event)"
-      class="mt-3 mb-5"
+      class="mt-8 mb-5"
     ></v-pagination>
     <div
       class="px-10 mb-10"
@@ -20,7 +26,11 @@
       style="min-height: 450px"
     >
       <div v-for="article in articles" :key="article.slug">
-        <v-card class="mx-auto mb-5 hover card" @click="routeTo(article)">
+        <v-card
+          class="mx-auto mb-5 hover card"
+          @click="routeTo(article)"
+          width="100%"
+        >
           <v-img
             class="white--text align-end"
             height="200px"
@@ -92,7 +102,7 @@ export default {
       perPage: 3,
       loading: true,
       articles: null,
-      maxArticles: 33,
+      maxArticles: 24,
       error: ""
     };
   },

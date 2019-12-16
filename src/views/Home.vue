@@ -7,7 +7,7 @@
 
     <base-content :loading="loading">
       <template v-slot:content>
-        <v-container fluid>
+        <v-container fluid style="margin: 0; padding: 0">
           <v-row>
             <v-col
               cols="12"
@@ -45,13 +45,14 @@
             </v-col>
             <v-col cols="12" sm="12" md="6" class="mb-10">
               <span
-                style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
+                style="display: block; width: 100%; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/news')"
                 >LATEST ICJIA RESEARCH</span
               >
-              <HomeArticles></HomeArticles>
-             
+              <HomeArticles
+                style="margin: 0; padding: 0; width: 100%"
+              ></HomeArticles>
             </v-col>
           </v-row>
         </v-container>
