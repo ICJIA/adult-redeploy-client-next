@@ -16,7 +16,9 @@
             height="200px"
             :src="article.splash"
           >
-            <h2 class="px-5">{{ article.title }}</h2>
+            <div class="card-banner">
+              <h2 class="px-5">{{ article.title }}</h2>
+            </div>
           </v-img>
 
           <div class="px-4 pt-3">
@@ -85,7 +87,7 @@ export default {
       window.open(url);
     },
     async fetchContent(e) {
-      console.log("Start: ", this.start);
+      //console.log("Start: ", this.start);
       this.loading = true;
       const contentMap = new Map();
       contentMap.set(`getRecentArticles_${this.start}`, {
@@ -100,6 +102,7 @@ export default {
       );
       if (!checkIfValidPage(this.articles)) {
         this.error = "Network error";
+        console.log("error");
       }
       this.loading = false;
     }
@@ -108,6 +111,9 @@ export default {
 </script>
 
 <style>
+.card-banner {
+  background: rgba(79, 80, 79, 0.3);
+}
 .card:hover {
   box-shadow: 0px 0px 15px #000000;
   z-index: 2;
