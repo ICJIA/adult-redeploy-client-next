@@ -26,14 +26,10 @@
       style="min-height: 450px"
     >
       <div v-for="article in articles" :key="article.slug">
-        <v-card
-          class="mx-auto mb-5 hover card"
-          @click="routeTo(article)"
-          width="100%"
-        >
+        <v-card class="mb-5 hover card" @click="routeTo(article)">
           <v-img
             class="white--text align-end"
-            height="200px"
+            height="300px"
             :src="article.splash"
           >
             <div class="card-banner">
@@ -99,10 +95,10 @@ export default {
   data() {
     return {
       page: 1,
-      perPage: 3,
+      perPage: 2,
       loading: true,
       articles: null,
-      maxArticles: 24,
+      maxArticles: 10,
       error: ""
     };
   },
