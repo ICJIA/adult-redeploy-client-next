@@ -7,7 +7,7 @@
       Morti fuerunt patent, move renuente dracones squamas fiuntque, tellus.
     </p>
     <div class="text-right">
-      <a href="https://icjia.illinois.gov" target="_blank"
+      <a href="https://icjia.illinois.gov/researchhub" target="_blank"
         >Visit ICJIA's Research Hub&nbsp;&raquo;</a
       >
     </div>
@@ -29,7 +29,7 @@
         <v-card class="mb-5 hover card" @click="routeTo(article)">
           <v-img
             class="white--text align-end"
-            height="300px"
+            height="225px"
             :src="article.splash"
           >
             <div class="card-banner">
@@ -72,9 +72,12 @@
         </div>
       </div>
     </div>
+    <div v-if="error.status" class="my-5 text-center" style="color: red">
+      {{ error.msg }}
+    </div>
     <div class="text-center">
       <v-pagination
-        v-if="!loading"
+        v-if="!loading && !error.status"
         small
         v-model="page"
         :length="length"
@@ -99,7 +102,7 @@ export default {
       loading: true,
       articles: null,
       maxArticles: 10,
-      error: ""
+      error: {}
     };
   },
   components: {
@@ -158,6 +161,7 @@ export default {
     async fetchContent(e) {
       //console.log("Start: ", this.start);
       this.loading = true;
+      this.error.status = false;
       const contentMap = new Map();
       contentMap.set(`getRecentArticles_${this.start}`, {
         hash: getHash(`getRecentArticles_${this.start}`),
@@ -170,6 +174,9 @@ export default {
         `getRecentArticles_${this.start}`
       );
       if (!checkIfValidPage(this.articles)) {
+        this.error.status = true;
+        this.error.msg =
+          "Network error. Unable to fetch Research Hub articles. Please reload.";
         console.log("error");
       }
       this.loading = false;
