@@ -50,33 +50,8 @@
                 @click="$router.push('/news')"
                 >LATEST ICJIA RESEARCH</span
               >
-
-              <div v-for="article in articles" :key="article.slug">
-                <v-card class="mx-auto mb-5 py-5">
-                  <v-img
-                    class="white--text align-end"
-                    height="200px"
-                    :src="article.splash"
-                  >
-                    <v-card-title>{{ article.title }}</v-card-title>
-                  </v-img>
-
-                  <v-card-subtitle class="pb-0">{{
-                    article.createdAt | format
-                  }}</v-card-subtitle>
-
-                  <v-card-text class="text--primary">
-                    {{ article.abstract }}
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-btn outlined color="green darken-4">
-                      Read on the Research Hub
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-                <!-- <v-img :src="article.thumbnail" max-width="100"></v-img> -->
-              </div>
+              <HomeArticles></HomeArticles>
+             
             </v-col>
           </v-row>
         </v-container>
@@ -90,6 +65,7 @@ import HomeCarousel from "@/components/HomeCarousel";
 import HomeBoxes from "@/components/HomeBoxes";
 import HomeNews from "@/components/HomeNews";
 import HomeAbout from "@/components/HomeAbout";
+import HomeArticles from "@/components/HomeArticles";
 import BaseContent from "@/components/BaseContent";
 import {
   getPage,
@@ -104,6 +80,7 @@ export default {
     HomeBoxes,
     HomeNews,
     HomeAbout,
+    HomeArticles,
 
     BaseContent
   },
@@ -111,8 +88,7 @@ export default {
     return {
       loading: true,
       about: null,
-      news: null,
-      articles: null
+      news: null
     };
   },
   async created() {
@@ -132,14 +108,6 @@ export default {
       params: { limit: this.$store.getters.config.frontPageItems.news }
     });
 
-    contentMap.set("getRecentArticles", {
-      hash: getHash("getRecentArticles-home"),
-      query: getRecentArticles,
-      params: {}
-    });
-
-    getRecentArticles;
-
     await this.$store.dispatch("cacheContent", contentMap);
 
     this.about = this.$store.getters.getContentFromCache(contentMap, "getPage");
@@ -147,11 +115,6 @@ export default {
     this.news = this.$store.getters.getContentFromCache(
       contentMap,
       "getFrontPageNews"
-    );
-
-    this.articles = this.$store.getters.getContentFromCache(
-      contentMap,
-      "getRecentArticles"
     );
 
     this.$ga.page({

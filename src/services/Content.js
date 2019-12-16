@@ -704,9 +704,9 @@ const getSingleResourceQuery = slug => {
 }`;
 };
 
-const getRecentArticlesQuery = () => {
+const getRecentArticlesQuery = (start = 1, limit = 3) => {
   return `{
-    articles (sort: "createdAt:desc", limit: 2) {
+    articles (sort: "date:desc", limit: ${limit}, start: ${start}) {
       title
       status
      createdAt
@@ -715,6 +715,7 @@ const getRecentArticlesQuery = () => {
       slug
       thumbnail
       splash
+      date
     }
   }`;
 };
@@ -960,9 +961,9 @@ const getSingleResource = async ({ slug }) => {
   }
 };
 
-const getRecentArticles = async () => {
+const getRecentArticles = async ({ start, limit }) => {
   try {
-    let articles = await queryResearchHub(getRecentArticlesQuery());
+    let articles = await queryResearchHub(getRecentArticlesQuery(start, limit));
     console.log(articles.data.data.articles);
     return articles.data.data.articles;
   } catch (e) {

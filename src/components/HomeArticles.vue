@@ -1,15 +1,16 @@
 <template>
-  <div>
+  <div style="margin-top: -25px;">
     <v-pagination
+      small
       v-model="page"
       :length="length"
       :total-visible="visible"
       @input="fetchContent($event)"
-      class="mt-3"
+      class="mt-3 mb-5"
     ></v-pagination>
-    <div class="px-10 mb-10 mt-10" v-if="!loading && articles">
+    <div class="px-10 mb-10" v-if="!loading && articles">
       <div v-for="article in articles" :key="article.slug">
-        <v-card class="mx-auto mb-5 py-5">
+        <v-card class="mx-auto mb-5 hover card" @click="routeTo(article)">
           <v-img
             class="white--text align-end"
             height="200px"
@@ -52,10 +53,10 @@ export default {
   data() {
     return {
       page: 1,
-      perPage: 3,
+      perPage: 2,
       loading: true,
       articles: null,
-      maxArticles: 98,
+      maxArticles: 97,
       error: ""
     };
   },
@@ -78,6 +79,11 @@ export default {
   },
 
   methods: {
+    routeTo(article) {
+      const url =
+        "https://icjia.illinois.gov/researchhub/articles/" + article.slug;
+      window.open(url);
+    },
     async fetchContent(e) {
       console.log("Start: ", this.start);
       this.loading = true;
@@ -101,4 +107,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.card:hover {
+  box-shadow: 0px 0px 15px #000000;
+  z-index: 2;
+  -webkit-transition: all 100ms ease-in;
+  -webkit-transform: scale(1.01);
+  -ms-transition: all 100ms ease-in;
+  -ms-transform: scale(1.01);
+  -moz-transition: all 100ms ease-in;
+  -moz-transform: scale(1.01);
+  transition: all 100ms ease-in;
+  transform: scale(1.01);
+  cursor: pointer;
+}
+</style>
