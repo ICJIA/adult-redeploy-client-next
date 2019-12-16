@@ -45,7 +45,9 @@
               >
               <span v-if="index < article.authors.length - 1 && index > 0"
                 >, </span
-              ><span style="font-weight: bold">{{ author.title }}</span></span
+              ><span style="font-weight: bold; color: #1873CD">{{
+                author.title
+              }}</span></span
             >
           </div>
 
