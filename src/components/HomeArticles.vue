@@ -1,5 +1,11 @@
 <template>
   <div style="margin-top: -25px;">
+    <p>
+      Lorem markdownum videre, est abiit peccavere dryadas curis memorantur
+      diversa. Quae ignes, est et Maeandri tota sub mors utrimque cyclopum. Tuo
+      et haec pleni, cum deos Sicelidas quid orbis utque; incumbens vincla?
+      Morti fuerunt patent, move renuente dracones squamas fiuntque, tellus.
+    </p>
     <v-pagination
       small
       v-model="page"
@@ -83,10 +89,10 @@ export default {
   data() {
     return {
       page: 1,
-      perPage: 2,
+      perPage: 3,
       loading: true,
       articles: null,
-      maxArticles: 97,
+      maxArticles: 33,
       error: ""
     };
   },
@@ -158,7 +164,6 @@ export default {
         `getRecentArticles_${this.start}`
       );
       if (!checkIfValidPage(this.articles)) {
-        this.error = "Network error";
         console.log("error");
       }
       this.loading = false;
