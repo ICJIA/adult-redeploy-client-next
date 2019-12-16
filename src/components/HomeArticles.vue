@@ -51,7 +51,11 @@
       <div v-for="n in perPage" :key="`loadeer-${n}`">
         <div class="mb-8">
           <v-sheet :color="`grey lighten-4`">
-            <v-boilerplate type="image, article" class="mb-6"></v-boilerplate>
+            <v-boilerplate
+              type="image, article"
+              class="mb-6"
+              :boilerplate="false"
+            ></v-boilerplate>
           </v-sheet>
         </div>
       </div>
