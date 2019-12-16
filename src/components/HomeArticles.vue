@@ -21,7 +21,7 @@
       class="mt-8 mb-5"
     ></v-pagination>
     <div
-      class="px-10 mb-10"
+      class="px-2 mb-10"
       v-if="!loading && articles"
       style="min-height: 450px"
     >
@@ -63,7 +63,7 @@
     </div>
     <div v-else>
       <div v-for="n in perPage" :key="`loadeer-${n}`">
-        <div class="mb-8">
+        <div class="mb-8 px-2">
           <v-sheet :color="`grey lighten-4`">
             <v-boilerplate
               type="image, article"
@@ -178,7 +178,7 @@ export default {
       if (!checkIfValidPage(this.articles)) {
         this.error.status = true;
         this.error.msg =
-          "Network error. Unable to fetch Research Hub articles. Please reload.";
+          "Network error. Unable to fetch Research Hub articles. Please reload this page.";
         console.log("error");
       }
       this.loading = false;
