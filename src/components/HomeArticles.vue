@@ -8,7 +8,11 @@
       @input="fetchContent($event)"
       class="mt-3 mb-5"
     ></v-pagination>
-    <div class="px-10 mb-10" v-if="!loading && articles">
+    <div
+      class="px-10 mb-10"
+      v-if="!loading && articles"
+      style="min-height: 450px"
+    >
       <div v-for="article in articles" :key="article.slug">
         <v-card class="mx-auto mb-5 hover card" @click="routeTo(article)">
           <v-img
@@ -43,14 +47,31 @@
         </v-card>
       </div>
     </div>
-    <div v-else><Loader></Loader></div>
+    <div v-else>
+      <div v-for="n in perPage" :key="`loadeer-${n}`">
+        <v-sheet :color="`grey lighten-4`">
+          <v-skeleton-loader class="" type="card"></v-skeleton-loader>
+        </v-sheet>
+      </div>
+    </div>
+    <div class="text-center">
+      <v-pagination
+        v-if="!loading"
+        small
+        v-model="page"
+        :length="length"
+        :total-visible="visible"
+        @input="fetchContent($event)"
+        class="mt-1"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
 <script>
 import { getRecentArticles } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
-import Loader from "@/components/Loader";
+//import Loader from "@/components/Loader";
 export default {
   data() {
     return {
@@ -62,9 +83,7 @@ export default {
       error: ""
     };
   },
-  components: {
-    Loader
-  },
+  components: {},
   created() {
     this.fetchContent();
   },
@@ -81,6 +100,14 @@ export default {
   },
 
   methods: {
+    next() {
+      this.page = this.page + 1;
+      return;
+    },
+    previous() {
+      this.page = this.page - 1;
+      return;
+    },
     routeTo(article) {
       const url =
         "https://icjia.illinois.gov/researchhub/articles/" + article.slug;
