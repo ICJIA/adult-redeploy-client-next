@@ -49,9 +49,11 @@
     </div>
     <div v-else>
       <div v-for="n in perPage" :key="`loadeer-${n}`">
-        <v-sheet :color="`grey lighten-4`">
-          <v-skeleton-loader class="" type="card"></v-skeleton-loader>
-        </v-sheet>
+        <div class="mb-8">
+          <v-sheet :color="`grey lighten-4`">
+            <v-boilerplate type="image, article" class="mb-6"></v-boilerplate>
+          </v-sheet>
+        </div>
       </div>
     </div>
     <div class="text-center">
@@ -69,6 +71,7 @@
 </template>
 
 <script>
+import { VSkeletonLoader } from "vuetify/lib";
 import { getRecentArticles } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 //import Loader from "@/components/Loader";
@@ -83,7 +86,30 @@ export default {
       error: ""
     };
   },
-  components: {},
+  components: {
+    // eslint-disable-next-line vue/no-unused-components
+    VSkeletonLoader,
+    // Create a new component that
+    // extends v-skeleton-loader
+    VBoilerplate: {
+      functional: true,
+
+      render(h, { data, props, children }) {
+        return h(
+          "VSkeletonLoader",
+          {
+            ...data,
+            props: {
+              boilerplate: true,
+              elevation: 2,
+              ...props
+            }
+          },
+          children
+        );
+      }
+    }
+  },
   created() {
     this.fetchContent();
   },
