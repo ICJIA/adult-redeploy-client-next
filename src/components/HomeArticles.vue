@@ -20,6 +20,9 @@
       @input="fetchContent($event)"
       class="mt-8 mb-5"
     ></v-pagination>
+    <div v-if="error.status" class="my-5 text-center" style="color: red">
+      {{ error.msg }}
+    </div>
     <div
       class="px-2 mb-10"
       v-if="!loading && articles"
@@ -31,11 +34,16 @@
             class="white--text align-end"
             height="225px"
             :src="article.splash"
+            v-if="!$browserDetect.isIE"
           >
-            <div class="card-banner">
+            <div class="card-banner mb-5">
               <h2 class="px-5">{{ article.title }}</h2>
             </div>
           </v-img>
+
+          <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
+            {{ article.title }}
+          </h3>
 
           <div class="px-4 pt-3">
             By
@@ -74,9 +82,7 @@
         </div>
       </div>
     </div>
-    <div v-if="error.status" class="my-5 text-center" style="color: red">
-      {{ error.msg }}
-    </div>
+
     <div class="text-center">
       <v-pagination
         v-if="!loading && !error.status"
@@ -103,7 +109,7 @@ export default {
       perPage: 2,
       loading: true,
       articles: null,
-      maxArticles: 10,
+      maxArticles: 8,
       error: {}
     };
   },
@@ -177,6 +183,7 @@ export default {
       );
       if (!checkIfValidPage(this.articles)) {
         this.error.status = true;
+        this.loading = false;
         this.error.msg =
           "Network error. Unable to fetch Research Hub articles. Please reload this page.";
         console.log("error");
