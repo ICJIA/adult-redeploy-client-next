@@ -48,7 +48,7 @@
                 style="display: block; width: 100%; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >LATEST ICJIA ARTICLES</span
+                >LATEST ICJIA RESEARCH</span
               >
               <HomeArticles
                 style="margin: 0; padding: 0; width: 100%"

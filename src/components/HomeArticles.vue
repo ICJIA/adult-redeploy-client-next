@@ -142,7 +142,7 @@ export default {
   },
   computed: {
     start() {
-      return this.page * this.perPage - (this.perPage - 1);
+      return this.page * this.perPage - this.perPage;
     },
     visible() {
       return 5;
