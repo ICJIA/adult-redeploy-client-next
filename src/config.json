@@ -87,7 +87,7 @@
         "slug": "annual-report",
         "title": "Annual Reports",
         "short": "Annual Reports",
-        "description": ""
+        "description": "Per the Crime Reduction Act, Adult Redeploy Illinois must submit an annual report to the Governor and General Assembly on program implementation and projected impact."
       },
       {
         "enum": "evaluation",
@@ -108,7 +108,7 @@
         "slug": "summits",
         "title": "Summits",
         "short": "Summits",
-        "description": ""
+        "description": "Adult Redeploy Illinois has hosted “All-Sites Summits” since 2011. These summits are primarily designed as opportunities for our sites to engage in peer learning, share unique innovations and discuss current critical issues. Summits include panel presentations, break-out sessions on best practices from the field, technical training on data and grants, updates from ARI sites, and time for networking."
       },
       {
         "enum": "template",
