@@ -8,7 +8,7 @@
         >
           <v-row>
             <v-col cols="12">
-              <h1 class="page-title">{{ content.title }}</h1>
+              <h1 class="page-title">Applications</h1>
             </v-col>
           </v-row>
         </v-container>
@@ -198,7 +198,7 @@ export default {
     },
     async fetchContent() {
       this.loading = true;
-      const section = "applications";
+      const section = "apps";
       if (section !== "home") {
         this.content = this.$store.getters.sections.find(
           x => x.slug === `${section}`

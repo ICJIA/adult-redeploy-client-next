@@ -73,16 +73,17 @@ const router = new Router({
     },
     /**
      *
-     * News
+     * Apps
      *
      */
     {
+      path: "/apps",
+      name: "apps",
+      component: () => import(/* webpackChunkName: "apps" */ "./views/Apps.vue")
+    },
+    {
       path: "/applications",
-      name: "applications",
-      component: () =>
-        import(
-          /* webpackChunkName: "applications" */ "./views/Applications.vue"
-        )
+      redirect: "apps"
     },
 
     /**
