@@ -704,7 +704,7 @@ const getSingleResourceQuery = slug => {
 }`;
 };
 
-const getRecentArticlesQuery = (start = 1, limit = 3) => {
+const getRecentArticlesQuery = (start = 1, limit = 50) => {
   return `{
     articles (sort: "date:desc", limit: ${limit}, start: ${start}, where: {status: "published"}) {
       title
@@ -716,6 +716,23 @@ const getRecentArticlesQuery = (start = 1, limit = 3) => {
       thumbnail
       splash
       date
+    }
+  }`;
+};
+
+const getApplicationsQuery = () => {
+  return `{
+    apps (sort: "date:desc", where: {status: "published"}) {
+      title
+    status
+   createdAt
+    updatedAt
+    contributors
+    date
+    slug
+    description
+    image
+    url
     }
   }`;
 };
@@ -964,8 +981,19 @@ const getSingleResource = async ({ slug }) => {
 const getRecentArticles = async ({ start, limit }) => {
   try {
     let articles = await queryResearchHub(getRecentArticlesQuery(start, limit));
-    console.log(articles.data.data.articles);
+    //console.log(articles.data.data.articles);
     return articles.data.data.articles;
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getApplications = async ({ start, limit }) => {
+  try {
+    let apps = await queryResearchHub(getApplicationsQuery());
+    console.log(apps.data.data.apps);
+    return apps.data.data.apps;
   } catch (e) {
     console.log("contentServiceError", e.toString());
     return [];
@@ -993,5 +1021,6 @@ export {
   getMeetingsByCategory,
   getSingleResource,
   getResourcesByCategory,
-  getRecentArticles
+  getRecentArticles,
+  getApplications
 };

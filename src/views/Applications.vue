@@ -28,11 +28,57 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container
-          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
-          v-if="content"
-        >
-          applications here
+        <v-container v-if="error.status">
+          <v-row>
+            <v-col cols="12">
+              <div class="my-5 text-center" style="color: red">
+                {{ error.msg }}
+              </div>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container class="grey lighten-5">
+          <v-row class="full-height" v-if="!errors">
+            <v-col cols="4" v-for="(app, index) in apps.length" :key="index">
+              <v-row>
+                <v-col>
+                  <!-- {{ apps[app - 1]["title"] }} -->
+                  <v-card
+                    class="mb-5 hover card"
+                    @click="routeTo(apps[app - 1])"
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="225px"
+                      :src="apps[app - 1]['image']"
+                      v-if="!$browserDetect.isIE"
+                    >
+                      <div class="card-banner mb-5">
+                        <h2 class="px-5">{{ apps[app - 1]["title"] }}</h2>
+                      </div>
+                    </v-img>
+
+                    <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
+                      {{ apps[app - 1]["title"] }}
+                    </h3>
+
+                    <div class="px-4 pt-3">
+                      By
+                      {{ apps[app - 1]["contributors"][0]["title"] }}
+                    </div>
+
+                    <v-card-subtitle class="pb-2">{{
+                      apps[app - 1]["date"] | format
+                    }}</v-card-subtitle>
+
+                    <v-card-text class="text--primary mb-2">
+                      {{ apps[app - 1]["description"] }}
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
     </base-content>
@@ -41,9 +87,11 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import BaseList from "@/components/BaseList";
+import { VSkeletonLoader } from "vuetify/lib";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+import { getApplications } from "@/services/Content";
+import { getHash, checkIfValidPage } from "@/services/Utilities";
 export default {
   mixins: [handleClicks],
   watch: {
@@ -59,15 +107,55 @@ export default {
       loading: null,
       content: [],
       renderToHtml,
-      title: ""
+      title: "",
+      apps: null,
+      error: {},
+      page: 1,
+      perPage: 3,
+      maxApps: 8
     };
   },
   components: {
     BaseContent,
     // eslint-disable-next-line vue/no-unused-components
-    BaseList
+    VSkeletonLoader,
+    // Create a new component that
+    // extends v-skeleton-loader
+    // eslint-disable-next-line vue/no-unused-components
+    VBoilerplate: {
+      functional: true,
+
+      render(h, { data, props, children }) {
+        return h(
+          "VSkeletonLoader",
+          {
+            ...data,
+            props: {
+              boilerplate: true,
+              elevation: 2,
+              ...props
+            }
+          },
+          children
+        );
+      }
+    }
   },
+
   methods: {
+    // next() {
+    //   this.page = this.page + 1;
+    //   return;
+    // },
+    // previous() {
+    //   this.page = this.page - 1;
+    //   return;
+    // },
+    routeTo(app) {
+      //const url = "https://icjia.illinois.gov/researchhub/apps/" + app.slug;
+      window.open(app.url);
+      //console.log(app);
+    },
     routeToError() {
       this.content = null;
       this.loading = false;
@@ -83,7 +171,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .catch(err => {});
     },
-    fetchContent() {
+    async fetchContent() {
       this.loading = true;
       const section = "applications";
       if (section !== "home") {
@@ -102,6 +190,26 @@ export default {
         });
       }
 
+      this.error.status = false;
+      const contentMap = new Map();
+      contentMap.set(`getApplications`, {
+        hash: getHash(`getApplications`),
+        query: getApplications,
+        params: {}
+      });
+      await this.$store.dispatch("cacheContent", contentMap);
+      this.apps = this.$store.getters.getContentFromCache(
+        contentMap,
+        `getApplications`
+      );
+      if (!checkIfValidPage(this.apps)) {
+        this.error.status = true;
+        this.loading = false;
+        this.error.msg =
+          "Network error. Unable to fetch Research Hub applications. Please reload this page.";
+        console.log("error");
+      }
+
       this.loading = false;
     }
   },
@@ -112,6 +220,15 @@ export default {
     computedTitle() {
       return this.title;
     }
+    // start() {
+    //   return this.page * this.perPage - this.perPage;
+    // },
+    // visible() {
+    //   return 5;
+    // },
+    // length() {
+    //   return Math.floor(this.maxApps / this.perPage) + 1;
+    // }
   }
 };
 </script>
@@ -126,5 +243,21 @@ export default {
 }
 li.pageTitle {
   margin-bottom: 10px;
+}
+.card-banner {
+  background: rgba(25, 26, 25, 0.3);
+}
+.card:hover {
+  box-shadow: 0px 0px 15px #000000;
+  z-index: 2;
+  -webkit-transition: all 100ms ease-in;
+  -webkit-transform: scale(1.01);
+  -ms-transition: all 100ms ease-in;
+  -ms-transform: scale(1.01);
+  -moz-transition: all 100ms ease-in;
+  -moz-transform: scale(1.01);
+  transition: all 100ms ease-in;
+  transform: scale(1.01);
+  cursor: pointer;
 }
 </style>
