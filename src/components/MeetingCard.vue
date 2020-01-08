@@ -3,7 +3,11 @@
     <v-card-title class="site-desription-title px-3">{{
       content.title
     }}</v-card-title>
+
     <v-card-text>
+      <div class="mb-5">
+        <strong>Scheduled: {{ content.scheduledDate | format }}</strong>
+      </div>
       <div
         v-html="renderToHtml(content.content)"
         v-if="content.content"

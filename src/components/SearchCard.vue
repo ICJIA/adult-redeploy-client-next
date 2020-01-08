@@ -18,6 +18,10 @@
           <div v-else>{{ item.title }}</div>
         </h2>
 
+        <div v-if="item.scheduledDate">
+          Scheduled: {{ item.scheduledDate | format }}
+        </div>
+
         <div v-if="item.firstName && item.lastName">
           <h3 class="" style="color: #aaa; font-size: 14px">
             {{ stripHTML(item.title) }}

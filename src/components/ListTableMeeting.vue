@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="white">
+    <v-card color="white" v-if="!showSimpleTable">
       <v-card-title>
         <v-spacer></v-spacer>
         <v-text-field
@@ -47,6 +47,49 @@
         </template>
       </v-data-table>
     </v-card>
+    <div v-else>
+      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc;">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                Scheduled
+              </th>
+              <th class="text-left">
+                Category
+              </th>
+              <th class="text-left">
+                Meeting Title
+              </th>
+
+              <th class="text-left">
+                Link
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="`${item.title}_${item.scheduledDate}`"
+              class="hover"
+            >
+              <td>{{ item.scheduledDate | format }}</td>
+              <td>{{ getCategoryTitle(item.category) }}</td>
+              <td style="font-weight: bold">
+                {{ item.title }}
+              </td>
+              <td>
+                <v-btn>
+                  <v-icon @click.stop="getRoute(item)">
+                    link
+                  </v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
   </div>
 </template>
 
@@ -112,11 +155,12 @@ export default {
       );
 
       if (parentPath) {
-        return `/meetings/${parentPath[0].slug}/${meeting.slug}`;
+        this.$router.push(
+          `/about/meetings/${parentPath[0].slug}/${meeting.slug}`
+        );
       } else {
         // eslint-disable-next-line no-console
         console.error("Category not found in config");
-        return null;
       }
     },
     clicked(value) {
@@ -160,7 +204,15 @@ export default {
       return categoryName[0].short;
     }
   },
-
+  computed: {
+    showSimpleTable() {
+      if (this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   props: {
     items: {
       type: Array,
