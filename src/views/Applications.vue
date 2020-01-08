@@ -38,8 +38,14 @@
           </v-row>
         </v-container>
         <v-container class="grey lighten-5">
-          <v-row class="full-height" v-if="!errors">
-            <v-col cols="4" v-for="(app, index) in apps.length" :key="index">
+          <v-row class="full-height">
+            <v-col
+              class="xs"
+              sm="12"
+              md="4"
+              v-for="(app, index) in apps.length"
+              :key="index"
+            >
               <v-row>
                 <v-col>
                   <!-- {{ apps[app - 1]["title"] }} -->
