@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="white">
+    <v-card color="white" v-if="!showSimpleTable">
       <v-card-title>
         <v-spacer></v-spacer>
         <v-text-field
@@ -74,6 +74,49 @@
         </template>
       </v-data-table>
     </v-card>
+    <div v-else>
+      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc;">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                Published
+              </th>
+              <th class="text-left">
+                Category
+              </th>
+              <th class="text-left">
+                Title
+              </th>
+              <th class="text-left">
+                Link
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="item.title"
+              class="hover"
+              @click.stop="routeTo(item)"
+            >
+              <td>{{ item.publicationDate | format }}</td>
+              <td>{{ getCategoryTitle(item.category) }}</td>
+              <td style="font-weight: bold">
+                {{ item.title }}
+              </td>
+              <td>
+                <v-btn>
+                  <v-icon @click.stop="routeTo(item)">
+                    link
+                  </v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
   </div>
 </template>
 
@@ -88,6 +131,15 @@ import moment from "moment";
 export default {
   components: {
     ResourceDisplay
+  },
+  computed: {
+    showSimpleTable() {
+      if (this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   mounted() {
     addAttributeToElement(
@@ -192,6 +244,12 @@ export default {
       if (days <= this.$store.state.config.daysToDisplayNewLabel) {
         return `<div style="font-weight: 900; font-size: 12px; color: #fff; background: green;" class="text-center">&nbsp;&nbsp;NEW!&nbsp;&nbsp;</div>`;
       }
+    },
+    routeTo(item) {
+      let cat = strapiEnumToObject("resources", item.category);
+      let path = `/resources/${cat[0].slug}/${item.slug}`;
+      console.log(path);
+      this.$router.push(path);
     }
   },
 
