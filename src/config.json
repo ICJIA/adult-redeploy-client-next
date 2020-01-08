@@ -12,7 +12,7 @@
     "keys": ["searchMeta", "title", "summary", "name", "slug"]
   },
   "frontPageItems": {
-    "news": 2,
+    "news": 4,
     "publications": 3,
     "search": { "xs": 3, "sm": 4, "md": 5, "lg": 6, "xl": 6 }
   },

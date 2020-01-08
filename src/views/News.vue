@@ -97,7 +97,7 @@ export default {
       );
 
       this.news = this.$store.getters.getContentFromCache(contentMap, newsName);
-      this.newsSorted = sortBy(this.news, "createdAt").reverse();
+      this.newsSorted = sortBy(this.news, "publicationDate").reverse();
 
       // if (checkIfValidPage(this.sectionContent)) {
       //   this.content = this.sectionContent[0].summary;

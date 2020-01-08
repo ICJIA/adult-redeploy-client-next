@@ -28,7 +28,7 @@
       <v-list-item three-line>
         <v-list-item-content>
           <PostedDate
-            :createdAt="content.createdAt"
+            :createdAt="content.publicationDate"
             :updatedAt="content.updatedAt"
             class=""
             style="margin-left: -15px;"
@@ -63,17 +63,12 @@
         <TagList :tags="content.tags" class="mt-10" v-if="!readMore"></TagList>
         <v-container class="mt-4">
           <v-row>
-            <!-- <v-col cols="12" sm="12" md="6">
-              <div class="text-left" v-if="content.createdAt">
-                Posted: {{ content.createdAt | timeAgoFormat }}
-              </div>
-            </v-col> -->
             <v-col cols="12" sm="12" md="12">
               <div
                 class="text-right"
                 v-if="
                   content.updatedAt &&
-                    displayUpdated(content.createdAt, content.updatedAt)
+                    displayUpdated(content.publicationDate, content.updatedAt)
                 "
               >
                 Last updated: {{ content.updatedAt | timeAgoFormat }}
@@ -106,8 +101,8 @@ export default {
   },
   mixins: [handleClicks],
   methods: {
-    displayUpdated(createdAt, updatedAt) {
-      var posted = moment(createdAt);
+    displayUpdated(publicationDate, updatedAt) {
+      var posted = moment(publicationDate);
       var updated = moment(updatedAt);
       var duration = moment.duration(updated.diff(posted)).days();
       if (duration > 1) {

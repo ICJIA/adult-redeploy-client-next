@@ -31,6 +31,18 @@ const getRecentArticlesQuery = () => {
   }`;
 };
 
+const getAppCount = async () => {
+  try {
+    let appCount = await queryResearchHub(getAppCountQuery());
+    console.log("appCount: ", appCount.data.data);
+    return [];
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    NProgress.done();
+    return [];
+  }
+};
+
 const getRecentArticles = async () => {
   try {
     let articles = await queryExternalEndpoint(getRecentArticlesQuery());

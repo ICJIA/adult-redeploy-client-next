@@ -89,7 +89,7 @@
           class="xs"
           sm="12"
           md="4"
-          v-for="(app, index) in 3"
+          v-for="(app, index) in $store.getters.appCount"
           :key="`loading-${index}`"
         >
           <v-row>

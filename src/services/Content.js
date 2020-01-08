@@ -75,6 +75,7 @@ const getPostQuery = slug => {
     id
     createdAt
     updatedAt
+    publicationDate
     title
     slug
     content
@@ -92,7 +93,7 @@ const getPostQuery = slug => {
 
 const getFrontPageNewsQuery = limit => {
   return `{
-  posts(sort: "createdAt:desc", limit: ${limit}, where: {isPublished: true}) {
+  posts(sort: "publicationDate:desc", limit: ${limit}, where: {isPublished: true}) {
     title
     isPublished
     slug
@@ -104,6 +105,7 @@ const getFrontPageNewsQuery = limit => {
     content
     createdAt
     isPublished
+    publicationDate
     
   }
 }`;
@@ -111,7 +113,7 @@ const getFrontPageNewsQuery = limit => {
 
 const getAllNewsQuery = () => {
   return `{
-  posts(sort: "createdAt:desc", where: {isPublished: true}) {
+  posts(sort: "publicationDate:desc", where: {isPublished: true}) {
     title
     slug
     isPublished
@@ -123,7 +125,7 @@ const getAllNewsQuery = () => {
     content
     createdAt
     updatedAt
-    isPublished
+    publicationDate
     
   }
 }`;
@@ -306,7 +308,7 @@ const getContentByTagQuery = slug => {
         name
       }
     }
-    news: posts(sort: "createdAt:desc", where: { isPublished: true }) {
+    news: posts(sort: "publicationDate:desc", where: { isPublished: true }) {
       title
       slug
       isPublished
@@ -319,6 +321,7 @@ const getContentByTagQuery = slug => {
       createdAt
       updatedAt
       isPublished
+      publicationDate
     }
   }
 }
@@ -737,6 +740,26 @@ const getApplicationsQuery = () => {
   }`;
 };
 
+const getAppCountQuery = () => {
+  return `{
+  appsConnection {
+    aggregate {
+      count
+    }
+  }
+}`;
+};
+
+const getArticleCountQuery = () => {
+  return `{
+  articlesConnection {
+    aggregate {
+      count
+    }
+  }
+}`;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -1017,6 +1040,17 @@ const getApplications = async ({ start, limit }) => {
   }
 };
 
+const getAppCount = async () => {
+  try {
+    let appCount = await queryResearchHub(getAppCountQuery());
+    return appCount.data.data.appsConnection.aggregate.count;
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    NProgress.done();
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -1039,5 +1073,6 @@ export {
   getSingleResource,
   getResourcesByCategory,
   getRecentArticles,
-  getApplications
+  getApplications,
+  getAppCount
 };

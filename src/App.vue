@@ -59,7 +59,7 @@ import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
 import OutdatedBrowser from "@/components/OutdatedBrowser";
-import { getAllSections } from "@/services/Content";
+import { getAllSections, getAppCount } from "@/services/Content";
 export default {
   name: "App",
   metaInfo() {
@@ -132,6 +132,9 @@ export default {
 
       await this.$store.dispatch("setApiStatus");
 
+      this.appCount = await getAppCount();
+      this.$store.dispatch("setAppCount", this.appCount);
+
       this.$store.dispatch("initApp");
       this.loading = false;
     }
@@ -142,7 +145,8 @@ export default {
       loading: true,
       test: [],
       env: process.env.NODE_ENV,
-      canonical: null
+      canonical: null,
+      appCount: null
     };
   }
 };

@@ -24,8 +24,8 @@
         :expanded.sync="expanded"
         @click:row="clicked"
       >
-        <template v-slot:item.createdAt="{ item }">
-          {{ item.createdAt | format }}
+        <template v-slot:item.publicationDate="{ item }">
+          {{ item.publicationDate | format }}
         </template>
 
         <template v-slot:item.updatedAt="{ item }">
@@ -73,7 +73,7 @@
               @click.stop="routeTo(item)"
               class="hover"
             >
-              <td>{{ item.createdAt | format }}</td>
+              <td>{{ item.publicationDate | format }}</td>
               <td style="font-weight: bold">
                 {{ item.title }}
               </td>
@@ -120,7 +120,7 @@ export default {
           text: "Posted",
           align: "left",
           sortable: true,
-          value: "createdAt"
+          value: "publicationDate"
         },
         { text: "Title", value: "title" }
       ]
@@ -141,7 +141,7 @@ export default {
       this.$router.push(`/news/${item.slug}`);
     },
     displayUpdated(item) {
-      let created = dateFormat(item.createdAt);
+      let created = dateFormat(item.publicationDate);
       let updated = dateFormat(item.updatedAt);
       if (created === updated) {
         return "-";

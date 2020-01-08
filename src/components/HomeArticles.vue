@@ -74,7 +74,7 @@
       </div>
     </div>
     <div v-else>
-      <div v-for="n in perPage" :key="`loadeer-${n}`">
+      <div v-for="n in perPage" :key="`loader-${n}`">
         <div class="mb-8 px-2">
           <v-sheet :color="`grey lighten-4`">
             <v-boilerplate
