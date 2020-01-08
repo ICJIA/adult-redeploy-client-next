@@ -745,6 +745,7 @@ const getPage = async ({ slug }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("getPage error", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -757,6 +758,7 @@ const getPost = async ({ slug }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -780,6 +782,7 @@ const getAllNews = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -791,6 +794,7 @@ const getFeaturedPublications = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -802,6 +806,7 @@ const getAllPublications = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -828,6 +833,7 @@ const getSinglePublication = async ({ slug }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -852,6 +858,7 @@ const getPageBySection = async ({ section, slug }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -875,6 +882,7 @@ const getAllSiteDescriptions = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -886,6 +894,7 @@ const getAllBiographies = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -909,6 +918,7 @@ const getAllMeetings = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -921,6 +931,7 @@ const getSingleMeeting = async ({ slug }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -937,6 +948,7 @@ const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -948,6 +960,7 @@ const getAllResources = async () => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -962,6 +975,7 @@ const getResourcesByCategory = async ({ category }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -974,6 +988,7 @@ const getSingleResource = async ({ slug }) => {
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -985,6 +1000,7 @@ const getRecentArticles = async ({ start, limit }) => {
     return articles.data.data.articles;
   } catch (e) {
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };
@@ -996,6 +1012,7 @@ const getApplications = async ({ start, limit }) => {
     return apps.data.data.apps;
   } catch (e) {
     console.log("contentServiceError", e.toString());
+    NProgress.done();
     return [];
   }
 };

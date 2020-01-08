@@ -191,6 +191,12 @@ export default {
         this.error.msg =
           "Network error. Unable to fetch Research Hub articles. Please reload this page.";
         console.log("error");
+        this.$ga.event({
+          eventCategory: "Error",
+          eventAction: "Network error.",
+          eventLabel:
+            "Unable to fetch Research Hub articles. Please reload this page."
+        });
       }
       this.loading = false;
     }

@@ -10,7 +10,7 @@
           tile
           size="85"
           color="grey"
-          v-if="person.headshot"
+          v-if="person.headshot && !$browserDetect.isIE"
           class="hidden-sm-and-down"
         >
           <v-img
@@ -18,6 +18,7 @@
             lazy-src="/placeholder-member.png"
           ></v-img>
         </v-list-item-avatar>
+
         <v-list-item-content>
           <div
             class="overline mb-4"

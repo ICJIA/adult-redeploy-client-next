@@ -47,7 +47,7 @@
               :key="index"
             >
               <v-row>
-                <v-col>
+                <v-col class="full-height">
                   <!-- {{ apps[app - 1]["title"] }} -->
                   <v-card
                     class="mb-5 hover card"
@@ -214,6 +214,12 @@ export default {
         this.error.msg =
           "Network error. Unable to fetch Research Hub applications. Please reload this page.";
         console.log("error");
+        this.$ga.event({
+          eventCategory: "Error",
+          eventAction: "Network error.",
+          eventLabel:
+            "Unable to fetch Research Hub applications. Please reload this page."
+        });
       }
 
       this.loading = false;
@@ -265,5 +271,12 @@ li.pageTitle {
   transition: all 100ms ease-in;
   transform: scale(1.01);
   cursor: pointer;
+}
+.full-height .flex {
+  display: flex;
+}
+
+.full-height .flex > .card {
+  flex: 1 1 auto;
 }
 </style>
