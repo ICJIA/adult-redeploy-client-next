@@ -3,6 +3,10 @@ h2 {
   margin-top: 50px;
 }
 
+h2.headline {
+  line-height: 1.2em !important;
+}
+
 h3 {
   margin-bottom: 20px;
   margin-top: 20px;

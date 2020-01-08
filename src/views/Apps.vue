@@ -42,7 +42,7 @@
     <v-container class="grey lighten-5">
       <v-row class="full-height" v-if="!loadingApps">
         <v-col
-          class="xs"
+          class="xs px-5"
           sm="12"
           md="4"
           v-for="(app, index) in apps.length"

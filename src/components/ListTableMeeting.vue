@@ -72,6 +72,7 @@
               v-for="item in items"
               :key="`${item.title}_${item.scheduledDate}`"
               class="hover"
+              @click.stop="getRoute(item)"
             >
               <td>{{ item.scheduledDate | format }}</td>
               <td>{{ getCategoryTitle(item.category) }}</td>
@@ -79,8 +80,8 @@
                 {{ item.title }}
               </td>
               <td>
-                <v-btn>
-                  <v-icon @click.stop="getRoute(item)">
+                <v-btn @click.stop="getRoute(item)">
+                  <v-icon>
                     link
                   </v-icon>
                 </v-btn>

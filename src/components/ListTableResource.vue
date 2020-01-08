@@ -106,8 +106,8 @@
                 {{ item.title }}
               </td>
               <td>
-                <v-btn>
-                  <v-icon @click.stop="routeTo(item)">
+                <v-btn @click.stop="routeTo(item)">
+                  <v-icon>
                     link
                   </v-icon>
                 </v-btn>
