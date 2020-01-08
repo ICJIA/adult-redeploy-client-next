@@ -8,7 +8,7 @@
         >
           <v-row>
             <v-col cols="12">
-              <h1 class="page-title">Applications</h1>
+              <h1 class="page-title">Web Apps</h1>
             </v-col>
           </v-row>
         </v-container>
