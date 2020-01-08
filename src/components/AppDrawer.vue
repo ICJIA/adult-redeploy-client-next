@@ -8,74 +8,39 @@
     clipped
     disable-resize-watcher
   >
-    <v-row class="fill-height">
-      <v-list class="drawer" rounded>
-        <v-list-item>
+    <v-list class="drawer" rounded>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-center heavy"
+            >ADULT REDEPLOY ILLINOIS</v-list-item-title
+          >
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+    </v-list>
+    <v-spacer></v-spacer>
+
+    <v-col>
+      <v-list dense v-for="link in sections" :key="link.name">
+        <v-list-item class="link-item">
           <v-list-item-content>
-            <v-list-item-title class="text-center heavy"
-              >ADULT REDEPLOY ILLINOIS</v-list-item-title
+            <v-list-item-title
+              @click="
+                $router
+                  .push(link.slug === 'home' ? '/' : `/${link.slug}`)
+                  .catch(err => {
+                    $vuetify.goTo(0);
+                  })
+              "
+              style="font-weight: 900 !important; cursor: pointer"
+              class="push-right"
+              >{{ link.title }}</v-list-item-title
             >
           </v-list-item-content>
         </v-list-item>
-
-        <v-divider></v-divider>
-
-        <v-list dense v-for="link in sections" :key="link.name">
-          <v-list-item
-            class="link-item"
-            v-if="!link.hasSubMenus && link.pages.length > 0"
-          >
-            <v-list-item-content>
-              <v-list-item-title
-                @click="
-                  $router
-                    .push(link.slug === 'home' ? '/' : `/${link.slug}`)
-                    .catch(err => {
-                      $vuetify.goTo(0);
-                    })
-                "
-                style="font-weight: 900 !important; cursor: pointer"
-                class="push-right"
-                >{{ link.title }}</v-list-item-title
-              >
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-group no-action sub-group v-if="link.hasSubMenus">
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title style="font-weight: 900 !important">
-                  {{ link.title }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <span v-if="link.pages.length > 0">
-              <div v-for="(item, i) in link.pages" :key="i" link>
-                <v-list-item v-if="item.displayNav">
-                  <v-list-item-title
-                    v-text="item.title"
-                    class="push-right"
-                    @click="
-                      $router.push(`/${link.slug}/${item.slug}`).catch(err => {
-                        $vuetify.goTo(0);
-                      })
-                    "
-                  ></v-list-item-title>
-                </v-list-item>
-              </div>
-            </span>
-          </v-list-group>
-        </v-list>
       </v-list>
-      <v-spacer></v-spacer>
-      <v-divider></v-divider>
-      <div class="text-center px-3 py-5" style="color: #fff">
-        <br />
-
-        <strong> </strong>
-      </div>
-    </v-row>
+    </v-col>
   </v-navigation-drawer>
 </template>
 
@@ -111,7 +76,7 @@ export default {
 }
 
 .push-right {
-  padding-left: 50px;
+  padding-left: 20px;
 }
 .drawer .v-list-item--active {
   color: #fff !important;

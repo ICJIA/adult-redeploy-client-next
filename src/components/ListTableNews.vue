@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="white">
+    <v-card color="white" v-if="!showSimpleTable">
       <v-card-title>
         <v-spacer></v-spacer>
         <v-text-field
@@ -50,6 +50,45 @@
         </template>
       </v-data-table>
     </v-card>
+    <div v-else>
+      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc;">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                Posted
+              </th>
+              <th class="text-left">
+                Title
+              </th>
+              <th class="text-left">
+                Link
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="item.title"
+              @click.stop="routeTo(item)"
+              class="hover"
+            >
+              <td>{{ item.createdAt | format }}</td>
+              <td style="font-weight: bold">
+                {{ item.title }}
+              </td>
+              <td>
+                <v-btn>
+                  <v-icon @click.stop="routeTo(item)">
+                    link
+                  </v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
   </div>
 </template>
 
@@ -87,22 +126,19 @@ export default {
       ]
     };
   },
+  computed: {
+    showSimpleTable() {
+      if (this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   methods: {
-    getRoute(item) {
-      // let parentPath = this.$store.getters.config.strapiEnums.meetings.filter(
-      //   cat => {
-      //     return cat.enum === meeting.category;
-      //   }
-      // );
-
-      // if (parentPath) {
-      //   return `/meetings/${parentPath[0].slug}/${meeting.slug}`;
-      // } else {
-      //   // eslint-disable-next-line no-console
-      //   console.error("Category not found in config");
-      //   return null;
-      // }
-      console.log("Route here: ", item);
+    routeTo(item) {
+      //onsole.log("Route here: ", item);
+      this.$router.push(`/news/${item.slug}`);
     },
     displayUpdated(item) {
       let created = dateFormat(item.createdAt);
@@ -152,4 +188,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+td {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+</style>

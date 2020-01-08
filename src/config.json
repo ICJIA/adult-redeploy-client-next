@@ -61,7 +61,7 @@
       "plural": "sites",
       "type": "site",
       "slug": "sites",
-      "alias": "Local Programs / Sites",
+      "alias": "Programs / Sites",
       "listComponent": "ListTable",
       "singletonPath": "/sites",
       "appendCategory": false

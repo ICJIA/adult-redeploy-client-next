@@ -76,7 +76,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: "Local Programs"
+      title: "Programs"
     };
   },
   data() {

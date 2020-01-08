@@ -1,10 +1,14 @@
 <template>
   <div style="margin-top: -25px;">
     <p>
-      Lorem markdownum videre, est abiit peccavere dryadas curis memorantur
-      diversa. Quae ignes, est et Maeandri tota sub mors utrimque cyclopum. Tuo
-      et haec pleni, cum deos Sicelidas quid orbis utque; incumbens vincla?
-      Morti fuerunt patent, move renuente dracones squamas fiuntque, tellus.
+      The
+      <a href="https://icjia.illinois.gov"
+        >Illinois Criminal Justice Information Authority (ICJIA)</a
+      >, the state’s lead agency for justice system funding and research,
+      launched the
+      <a href="https://icjia.illinois.gov/researchhub">Research Hub</a> which
+      provides a host of resources (publications, continuums, dashboards,
+      datasets) to support data-driven decision-making for improved outcomes.
     </p>
     <div class="text-right">
       <a href="https://icjia.illinois.gov/researchhub" target="_blank"

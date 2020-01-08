@@ -30,7 +30,7 @@ const router = new Router({
     { path: "/home", redirect: { name: "home" } },
     /**
      *
-     * Local Programs / Illinois Map / Sites
+     * Programs / Illinois Map / Sites
      *
      */
     {
@@ -49,7 +49,9 @@ const router = new Router({
       path: "/sites/:slug",
       name: "siteDescriptionSingle",
       component: () =>
-        import(/* webpackChunkName: "sites" */ "./views/SiteDescriptionSingle.vue")
+        import(
+          /* webpackChunkName: "sites" */ "./views/SiteDescriptionSingle.vue"
+        )
     },
 
     /**
@@ -68,6 +70,19 @@ const router = new Router({
       path: "/news",
       name: "news",
       component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
+    },
+    /**
+     *
+     * News
+     *
+     */
+    {
+      path: "/applications",
+      name: "applications",
+      component: () =>
+        import(
+          /* webpackChunkName: "applications" */ "./views/Applications.vue"
+        )
     },
 
     /**
@@ -92,7 +107,9 @@ const router = new Router({
       path: "/about/biographies/:slug",
       name: "biographiesSingle",
       component: () =>
-        import(/* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue")
+        import(
+          /* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue"
+        )
     },
     /**
      *
@@ -115,7 +132,9 @@ const router = new Router({
       path: "/about/meetings/:category",
       name: "meetingsByCategory",
       component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/MeetingsByCategory.vue")
+        import(
+          /* webpackChunkName: "meetings" */ "./views/MeetingsByCategory.vue"
+        )
     },
 
     /**
@@ -150,14 +169,18 @@ const router = new Router({
       name: "resourcesByCategory",
 
       component: () =>
-        import(/* webpackChunkName: "resources" */ "./views/ResourcesByCategory.vue")
+        import(
+          /* webpackChunkName: "resources" */ "./views/ResourcesByCategory.vue"
+        )
     },
     {
       path: "/resources/:category/:slug",
       name: "resourcesSingle",
 
       component: () =>
-        import(/* webpackChunkName: "resources" */ "./views/ResourcesSingle.vue")
+        import(
+          /* webpackChunkName: "resources" */ "./views/ResourcesSingle.vue"
+        )
     },
 
     /**

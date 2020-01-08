@@ -11,7 +11,7 @@
       <div class="text-center home-font">
         <i class="fas fa-users"></i>
       </div>
-      <h2 class="heavy text-center mt-3">Local Programs</h2>
+      <h2 class="heavy text-center mt-3">Programs</h2>
 
       <p class="pt-4">
         ARI is based on local control and design because communities know best
