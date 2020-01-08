@@ -37,57 +37,75 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container class="grey lighten-5">
-          <v-row class="full-height">
-            <v-col
-              class="xs"
-              sm="12"
-              md="4"
-              v-for="(app, index) in apps.length"
-              :key="index"
-            >
-              <v-row>
-                <v-col class="full-height">
-                  <!-- {{ apps[app - 1]["title"] }} -->
-                  <v-card
-                    class="mb-5 hover card"
-                    @click="routeTo(apps[app - 1])"
-                  >
-                    <v-img
-                      class="white--text align-end"
-                      height="225px"
-                      :src="apps[app - 1]['image']"
-                      v-if="!$browserDetect.isIE"
-                    >
-                      <div class="card-banner mb-5">
-                        <h2 class="px-5">{{ apps[app - 1]["title"] }}</h2>
-                      </div>
-                    </v-img>
-
-                    <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
-                      {{ apps[app - 1]["title"] }}
-                    </h3>
-
-                    <div class="px-4 pt-3">
-                      By
-                      {{ apps[app - 1]["contributors"][0]["title"] }}
-                    </div>
-
-                    <v-card-subtitle class="pb-2">{{
-                      apps[app - 1]["date"] | format
-                    }}</v-card-subtitle>
-
-                    <v-card-text class="text--primary mb-2">
-                      {{ apps[app - 1]["description"] }}
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-        </v-container>
       </template>
     </base-content>
+    <v-container class="grey lighten-5">
+      <v-row class="full-height" v-if="!loadingApps">
+        <v-col
+          class="xs"
+          sm="12"
+          md="4"
+          v-for="(app, index) in apps.length"
+          :key="index"
+        >
+          <v-row>
+            <v-col class="full-height">
+              <!-- {{ apps[app - 1]["title"] }} -->
+              <v-card class="mb-5 hover card" @click="routeTo(apps[app - 1])">
+                <v-img
+                  class="white--text align-end"
+                  height="225px"
+                  :src="apps[app - 1]['image']"
+                  v-if="!$browserDetect.isIE"
+                >
+                  <div class="card-banner mb-5">
+                    <h2 class="px-5">{{ apps[app - 1]["title"] }}</h2>
+                  </div>
+                </v-img>
+
+                <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
+                  {{ apps[app - 1]["title"] }}
+                </h3>
+
+                <div class="px-4 pt-3">
+                  By
+                  {{ apps[app - 1]["contributors"][0]["title"] }}
+                </div>
+
+                <v-card-subtitle class="pb-2">{{
+                  apps[app - 1]["date"] | format
+                }}</v-card-subtitle>
+
+                <v-card-text class="text--primary mb-2">
+                  {{ apps[app - 1]["description"] }}
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row v-else>
+        <v-col
+          class="xs"
+          sm="12"
+          md="4"
+          v-for="(app, index) in 3"
+          :key="`loading-${index}`"
+        >
+          <v-row>
+            <v-col class="full-height">
+              <v-sheet :color="`grey lighten-4`">
+                <v-boilerplate
+                  type="image, article"
+                  class="mb-6"
+                  :boilerplate="false"
+                ></v-boilerplate>
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -118,7 +136,8 @@ export default {
       error: {},
       page: 1,
       perPage: 3,
-      maxApps: 8
+      maxApps: 8,
+      loadingApps: true
     };
   },
   components: {
@@ -195,7 +214,9 @@ export default {
           location: window.location.href
         });
       }
+      this.loading = false;
 
+      this.loadingApps = true;
       this.error.status = false;
       const contentMap = new Map();
       contentMap.set(`getApplications`, {
@@ -210,7 +231,7 @@ export default {
       );
       if (!checkIfValidPage(this.apps)) {
         this.error.status = true;
-        this.loading = false;
+        this.loadingApps = false;
         this.error.msg =
           "Network error. Unable to fetch Research Hub applications. Please reload this page.";
         console.log("error");
@@ -221,8 +242,7 @@ export default {
             "Unable to fetch Research Hub applications. Please reload this page."
         });
       }
-
-      this.loading = false;
+      this.loadingApps = false;
     }
   },
   created() {
