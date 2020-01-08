@@ -19,9 +19,9 @@
                   :query="query"
                   background="#fafafa"
                   elevation="1"
-                  class="card pt-3 "
+                  class=""
                 >
-                  <template slot="contentType">
+                  <!-- <template slot="contentType">
                     <div
                       class="pl-3 pr-3 pt-3 heavy"
                       style="color: #065f60; font-size: 12px;"
@@ -30,7 +30,7 @@
                       }}{{ $store.getters.config.publicPath
                       }}{{ getCategory(item) | lowerCase }}
                     </div>
-                  </template>
+                  </template> -->
                 </search-card>
               </template>
             </base-list>

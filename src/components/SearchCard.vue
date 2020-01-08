@@ -4,11 +4,11 @@
       <v-card
         slot-scope="{ hover }"
         :style="{ background: background }"
-        :class="`elevation-${hover ? 12 : elevation}`"
-        class="hover px-5 pt-1 pb-10"
+        :class="`elevation-${hover ? 3 : 0}`"
+        class=" px-5 py-5"
         @click="route(item)"
       >
-        <h2 class="">
+        <h2 class="" style="margin: 0; padding: 0">
           <div v-if="item.firstName && item.lastName">
             {{ item.prefix }} {{ item.firstName }} {{ item.middleName }}
             {{ item.lastName }}
