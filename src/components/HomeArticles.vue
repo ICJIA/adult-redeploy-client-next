@@ -30,7 +30,7 @@
     <div
       class="px-2 mb-10"
       v-if="!loading && articles"
-      style="min-height: 450px"
+      style="min-height: 475px"
     >
       <div v-for="article in articles" :key="article.slug">
         <v-card class="mb-5 hover card" @click="routeTo(article)">
@@ -41,7 +41,7 @@
             v-if="!$browserDetect.isIE"
           >
             <div class="card-banner mb-5">
-              <h2 class="px-5">{{ article.title }}</h2>
+              <h2 class="px-5 article-title">{{ article.title }}</h2>
             </div>
           </v-img>
 
@@ -206,7 +206,7 @@ export default {
 
 <style>
 .card-banner {
-  background: rgba(79, 80, 79, 0.3);
+  background: rgba(79, 80, 79, 0.5);
 }
 .card:hover {
   box-shadow: 0px 0px 15px #000000;
@@ -220,5 +220,8 @@ export default {
   transition: all 100ms ease-in;
   transform: scale(1.01);
   cursor: pointer;
+}
+.article-title {
+  line-height: 1.3em;
 }
 </style>

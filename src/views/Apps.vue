@@ -50,7 +50,6 @@
         >
           <v-row>
             <v-col class="full-height">
-              <!-- {{ newApps[app - 1]["title"] }} -->
               <v-card class="mb-5 appCard">
                 <div class="appCardInfo" @click="routeTo(newApps[app - 1])">
                   <v-img
@@ -90,6 +89,7 @@
                     "
                     small
                     text
+                    style="color: #075E60"
                     @click.native="
                       newApps[app - 1]['show'] = !newApps[app - 1]['show']
                     "
@@ -234,6 +234,7 @@ export default {
       show: false
     };
   },
+  watch: {},
   components: {
     BaseContent,
     // eslint-disable-next-line vue/no-unused-components
