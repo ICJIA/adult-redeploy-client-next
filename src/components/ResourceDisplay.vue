@@ -4,7 +4,7 @@
       <h3 class="site-desription-title px-4 py-4">{{ item.title }}</h3>
       <v-card-text>
         <div class="text-right">
-          <div class="category">
+          <div class="category" @click="routeTo(item)">
             {{ getCategoryTitle(item.category) | titleCase }}
           </div>
         </div>
@@ -82,15 +82,17 @@ export default {
         return false;
       }
     },
+    routeTo(item) {
+      let arr = strapiEnumToObject("resources", item.category);
+      let catSlug = arr[0].slug;
+      let url = `/resources/${catSlug}`;
+      this.$router.push(url).catch(err => {
+        $vuetify.goTo(0);
+      });
+    },
     getCategoryTitle(catEnum) {
       let cat = strapiEnumToObject("resources", catEnum);
-      //console.log(cat);
-      //   let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
-      //     c => {
-      //       return c.enum === catEnum;
-      //     }
-      //   );
-      //   return categoryName[0].short;
+
       return cat[0].title;
     }
   },
@@ -118,21 +120,5 @@ export default {
 <style>
 .dynamic-content h2 {
   margin-top: -5px !important;
-}
-.category {
-  background: #075e60;
-  color: #fff;
-  padding: 5px 10px;
-  font-size: 12px;
-  display: inline;
-  cursor: pointer;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  font-weight: bold;
-}
-
-.category:hover {
-  background: #aaa;
-  color: #fff;
 }
 </style>

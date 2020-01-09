@@ -201,3 +201,20 @@ summary:hover {
   background-color: #fff !important;
   color: rgba(0, 0, 0, 0.87);
 }
+
+.category {
+  background: #075e60;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  display: inline;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.category:hover {
+  background: #aaa;
+  color: #fff;
+}

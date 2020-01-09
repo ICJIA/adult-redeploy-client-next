@@ -5,6 +5,11 @@
     }}</v-card-title>
 
     <v-card-text>
+      <div class="text-right">
+        <div class="category" @click="routeTo(content)">
+          {{ getCategoryTitle(content.category) }}
+        </div>
+      </div>
       <div class="mb-5">
         <strong>Scheduled: {{ content.scheduledDate | format }}</strong>
       </div>
@@ -54,6 +59,10 @@ import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
 import TagList from "@/components/TagList";
 import DownloadBox from "@/components/DownloadBox";
+import {
+  strapiEnumToObject,
+  addAttributeToElement
+} from "@/services/Utilities";
 export default {
   components: {
     TagList,
@@ -78,6 +87,24 @@ export default {
       } else {
         return false;
       }
+    },
+    getCategoryTitle(catEnum) {
+      let cat = strapiEnumToObject("meetings", catEnum);
+
+      if (cat.length) {
+        return cat[0].title;
+      } else {
+        return "Error";
+      }
+    },
+    routeTo(item) {
+      let arr = strapiEnumToObject("meetings", item.category);
+      let catSlug = arr[0].slug;
+      let url = `/about/meetings/${catSlug}`;
+
+      this.$router.push(url).catch(err => {
+        this.$vuetify.goTo(0);
+      });
     },
     downloadFile(item) {
       // if (item.file) {
