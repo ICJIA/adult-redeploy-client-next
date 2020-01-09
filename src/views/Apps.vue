@@ -53,7 +53,7 @@
               <v-card class="mb-5 appCard">
                 <div class="">
                   <v-img
-                    class="white--text align-end hover "
+                    class="white--text align-end "
                     height="225px"
                     :src="newApps[app - 1]['image']"
                     v-if="!$browserDetect.isIE"
@@ -274,7 +274,7 @@ export default {
     expand(id) {
       this.$nextTick(() => {
         this.newnewApps[id]["show"] = !this.newnewApps[id]["show"];
-        console.log(id, this.newnewApps[id]["show"]);
+        //console.log(id, this.newnewApps[id]["show"]);
       });
     },
     routeTo(app) {
@@ -386,6 +386,7 @@ li.pageTitle {
 .card-banner {
   background: rgba(25, 26, 25, 0.3);
 }
+
 .appCardInfo:hover {
   box-shadow: 0px 0px 15px #000000;
   z-index: 2;

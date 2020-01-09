@@ -750,7 +750,7 @@ const getApplicationsQuery = () => {
 
 const getAppCountQuery = () => {
   return `{
-  appsConnection {
+  appsConnection (where: {status: "published"}) {
     aggregate {
       count
     }
@@ -760,7 +760,7 @@ const getAppCountQuery = () => {
 
 const getArticleCountQuery = () => {
   return `{
-  articlesConnection {
+  articlesConnection (where: {status: "published"}) {
     aggregate {
       count
     }
