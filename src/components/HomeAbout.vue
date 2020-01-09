@@ -11,7 +11,7 @@
         >Find a local program<v-icon right>chevron_right</v-icon></v-btn
       >
     </div> -->
-    <div class="text-right">
+    <div class="text-center">
       <router-link to="/programs"
         >Find a local program&nbsp;&raquo;</router-link
       >

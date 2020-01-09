@@ -18,7 +18,7 @@
               <v-list-item-content>
                 <div
                   class="overline mb-4"
-                  style="font-size: 12px !important; font-weight: bold !important"
+                  style="font-size: 12px !important; font-weight: bold !important; color: #05797A"
                 >
                   <strong
                     >Scheduled: {{ meeting.scheduledDate | format }}</strong
@@ -35,13 +35,13 @@
                 >
               </v-list-item-content>
             </v-list-item>
-            <!-- <div class="text-right">
+            <div class="text-right">
               <v-card-actions>
                 <v-btn text @click="routeTo(meeting)"
                   >Read more<v-icon right>chevron_right</v-icon></v-btn
                 >
               </v-card-actions>
-            </div> -->
+            </div>
           </v-card>
         </div>
       </div>
