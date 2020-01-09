@@ -84,14 +84,6 @@
 
                 <v-card-actions>
                   <v-btn
-                    small
-                    target="_blank"
-                    :href="`${newApps[app - 1]['url']}`"
-                    >Launch App<v-icon right>open_in_new</v-icon></v-btn
-                  >
-                  <v-spacer></v-spacer>
-
-                  <v-btn
                     v-if="
                       newApps[app - 1]['articles'].length ||
                         newApps[app - 1]['datasets'].length
@@ -102,6 +94,15 @@
                       newApps[app - 1]['show'] = !newApps[app - 1]['show']
                     "
                     >Related Content</v-btn
+                  >
+
+                  <v-spacer></v-spacer>
+
+                  <v-btn
+                    small
+                    target="_blank"
+                    :href="`${newApps[app - 1]['url']}`"
+                    >Launch App<v-icon right>open_in_new</v-icon></v-btn
                   >
                 </v-card-actions>
 
