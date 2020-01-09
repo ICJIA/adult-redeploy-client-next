@@ -51,7 +51,7 @@
           <v-row>
             <v-col class="full-height">
               <v-card class="mb-5 appCard">
-                <div class="appCardInfo" @click="routeTo(newApps[app - 1])">
+                <div class="">
                   <v-img
                     class="white--text align-end hover "
                     height="225px"
