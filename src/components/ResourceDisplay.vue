@@ -87,7 +87,7 @@ export default {
       let catSlug = arr[0].slug;
       let url = `/resources/${catSlug}`;
       this.$router.push(url).catch(err => {
-        $vuetify.goTo(0);
+        this.$vuetify.goTo(0);
       });
     },
     getCategoryTitle(catEnum) {

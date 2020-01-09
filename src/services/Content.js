@@ -768,6 +768,25 @@ const getArticleCountQuery = () => {
 }`;
 };
 
+const getUpcomingMeetingsQuery = (targetDate, limit) => {
+  return `
+  {
+  meetings(
+    sort: "scheduledDate:asc",limit: ${limit},
+    where: { scheduledDate_gte: "${targetDate}", isPublished: true,}
+  ) {
+    scheduledDate
+    title
+    summary
+    content
+    isPublished
+    slug
+    category
+  }
+}
+  `;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -1070,6 +1089,20 @@ const getArticleCount = async () => {
   }
 };
 
+const getUpcomingMeetings = async ({ targetDate, limit }) => {
+  try {
+    let meetings = await queryEndpoint(
+      getUpcomingMeetingsQuery(targetDate, limit)
+    );
+    //console.table("upcoming meetings: ", meetings.data.data.meetings);
+    return meetings.data.data.meetings;
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    NProgress.done();
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -1094,5 +1127,6 @@ export {
   getRecentArticles,
   getApplications,
   getAppCount,
-  getArticleCount
+  getArticleCount,
+  getUpcomingMeetings
 };

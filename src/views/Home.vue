@@ -12,7 +12,7 @@
             <v-col
               cols="12"
               sm="12"
-              md="12"
+              :md="upcomingMeetings ? 8 : 12"
               style="padding-left: 30px; padding-right: 30px"
               class="mb-10"
             >
@@ -28,6 +28,21 @@
                 v-if="about"
                 data-aos="fade"
               ></home-about>
+            </v-col>
+
+            <v-col
+              cols="12"
+              sm="12"
+              md="4"
+              style="padding-left: 30px; padding-right: 30px"
+              class="mb-10"
+              v-if="upcomingMeetings"
+            >
+              <home-meetings
+                :content="upcoming"
+                v-if="upcoming"
+                data-aos="fade"
+              ></home-meetings>
             </v-col>
 
             <v-col cols="12" sm="12" md="6" class="mb-10">
@@ -67,13 +82,17 @@ import HomeBoxes from "@/components/HomeBoxes";
 import HomeNews from "@/components/HomeNews";
 import HomeAbout from "@/components/HomeAbout";
 import HomeArticles from "@/components/HomeArticles";
+import HomeMeetings from "@/components/HomeMeetings";
 import BaseContent from "@/components/BaseContent";
 import {
   getPage,
   getFrontPageNews,
-  getRecentArticles
+  getRecentArticles,
+  getUpcomingMeetings
 } from "@/services/Content";
 import { getHash } from "@/services/Utilities";
+import moment from "moment";
+
 // import Illinois from "@/components/Illinois";
 export default {
   components: {
@@ -82,14 +101,20 @@ export default {
     HomeNews,
     HomeAbout,
     HomeArticles,
-
+    HomeMeetings,
     BaseContent
+  },
+  computed: {
+    upcomingMeetings() {
+      return this.upcoming.length ? true : false;
+    }
   },
   data() {
     return {
       loading: true,
       about: null,
-      news: null
+      news: null,
+      upcoming: null
     };
   },
   async created() {
@@ -109,6 +134,19 @@ export default {
       params: { limit: this.$store.getters.config.frontPageItems.news }
     });
 
+    const targetDate = moment()
+      .subtract(1, "d")
+      .format();
+    //console.log(targetDate);
+    contentMap.set("getUpcomingMeetings", {
+      hash: getHash("getUpcomingMeetings-home"),
+      query: getUpcomingMeetings,
+      params: {
+        targetDate,
+        limit: this.$store.getters.config.frontPageItems.meetings
+      }
+    });
+
     await this.$store.dispatch("cacheContent", contentMap);
 
     this.about = this.$store.getters.getContentFromCache(contentMap, "getPage");
@@ -117,6 +155,13 @@ export default {
       contentMap,
       "getFrontPageNews"
     );
+
+    this.upcoming = this.$store.getters.getContentFromCache(
+      contentMap,
+      "getUpcomingMeetings"
+    );
+
+    console.log(this.upcoming);
 
     this.$ga.page({
       page: this.$route.path,

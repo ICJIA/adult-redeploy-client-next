@@ -14,6 +14,7 @@
   "frontPageItems": {
     "news": 4,
     "publications": 3,
+    "meetings": 3,
     "search": { "xs": 3, "sm": 4, "md": 5, "lg": 6, "xl": 6 }
   },
   "contentCacheSize": 25,
