@@ -45,40 +45,131 @@
           class="xs px-5"
           sm="12"
           md="4"
-          v-for="(app, index) in apps.length"
+          v-for="(app, index) in newApps.length"
           :key="index"
         >
           <v-row>
             <v-col class="full-height">
-              <!-- {{ apps[app - 1]["title"] }} -->
-              <v-card class="mb-5 hover card" @click="routeTo(apps[app - 1])">
-                <v-img
-                  class="white--text align-end"
-                  height="225px"
-                  :src="apps[app - 1]['image']"
-                  v-if="!$browserDetect.isIE"
-                >
-                  <div class="card-banner mb-5">
-                    <h2 class="px-5">{{ apps[app - 1]["title"] }}</h2>
+              <!-- {{ newApps[app - 1]["title"] }} -->
+              <v-card class="mb-5 appCard">
+                <div class="appCardInfo" @click="routeTo(newApps[app - 1])">
+                  <v-img
+                    class="white--text align-end hover "
+                    height="225px"
+                    :src="newApps[app - 1]['image']"
+                    v-if="!$browserDetect.isIE"
+                  >
+                    <div class="card-banner mb-5">
+                      <h2 class="px-5">{{ newApps[app - 1]["title"] }}</h2>
+                    </div>
+                  </v-img>
+
+                  <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
+                    {{ newApps[app - 1]["title"] }}
+                  </h3>
+
+                  <div class="px-4 pt-3">
+                    By
+                    {{ newApps[app - 1]["contributors"][0]["title"] }}
                   </div>
-                </v-img>
 
-                <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
-                  {{ apps[app - 1]["title"] }}
-                </h3>
+                  <v-card-subtitle class="pb-2">{{
+                    newApps[app - 1]["date"] | format
+                  }}</v-card-subtitle>
 
-                <div class="px-4 pt-3">
-                  By
-                  {{ apps[app - 1]["contributors"][0]["title"] }}
+                  <v-card-text class="text--primary mb-2">
+                    {{ newApps[app - 1]["description"] }}
+                  </v-card-text>
                 </div>
 
-                <v-card-subtitle class="pb-2">{{
-                  apps[app - 1]["date"] | format
-                }}</v-card-subtitle>
+                <v-card-actions>
+                  <v-btn
+                    small
+                    target="_blank"
+                    :href="`${newApps[app - 1]['url']}`"
+                    >Launch App<v-icon right>open_in_new</v-icon></v-btn
+                  >
+                  <v-spacer></v-spacer>
 
-                <v-card-text class="text--primary mb-2">
-                  {{ apps[app - 1]["description"] }}
-                </v-card-text>
+                  <v-btn
+                    v-if="
+                      newApps[app - 1]['articles'].length ||
+                        newApps[app - 1]['datasets'].length
+                    "
+                    small
+                    text
+                    @click.native="
+                      newApps[app - 1]['show'] = !newApps[app - 1]['show']
+                    "
+                    >Related Content</v-btn
+                  >
+                </v-card-actions>
+
+                <v-slide-y-transition>
+                  <div v-show="newApps[app - 1]['show']">
+                    <div
+                      style="background: #eee"
+                      v-if="
+                        newApps[app - 1]['articles'].length ||
+                          newApps[app - 1]['datasets'].length
+                      "
+                    >
+                      <v-card-text>
+                        <div
+                          v-if="newApps[app - 1]['articles'].length"
+                          class="pb-3 pl-1"
+                        >
+                          <div class="mb-2">
+                            <strong>Articles:</strong>
+                          </div>
+                          <ul
+                            v-for="article in newApps[app - 1]['articles']"
+                            :key="article.title"
+                            class="ml-2 related"
+                          >
+                            <li>
+                              <a
+                                :href="
+                                  `https://icjia.illinois.gov/researchhub/articles/${article.slug}`
+                                "
+                                class="relatedLink"
+                                target="_blank"
+                                >{{ article.title }}</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div
+                          v-if="newApps[app - 1]['datasets'].length"
+                          class="pb-3 pl-1"
+                        >
+                          <div class="mb-2">
+                            <strong>Datasets:</strong>
+                          </div>
+                          <ul
+                            v-for="dataset in newApps[app - 1]['datasets']"
+                            :key="dataset.title"
+                            class="ml-2 related"
+                          >
+                            <li>
+                              <a
+                                :href="
+                                  `https://icjia.illinois.gov/researchhub/datasets/${dataset.slug}`
+                                "
+                                class="relatedLink"
+                                target="_blank"
+                                >{{ dataset.title }}</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </v-card-text>
+                    </div>
+                  </div>
+                </v-slide-y-transition>
+
+                <!--  -->
               </v-card>
             </v-col>
           </v-row>
@@ -133,11 +224,13 @@ export default {
       renderToHtml,
       title: "",
       apps: null,
+      newApps: null,
       error: {},
       page: 1,
       perPage: 3,
       maxApps: 8,
-      loadingApps: true
+      loadingApps: true,
+      show: false
     };
   },
   components: {
@@ -176,6 +269,12 @@ export default {
     //   this.page = this.page - 1;
     //   return;
     // },
+    expand(id) {
+      this.$nextTick(() => {
+        this.newnewApps[id]["show"] = !this.newnewApps[id]["show"];
+        console.log(id, this.newnewApps[id]["show"]);
+      });
+    },
     routeTo(app) {
       //const url = "https://icjia.illinois.gov/researchhub/apps/" + app.slug;
       window.open(app.url);
@@ -242,6 +341,12 @@ export default {
             "Unable to fetch Research Hub applications. Please reload this page."
         });
       }
+
+      this.newApps = this.apps.map(apps => ({
+        ...apps,
+        show: false
+      }));
+
       this.loadingApps = false;
     }
   },
@@ -279,7 +384,7 @@ li.pageTitle {
 .card-banner {
   background: rgba(25, 26, 25, 0.3);
 }
-.card:hover {
+.appCardInfo:hover {
   box-shadow: 0px 0px 15px #000000;
   z-index: 2;
   -webkit-transition: all 100ms ease-in;
@@ -298,5 +403,13 @@ li.pageTitle {
 
 .full-height .flex > .card {
   flex: 1 1 auto;
+}
+
+ul.related li {
+  padding-bottom: 8px;
+}
+
+a.relatedLink {
+  text-decoration: none;
 }
 </style>

@@ -736,6 +736,14 @@ const getApplicationsQuery = () => {
     description
     image
     url
+    articles {
+      title
+      slug
+      }
+    datasets {
+      title
+      slug
+      }
     }
   }`;
 };
@@ -1051,6 +1059,17 @@ const getAppCount = async () => {
   }
 };
 
+const getArticleCount = async () => {
+  try {
+    let articleCount = await queryResearchHub(getArticleCountQuery());
+    return articleCount.data.data.articlesConnection.aggregate.count;
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    NProgress.done();
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -1074,5 +1093,6 @@ export {
   getResourcesByCategory,
   getRecentArticles,
   getApplications,
-  getAppCount
+  getAppCount,
+  getArticleCount
 };

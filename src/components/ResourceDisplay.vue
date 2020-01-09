@@ -3,6 +3,11 @@
     <v-card class="mx-auto elevation-8" color="white" style="width: 100%">
       <h3 class="site-desription-title px-4 py-4">{{ item.title }}</h3>
       <v-card-text>
+        <div class="text-right">
+          <div class="category">
+            {{ getCategoryTitle(item.category) | titleCase }}
+          </div>
+        </div>
         <div>
           <h3>{{ item.publicationDate | format }}</h3>
         </div>
@@ -49,6 +54,10 @@ import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
 import TagList from "@/components/TagList";
 import DownloadBox from "@/components/DownloadBox";
+import {
+  strapiEnumToObject,
+  addAttributeToElement
+} from "@/services/Utilities";
 export default {
   components: {
     TagList,
@@ -72,6 +81,17 @@ export default {
       } else {
         return false;
       }
+    },
+    getCategoryTitle(catEnum) {
+      let cat = strapiEnumToObject("resources", catEnum);
+      //console.log(cat);
+      //   let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
+      //     c => {
+      //       return c.enum === catEnum;
+      //     }
+      //   );
+      //   return categoryName[0].short;
+      return cat[0].title;
     }
   },
   props: {
@@ -98,5 +118,21 @@ export default {
 <style>
 .dynamic-content h2 {
   margin-top: -5px !important;
+}
+.category {
+  background: #075e60;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  display: inline;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.category:hover {
+  background: #aaa;
+  color: #fff;
 }
 </style>
