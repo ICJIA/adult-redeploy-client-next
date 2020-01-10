@@ -35,6 +35,7 @@ export default new Vuex.Store({
     routes: null,
     sections: null,
     appCount: null,
+    articleCount: null,
     searchIndex: null,
     lastDeploy: null,
     lastBuild: null,
@@ -82,6 +83,10 @@ export default new Vuex.Store({
     SET_APP_COUNT(state, appCount) {
       state.appCount = appCount;
       console.log("Researchhub applications: ", appCount);
+    },
+    SET_ARTICLE_COUNT(state, articleCount) {
+      state.articleCount = articleCount;
+      console.log("Researchhub articles: ", articleCount);
     },
     SET_API_STATUS(state, apiStatus) {
       state.apiStatus = apiStatus;
@@ -135,6 +140,9 @@ export default new Vuex.Store({
     },
     setAppCount({ commit }, appCount) {
       commit("SET_APP_COUNT", appCount);
+    },
+    setArticleCount({ commit }, articleCount) {
+      commit("SET_ARTICLE_COUNT", articleCount);
     },
     setSelectedCountyData({ commit }, payload) {
       commit("SET_SELECTED_COUNTY_DATA", payload);
@@ -226,6 +234,9 @@ export default new Vuex.Store({
     },
     appCount: state => {
       return state.appCount;
+    },
+    articleCount: state => {
+      return state.articleCount;
     },
     debug: state => {
       return state.config.debug;

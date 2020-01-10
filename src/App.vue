@@ -6,11 +6,7 @@
     <breadcrumb></breadcrumb>
     <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>
     <div v-if="!loading">
-      <v-content
-        id="content-top"
-        aria-live="polite"
-        style="background: #fafafa; min-height: 68vh"
-      >
+      <v-content id="content-top" aria-live="polite" style="background: #fafafa; min-height: 68vh">
         <transition name="fade" mode="out-in">
           <router-view></router-view>
           <!-- <router-view v-if="$store.getters.isApiReady"></router-view>
@@ -32,7 +28,7 @@
                 >
               </div>
             </v-alert>
-          </div> -->
+          </div>-->
         </transition>
       </v-content>
 
@@ -59,7 +55,11 @@ import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
 import OutdatedBrowser from "@/components/OutdatedBrowser";
-import { getAllSections, getAppCount } from "@/services/Content";
+import {
+  getAllSections,
+  getAppCount,
+  getArticleCount
+} from "@/services/Content";
 export default {
   name: "App",
   metaInfo() {
@@ -134,6 +134,9 @@ export default {
 
       this.appCount = await getAppCount();
       this.$store.dispatch("setAppCount", this.appCount);
+
+      this.articleCount = await getArticleCount();
+      this.$store.dispatch("setArticleCount", this.articleCount);
 
       this.$store.dispatch("initApp");
       this.loading = false;

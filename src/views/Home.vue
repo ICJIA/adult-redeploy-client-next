@@ -20,14 +20,9 @@
                 style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/about/overview')"
-                >ABOUT ADULT REDEPLOY ILLINOIS</span
-              >
+              >ABOUT ADULT REDEPLOY ILLINOIS</span>
 
-              <home-about
-                :content="about"
-                v-if="about"
-                data-aos="fade"
-              ></home-about>
+              <home-about :content="about" v-if="about" data-aos="fade"></home-about>
             </v-col>
 
             <v-col
@@ -38,11 +33,7 @@
               class="mb-10"
               v-if="upcomingMeetings"
             >
-              <home-meetings
-                :content="upcoming"
-                v-if="upcoming"
-                data-aos="fade"
-              ></home-meetings>
+              <home-meetings :content="upcoming" v-if="upcoming" data-aos="fade"></home-meetings>
             </v-col>
 
             <v-col cols="12" sm="12" md="6" class="mb-10">
@@ -50,24 +41,16 @@
                 style="display: block; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >ARI NEWS</span
-              >
-              <home-news
-                :content="news"
-                v-if="news"
-                data-aos="fade"
-              ></home-news>
+              >ARI NEWS</span>
+              <home-news :content="news" v-if="news" data-aos="fade"></home-news>
             </v-col>
             <v-col cols="12" sm="12" md="6" class="mb-10">
               <span
                 style="display: block; width: 100%; font-size: 32px; color: #444; font-weight: 900; border-bottom: 1px solid #bbb; padding-bottom: 8px; margin-bottom: 50px"
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >LATEST ICJIA PUBLICATIONS</span
-              >
-              <HomeArticles
-                style="margin: 0; padding: 0; width: 100%"
-              ></HomeArticles>
+              >ICJIA PUBLICATIONS</span>
+              <HomeArticles style="margin: 0; padding: 0; width: 100%"></HomeArticles>
             </v-col>
           </v-row>
         </v-container>

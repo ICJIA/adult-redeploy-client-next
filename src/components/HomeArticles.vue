@@ -103,7 +103,7 @@ export default {
       perPage: 2,
       loading: true,
       articles: null,
-      maxArticles: 8,
+
       error: {}
     };
   },
@@ -133,8 +133,12 @@ export default {
   },
   created() {
     this.fetchContent();
+    console.log(this.$store.getters);
   },
   computed: {
+    maxArticles() {
+      return this.$store.getters.articleCount;
+    },
     start() {
       return this.page * this.perPage - this.perPage;
     },
