@@ -8,8 +8,13 @@
       important instruction about the Grants Accountability and Transparency Act
       (GATA), which defines the competitive process for state grant awards,
       visit the <a href="https://icjia.illinois.gov/gata">ICJIA GATA site</a>.
-      Sign up for the CJ Dispatch to learn about the latest Notices of Funding
-      Opportunity.
+    </p>
+    <p>
+      <a
+        href="https://visitor.r20.constantcontact.com/manage/optin?v=001MqUcqqvjwLCJXlLMSWbTe3zHHmEQgFeBuHvBcJWTbwgrxFbDSGx4HSUPpI6DJWMUPgbljtLxffqIcGFTgCnr-auak88ybvRxpoJlTMGPtZs%3D"
+        >Sign up for the CJ Dispatch</a
+      >
+      to learn about the latest Notices of Funding Opportunity.
     </p>
     <div v-if="funding">
       <FundingToggle></FundingToggle>
