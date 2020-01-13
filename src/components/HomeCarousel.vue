@@ -19,9 +19,9 @@
             <div
               class="default-font carousel-medium mt-10 px-12 carousel-sub-text"
             >
-              Results expected with Adult Redeploy Illinois include reduced
-              prison overcrowding, lowered cost to taxpayers, and an end to the
-              expensive and vicious cycle of crime and incarceration.
+              Reallocating state resources to develop more effective, less
+              expensive community-based alternatives to incarceration and
+              improve access to interventions that reduce crime.
             </div>
             <v-btn
               class="mt-6"
