@@ -45,6 +45,14 @@ async function queryResearchHub(query) {
   return content;
 }
 
+async function getGATAFundingQuery() {
+  let content = await api({
+    url: "https://icjia.illinois.gov/gata/api/meta/funding.json",
+    method: "get"
+  });
+  return content;
+}
+
 const getPageQuery = slug => {
   return `{
   pages (where: {slug: "${slug}", isPublished: true}) {
@@ -1103,6 +1111,17 @@ const getUpcomingMeetings = async ({ targetDate, limit }) => {
   }
 };
 
+const getGATAFunding = async () => {
+  try {
+    let funding = getGATAFundingQuery();
+    return funding;
+  } catch (e) {
+    console.log("contentServiceError", e.toString());
+    NProgress.done();
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -1128,5 +1147,6 @@ export {
   getApplications,
   getAppCount,
   getArticleCount,
-  getUpcomingMeetings
+  getUpcomingMeetings,
+  getGATAFunding
 };

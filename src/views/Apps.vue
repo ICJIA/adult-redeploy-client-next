@@ -169,8 +169,6 @@
                     </div>
                   </div>
                 </v-slide-y-transition>
-
-                <!--  -->
               </v-card>
             </v-col>
           </v-row>

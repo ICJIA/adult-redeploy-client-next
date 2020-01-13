@@ -28,10 +28,14 @@
             </v-col>
           </v-row>
         </v-container>
+
         <v-container
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
           v-if="content"
         >
+          <funding-display
+            v-if="$route.params.section.toLowerCase() === 'grants'"
+          ></funding-display>
           <ul class="pageList">
             <base-list :items="content.pages" empty="">
               <template slot-scope="item">
@@ -58,6 +62,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
+import FundingDisplay from "@/components/FundingDisplay";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
@@ -81,7 +86,8 @@ export default {
   components: {
     BaseContent,
     // eslint-disable-next-line vue/no-unused-components
-    BaseList
+    BaseList,
+    FundingDisplay
   },
   methods: {
     routeToError() {
