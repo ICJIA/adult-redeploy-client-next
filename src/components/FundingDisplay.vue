@@ -1,20 +1,21 @@
 <template>
   <div>
+    <h2>CURRENT ICJIA FUNDING OPPORTUNITIES</h2>
+
+    <p>
+      For more information on the many state and federal grants that
+      <a href="https://icjia.illinois.gov">ICJIA</a> administers, along with
+      important instruction about the Grants Accountability and Transparency Act
+      (GATA), which defines the competitive process for state grant awards,
+      visit the <a href="https://icjia.illinois.gov/gata">ICJIA GATA site</a>.
+      Sign up for the CJ Dispatch to learn about the latest Notices of Funding
+      Opportunity.
+    </p>
     <div v-if="funding">
-      <h2>CURRENT ICJIA FUNDING OPPORTUNITIES</h2>
-      <p>
-        For more information on the many state and federal grants that
-        <a href="https://icjia.illinois.gov">ICJIA</a> administers, along with
-        important instruction about the Grants Accountability and Transparency
-        Act (GATA), which defines the competitive process for state grant
-        awards, visit the
-        <a href="https://icjia.illinois.gov/gata">ICJIA GATA site</a>. Sign up
-        for the CJ Dispatch to learn about the latest Notices of Funding
-        Opportunity.
-      </p>
       <FundingToggle></FundingToggle>
       <FundingList :funding="funding" :toggleState="toggleState"></FundingList>
     </div>
+    <div v-else><Loader></Loader></div>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import { EventBus } from "@/event-bus";
 import { getGATAFunding } from "@/services/Content";
 import FundingToggle from "@/components/FundingToggle";
 import FundingList from "@/components/FundingList";
+import Loader from "@/components/Loader";
 export default {
   data() {
     return {
@@ -33,7 +35,8 @@ export default {
   },
   components: {
     FundingToggle,
-    FundingList
+    FundingList,
+    Loader
   },
   created() {
     this.fetchContent();

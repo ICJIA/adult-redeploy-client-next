@@ -12,14 +12,6 @@
     <div v-for="item in filteredFunding" v-else :key="item.title">
       <funding-card :item="item" :toggle-state="toggleState" />
     </div>
-    <div class="text-center pt-5 pb-5">
-      <h3>
-        For archived funding opportunities prior to 2019, please see:
-        <a href="https://legacy-grants.icjia.cloud/grants"
-          >https://legacy-grants.icjia.cloud/grants</a
-        >
-      </h3>
-    </div>
   </div>
 </template>
 
