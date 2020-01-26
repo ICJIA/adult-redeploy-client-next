@@ -7,7 +7,7 @@
       v-if="filteredFunding.length === 0 && !loading"
       class="text-center mb-10 mt-3"
     >
-      <h2>There are no {{ toggleState }} funding opportunities to display.</h2>
+      <h2>There are no {{ toggleState }} funding opportunities.</h2>
     </div>
     <div v-for="item in filteredFunding" v-else :key="item.title">
       <funding-card :item="item" :toggle-state="toggleState" />
