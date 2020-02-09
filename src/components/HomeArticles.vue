@@ -144,7 +144,7 @@ export default {
       return this.page * this.perPage - this.perPage;
     },
     visible() {
-      return 5;
+      return 6;
     },
     length() {
       return Math.floor(this.maxArticles / this.perPage) + 1;
