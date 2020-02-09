@@ -137,7 +137,8 @@ export default {
   },
   computed: {
     maxArticles() {
-      return this.$store.getters.articleCount;
+    return 99
+     // return this.$store.getters.articleCount;
     },
     start() {
       return this.page * this.perPage - this.perPage;
