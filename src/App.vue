@@ -1,6 +1,7 @@
 <template>
   <v-app id="page-top">
     <app-nav :sections="sections"></app-nav>
+
     <app-drawer :sections="sections"></app-drawer>
 
     <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>

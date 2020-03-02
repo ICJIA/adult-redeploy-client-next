@@ -65,9 +65,9 @@ a.no-underline {
   bottom: 20px;
 }
 
-#content-top {
+/* #content-top {
   margin-top: 90px;
-}
+} */
 
 .page-title {
   text-transform: uppercase;
@@ -110,9 +110,9 @@ a {
     margin-top: 85px;
   }
 
-  #content-top {
+  /* #content-top {
     margin-top: 85px;
-  }
+  } */
   .carousel-sub-text {
     display: none;
   }
