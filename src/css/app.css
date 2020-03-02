@@ -95,6 +95,11 @@ a {
   margin-bottom: 48px;
 }
 
+.corona {
+  margin-top: 95px;
+  margin-bottom: 0px !important;
+}
+
 .agency {
   color: #555;
   font-size: 24px;

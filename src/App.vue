@@ -3,32 +3,17 @@
     <app-nav :sections="sections"></app-nav>
     <app-drawer :sections="sections"></app-drawer>
 
-    <breadcrumb></breadcrumb>
+    <corona :showWarning="showWarning"></corona>
     <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>
+
     <div v-if="!loading">
-      <v-content id="content-top" aria-live="polite" style="background: #fafafa; min-height: 68vh">
+      <v-content
+        id="content-top"
+        aria-live="polite"
+        style="background: #fafafa; min-height: 68vh"
+      >
         <transition name="fade" mode="out-in">
           <router-view></router-view>
-          <!-- <router-view v-if="$store.getters.isApiReady"></router-view>
-          <div v-else>
-            <v-alert
-              type="warning"
-              class="text-center mt-12"
-              v-if="env === 'development'"
-            >
-              You're running in <strong>development</strong> mode.<br />Please
-              be sure the Netlify functions are running.&nbsp;&nbsp;
-            </v-alert>
-            <v-alert type="error" class="text-center">
-              Can't connect to the Adult Redeploy Illinois
-              database.&nbsp;&nbsp;<br />
-              <div class="mt-3">
-                <a href="/" style="color: #fff;"
-                  ><strong>Please reload and try again.</strong></a
-                >
-              </div>
-            </v-alert>
-          </div>-->
         </transition>
       </v-content>
 
@@ -49,10 +34,12 @@
 </template>
 
 <script>
+import { EventBus } from "@/event-bus";
 import AppNav from "@/components/AppNav";
 import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
-import Breadcrumb from "@/components/Breadcrumb";
+import Corona from "@/components/Corona";
+
 import Loader from "@/components/Loader";
 import OutdatedBrowser from "@/components/OutdatedBrowser";
 import {
@@ -92,7 +79,7 @@ export default {
     AppNav,
     AppDrawer,
     AppFooter,
-    Breadcrumb,
+    Corona,
     Loader,
     OutdatedBrowser
   },
@@ -101,9 +88,12 @@ export default {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
+      this.showWarning = true;
     }
   },
-  async mounted() {},
+  async mounted() {
+    EventBus.$on("showWarning", bool => (this.showWarning = bool));
+  },
   async created() {
     this.loading = true;
 
@@ -149,9 +139,9 @@ export default {
       test: [],
       env: process.env.NODE_ENV,
       canonical: null,
-      appCount: null
+      appCount: null,
+      showWarning: true
     };
   }
 };
 </script>
-<style></style>
