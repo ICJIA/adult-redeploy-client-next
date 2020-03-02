@@ -3,7 +3,6 @@
     <app-nav :sections="sections"></app-nav>
     <app-drawer :sections="sections"></app-drawer>
 
-    <corona :showWarning="showWarning"></corona>
     <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>
 
     <div v-if="!loading">
@@ -12,6 +11,7 @@
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
       >
+        <Corona ref="alert" />
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -88,7 +88,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
-      this.showWarning = true;
+      if (this.$refs.alert) this.$refs.alert.reset();
     }
   },
   async mounted() {
