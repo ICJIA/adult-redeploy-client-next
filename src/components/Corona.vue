@@ -2,7 +2,7 @@
   <div v-if="alert">
     <v-system-bar
       style=""
-      height="50px"
+      height="100px"
       app
       color="blue lighten-5"
       class="breadcrumb"
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       html:
-        "View up to date information on how Illinois is handling the Coronavirus Disease 2019 (COVID-19) from the <a href='http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus'>Illinois Department of Public Health</a>."
+        "View up to date information on how Illinois is handling the Coronavirus Disease 2019 (COVID-19) from the <a href='http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus' target='_blank'>Illinois Department of Public Health</a>."
     };
   },
   props: {
