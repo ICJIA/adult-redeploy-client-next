@@ -61,6 +61,26 @@
           >&nbsp;|&nbsp;
           <strong>
             <a
+              href="https://archive.icjia.cloud"
+              target="_blank"
+              class="footer-link"
+              rel="noreferrer"
+              >ICJIA Document Archive</a
+            >
+          </strong>
+          &nbsp;|&nbsp;
+          <strong>
+            <a
+              href="https://icjia.illinois.gov/status"
+              target="_blank"
+              class="footer-link"
+              rel="noreferrer"
+              >Site Status</a
+            >
+          </strong>
+          &nbsp;|&nbsp;
+          <strong>
+            <a
               href="https://github.com/ICJIA/adult-redeploy-client-next"
               target="_blank"
               class="footer-link"
