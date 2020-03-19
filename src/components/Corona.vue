@@ -7,9 +7,9 @@
       Disease 2019 (COVID-19) from the
 
       <a
-        href="http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus"
+        href="https://coronavirus.illinois.gov"
         style="text-decoration: underline;"
-        >Illinois Department of Public Health</a
+        >State of Illinois Coronavirus Response Site</a
       >
     </div>
   </v-alert>
