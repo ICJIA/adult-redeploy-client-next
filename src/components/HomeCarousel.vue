@@ -5,6 +5,7 @@
     aspect-ratio="1"
     class="grey lighten-2"
     max-height="600"
+    style="margin-top: -12px;"
     ><v-container
       class="fill-height text-center"
       fluid
@@ -26,7 +27,7 @@
             <v-btn
               class="mt-6"
               color="white"
-              @click="$vuetify.goTo('#about', { offset: 210 })"
+              @click="$vuetify.goTo('#about', { offset: 130 })"
               >Learn More</v-btn
             >&nbsp;&nbsp;
             <v-btn class="mt-6" to="/about/faqs" outlined color="white"

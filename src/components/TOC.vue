@@ -64,7 +64,7 @@ export default {
   methods: {
     scrollTo(id) {
       //console.log(id);
-      this.$vuetify.goTo(`#${id}`, { offset: 100 });
+      this.$vuetify.goTo(`#${id}`, { offset: 30 });
     },
     setToc() {
       const sections = Array.from(document.querySelectorAll("h2"));

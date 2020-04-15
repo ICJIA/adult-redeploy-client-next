@@ -2,21 +2,20 @@
   <div style="margin-top: -25px;">
     <p>
       Adult Redeploy Illinois is housed at the
-      <a
-        href="https://icjia.illinois.gov"
-      >Illinois Criminal Justice Information Authority (ICJIA)</a>,
-      the state’s lead agency on justice funding and research. ICJIA launched the
-      <a
-        href="https://icjia.illinois.gov/researchhub"
-      >Research Hub</a> which provides
-      a host of resources (publications, continuums, dashboards, datasets) to support data-driven decision-making
-      for improved outcomes. Hub applications that ARI sites might find especially useful are available at the Apps tab.
+      <a href="https://icjia.illinois.gov"
+        >Illinois Criminal Justice Information Authority (ICJIA)</a
+      >, the state’s lead agency on justice funding and research. ICJIA launched
+      the
+      <a href="https://icjia.illinois.gov/researchhub">Research Hub</a> which
+      provides a host of resources (publications, continuums, dashboards,
+      datasets) to support data-driven decision-making for improved outcomes.
+      Hub applications that ARI sites might find especially useful are available
+      at the Apps tab.
     </p>
     <div class="text-right">
-      <a
-        href="https://icjia.illinois.gov/researchhub"
-        target="_blank"
-      >Visit ICJIA's Research Hub&nbsp;&raquo;</a>
+      <a href="https://icjia.illinois.gov/researchhub" target="_blank"
+        >Visit ICJIA's Research Hub&nbsp;&raquo;</a
+      >
     </div>
 
     <v-pagination
@@ -27,8 +26,14 @@
       @input="fetchContent($event)"
       class="mt-8 mb-5"
     ></v-pagination>
-    <div v-if="error.status" class="my-5 text-center" style="color: red">{{ error.msg }}</div>
-    <div class="px-2 mb-10" v-if="!loading && articles" style="min-height: 475px">
+    <div v-if="error.status" class="my-5 text-center" style="color: red">
+      {{ error.msg }}
+    </div>
+    <div
+      class="px-2 mb-10"
+      v-if="!loading && articles"
+      style="min-height: 475px"
+    >
       <div v-for="article in articles" :key="article.slug">
         <v-card class="mb-5 hover card" @click="routeTo(article)">
           <v-img
@@ -42,28 +47,32 @@
             </div>
           </v-img>
 
-          <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">{{ article.title }}</h3>
+          <h3 class="px-5 pt-5" v-if="$browserDetect.isIE">
+            {{ article.title }}
+          </h3>
 
           <div class="px-4 pt-3">
             By
             <span v-for="(author, index) in article.authors" :key="index">
-              <span v-if="index === article.authors.length - 1 && index > 0">&nbsp;and&nbsp;</span>
-              <span v-if="index < article.authors.length - 1 && index > 0">,</span>
+              <span v-if="index === article.authors.length - 1 && index > 0"
+                >&nbsp;and&nbsp;</span
+              >
+              <span v-if="index < article.authors.length - 1 && index > 0"
+                >,</span
+              >
               <span style="font-weight: bold; color: #065F60">
-                {{
-                author.title
-                }}
+                {{ author.title }}
               </span>
             </span>
           </div>
 
           <v-card-subtitle class="pb-2">
-            {{
-            article.date | format
-            }}
+            {{ article.date | format }}
           </v-card-subtitle>
 
-          <v-card-text class="text--primary mb-2">{{ article.abstract }}</v-card-text>
+          <v-card-text class="text--primary mb-2">{{
+            article.abstract
+          }}</v-card-text>
         </v-card>
       </div>
     </div>
@@ -71,7 +80,11 @@
       <div v-for="n in perPage" :key="`loader-${n}`">
         <div class="mb-8 px-2">
           <v-sheet :color="`grey lighten-4`">
-            <v-boilerplate type="image, article" class="mb-6" :boilerplate="false"></v-boilerplate>
+            <v-boilerplate
+              type="image, article"
+              class="mb-6"
+              :boilerplate="false"
+            ></v-boilerplate>
           </v-sheet>
         </div>
       </div>
@@ -137,8 +150,8 @@ export default {
   },
   computed: {
     maxArticles() {
-    return 99
-     // return this.$store.getters.articleCount;
+      return 99;
+      // return this.$store.getters.articleCount;
     },
     start() {
       return this.page * this.perPage - this.perPage;
