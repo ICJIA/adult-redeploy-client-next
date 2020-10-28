@@ -81,7 +81,7 @@
                   </v-card-text>
                 </div>
 
-                <v-card-actions class="py-5"> 
+                <v-card-actions class="py-5">
                   <v-btn
                     v-if="
                       newApps[app - 1]['articles'].length ||
