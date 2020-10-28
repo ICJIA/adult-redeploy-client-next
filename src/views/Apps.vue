@@ -81,28 +81,28 @@
                   </v-card-text>
                 </div>
 
-                <v-card-actions>
+                <v-card-actions class="py-5"> 
                   <v-btn
                     v-if="
                       newApps[app - 1]['articles'].length ||
                         newApps[app - 1]['datasets'].length
                     "
-                    small
+                    x-small
                     text
                     style="color: #075E60"
                     @click.native="
                       newApps[app - 1]['show'] = !newApps[app - 1]['show']
                     "
-                    >Related Content</v-btn
+                    >Related</v-btn
                   >
 
                   <v-spacer></v-spacer>
 
                   <v-btn
-                    small
+                    x-small
                     target="_blank"
                     :href="`${newApps[app - 1]['url']}`"
-                    >Launch App<v-icon right>open_in_new</v-icon></v-btn
+                    >Launch<v-icon right>open_in_new</v-icon></v-btn
                   >
                 </v-card-actions>
 
