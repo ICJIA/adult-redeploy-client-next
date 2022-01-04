@@ -30,11 +30,11 @@ import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -45,12 +45,12 @@ export default {
       renderToHtml,
       showToc: false,
       sectionContent: null,
-      title: ""
+      title: "",
     };
   },
   components: {
     BaseContent,
-    BiographyCard
+    BiographyCard,
   },
   created() {
     this.fetchContent();
@@ -58,7 +58,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
 
   methods: {
@@ -72,7 +72,7 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getSingleBiography,
-        params: { slug }
+        params: { slug },
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -86,7 +86,7 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
-        location: window.location.href
+        location: window.location.href,
       });
 
       this.loading = false;
@@ -100,15 +100,15 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {
+        .catch((err) => {
           this.$vuetify.goTo(0);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

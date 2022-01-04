@@ -15,7 +15,7 @@ export default {
   name: "Toggle",
   data() {
     return {
-      toggle: true
+      toggle: true,
     };
   },
   computed: {
@@ -28,17 +28,17 @@ export default {
     },
     expired() {
       return this.pageHeading === "expired" ? true : false;
-    }
+    },
   },
   watch: {
     toggle(newValue, oldValue) {
       EventBus.$emit("toggle", this.pageHeading);
-    }
+    },
   },
   mounted() {
     EventBus.$emit("toggle", this.pageHeading);
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

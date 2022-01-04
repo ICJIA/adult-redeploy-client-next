@@ -27,15 +27,15 @@ export default {
   props: {
     content: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      renderToHtml
+      renderToHtml,
     };
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

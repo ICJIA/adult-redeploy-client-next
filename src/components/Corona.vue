@@ -17,7 +17,7 @@
           class="ml-5"
           size="25"
         ></v-progress-circular
-        ><span style="font-size: 12px; font-weight: bold;" class="ml-5"
+        ><span style="font-size: 12px; font-weight: bold" class="ml-5"
           >Loading the latest COVID-19 information</span
         ></span
       >
@@ -39,7 +39,7 @@ export default {
       alert: true,
       loading: true,
       corona: null,
-      errorMsg: null
+      errorMsg: null,
     };
   },
   async created() {
@@ -56,8 +56,8 @@ export default {
   methods: {
     reset() {
       this.alert = true;
-    }
+    },
   },
-  props: {}
+  props: {},
 };
 </script>

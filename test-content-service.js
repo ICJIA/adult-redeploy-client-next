@@ -2,7 +2,7 @@
 const axios = require("axios");
 const api = axios.create({
   baseURL: "https://ari.icjia-api.cloud",
-  timeout: 8000
+  timeout: 8000,
 });
 
 async function queryEndpoint(query) {
@@ -10,13 +10,13 @@ async function queryEndpoint(query) {
     url: "/graphql",
     method: "post",
     data: {
-      query
-    }
+      query,
+    },
   });
   return content;
 }
 
-const getPageQuery = slug => {
+const getPageQuery = (slug) => {
   return `{
   pages (where: {slug: ${slug}}) {
     id
@@ -42,7 +42,7 @@ const getPageQuery = slug => {
 }`;
 };
 
-const getPostQuery = slug => {
+const getPostQuery = (slug) => {
   return `{
   posts  (where: {slug: "${slug}"}) {
     id
@@ -78,7 +78,7 @@ const getPubsForMenuQuery = `
   }
 }`;
 
-const getFrontPageNewsQuery = limit => {
+const getFrontPageNewsQuery = (limit) => {
   return `{
   posts(sort: "createdAt:desc", limit: ${limit}, where: {isPublished: true}) {
     title
@@ -114,7 +114,7 @@ const getNewsQuery = () => {
 }`;
 };
 
-const getPublicationsByCategoryQuery = slug => {
+const getPublicationsByCategoryQuery = (slug) => {
   return `{
   categories (where: {slug: "${slug}"}) {
     name
@@ -253,7 +253,7 @@ const getMeetingsByCategoryQuery = () => {
   `;
 };
 
-const getSingleMeetingQuery = slug => {
+const getSingleMeetingQuery = (slug) => {
   return `{
   meetings (where: {slug: "${slug}", isPublished: true}) {
    
@@ -283,7 +283,7 @@ const getSingleMeetingQuery = slug => {
 }`;
 };
 
-const getContentByTagQuery = slug => {
+const getContentByTagQuery = (slug) => {
   return `
   {
   tags (where: {slug: "${slug}"}){
@@ -378,7 +378,7 @@ const getContentByTagQuery = slug => {
   `;
 };
 
-const getSinglePublicationQuery = slug => {
+const getSinglePublicationQuery = (slug) => {
   return `{
   publications (where: {slug: "${slug}"})  {
     title
@@ -411,7 +411,7 @@ const getSinglePublicationQuery = slug => {
 `;
 };
 
-const getMeetingCategoryQuery = slug => {
+const getMeetingCategoryQuery = (slug) => {
   return `{
   categories(where: { slug: "${slug}" }) {
     name
@@ -537,7 +537,7 @@ const getMeetingsByCategory = async () => {
   }
 };
 
-const getSingleMeeting = async slug => {
+const getSingleMeeting = async (slug) => {
   try {
     let meeting = await queryEndpoint(getSingleMeetingQuery(slug));
     return meeting.data.data.meetings;
@@ -592,5 +592,5 @@ module.exports = {
   getMeetingCategory,
   getSingleMeeting,
   getContentByTag,
-  getSinglePublication
+  getSinglePublication,
 };

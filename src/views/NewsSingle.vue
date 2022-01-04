@@ -32,7 +32,7 @@ import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   mixins: [handleClicks],
   data() {
@@ -41,18 +41,18 @@ export default {
       content: null,
       renderToHtml,
       newsContent: {},
-      title: ""
+      title: "",
     };
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   components: {
     BaseContent,
 
-    NewsCard
+    NewsCard,
   },
   created() {
     this.fetchContent();
@@ -61,7 +61,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
   methods: {
     async fetchContent() {
@@ -73,7 +73,7 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getPost,
-        params: { slug }
+        params: { slug },
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -85,7 +85,7 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
-        location: window.location.href
+        location: window.location.href,
       });
       this.loading = false;
     },
@@ -96,14 +96,14 @@ export default {
       this.$router
         .push({
           name: "error",
-          params: { msg: "Page not found", statusCode: 404 }
+          params: { msg: "Page not found", statusCode: 404 },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {
+        .catch((err) => {
           this.$vuetify.goTo(0);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -54,7 +54,7 @@
                         class="mt-8 catLink"
                         :class="{
                           hoverColor:
-                            item.singletonPath && item.singletonPath.length
+                            item.singletonPath && item.singletonPath.length,
                         }"
                         @click.prevent="routeToPath(item)"
                         >{{ item.alias | titleCase }}</span
@@ -64,7 +64,7 @@
                         class="mt-8"
                         :class="{
                           hoverColor:
-                            item.singletonPath && item.singletonPath.length
+                            item.singletonPath && item.singletonPath.length,
                         }"
                         >{{ item.plural | titleCase }}</span
                       >
@@ -120,11 +120,11 @@ import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   mixins: [handleClicks],
@@ -136,7 +136,7 @@ export default {
       renderToHtml,
       showToc: true,
       sectionContent: null,
-      title: ""
+      title: "",
     };
   },
   components: {
@@ -146,7 +146,7 @@ export default {
     ListTableBiography,
     ListTableResource,
     ListTableMeeting,
-    ListTableNews
+    ListTableNews,
   },
   created() {
     this.fetchContent();
@@ -154,7 +154,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
 
   methods: {
@@ -181,7 +181,7 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getContentByTag,
-        params: { slug }
+        params: { slug },
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -194,7 +194,7 @@ export default {
         this.$ga.page({
           page: this.$route.path,
           title: this.title,
-          location: window.location.href
+          location: window.location.href,
         });
       } else {
         this.routeToError();
@@ -211,13 +211,13 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
-    }
-  }
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

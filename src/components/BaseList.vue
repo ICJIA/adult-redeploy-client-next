@@ -17,17 +17,17 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     title: {
       type: String,
-      default: "No title specified"
+      default: "No title specified",
     },
     empty: {
       type: String,
-      default: "Move along. Nothing here."
-    }
-  }
+      default: "Move along. Nothing here.",
+    },
+  },
 };
 </script>
 

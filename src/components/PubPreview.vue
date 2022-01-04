@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      style="border-bottom: 1px solid #eee;"
+      style="border-bottom: 1px solid #eee"
       class="pt-3 pb-4 elevation-2"
       :class="{ cardBackground: mode !== 'minimal', minHeight: imageExists }"
     >
@@ -21,7 +21,7 @@
         >
           {{ item.year }}
         </div>
-        <h2 style="margin: 0; padding: 0; width: 100%;" class="mb-3 title-link">
+        <h2 style="margin: 0; padding: 0; width: 100%" class="mb-3 title-link">
           <span
             v-if="item.mediaMaterial && item.mediaMaterial.file"
             @click="download(item)"
@@ -44,12 +44,12 @@
         </h2>
 
         <v-card-text class="pb-5">
-          <div class="hover" style="float: left; margin-bottom: 30px;">
+          <div class="hover" style="float: left; margin-bottom: 30px">
             <div
               v-if="
                 item.mediaMaterial &&
-                  item.mediaMaterial.thumbnail &&
-                  !$browserDetect.isIE
+                item.mediaMaterial.thumbnail &&
+                !$browserDetect.isIE
               "
             >
               <v-hover>
@@ -60,7 +60,7 @@
                     :lazy-src="require('@/assets/img/spac-purple-lazy.png')"
                     class="cover elevation-1 px-1"
                     width="200"
-                    style="margin-right: 20px; border: 1px solid #bbb; "
+                    style="margin-right: 20px; border: 1px solid #bbb"
                     @click="download(item)"
                   >
                     <template v-slot:placeholder>
@@ -88,8 +88,8 @@
             <div
               v-else-if="
                 item.externalMediaMaterial &&
-                  item.externalMediaMaterial.thumbnail &&
-                  !$browserDetect.isIE
+                item.externalMediaMaterial.thumbnail &&
+                !$browserDetect.isIE
               "
             >
               <v-hover>
@@ -100,7 +100,7 @@
                     :lazy-src="require('@/assets/img/spac-purple-lazy.png')"
                     class="cover elevation-0 px-1"
                     width="200"
-                    style="margin-right: 20px; border: 1px solid #bbb; "
+                    style="margin-right: 20px; border: 1px solid #bbb"
                     @click="gotoExternal(item)"
                   >
                     <v-fade-transition>
@@ -171,14 +171,14 @@ import TagList from "@/components/TagList";
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    TagList
+    TagList,
   },
   data() {
     return {
       getThumbnailLink,
       getDefaultThumbnail,
       strapiEnumToObject,
-      overlay: false
+      overlay: false,
     };
   },
   computed: {
@@ -194,7 +194,7 @@ export default {
       }
 
       return false;
-    }
+    },
   },
   watch: {},
   mounted() {
@@ -206,7 +206,7 @@ export default {
     routeToCategory(item) {
       let categoryObj = strapiEnumToObject("publications", item.category);
       let path = `/publications/${categoryObj[0].slug}`;
-      this.$router.push(`${path}`).catch(err => {
+      this.$router.push(`${path}`).catch((err) => {
         this.$vuetify.goTo(0);
       });
     },
@@ -216,7 +216,7 @@ export default {
         this.$ga.event({
           eventCategory: "Video",
           eventAction: "Play",
-          eventLabel: item.externalMediaMaterial.url
+          eventLabel: item.externalMediaMaterial.url,
         });
         window.open(item.externalMediaMaterial.url);
       }
@@ -233,25 +233,25 @@ export default {
         this.$ga.event({
           eventCategory: "File",
           eventAction: "Download",
-          eventLabel: item.mediaMaterial.file.hash + "." + ext
+          eventLabel: item.mediaMaterial.file.hash + "." + ext,
         });
       }
-    }
+    },
   },
   props: {
     item: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     mode: {
       type: String,
-      default: "full"
+      default: "full",
     },
     sendAnalyticsEvent: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

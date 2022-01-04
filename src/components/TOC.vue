@@ -7,12 +7,12 @@
         $vuetify.breakpoint.md ||
         $vuetify.breakpoint.lg ||
         $vuetify.breakpoint.xl,
-      shaded: $vuetify.breakpoint.xs || $vuetify.breakpoint.xs
+      shaded: $vuetify.breakpoint.xs || $vuetify.breakpoint.xs,
     }"
     style=""
   >
     <div
-      style="margin-left: -3px; font-weight: bold;"
+      style="margin-left: -3px; font-weight: bold"
       ref="anchor"
       class="mb-4 hover anchor"
       @click="$vuetify.goTo(0)"
@@ -40,26 +40,26 @@
 export default {
   data() {
     return {
-      toc: []
+      toc: [],
     };
   },
   props: {
     selector: {
       type: String,
-      default: "#scrollArea"
+      default: "#scrollArea",
     },
     tocHeading: {
       type: String,
-      default: "NAVIGATION"
+      default: "NAVIGATION",
     },
     top: {
       type: String,
-      default: "#baseContentTop"
+      default: "#baseContentTop",
     },
     mini: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     scrollTo(id) {
@@ -68,13 +68,13 @@ export default {
     },
     setToc() {
       const sections = Array.from(document.querySelectorAll("h2"));
-      sections.forEach(section => {
+      sections.forEach((section) => {
         let obj = {};
         obj.text = section.innerText;
         obj.id = section.id;
         this.toc.push(obj);
       });
-    }
+    },
   },
   async mounted() {
     await this.setToc();
@@ -83,7 +83,7 @@ export default {
       var sections = {};
       var i = 0;
       this.$refs["anchor"].classList.add("visible");
-      section.forEach(e => {
+      section.forEach((e) => {
         sections[e.id] = e.offsetTop - 50;
       });
 
@@ -93,7 +93,7 @@ export default {
         const tocItems = document.querySelectorAll(".tocItem");
 
         if (scrollPosition < 100) {
-          tocItems.forEach(toc => {
+          tocItems.forEach((toc) => {
             toc.classList.remove("visible");
           });
           this.$refs["anchor"].classList.add("visible");
@@ -105,7 +105,7 @@ export default {
           if (sections[i] <= scrollPosition) {
             const sectionItem = document.getElementById(`scrollTo-${i}`);
 
-            tocItems.forEach(toc => {
+            tocItems.forEach((toc) => {
               toc.classList.remove("visible");
             });
             sectionItem.classList.add("visible");
@@ -116,7 +116,7 @@ export default {
   },
   beforeDestroy() {
     window.onscroll = () => {};
-  }
+  },
 };
 </script>
 

@@ -25,7 +25,7 @@ license:        ${pkg.license}
 
 -->`;
 
-fs.appendFile("./dist/index.html", `${banner}`, function(err) {
+fs.appendFile("./dist/index.html", `${banner}`, function (err) {
   if (err) throw err;
   console.log("Build banner inserted.");
 });

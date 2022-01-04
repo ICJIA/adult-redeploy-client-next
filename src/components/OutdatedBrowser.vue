@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 110px; background: #eee;" v-if="displayBanner">
+  <div style="margin-top: 110px; background: #eee" v-if="displayBanner">
     <!-- <h1 style="color: #555; font-size: 20px">
       You're using an <strong>outdated</strong> version of Internet Explorer.<br /><br />We
       recommend updating to a more secure, modern browser.<br /><br />Please
@@ -22,9 +22,7 @@
     </h1> -->
     <v-banner two-line style="background: #eee">
       <v-avatar slot="icon" color="red accent-4" size="40">
-        <v-icon color="white">
-          warning
-        </v-icon>
+        <v-icon color="white"> warning </v-icon>
       </v-avatar>
 
       You're using <span style="font-weight: 900">Internet Explorer</span>.
@@ -58,17 +56,17 @@
 export default {
   data() {
     return {
-      displayBanner: true
+      displayBanner: true,
     };
   },
   methods: {
     dismiss() {
       this.displayBanner = false;
-    }
+    },
   },
   mounted() {
     //console.log("Browser info: ", this.$browserDetect.meta);
-  }
+  },
 };
 </script>
 

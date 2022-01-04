@@ -53,7 +53,7 @@
               <v-card class="mb-5 appCard">
                 <div class="">
                   <v-img
-                    class="white--text align-end "
+                    class="white--text align-end"
                     height="225px"
                     :src="newApps[app - 1]['image']"
                     v-if="!$browserDetect.isIE"
@@ -85,11 +85,11 @@
                   <v-btn
                     v-if="
                       newApps[app - 1]['articles'].length ||
-                        newApps[app - 1]['datasets'].length
+                      newApps[app - 1]['datasets'].length
                     "
                     x-small
                     text
-                    style="color: #075E60"
+                    style="color: #075e60"
                     @click.native="
                       newApps[app - 1]['show'] = !newApps[app - 1]['show']
                     "
@@ -112,7 +112,7 @@
                       style="background: #eee"
                       v-if="
                         newApps[app - 1]['articles'].length ||
-                          newApps[app - 1]['datasets'].length
+                        newApps[app - 1]['datasets'].length
                       "
                     >
                       <v-card-text>
@@ -130,9 +130,7 @@
                           >
                             <li>
                               <a
-                                :href="
-                                  `https://icjia.illinois.gov/researchhub/articles/${article.slug}`
-                                "
+                                :href="`https://icjia.illinois.gov/researchhub/articles/${article.slug}`"
                                 class="relatedLink"
                                 target="_blank"
                                 >{{ article.title }}</a
@@ -155,9 +153,7 @@
                           >
                             <li>
                               <a
-                                :href="
-                                  `https://icjia.illinois.gov/researchhub/datasets/${dataset.slug}`
-                                "
+                                :href="`https://icjia.illinois.gov/researchhub/datasets/${dataset.slug}`"
                                 class="relatedLink"
                                 target="_blank"
                                 >{{ dataset.title }}</a
@@ -209,11 +205,11 @@ import { getHash, checkIfValidPage } from "@/services/Utilities";
 export default {
   mixins: [handleClicks],
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -229,7 +225,7 @@ export default {
       perPage: 3,
       maxApps: 8,
       loadingApps: true,
-      show: false
+      show: false,
     };
   },
   watch: {},
@@ -251,13 +247,13 @@ export default {
             props: {
               boilerplate: true,
               elevation: 2,
-              ...props
-            }
+              ...props,
+            },
           },
           children
         );
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -289,18 +285,18 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch((err) => {});
     },
     async fetchContent() {
       this.loading = true;
       const section = "apps";
       if (section !== "home") {
         this.content = this.$store.getters.sections.find(
-          x => x.slug === `${section}`
+          (x) => x.slug === `${section}`
         );
         if (!this.content) {
           this.routeToError();
@@ -310,7 +306,7 @@ export default {
         this.$ga.page({
           page: this.$route.path,
           title: this.title,
-          location: window.location.href
+          location: window.location.href,
         });
       }
       this.loading = false;
@@ -321,7 +317,7 @@ export default {
       contentMap.set(`getApplications`, {
         hash: getHash(`getApplications`),
         query: getApplications,
-        params: {}
+        params: {},
       });
       await this.$store.dispatch("cacheContent", contentMap);
       this.apps = this.$store.getters.getContentFromCache(
@@ -338,17 +334,17 @@ export default {
           eventCategory: "Error",
           eventAction: "Network error.",
           eventLabel:
-            "Unable to fetch Research Hub applications. Please reload this page."
+            "Unable to fetch Research Hub applications. Please reload this page.",
         });
       }
 
-      this.newApps = this.apps.map(apps => ({
+      this.newApps = this.apps.map((apps) => ({
         ...apps,
-        show: false
+        show: false,
       }));
 
       this.loadingApps = false;
-    }
+    },
   },
   created() {
     this.fetchContent();
@@ -356,7 +352,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
     // start() {
     //   return this.page * this.perPage - this.perPage;
     // },
@@ -366,7 +362,7 @@ export default {
     // length() {
     //   return Math.floor(this.maxApps / this.perPage) + 1;
     // }
-  }
+  },
 };
 </script>
 

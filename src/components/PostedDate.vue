@@ -11,21 +11,21 @@ export default {
   props: {
     createdAt: {
       type: String,
-      default: ""
+      default: "",
     },
     updatedAt: {
       type: String,
-      default: ""
+      default: "",
     },
     lastPostedLabel: {
       type: String,
-      default: ""
+      default: "",
     },
     displayUpdatedAt: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

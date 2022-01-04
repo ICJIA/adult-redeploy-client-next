@@ -61,17 +61,17 @@ export default {
       staff: null,
       title: "",
 
-      person: {}
+      person: {},
     };
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   components: {
     BaseContent,
-    BiographyCard
+    BiographyCard,
   },
   created() {
     this.fetchContent();
@@ -86,7 +86,7 @@ export default {
       } else {
         return this.showToc ? "xs10" : "xs12";
       }
-    }
+    },
   },
 
   methods: {
@@ -101,14 +101,14 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getPageBySection,
-        params: { section, slug }
+        params: { section, slug },
       });
 
       const biographies = `getAllBiographies`;
       contentMap.set(biographies, {
         hash: getHash(biographies),
         query: getAllBiographies,
-        params: {}
+        params: {},
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -127,7 +127,7 @@ export default {
           this.$ga.page({
             page: this.$route.path,
             title: this.title,
-            location: window.location.href
+            location: window.location.href,
           });
         } else {
           this.routeToError();
@@ -141,7 +141,7 @@ export default {
         biographies
       );
 
-      this.staff = biographyContent.filter(person => {
+      this.staff = biographyContent.filter((person) => {
         return person.category === "staff";
       });
       this.staff = _.sortBy(this.staff, "order");
@@ -157,13 +157,13 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
-    }
-  }
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

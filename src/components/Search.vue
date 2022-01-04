@@ -50,29 +50,29 @@ import { stripHTML } from "@/services/Utilities";
 export default {
   components: {
     BaseList,
-    SearchCard
+    SearchCard,
   },
   props: {
     searchContent: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     searchQuery: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
       query: "",
       queryResults: [],
       content: "",
-      stripHTML
+      stripHTML,
     };
   },
   watch: {
     // eslint-disable-next-line no-unused-vars
-    query(newValue, oldValue) {}
+    query(newValue, oldValue) {},
   },
   async created() {
     this.fuse = new Fuse(this.searchContent, this.$store.getters.config.search);
@@ -100,8 +100,8 @@ export default {
       } else {
         return `${item.parentPath}/${item.slug}`;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

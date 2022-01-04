@@ -25,7 +25,7 @@
 import Loader from "@/components/Loader";
 export default {
   components: {
-    Loader
+    Loader,
   },
   mounted() {
     //console.log(this.$browserDetect.isIE);
@@ -33,9 +33,9 @@ export default {
   props: {
     loading: {
       type: Boolean,
-      default: true
-    }
-  }
+      default: true,
+    },
+  },
 };
 </script>
 

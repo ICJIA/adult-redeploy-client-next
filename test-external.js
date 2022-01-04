@@ -3,7 +3,7 @@
 const axios = require("axios");
 const api = axios.create({
   baseURL: "https://researchhub.icjia-api.cloud",
-  timeout: 8000
+  timeout: 8000,
 });
 
 async function queryExternalEndpoint(query) {
@@ -11,8 +11,8 @@ async function queryExternalEndpoint(query) {
     url: "/graphql",
     method: "post",
     data: {
-      query
-    }
+      query,
+    },
   });
   return content;
 }

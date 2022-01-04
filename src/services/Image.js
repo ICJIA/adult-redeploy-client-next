@@ -9,7 +9,7 @@ const thumborURL = new ThumborUrlBuilder(
   `${config.imageServerURL}`
 );
 
-const getThumbnailLink = function(mediaMaterial) {
+const getThumbnailLink = function (mediaMaterial) {
   let imagePath;
   if (mediaMaterial && mediaMaterial.thumbnail) {
     imagePath = `${config.baseURL}${mediaMaterial.thumbnail.url}`;
@@ -28,7 +28,7 @@ const getThumbnailLink = function(mediaMaterial) {
   return link;
 };
 
-const getDefaultThumbnail = function(mediaMaterial) {
+const getDefaultThumbnail = function (mediaMaterial) {
   let imagePath = config.thumbnail.defaultUrl;
 
   const link = thumborURL
@@ -51,7 +51,7 @@ const getDefaultThumbnail = function(mediaMaterial) {
 //   return link;
 // };
 
-const getHeadshotLink = function(headshot) {
+const getHeadshotLink = function (headshot) {
   const imagePath = headshot.url;
   const link = thumborURL
     .setImagePath(`${config.baseURL}${imagePath}`)

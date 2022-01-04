@@ -25,14 +25,8 @@ export const handleClicks = {
       ) {
         // some sanity checks taken from vue-router:
         // https://github.com/vuejs/vue-router/blob/dev/src/components/link.js#L106
-        const {
-          altKey,
-          ctrlKey,
-          metaKey,
-          shiftKey,
-          button,
-          defaultPrevented
-        } = $event;
+        const { altKey, ctrlKey, metaKey, shiftKey, button, defaultPrevented } =
+          $event;
         // don't handle with control keys
         if (metaKey || altKey || ctrlKey || shiftKey) return;
         // don't handle when preventDefault called
@@ -64,12 +58,12 @@ export const handleClicks = {
         this.$ga.event({
           eventCategory: "File",
           eventAction: "Download",
-          eventLabel: filename
+          eventLabel: filename,
         });
         const win = window.open(href, "_blank");
         win.focus();
       }
       // TODO: Add YouTube Event tracking
-    }
-  }
+    },
+  },
 };

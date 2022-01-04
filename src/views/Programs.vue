@@ -61,7 +61,7 @@ import { getPageBySection } from "@/services/Content";
 import {
   getHash,
   checkIfValidPage,
-  getSectionContent
+  getSectionContent,
 } from "@/services/Utilities";
 import SiteDescription from "@/components/SiteDescription";
 import SiteIllinois from "@/components/SiteIllinois";
@@ -72,18 +72,18 @@ export default {
   components: {
     SiteIllinois,
     BaseContent,
-    SiteDescription
+    SiteDescription,
   },
   metaInfo() {
     return {
-      title: "Programs"
+      title: "Programs",
     };
   },
   data() {
     return {
       loading: false,
       content: null,
-      renderToHtml
+      renderToHtml,
     };
   },
   created() {
@@ -109,20 +109,20 @@ export default {
       this.$router
         .push({
           name: "error",
-          params: { msg: "Page not found", statusCode: 404 }
+          params: { msg: "Page not found", statusCode: 404 },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {
+        .catch((err) => {
           this.$vuetify.goTo(0);
         });
-    }
+    },
   },
   props: {
     display: {
       type: String,
-      default: "modal"
-    }
-  }
+      default: "modal",
+    },
+  },
 };
 </script>
 

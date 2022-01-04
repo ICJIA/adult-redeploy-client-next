@@ -2,7 +2,7 @@
   <v-switch
     v-model="toggle"
     :label="displayLabel()"
-    style="font-weight: bold;"
+    style="font-weight: bold"
   ></v-switch>
 </template>
 
@@ -11,7 +11,7 @@ import { EventBus } from "@/event-bus";
 export default {
   data() {
     return {
-      toggle: true
+      toggle: true,
     };
   },
 
@@ -29,7 +29,7 @@ export default {
       payload.name = this.name;
       console.log("toggle: ", payload.message);
       EventBus.$emit("toggle", payload);
-    }
+    },
   },
   mounted() {
     this.emitToggle();
@@ -38,23 +38,23 @@ export default {
     // eslint-disable-next-line no-unused-vars
     toggle(newValue, oldValue) {
       this.emitToggle();
-    }
+    },
   },
   beforeDestroy() {},
   props: {
     toggleOn: {
       type: String,
-      default: "on"
+      default: "on",
     },
     toggleOff: {
       type: String,
-      default: "off"
+      default: "off",
     },
     name: {
       type: String,
-      default: "undefined"
-    }
-  }
+      default: "undefined",
+    },
+  },
 };
 </script>
 

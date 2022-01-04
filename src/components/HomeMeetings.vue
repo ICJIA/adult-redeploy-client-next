@@ -1,7 +1,13 @@
 <template>
   <div>
     <span
-      style="display: block; font-size: 32px; font-weight: 900; padding-bottom: 7px !important; border-bottom: 1px solid #aaa !important;"
+      style="
+        display: block;
+        font-size: 32px;
+        font-weight: 900;
+        padding-bottom: 7px !important;
+        border-bottom: 1px solid #aaa !important;
+      "
       class="hover meetingTitle"
       @click="$router.push('/about/meetings')"
       >UPCOMING MEETINGS</span
@@ -18,7 +24,11 @@
               <v-list-item-content>
                 <div
                   class="overline mb-4"
-                  style="font-size: 12px !important; font-weight: bold !important; color: #05797A"
+                  style="
+                    font-size: 12px !important;
+                    font-weight: bold !important;
+                    color: #05797a;
+                  "
                 >
                   <strong
                     >Scheduled: {{ meeting.scheduledDate | format }}</strong
@@ -58,18 +68,18 @@ export default {
   props: {
     content: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
     routeTo(meeting) {
       let category = strapiEnumToObject("meetings", meeting.category);
       let url = `/about/meetings/${category[0].slug}/${meeting.slug}`;
-      this.$router.push(url).catch(err => {
+      this.$router.push(url).catch((err) => {
         this.$vuetify.goTo(0);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

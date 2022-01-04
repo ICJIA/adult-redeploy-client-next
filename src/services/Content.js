@@ -10,15 +10,15 @@ const xss = require("xss");
 const axios = require("axios");
 const api = axios.create({
   baseURL: config.baseURL,
-  timeout: 10000
+  timeout: 10000,
 });
 
-api.interceptors.request.use(config => {
+api.interceptors.request.use((config) => {
   NProgress.start();
   return config;
 });
 
-api.interceptors.response.use(response => {
+api.interceptors.response.use((response) => {
   NProgress.done();
   return response;
 });
@@ -28,8 +28,8 @@ async function queryEndpoint(query) {
     url: "/graphql",
     method: "post",
     data: {
-      query
-    }
+      query,
+    },
   });
   return content;
 }
@@ -39,8 +39,8 @@ async function queryResearchHub(query) {
     url: "https://researchhub.icjia-api.cloud/graphql",
     method: "post",
     data: {
-      query
-    }
+      query,
+    },
   });
   return content;
 }
@@ -48,12 +48,12 @@ async function queryResearchHub(query) {
 async function getGATAFundingQuery() {
   let content = await api({
     url: "https://icjia.illinois.gov/gata/api/meta/funding.json",
-    method: "get"
+    method: "get",
   });
   return content;
 }
 
-const getPageQuery = slug => {
+const getPageQuery = (slug) => {
   return `{
   pages (where: {slug: "${slug}", isPublished: true}) {
     id
@@ -77,7 +77,7 @@ const getPageQuery = slug => {
 }`;
 };
 
-const getPostQuery = slug => {
+const getPostQuery = (slug) => {
   return `{
   posts  (where: {slug: "${slug}", isPublished: true}) {
     id
@@ -99,7 +99,7 @@ const getPostQuery = slug => {
 }`;
 };
 
-const getFrontPageNewsQuery = limit => {
+const getFrontPageNewsQuery = (limit) => {
   return `{
   posts(sort: "publicationDate:desc", limit: ${limit}, where: {isPublished: true}) {
     title
@@ -197,7 +197,7 @@ const getAllPublicationsQuery = () => {
 } `;
 };
 
-const getContentByTagQuery = slug => {
+const getContentByTagQuery = (slug) => {
   return `
   {
   tags(where: { slug: "${slug}" }) {
@@ -337,7 +337,7 @@ const getContentByTagQuery = slug => {
   `;
 };
 
-const getSinglePublicationQuery = slug => {
+const getSinglePublicationQuery = (slug) => {
   return `{
   publications (where: {slug: "${slug}", isPublished: true})  {
     title
@@ -427,7 +427,7 @@ const getPageBySectionQuery = (section, slug) => {
 }`;
 };
 
-const getSiteDescriptionQuery = slug => {
+const getSiteDescriptionQuery = (slug) => {
   return `{
   sites (where: {isPublished: true, slug: "${slug}"}){
     id
@@ -495,7 +495,7 @@ const getAllBiographiesQuery = () => {
 }`;
 };
 
-const getSingleBiographiesQuery = slug => {
+const getSingleBiographiesQuery = (slug) => {
   return `
   {
   biographies (where: {slug: "${slug}", isPublished: true}){
@@ -553,7 +553,7 @@ const getAllMeetingsQuery = () => {
   `;
 };
 
-const getSingleMeetingQuery = slug => {
+const getSingleMeetingQuery = (slug) => {
   return `
   {
   meetings (sort: "scheduledDate:desc", where: {slug: "${slug}", isPublished: true}) {
@@ -582,7 +582,7 @@ const getSingleMeetingQuery = slug => {
 }`;
 };
 
-const getMeetingsByCategoryQuery = category => {
+const getMeetingsByCategoryQuery = (category) => {
   return `{
   meetings (sort: "scheduledDate:desc", where: {isPublished: true, category: "${category}"}) {
     createdAt
@@ -646,7 +646,7 @@ const getAllResourcesQuery = () => {
   `;
 };
 
-const getResourcesByCategoryQuery = category => {
+const getResourcesByCategoryQuery = (category) => {
   return `{
   resources (where: {isPublished: true, category: "${category}"}) {
     createdAt
@@ -680,7 +680,7 @@ const getResourcesByCategoryQuery = category => {
   `;
 };
 
-const getSingleResourceQuery = slug => {
+const getSingleResourceQuery = (slug) => {
   return `
   {
   resources (sort: "publicationDate:desc", where: {slug: "${slug}", isPublished: true}) {
@@ -1148,5 +1148,5 @@ export {
   getAppCount,
   getArticleCount,
   getUpcomingMeetings,
-  getGATAFunding
+  getGATAFunding,
 };

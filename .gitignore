@@ -3,6 +3,7 @@ node_modules
 /dist
 
 # local env files
+.env
 .env.local
 .env.*.local
 
@@ -24,7 +25,7 @@ yarn-error.log*
 
 .env
 
-package-lock.json
+
 src/api/routes.json
 src/api/searchIndex.json
 public/sitemap.xml

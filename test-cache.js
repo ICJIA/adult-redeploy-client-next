@@ -8,16 +8,16 @@ const {
   getAllPublications,
   getNews,
   getPage,
-  getPost
+  getPost,
 } = require("./test-content-service");
 
 let cache = new Map();
 
-const isItCached = function(hash) {
+const isItCached = function (hash) {
   return cache.has(hash);
 };
 
-const getHash = salt => {
+const getHash = (salt) => {
   let hash = MD5(salt).toString();
   return hash;
 };
@@ -31,7 +31,7 @@ const getContentFromCache = async (map, key) => {
   }
 };
 
-const checkIfValid = arr => {
+const checkIfValid = (arr) => {
   if (arr) {
     return !!arr.length;
   } else {
@@ -48,7 +48,7 @@ const clearCache = () => {
   return cache.clear();
 };
 
-const cacheContent = async contentMap => {
+const cacheContent = async (contentMap) => {
   let start = new Date();
   let queries = [],
     hashes = [];
@@ -97,18 +97,18 @@ const cacheContent = async contentMap => {
   contentMap01.set("frontPageNews", {
     hash: getHash("contentMap01-getFrontPageNews"),
     query: getFrontPageNews,
-    params: { limit }
+    params: { limit },
   });
 
   contentMap01.set("news", {
     hash: getHash("contentMap01-getNews"),
-    query: getNews
+    query: getNews,
   });
 
   const contentMap02 = new Map();
   contentMap02.set("publications", {
     hash: getHash("contentMap02-getAllPublications"),
-    query: getAllPublications
+    query: getAllPublications,
   });
 
   const contentMap03 = new Map();
@@ -117,7 +117,7 @@ const cacheContent = async contentMap => {
   contentMap03.set("post", {
     hash: getHash(`${slug}-post`),
     query: getPost,
-    params: { slug }
+    params: { slug },
   });
 
   await cacheContent(contentMap01);

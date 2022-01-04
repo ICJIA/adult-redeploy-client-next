@@ -29,7 +29,7 @@
               @click="
                 $router
                   .push(link.slug === 'home' ? '/' : `/${link.slug}`)
-                  .catch(err => {
+                  .catch((err) => {
                     $vuetify.goTo(0);
                   })
               "
@@ -55,18 +55,18 @@ export default {
   props: {
     sections: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       drawer: false,
       items: [
         { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
-      ]
+        { title: "About", icon: "question_answer" },
+      ],
     };
-  }
+  },
 };
 </script>
 

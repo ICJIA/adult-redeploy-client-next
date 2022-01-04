@@ -22,22 +22,22 @@ export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
     FundingCard,
-    Loader
+    Loader,
   },
   props: {
     funding: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     toggleState: {
       type: String,
-      default: "current"
-    }
+      default: "current",
+    },
   },
   data() {
     return {
       filteredFunding: [],
-      loading: true
+      loading: true,
     };
   },
   watch: {
@@ -49,7 +49,7 @@ export default {
 
       let filteredFunding = [];
       if (newValue === "current") {
-        this.funding.forEach(x => {
+        this.funding.forEach((x) => {
           let expiration = new Date(x.expires);
           let expirationAdjusted = new Date(
             expiration.getTime() + 24 * 60 * 60 * 250
@@ -70,7 +70,7 @@ export default {
             filteredFunding.push(x);
         });
       } else {
-        this.funding.forEach(x => {
+        this.funding.forEach((x) => {
           let expiration = new Date(x.expires);
           //console.log(`Expiration: ${expiration} -- Target: ${target}`)
           if (expiration < target && x.status === "live")
@@ -80,8 +80,8 @@ export default {
       this.filteredFunding = filteredFunding;
       this.loading = false;
       NProgress.done();
-    }
-  }
+    },
+  },
 };
 </script>
 

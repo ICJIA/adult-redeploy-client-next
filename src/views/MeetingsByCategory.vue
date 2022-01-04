@@ -26,7 +26,7 @@
 
               <ListTableMeeting
                 :items="meetings"
-                class="mt-8 "
+                class="mt-8"
               ></ListTableMeeting>
             </v-col>
           </v-row>
@@ -44,7 +44,7 @@ import { getMeetingsByCategory } from "@/services/Content";
 import {
   getHash,
   checkIfValidPage,
-  strapiSlugToObject
+  strapiSlugToObject,
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
@@ -52,11 +52,11 @@ import { handleClicks } from "@/mixins/handleClicks";
 export default {
   mixins: [handleClicks],
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -71,25 +71,25 @@ export default {
       displayMode: {},
       categoryTitle: "",
       categoryDescription: "undefined",
-      title: ""
+      title: "",
     };
   },
   components: {
     BaseContent,
-    ListTableMeeting
+    ListTableMeeting,
   },
   created() {
     this.fetchContent();
   },
   mounted() {
-    EventBus.$on("toggle", payload => {
+    EventBus.$on("toggle", (payload) => {
       this.displayMode = payload;
     });
   },
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
 
   methods: {
@@ -110,7 +110,7 @@ export default {
         contentMap.set(name, {
           hash: getHash(name),
           query: getMeetingsByCategory,
-          params: { strapiEnumCategory }
+          params: { strapiEnumCategory },
         });
         await this.$store.dispatch("cacheContent", contentMap);
 
@@ -123,7 +123,7 @@ export default {
         this.$ga.page({
           page: this.$route.path,
           title: category[0].title,
-          location: window.location.href
+          location: window.location.href,
         });
 
         this.loading = false;
@@ -140,13 +140,13 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
-    }
-  }
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

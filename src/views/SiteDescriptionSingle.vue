@@ -27,12 +27,12 @@ import { handleClicks } from "@/mixins/handleClicks";
 export default {
   components: {
     BaseContent,
-    SiteDescriptionCard
+    SiteDescriptionCard,
   },
   mixins: [handleClicks],
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -42,11 +42,11 @@ export default {
       content: null,
       renderToHtml,
       error: null,
-      title: null
+      title: null,
     };
   },
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   mounted() {
     this.fetchData();
@@ -54,7 +54,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
   methods: {
     async fetchData() {
@@ -66,7 +66,7 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getSiteDescription,
-        params: { slug }
+        params: { slug },
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -77,7 +77,7 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
-        location: window.location.href
+        location: window.location.href,
       });
       this.loading = false;
     },
@@ -90,15 +90,15 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -36,16 +36,16 @@
 import ErrorContent from "@/components/ErrorContent";
 export default {
   components: {
-    ErrorContent
+    ErrorContent,
   },
   metaInfo() {
     return {
-      title: "Error"
+      title: "Error",
     };
   },
   data() {
     return {
-      debug: null
+      debug: null,
     };
   },
   mounted() {
@@ -60,18 +60,18 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
-        location: window.location.href
+        location: window.location.href,
       });
 
       this.$ga.event({
         eventCategory: "Error",
         eventAction: this.$route.params.msg,
-        eventLabel: JSON.stringify(this.debug)
+        eventLabel: JSON.stringify(this.debug),
       });
     } catch (e) {
       console.log(e);
     }
-  }
+  },
 };
 </script>
 

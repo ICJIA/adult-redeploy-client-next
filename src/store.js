@@ -43,7 +43,7 @@ export default new Vuex.Store({
     cache: new Map(),
     selectedCountyData: null,
     jwt: localStorage.getItem("jwt") || "",
-    userMeta: JSON.parse(localStorage.getItem("userMeta")) || ""
+    userMeta: JSON.parse(localStorage.getItem("userMeta")) || "",
   },
   mutations: {
     CLEAR_CACHE(state) {
@@ -95,7 +95,7 @@ export default new Vuex.Store({
     SET_SELECTED_COUNTY_DATA(state, payload) {
       state.selectedCountyData = payload;
       //console.log("Selected county data: ", payload);
-    }
+    },
   },
   actions: {
     async initApp({ commit }) {
@@ -188,7 +188,7 @@ export default new Vuex.Store({
           itemsCached: res.length,
           totalCacheSize: state.cache.size,
           millisecondsToComplete: end,
-          previouslyCached: false
+          previouslyCached: false,
         };
 
         if (state.config.debug) {
@@ -202,52 +202,52 @@ export default new Vuex.Store({
           itemsCached: queries.length,
           totalCacheSize: state.cache.size,
           millisecondsToComplete: end,
-          previouslyCached: true
+          previouslyCached: true,
         };
         if (state.config.debug) {
           console.log(metaInfo);
         }
         return metaInfo;
       }
-    }
+    },
   },
   getters: {
     // eslint-disable-next-line no-unused-vars
-    inCache: state => hash => {
+    inCache: (state) => (hash) => {
       return state.cache.has(hash);
     },
-    isApiReady: state => {
+    isApiReady: (state) => {
       if (state.apiStatus === 200 || state.apiStatus === 204) {
         return true;
       } else {
         return false;
       }
     },
-    config: state => {
+    config: (state) => {
       return state.config;
     },
-    selectedCountyData: state => {
+    selectedCountyData: (state) => {
       return state.selectedCountyData;
     },
-    sections: state => {
+    sections: (state) => {
       return state.sections;
     },
-    appCount: state => {
+    appCount: (state) => {
       return state.appCount;
     },
-    articleCount: state => {
+    articleCount: (state) => {
       return state.articleCount;
     },
-    debug: state => {
+    debug: (state) => {
       return state.config.debug;
     },
-    getContentFromCache: state => (map, key) => {
+    getContentFromCache: (state) => (map, key) => {
       if (map.get(key)) {
         let content = state.cache.get(map.get(key).hash);
         return content;
       } else {
         return [];
       }
-    }
-  }
+    },
+  },
 });

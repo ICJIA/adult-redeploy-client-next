@@ -34,7 +34,7 @@
                 class="text-right"
                 v-if="
                   item.updatedAt &&
-                    displayUpdated(item.createdAt, item.updatedAt)
+                  displayUpdated(item.createdAt, item.updatedAt)
                 "
               >
                 Last updated: {{ item.updatedAt | timeAgoFormat }}
@@ -56,16 +56,16 @@ import TagList from "@/components/TagList";
 import DownloadBox from "@/components/DownloadBox";
 import {
   strapiEnumToObject,
-  addAttributeToElement
+  addAttributeToElement,
 } from "@/services/Utilities";
 export default {
   components: {
     TagList,
-    DownloadBox
+    DownloadBox,
   },
   data() {
     return {
-      renderToHtml
+      renderToHtml,
     };
   },
   computed: {},
@@ -86,7 +86,7 @@ export default {
       let arr = strapiEnumToObject("resources", item.category);
       let catSlug = arr[0].slug;
       let url = `/resources/${catSlug}`;
-      this.$router.push(url).catch(err => {
+      this.$router.push(url).catch((err) => {
         this.$vuetify.goTo(0);
       });
     },
@@ -94,14 +94,14 @@ export default {
       let cat = strapiEnumToObject("resources", catEnum);
 
       return cat[0].title;
-    }
+    },
   },
   props: {
     item: {
       type: Object,
-      default: () => {}
-    }
-  }
+      default: () => {},
+    },
+  },
 };
 </script>
 

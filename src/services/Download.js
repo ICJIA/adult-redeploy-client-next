@@ -2,7 +2,7 @@
 const config = require("@/config.json");
 import { EventBus } from "@/event-bus.js";
 
-const getFile = urlObj => {
+const getFile = (urlObj) => {
   const fileserverUrl = `${config.baseURL}/file?path=${
     urlObj.url
   }&name=${encodeURIComponent(urlObj.name)}`;
@@ -11,7 +11,7 @@ const getFile = urlObj => {
   window.open(fileserverUrl, "_blank,noreferrer,noopener");
 };
 
-const getExternalFile = url => {
+const getExternalFile = (url) => {
   //location.href = url;
   window.open(url, "_blank,noreferrer,noopener");
 };

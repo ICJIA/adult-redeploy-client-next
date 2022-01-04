@@ -10,12 +10,12 @@ import "@/css/app.css";
 // import AOS from "aos";
 // import "aos/dist/aos.css";
 
-(function() {
+(function () {
   if (typeof NodeList.prototype.forEach === "function") return false;
   NodeList.prototype.forEach = Array.prototype.forEach;
 })();
 
-(function() {
+(function () {
   if (!Element.prototype.matches) {
     Element.prototype.matches = Element.prototype.msMatchesSelector;
   }
@@ -27,15 +27,15 @@ Vue.use(browserDetect);
 import VueMeta from "vue-meta";
 Vue.use(VueMeta, {
   // optional pluginOptions
-  refreshOnceOnNavigation: true
+  refreshOnceOnNavigation: true,
 });
 
 import VueAnalytics from "vue-analytics";
 Vue.use(VueAnalytics, {
   id: "UA-150082887-3",
   debug: {
-    sendHitTask: process.env.NODE_ENV === "production"
-  }
+    sendHitTask: process.env.NODE_ENV === "production",
+  },
 });
 
 import VueRouterBackButton from "vue-router-back-button";
@@ -52,5 +52,5 @@ new Vue({
   //   AOS.init();
   // },
   vuetify,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

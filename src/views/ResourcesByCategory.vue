@@ -22,7 +22,7 @@
                 <ListTableResource
                   :items="resourceCategory"
                   :hideCategory="false"
-                  class="mt-8 "
+                  class="mt-8"
                   :class="{
                     'pl-6':
                       $vuetify.breakpoint.md ||
@@ -31,7 +31,7 @@
                     'pr-6':
                       $vuetify.breakpoint.md ||
                       $vuetify.breakpoint.lg ||
-                      $vuetify.breakpoint.xl
+                      $vuetify.breakpoint.xl,
                   }"
                 ></ListTableResource>
               </div>
@@ -53,17 +53,17 @@ import { getResourcesByCategory } from "@/services/Content";
 import {
   getHash,
   checkIfValidPage,
-  strapiSlugToObject
+  strapiSlugToObject,
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   mixins: [handleClicks],
@@ -80,13 +80,13 @@ export default {
       categoryTitle: "",
       categoryDescription: "",
       resourceCategory: null,
-      title: null
+      title: null,
     };
   },
   components: {
     BaseContent,
 
-    ListTableResource
+    ListTableResource,
   },
   created() {
     this.fetchContent();
@@ -95,7 +95,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
 
   methods: {
@@ -116,7 +116,7 @@ export default {
         contentMap.set(resourcesName, {
           hash: getHash(resourcesName),
           query: getResourcesByCategory,
-          params: { category }
+          params: { category },
         });
 
         await this.$store.dispatch("cacheContent", contentMap);
@@ -129,7 +129,7 @@ export default {
         this.$ga.page({
           page: this.$route.path,
           title: this.title,
-          location: window.location.href
+          location: window.location.href,
         });
       } else {
         this.routeToError();
@@ -145,19 +145,19 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch((err) => {});
     },
     filterResourceData(categoryEnum) {
-      return this.resources.filter(resource => {
+      return this.resources.filter((resource) => {
         return resource.category === categoryEnum;
       });
     },
     checkCategoryLength(category) {
-      let test = this.resources.filter(resource => {
+      let test = this.resources.filter((resource) => {
         return resource.category === category.enum;
       });
       if (test.length) {
@@ -165,8 +165,8 @@ export default {
       } else {
         return false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -66,12 +66,12 @@ import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   mixins: [handleClicks],
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -82,13 +82,13 @@ export default {
       renderToHtml,
       showToc: false,
       sectionContent: null,
-      title: ""
+      title: "",
     };
   },
   components: {
     BaseContent,
     TOC,
-    TagList
+    TagList,
   },
   created() {
     this.fetchContent();
@@ -96,7 +96,7 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
   mounted() {},
 
@@ -112,7 +112,7 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getPageBySection,
-        params: { section, slug }
+        params: { section, slug },
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -130,7 +130,7 @@ export default {
           this.$ga.page({
             page: this.$route.path,
             title: this.title,
-            location: window.location.href
+            location: window.location.href,
           });
         } else {
           this.routeToError();
@@ -150,11 +150,11 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch((err) => {});
     },
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
@@ -162,8 +162,8 @@ export default {
       } else {
         return this.showToc ? "10" : "12";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

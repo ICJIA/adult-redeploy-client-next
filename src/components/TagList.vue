@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="tags.length" class="pt-3">
-      <span v-for="(tag, index) in tags" :key="index" class="pl-1 pr-1 ">
+      <span v-for="(tag, index) in tags" :key="index" class="pl-1 pr-1">
         <!-- <div :to="`/tags/${tag.slug}`" class="tag-link"> -->
         <span @click.prevent.stop="routeTo(`/tags/${tag.slug}`)">
           <v-chip
@@ -38,18 +38,18 @@ export default {
   data() {
     return {
       maxTags: 2,
-      showAll: false
+      showAll: false,
     };
   },
   props: {
     tags: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     background: {
       type: String,
-      default: "light"
-    }
+      default: "light",
+    },
   },
   mounted() {},
   methods: {
@@ -57,8 +57,8 @@ export default {
       this.$router.push(route).catch(() => {
         this.$vuetify.goTo(0);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

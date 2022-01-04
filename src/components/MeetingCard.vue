@@ -40,7 +40,7 @@
               class="text-right"
               v-if="
                 content.updatedAt &&
-                  displayUpdated(content.createdAt, content.updatedAt)
+                displayUpdated(content.createdAt, content.updatedAt)
               "
             >
               Last updated: {{ content.updatedAt | timeAgoFormat }}
@@ -61,17 +61,17 @@ import TagList from "@/components/TagList";
 import DownloadBox from "@/components/DownloadBox";
 import {
   strapiEnumToObject,
-  addAttributeToElement
+  addAttributeToElement,
 } from "@/services/Utilities";
 export default {
   components: {
     TagList,
-    DownloadBox
+    DownloadBox,
   },
   data() {
     return {
       renderToHtml,
-      getExternalFile
+      getExternalFile,
     };
   },
   computed: {},
@@ -102,7 +102,7 @@ export default {
       let catSlug = arr[0].slug;
       let url = `/about/meetings/${catSlug}`;
 
-      this.$router.push(url).catch(err => {
+      this.$router.push(url).catch((err) => {
         this.$vuetify.goTo(0);
       });
     },
@@ -112,14 +112,14 @@ export default {
       // }
       console.log(item);
       return getFile(item);
-    }
+    },
   },
   props: {
     content: {
       type: Object,
-      default: () => {}
-    }
-  }
+      default: () => {},
+    },
+  },
 };
 </script>
 

@@ -5,11 +5,11 @@
     aspect-ratio="1"
     class="grey lighten-2"
     max-height="600"
-    style="margin-top: -12px;"
+    style="margin-top: -12px"
     ><v-container
       class="fill-height text-center"
       fluid
-      style="margin: 0 !important; padding: 0 !important; margin-left: 12px;"
+      style="margin: 0 !important; padding: 0 !important; margin-left: 12px"
     >
       <v-row align="center">
         <div class="banner">
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       colors: ["grey darken-1", "grey darken-1", "grey darken-1"],
-      slides: ["First", "Second", "Third"]
+      slides: ["First", "Second", "Third"],
     };
   },
   mounted() {
@@ -53,13 +53,13 @@ export default {
 
     document.addEventListener("DOMContentLoaded", () => {
       let arr = [
-        ...document.getElementsByClassName("v-carousel__controls__item")
+        ...document.getElementsByClassName("v-carousel__controls__item"),
       ];
-      arr.forEach(item => {
+      arr.forEach((item) => {
         item.setAttribute("aria-label", "navigation button");
       });
     });
-  }
+  },
 };
 </script>
 

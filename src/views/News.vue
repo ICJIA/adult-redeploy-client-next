@@ -45,12 +45,12 @@ export default {
   components: {
     BaseContent,
 
-    ListTableNews
+    ListTableNews,
   },
   mixins: [handleClicks],
   metaInfo() {
     return {
-      title: this.title
+      title: this.title,
     };
   },
   data() {
@@ -61,7 +61,7 @@ export default {
       news: [],
       renderToHtml,
       title: "News Archive",
-      newsSorted: []
+      newsSorted: [],
     };
   },
   created() {
@@ -86,7 +86,7 @@ export default {
       contentMap.set(newsName, {
         hash: getHash(newsName),
         query: getAllNews,
-        params: {}
+        params: {},
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -108,7 +108,7 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
-        location: window.location.href
+        location: window.location.href,
       });
 
       this.loading = false;
@@ -118,20 +118,20 @@ export default {
       this.$router
         .push({
           name: "error",
-          params: { msg: "Page not found", statusCode: 404 }
+          params: { msg: "Page not found", statusCode: 404 },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {
+        .catch((err) => {
           this.$vuetify.goTo(0);
         });
-    }
+    },
   },
   props: {
     display: {
       type: String,
-      default: "modal"
-    }
-  }
+      default: "modal",
+    },
+  },
 };
 </script>
 

@@ -14,10 +14,10 @@
         :src="require('@/assets/icjia-logo.png')"
         alt="Illinois Criminal Justice Information Authority"
         :width="logoWidth()"
-        style="margin-left: -5px; margin-right: 8px;"
+        style="margin-left: -5px; margin-right: 8px"
         class="hover"
         @click="
-          $router.push('/').catch(err => {
+          $router.push('/').catch((err) => {
             $vuetify.goTo(0);
           })
         "
@@ -25,7 +25,7 @@
       <v-toolbar-title
         class="heavy hover"
         @click="
-          $router.push('/').catch(err => {
+          $router.push('/').catch((err) => {
             $vuetify.goTo(0);
           })
         "
@@ -44,8 +44,13 @@
                 <v-btn
                   v-if="link.hasSubMenus && link.pages.length > 0"
                   depressed
-                  style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
-                  class="heavy white "
+                  style="
+                    height: 99%;
+                    margin-bottom: 1px;
+                    margin-top: 0px;
+                    font-size: 13px;
+                  "
+                  class="heavy white"
                   v-on="on"
                 >
                   {{ link.title }}<v-icon right small>arrow_drop_down</v-icon>
@@ -53,8 +58,13 @@
                 <v-btn
                   v-else
                   depressed
-                  style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
-                  class="heavy white "
+                  style="
+                    height: 99%;
+                    margin-bottom: 1px;
+                    margin-top: 0px;
+                    font-size: 13px;
+                  "
+                  class="heavy white"
                   :to="`/${link.slug}`"
                 >
                   {{ link.title }}
@@ -71,13 +81,13 @@
                         @click="
                           $router
                             .push(`/${link.slug}/${subItem.slug}`)
-                            .catch(err => {
+                            .catch((err) => {
                               $vuetify.goTo(0);
                             })
                         "
                       >
                         <v-list-item-title
-                          style="font-size: 14px; font-weight: bold; "
+                          style="font-size: 14px; font-weight: bold"
                         >
                           <span v-if="subItem.addDivider">
                             <div class="mb-5">
@@ -109,14 +119,14 @@ export default {
   props: {
     sections: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       multiLine: true,
       snackbar: true,
-      text: "I'm a multi-line snackbar."
+      text: "I'm a multi-line snackbar.",
     };
   },
   methods: {
@@ -130,8 +140,8 @@ export default {
       } else {
         return 90;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

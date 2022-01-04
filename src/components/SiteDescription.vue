@@ -3,9 +3,7 @@
     <div v-if="!$store.getters.selectedCountyData" class="text-center">
       <h2>Select a shaded county for ARI program information.</h2>
     </div>
-    <div v-if="error">
-      Not found. Please try again.
-    </div>
+    <div v-if="error">Not found. Please try again.</div>
     <div>
       <base-content :loading="loading">
         <template v-slot:content v-if="content">
@@ -31,7 +29,7 @@ import SiteDescriptionCard from "@/components/SiteDescriptionCard";
 export default {
   components: {
     BaseContent,
-    SiteDescriptionCard
+    SiteDescriptionCard,
   },
   data() {
     return {
@@ -39,11 +37,11 @@ export default {
       loading: false,
       content: null,
       renderToHtml,
-      error: null
+      error: null,
     };
   },
   mounted() {
-    EventBus.$on("mapClick", mapData => {
+    EventBus.$on("mapClick", (mapData) => {
       this.error = null;
       this.fetchData(mapData);
       if (this.$vuetify.breakpoint.xs) {
@@ -64,7 +62,7 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getSiteDescription,
-        params: { slug }
+        params: { slug },
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -73,8 +71,8 @@ export default {
         this.error = "County not found";
       }
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

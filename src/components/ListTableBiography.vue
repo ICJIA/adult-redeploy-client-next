@@ -8,7 +8,7 @@
       class="elevation-1 tagTable"
     >
       <template v-slot:item.lastName="{ item }">
-        <span style="font-weight:bold"
+        <span style="font-weight: bold"
           >{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</span
         >
       </template>
@@ -31,16 +31,16 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     contentType: {
       type: String,
-      default: "undefined"
+      default: "undefined",
     },
     singletonPath: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   methods: {
     getRoute(item) {
@@ -49,7 +49,7 @@ export default {
       } else {
         return `/${item.section.slug}/${item.slug}`;
       }
-    }
+    },
   },
   data() {
     return {
@@ -60,19 +60,19 @@ export default {
           text: "Name",
           align: "left",
           sortable: true,
-          value: "lastName"
+          value: "lastName",
         },
         {
           text: "Title",
           align: "left",
           sortable: true,
-          value: "title"
+          value: "title",
         },
 
-        { text: "Link", value: "slug", align: "center", sortable: false }
-      ]
+        { text: "Link", value: "slug", align: "center", sortable: false },
+      ],
     };
-  }
+  },
 };
 </script>
 

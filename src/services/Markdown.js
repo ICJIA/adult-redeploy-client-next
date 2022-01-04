@@ -8,7 +8,7 @@ let md = require("markdown-it")(config.markdownIt);
 md.use(namedHeaders);
 md.use(attrs);
 
-const renderToHtml = function(markdown) {
+const renderToHtml = function (markdown) {
   return md.render(markdown);
 };
 

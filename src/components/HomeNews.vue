@@ -25,17 +25,17 @@
 import NewsCard from "@/components/NewsCard";
 export default {
   components: {
-    NewsCard
+    NewsCard,
   },
   props: {
     content: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {};
-  }
+  },
 };
 </script>
 

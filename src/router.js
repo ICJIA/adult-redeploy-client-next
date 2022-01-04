@@ -24,8 +24,8 @@ const router = new Router({
       name: "home",
       component: Home,
       meta: {
-        hideBreadcrumb: true
-      }
+        hideBreadcrumb: true,
+      },
     },
     { path: "/home", redirect: { name: "home" } },
     /**
@@ -37,13 +37,13 @@ const router = new Router({
       path: "/programs",
       name: "programs",
       component: () =>
-        import(/* webpackChunkName: "programs" */ "./views/Programs.vue")
+        import(/* webpackChunkName: "programs" */ "./views/Programs.vue"),
     },
     {
       path: "/sites",
       name: "siteDescriptions",
       component: () =>
-        import(/* webpackChunkName: "sites" */ "./views/SiteDescriptions.vue")
+        import(/* webpackChunkName: "sites" */ "./views/SiteDescriptions.vue"),
     },
     {
       path: "/sites/:slug",
@@ -51,7 +51,7 @@ const router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "sites" */ "./views/SiteDescriptionSingle.vue"
-        )
+        ),
     },
 
     /**
@@ -63,13 +63,14 @@ const router = new Router({
       path: "/news/:slug",
       name: "newsSingle",
       component: () =>
-        import(/* webpackChunkName: "news" */ "./views/NewsSingle.vue")
+        import(/* webpackChunkName: "news" */ "./views/NewsSingle.vue"),
     },
 
     {
       path: "/news",
       name: "news",
-      component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
+      component: () =>
+        import(/* webpackChunkName: "news" */ "./views/News.vue"),
     },
     /**
      *
@@ -79,11 +80,12 @@ const router = new Router({
     {
       path: "/apps",
       name: "apps",
-      component: () => import(/* webpackChunkName: "apps" */ "./views/Apps.vue")
+      component: () =>
+        import(/* webpackChunkName: "apps" */ "./views/Apps.vue"),
     },
     {
       path: "/applications",
-      redirect: "apps"
+      redirect: "apps",
     },
 
     /**
@@ -96,13 +98,13 @@ const router = new Router({
       path: "/about/oversight",
       name: "oversightBoard",
       component: () =>
-        import(/* webpackChunkName: "biographies" */ "./views/Oversight.vue")
+        import(/* webpackChunkName: "biographies" */ "./views/Oversight.vue"),
     },
     {
       path: "/about/staff",
       name: "stafff",
       component: () =>
-        import(/* webpackChunkName: "biographies" */ "./views/Staff.vue")
+        import(/* webpackChunkName: "biographies" */ "./views/Staff.vue"),
     },
     {
       path: "/about/biographies/:slug",
@@ -110,7 +112,7 @@ const router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue"
-        )
+        ),
     },
     /**
      *
@@ -121,13 +123,13 @@ const router = new Router({
       path: "/about/meetings",
       name: "meetings",
       component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue")
+        import(/* webpackChunkName: "meetings" */ "./views/Meetings.vue"),
     },
     {
       path: "/about/meetings/:category/:slug",
       name: "meetingsSingle",
       component: () =>
-        import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
+        import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue"),
     },
     {
       path: "/about/meetings/:category",
@@ -135,7 +137,7 @@ const router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "meetings" */ "./views/MeetingsByCategory.vue"
-        )
+        ),
     },
 
     /**
@@ -149,7 +151,7 @@ const router = new Router({
       name: "tagsSingle",
 
       component: () =>
-        import(/* webpackChunkName: "tags" */ "./views/TagsSingle.vue")
+        import(/* webpackChunkName: "tags" */ "./views/TagsSingle.vue"),
     },
 
     /**
@@ -163,7 +165,7 @@ const router = new Router({
       name: "resources",
 
       component: () =>
-        import(/* webpackChunkName: "resources" */ "./views/Resources.vue")
+        import(/* webpackChunkName: "resources" */ "./views/Resources.vue"),
     },
     {
       path: "/resources/:category",
@@ -172,7 +174,7 @@ const router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "resources" */ "./views/ResourcesByCategory.vue"
-        )
+        ),
     },
     {
       path: "/resources/:category/:slug",
@@ -181,7 +183,7 @@ const router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "resources" */ "./views/ResourcesSingle.vue"
-        )
+        ),
     },
 
     /**
@@ -194,7 +196,7 @@ const router = new Router({
       path: "/error",
       name: "error",
       component: () =>
-        import(/* webpackChunkName: "error" */ "./views/Error.vue")
+        import(/* webpackChunkName: "error" */ "./views/Error.vue"),
     },
     /**
      *
@@ -206,7 +208,7 @@ const router = new Router({
       path: "/sandbox",
       name: "sandbox",
       component: () =>
-        import(/* webpackChunkName: "sandbox" */ "./views/Sandbox.vue")
+        import(/* webpackChunkName: "sandbox" */ "./views/Sandbox.vue"),
     },
     /**
      *
@@ -217,7 +219,7 @@ const router = new Router({
       path: "/search",
       name: "search",
       component: () =>
-        import(/* webpackChunkName: "search" */ "./views/Search.vue")
+        import(/* webpackChunkName: "search" */ "./views/Search.vue"),
     },
     /**
      *
@@ -229,13 +231,14 @@ const router = new Router({
       path: "/:section",
       name: "section",
       component: () =>
-        import(/* webpackChunkName: "section" */ "./views/Section.vue")
+        import(/* webpackChunkName: "section" */ "./views/Section.vue"),
     },
 
     {
       path: "/:section/:slug",
       name: "page",
-      component: () => import(/* webpackChunkName: "page" */ "./views/Page.vue")
+      component: () =>
+        import(/* webpackChunkName: "page" */ "./views/Page.vue"),
     },
     /**
      *
@@ -247,9 +250,9 @@ const router = new Router({
       path: "*",
       name: "redirect",
       component: () =>
-        import(/* webpackChunkName: "error" */ "./views/Error.vue")
-    }
-  ]
+        import(/* webpackChunkName: "error" */ "./views/Error.vue"),
+    },
+  ],
 });
 
 router.afterEach((to, from) => {

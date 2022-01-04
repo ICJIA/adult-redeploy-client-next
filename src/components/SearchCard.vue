@@ -5,7 +5,7 @@
         slot-scope="{ hover }"
         :style="{ background: background }"
         :class="`elevation-${hover ? 3 : 0}`"
-        class=" px-5 py-5"
+        class="px-5 py-5"
         @click="route(item)"
       >
         <h2 class="" style="margin: 0; padding: 0">
@@ -50,24 +50,24 @@ export default {
   props: {
     item: {
       type: Object,
-      default: null
+      default: null,
     },
     background: {
       type: String,
-      default: "#fff"
+      default: "#fff",
     },
     elevation: {
       type: String,
-      default: "1"
+      default: "1",
     },
     query: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
-      stripHTML
+      stripHTML,
     };
   },
   mounted() {},
@@ -80,10 +80,10 @@ export default {
         this.$ga.event({
           eventCategory: "Search Conversion",
           eventAction: "Click",
-          eventLabel: "Query: '" + this.query + "' --> " + item.slug
+          eventLabel: "Query: '" + this.query + "' --> " + item.slug,
         });
         // eslint-disable-next-line no-unused-vars
-        this.$router.push(`/${item.slug}`).catch(err => {
+        this.$router.push(`/${item.slug}`).catch((err) => {
           this.$vuetify.goTo(0);
         });
       } else {
@@ -94,15 +94,15 @@ export default {
             "Query: '" +
             this.query +
             "' --> " +
-            `${item.parentPath}/${item.slug}`
+            `${item.parentPath}/${item.slug}`,
         });
         // eslint-disable-next-line no-unused-vars
-        this.$router.push(`${item.parentPath}/${item.slug}`).catch(err => {
+        this.$router.push(`${item.parentPath}/${item.slug}`).catch((err) => {
           this.$vuetify.goTo(0);
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

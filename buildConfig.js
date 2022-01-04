@@ -22,11 +22,11 @@ if (!fs.existsSync(apiDir)) {
   console.log(`Created: ${apiDir}/`);
 }
 
-request(api, query).then(res => {
+request(api, query).then((res) => {
   jsonfile.writeFile(
     `${apiDir}/${fileName}`,
     res["configs"][0]["config"],
-    function(err) {
+    function (err) {
       if (err) console.error(err);
       console.log(`Created: ${apiDir}/${fileName}`);
     }

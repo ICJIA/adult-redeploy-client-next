@@ -51,19 +51,13 @@
       </v-data-table>
     </v-card>
     <div v-else>
-      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc;">
+      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc">
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">
-                Posted
-              </th>
-              <th class="text-left">
-                Title
-              </th>
-              <th class="text-left">
-                Link
-              </th>
+              <th class="text-left">Posted</th>
+              <th class="text-left">Title</th>
+              <th class="text-left">Link</th>
             </tr>
           </thead>
           <tbody>
@@ -79,9 +73,7 @@
               </td>
               <td>
                 <v-btn>
-                  <v-icon @click.stop="routeTo(item)">
-                    link
-                  </v-icon>
+                  <v-icon @click.stop="routeTo(item)"> link </v-icon>
                 </v-btn>
               </td>
             </tr>
@@ -100,7 +92,7 @@ import { addAttributeToElement, dateFormat } from "@/services/Utilities";
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    NewsCard
+    NewsCard,
   },
   mounted() {
     addAttributeToElement(
@@ -120,10 +112,10 @@ export default {
           text: "Posted",
           align: "left",
           sortable: true,
-          value: "publicationDate"
+          value: "publicationDate",
         },
-        { text: "Title", value: "title" }
-      ]
+        { text: "Title", value: "title" },
+      ],
     };
   },
   computed: {
@@ -133,7 +125,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   methods: {
     routeTo(item) {
@@ -161,7 +153,7 @@ export default {
             this.$ga.event({
               eventCategory: "News",
               eventAction: "Preview",
-              eventLabel: "Preview: " + this.expanded[0].title
+              eventLabel: "Preview: " + this.expanded[0].title,
             });
           }
         } else {
@@ -171,20 +163,20 @@ export default {
             this.$ga.event({
               eventCategory: "News",
               eventAction: "Preview",
-              eventLabel: "Preview: " + this.expanded[0].title
+              eventLabel: "Preview: " + this.expanded[0].title,
             });
           }
         }
       }
-    }
+    },
   },
 
   props: {
     items: {
       type: Array,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 

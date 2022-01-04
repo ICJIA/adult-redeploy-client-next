@@ -1,7 +1,9 @@
 {
   "clientURL": "https://icjia.illinois.gov",
   "publicPath": "/adultredeploy",
-  "publications": { "truncateSummaryAt": 28 },
+  "publications": {
+    "truncateSummaryAt": 28
+  },
   "search": {
     "shouldSort": true,
     "threshold": 0.8,
@@ -9,13 +11,25 @@
     "distance": 100,
     "maxPatternLength": 32,
     "minMatchCharLength": 3,
-    "keys": ["searchMeta", "title", "summary", "name", "slug"]
+    "keys": [
+      "searchMeta",
+      "title",
+      "summary",
+      "name",
+      "slug"
+    ]
   },
   "frontPageItems": {
     "news": 4,
     "publications": 3,
     "meetings": 2,
-    "search": { "xs": 3, "sm": 4, "md": 5, "lg": 6, "xl": 6 }
+    "search": {
+      "xs": 3,
+      "sm": 4,
+      "md": 5,
+      "lg": 6,
+      "xl": 6
+    }
   },
   "contentCacheSize": 25,
   "thumbnail": {
@@ -95,6 +109,13 @@
         "slug": "evaluation",
         "title": "Evaluation Reports",
         "short": "Evaluation",
+        "description": ""
+      },
+      {
+        "enum": "factSheet",
+        "slug": "fact-sheet",
+        "title": "Fact Sheets",
+        "short": "Fact Sheets",
         "description": ""
       },
       {
@@ -180,7 +201,6 @@
     "typographer": false,
     "quotes": "“”‘’"
   },
-
   "baseURL": "https://ari.icjia-api.cloud",
   "archiveBaseURL": "https://archive.icjia.cloud"
 }

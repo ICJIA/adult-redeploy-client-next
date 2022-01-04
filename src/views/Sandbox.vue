@@ -56,11 +56,11 @@ export default {
       loading: true,
       articles: null,
       maxArticles: 98,
-      error: ""
+      error: "",
     };
   },
   components: {
-    Loader
+    Loader,
   },
   created() {
     this.fetchContent();
@@ -74,7 +74,7 @@ export default {
     },
     length() {
       return Math.floor(this.maxArticles / this.perPage) + 1;
-    }
+    },
   },
 
   methods: {
@@ -85,7 +85,7 @@ export default {
       contentMap.set(`getRecentArticles_${this.start}`, {
         hash: getHash(`getRecentArticles_${this.start}`),
         query: getRecentArticles,
-        params: { limit: this.perPage, start: this.start }
+        params: { limit: this.perPage, start: this.start },
       });
       await this.$store.dispatch("cacheContent", contentMap);
       this.articles = this.$store.getters.getContentFromCache(
@@ -96,8 +96,8 @@ export default {
         this.error = "Network error";
       }
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

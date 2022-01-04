@@ -43,9 +43,7 @@
                   <li class="pageTitle">
                     <router-link
                       class="pageLink"
-                      :to="
-                        `/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`
-                      "
+                      :to="`/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`"
                       >{{ item.title }}</router-link
                     >
                   </li>
@@ -68,11 +66,11 @@ import { handleClicks } from "@/mixins/handleClicks";
 export default {
   mixins: [handleClicks],
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -80,14 +78,14 @@ export default {
       loading: null,
       content: [],
       renderToHtml,
-      title: ""
+      title: "",
     };
   },
   components: {
     BaseContent,
     // eslint-disable-next-line vue/no-unused-components
     BaseList,
-    FundingDisplay
+    FundingDisplay,
   },
   methods: {
     routeToError() {
@@ -99,18 +97,18 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch((err) => {});
     },
     fetchContent() {
       this.loading = true;
       const section = this.$route.params.section.toLowerCase();
       if (section !== "home") {
         this.content = this.$store.getters.sections.find(
-          x => x.slug === `${section}`
+          (x) => x.slug === `${section}`
         );
         if (!this.content) {
           this.routeToError();
@@ -120,12 +118,12 @@ export default {
         this.$ga.page({
           page: this.$route.path,
           title: this.title,
-          location: window.location.href
+          location: window.location.href,
         });
       }
 
       this.loading = false;
-    }
+    },
   },
   created() {
     this.fetchContent();
@@ -133,8 +131,8 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -35,19 +35,19 @@ export default {
   data() {
     return {
       funding: null,
-      toggleState: null
+      toggleState: null,
     };
   },
   components: {
     FundingToggle,
     FundingList,
-    Loader
+    Loader,
   },
   created() {
     this.fetchContent();
   },
   mounted() {
-    EventBus.$on("toggle", state => {
+    EventBus.$on("toggle", (state) => {
       this.toggleState = state;
       console.log(this.toggleState);
     });
@@ -60,8 +60,8 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

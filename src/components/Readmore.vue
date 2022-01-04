@@ -52,74 +52,74 @@
 import TagList from "@/components/TagList";
 export default {
   components: {
-    TagList
+    TagList,
   },
   props: {
     content: {
       type: String,
-      default: "Content Not Defined"
+      default: "Content Not Defined",
     },
     tags: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
 
     readMoreText: {
       type: String,
-      default: "Read More"
+      default: "Read More",
     },
     readLessText: {
       type: String,
-      default: "Read Less"
+      default: "Read Less",
     },
     readMoreIcon: {
       type: String,
-      default: "arrow_drop_down"
+      default: "arrow_drop_down",
     },
     readLessIcon: {
       type: String,
-      default: "arrow_drop_up"
+      default: "arrow_drop_up",
     },
     height: {
       type: Number,
-      default: 300
+      default: 300,
     },
     hideFade: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hideReadLess: {
       type: Boolean,
-      default: false
+      default: false,
     },
     transitionSpeed: {
       type: Number,
-      default: 0.3
+      default: 0.3,
     },
     showWordCount: {
       type: Boolean,
-      default: false
+      default: false,
     },
     triggerPosition: {
       type: String,
-      default: "center"
+      default: "center",
     },
     triggerClass: {
       type: String,
-      default: "myTriggerClass"
+      default: "myTriggerClass",
     },
     triggerFontSize: {
       type: Number,
-      default: 11
+      default: 11,
     },
     fullHeight: {
       type: Boolean,
-      default: false
+      default: false,
     },
     eventLabel: {
       type: String,
-      default: "undefined"
-    }
+      default: "undefined",
+    },
   },
   data() {
     return {
@@ -128,7 +128,7 @@ export default {
       sectionHeight: null,
       hideButton: false,
       actualHeight: null,
-      removeFade: false
+      removeFade: false,
     };
   },
   computed: {
@@ -147,7 +147,7 @@ export default {
         return "100%";
       }
       return this.height + "px";
-    }
+    },
   },
   mounted() {
     /**
@@ -186,14 +186,8 @@ export default {
       ) {
         // some sanity checks taken from vue-router:
         // https://github.com/vuejs/vue-router/blob/dev/src/components/link.js#L106
-        const {
-          altKey,
-          ctrlKey,
-          metaKey,
-          shiftKey,
-          button,
-          defaultPrevented
-        } = event;
+        const { altKey, ctrlKey, metaKey, shiftKey, button, defaultPrevented } =
+          event;
         // don't handle with control keys
         if (metaKey || altKey || ctrlKey || shiftKey) return;
         // don't handle when preventDefault called
@@ -224,7 +218,7 @@ export default {
         this.$ga.event({
           eventCategory: "File",
           eventAction: "Download",
-          eventLabel: filename
+          eventLabel: filename,
         });
         const win = window.open(href, "_blank");
         win.focus();
@@ -241,11 +235,14 @@ export default {
     },
     create_UUID() {
       var dt = new Date().getTime();
-      var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-        var r = (dt + Math.random() * 16) % 16 | 0;
-        dt = Math.floor(dt / 16);
-        return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-      });
+      var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        (c) => {
+          var r = (dt + Math.random() * 16) % 16 | 0;
+          dt = Math.floor(dt / 16);
+          return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+      );
       return uuid;
     },
     collapseSection(element) {
@@ -266,7 +263,7 @@ export default {
       element.style.height = sectionHeight + "px";
       element.addEventListener(
         "transitionend",
-        this.y(callee => {
+        this.y((callee) => {
           element.removeEventListener("transitionend", callee);
         })
       );
@@ -288,10 +285,10 @@ export default {
       this.$ga.event({
         eventCategory: "ReadMore",
         eventAction: "Click",
-        eventLabel: status + ": " + eventLabel
+        eventLabel: status + ": " + eventLabel,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

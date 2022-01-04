@@ -51,7 +51,7 @@
                     <ListTableResource
                       :items="filterResourceData(category.enum)"
                       :hideCategory="true"
-                      class="mt-8 "
+                      class="mt-8"
                       :class="{
                         'pl-6':
                           $vuetify.breakpoint.md ||
@@ -60,7 +60,7 @@
                         'pr-6':
                           $vuetify.breakpoint.md ||
                           $vuetify.breakpoint.lg ||
-                          $vuetify.breakpoint.xl
+                          $vuetify.breakpoint.xl,
                       }"
                     ></ListTableResource>
                   </div>
@@ -69,7 +69,7 @@
               <div v-if="displayMode.message === 'By Publication Date'">
                 <ListTableResource
                   :items="resources"
-                  class="mt-8 "
+                  class="mt-8"
                   :class="{
                     'pl-6':
                       $vuetify.breakpoint.md ||
@@ -78,7 +78,7 @@
                     'pr-6':
                       $vuetify.breakpoint.md ||
                       $vuetify.breakpoint.lg ||
-                      $vuetify.breakpoint.xl
+                      $vuetify.breakpoint.xl,
                   }"
                 ></ListTableResource>
               </div>
@@ -111,17 +111,17 @@ import {
   getHash,
   checkIfValidPage,
   // eslint-disable-next-line no-unused-vars
-  getSectionContent
+  getSectionContent,
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: "Resources"
+      title: "Resources",
     };
   },
   mixins: [handleClicks],
@@ -134,20 +134,20 @@ export default {
       showToc: false,
       sectionContent: null,
       displayMode: {},
-      resources: null
+      resources: null,
     };
   },
   components: {
     BaseContent,
     ListTableResource,
     TOC,
-    Toggle
+    Toggle,
   },
   created() {
     this.fetchContent();
   },
   mounted() {
-    EventBus.$on("toggle", payload => {
+    EventBus.$on("toggle", (payload) => {
       this.displayMode = payload;
     });
   },
@@ -160,7 +160,7 @@ export default {
       } else {
         return this.showToc ? "xs10" : "xs12";
       }
-    }
+    },
   },
 
   methods: {
@@ -174,7 +174,7 @@ export default {
       contentMap.set(resourcesName, {
         hash: getHash(resourcesName),
         query: getAllResources,
-        params: {}
+        params: {},
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -184,7 +184,7 @@ export default {
         this.$ga.page({
           page: this.$route.path,
           title: "Resources",
-          location: window.location.href
+          location: window.location.href,
         });
       } else {
         this.routeToError();
@@ -206,19 +206,19 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
+        .catch((err) => {});
     },
     filterResourceData(categoryEnum) {
-      return this.resources.filter(resource => {
+      return this.resources.filter((resource) => {
         return resource.category === categoryEnum;
       });
     },
     checkCategoryLength(category) {
-      let test = this.resources.filter(resource => {
+      let test = this.resources.filter((resource) => {
         return resource.category === category.enum;
       });
       if (test.length) {
@@ -226,8 +226,8 @@ export default {
       } else {
         return false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

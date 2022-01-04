@@ -5,7 +5,7 @@
       style="border-bottom: 1px solid #ddd"
       :class="{
         'elevation-3': elevation,
-        'elevation-0': !elevation
+        'elevation-0': !elevation,
       }"
     >
       <v-row>
@@ -13,9 +13,13 @@
           <div class="text-right spac-purple mr-10">
             <div
               class="heavy category hover"
-              style="color: #fff !important; text-decoration: none !important; font-weight: 900 !important"
+              style="
+                color: #fff !important;
+                text-decoration: none !important;
+                font-weight: 900 !important;
+              "
               @click="
-                $router.push('/news').catch(err => {
+                $router.push('/news').catch((err) => {
                   $vuetify.goTo(0);
                 })
               "
@@ -31,11 +35,16 @@
             :createdAt="content.publicationDate"
             :updatedAt="content.updatedAt"
             class=""
-            style="margin-left: -15px;"
+            style="margin-left: -15px"
           ></PostedDate>
           <h2
             class="headline mb-1"
-            style="font-weight: 700; font-size: 28px !important; margin: 0; padding: 0;"
+            style="
+              font-weight: 700;
+              font-size: 28px !important;
+              margin: 0;
+              padding: 0;
+            "
           >
             <router-link :to="`/news/${content.slug}`" class="news-link">{{
               content.title
@@ -69,7 +78,7 @@
                 class="text-right"
                 v-if="
                   content.updatedAt &&
-                    displayUpdated(content.publicationDate, content.updatedAt)
+                  displayUpdated(content.publicationDate, content.updatedAt)
                 "
               >
                 Last updated: {{ content.updatedAt | timeAgoFormat }}
@@ -93,11 +102,11 @@ export default {
   components: {
     PostedDate,
     Readmore,
-    TagList
+    TagList,
   },
   data() {
     return {
-      renderToHtml
+      renderToHtml,
     };
   },
   mixins: [handleClicks],
@@ -111,34 +120,34 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   props: {
     readMore: {
       type: Boolean,
-      default: true
+      default: true,
     },
     height: {
       type: Number,
-      default: 150
+      default: 150,
     },
     content: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     elevation: {
       type: Boolean,
-      default: false
+      default: false,
     },
     fullHeight: {
       type: Boolean,
-      default: false
+      default: false,
     },
     displayNewsLink: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

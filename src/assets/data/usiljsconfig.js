@@ -27,7 +27,7 @@ const usiljsconfig = {
     active: true,
     slug: "adams-county",
     name: "Adams",
-    circuit: null
+    circuit: null,
   },
   usiljs2: {
     hover: "ALEXANDER",
@@ -36,7 +36,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs3: {
     hover: "BOND",
@@ -45,7 +45,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs4: {
     hover: "BOONE",
@@ -55,7 +55,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    slug: "boone-county"
+    slug: "boone-county",
   },
   usiljs5: {
     hover: "BROWN",
@@ -64,7 +64,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs6: {
     hover: "BUREAU",
@@ -73,7 +73,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs7: {
     hover: "CALHOUN",
@@ -82,7 +82,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs8: {
     hover: "CARROLL",
@@ -91,7 +91,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs9: {
     hover: "CASS",
@@ -100,7 +100,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs10: {
     hover: "CHAMPAIGN",
@@ -109,7 +109,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs11: {
     hover: "CHRISTIAN",
@@ -120,7 +120,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Christian",
-    slug: "fourth-judicial-circuit"
+    slug: "fourth-judicial-circuit",
   },
   usiljs12: {
     hover: "CLARK",
@@ -129,7 +129,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs13: {
     hover: "CLAY",
@@ -140,7 +140,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Clay",
-    slug: "fourth-judicial-circuit"
+    slug: "fourth-judicial-circuit",
   },
   usiljs14: {
     hover: "CLINTON",
@@ -149,7 +149,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs15: {
     hover: "COLES",
@@ -158,7 +158,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs16: {
     hover: "COOK",
@@ -169,7 +169,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Cook",
-    slug: "cook-county"
+    slug: "cook-county",
   },
   usiljs17: {
     hover: "CRAWFORD",
@@ -180,7 +180,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Crawford",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs18: {
     hover: "CUMBERLAND",
@@ -189,7 +189,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs19: {
     hover: "DEKALB",
@@ -201,7 +201,7 @@ const usiljsconfig = {
     active: true,
     name: "DeKalb",
     circuit: null,
-    slug: "dekalb-county"
+    slug: "dekalb-county",
   },
   usiljs20: {
     hover: "DEWITT",
@@ -210,7 +210,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs21: {
     hover: "DOUGLAS",
@@ -219,7 +219,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs22: {
     hover: "DUPAGE",
@@ -231,7 +231,7 @@ const usiljsconfig = {
     active: true,
     name: "DuPage",
     circuit: null,
-    slug: "dupage-county"
+    slug: "dupage-county",
   },
   usiljs23: {
     hover: "EDGAR",
@@ -240,7 +240,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs24: {
     hover: "EDWARDS",
@@ -251,7 +251,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Edwards",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs25: {
     hover: "EFFINGHAM",
@@ -262,7 +262,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Effingham",
-    slug: "fourth-judicial-circuit"
+    slug: "fourth-judicial-circuit",
   },
   usiljs26: {
     hover: "FAYETTE",
@@ -273,7 +273,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Fayette",
-    slug: "fourth-judicial-circuit"
+    slug: "fourth-judicial-circuit",
   },
   usiljs27: {
     hover: "FORD",
@@ -282,7 +282,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs28: {
     hover: "FRANKLIN",
@@ -292,7 +292,7 @@ const usiljsconfig = {
     overColor: "#0eea50",
     downColor: "#cae9af",
     active: true,
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs29: {
     hover: "FULTON",
@@ -303,7 +303,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Fulton",
-    slug: "ninth-judicial-circuit"
+    slug: "ninth-judicial-circuit",
   },
   usiljs30: {
     hover: "GALLATIN",
@@ -314,7 +314,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Gallatin",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs31: {
     hover: "GREENE",
@@ -323,7 +323,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs32: {
     hover: "GRUNDY",
@@ -334,7 +334,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Grundy",
-    slug: "grundy-county"
+    slug: "grundy-county",
   },
   usiljs33: {
     hover: "HAMILTON",
@@ -345,7 +345,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Hamilton",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs34: {
     hover: "HANCOCK",
@@ -356,7 +356,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Hancock",
-    slug: "ninth-judicial-circuit"
+    slug: "ninth-judicial-circuit",
   },
   usiljs35: {
     hover: "HARDIN",
@@ -367,7 +367,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Hardin",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs36: {
     hover: "HENDERSON",
@@ -378,7 +378,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Henderson",
-    slug: "ninth-judicial-circuit"
+    slug: "ninth-judicial-circuit",
   },
   usiljs37: {
     hover: "HENRY",
@@ -387,7 +387,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs38: {
     hover: "IROQUOIS",
@@ -396,7 +396,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs39: {
     hover: "JACKSON",
@@ -405,7 +405,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs40: {
     hover: "JASPER",
@@ -416,7 +416,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Jasper",
-    slug: "fourth-judicial-circuit"
+    slug: "fourth-judicial-circuit",
   },
   usiljs41: {
     hover: "JEFFERSON",
@@ -427,7 +427,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Jefferson",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs42: {
     hover: "JERSEY",
@@ -438,7 +438,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Jersey",
-    slug: "jersey-county"
+    slug: "jersey-county",
   },
   usiljs43: {
     hover: "JO DAVIESS",
@@ -447,7 +447,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs44: {
     hover: "JOHNSON",
@@ -456,7 +456,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs45: {
     hover: "KANE",
@@ -465,7 +465,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs46: {
     hover: "KANKAKEE",
@@ -474,7 +474,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs47: {
     hover: "KENDALL",
@@ -485,7 +485,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Kendall",
-    slug: "kendall-county"
+    slug: "kendall-county",
   },
   usiljs48: {
     hover: "KNOX",
@@ -496,7 +496,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Knox",
-    slug: "ninth-judicial-circuit"
+    slug: "ninth-judicial-circuit",
   },
   usiljs49: {
     hover: "LAKE",
@@ -507,7 +507,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Lake",
-    slug: "lake-county"
+    slug: "lake-county",
   },
   usiljs50: {
     hover: "LASALLE",
@@ -518,7 +518,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "LaSalle",
-    slug: "lasalle-county"
+    slug: "lasalle-county",
   },
   usiljs51: {
     hover: "LAWRENCE",
@@ -529,7 +529,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Lawrence",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs52: {
     hover: "LEE",
@@ -538,7 +538,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs53: {
     hover: "LIVINGSTON",
@@ -547,7 +547,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs54: {
     hover: "LOGAN",
@@ -556,7 +556,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs55: {
     hover: "MACON",
@@ -567,7 +567,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Macon",
-    slug: "macon-county"
+    slug: "macon-county",
   },
   usiljs56: {
     hover: "MACOUPIN",
@@ -576,7 +576,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs57: {
     hover: "MADISON",
@@ -587,7 +587,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Madison",
-    slug: "madison-county"
+    slug: "madison-county",
   },
   usiljs58: {
     hover: "MARION",
@@ -596,7 +596,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs59: {
     hover: "MARSHALL",
@@ -605,7 +605,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs60: {
     hover: "MASON",
@@ -614,7 +614,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs61: {
     hover: "MASSAC",
@@ -623,7 +623,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs62: {
     hover: "MCDONOUGH",
@@ -634,7 +634,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "McDonough",
-    slug: "ninth-judicial-circuit"
+    slug: "ninth-judicial-circuit",
   },
   usiljs63: {
     hover: "MCHENRY",
@@ -643,7 +643,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs64: {
     hover: "MCLEAN",
@@ -654,7 +654,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "McClean",
-    slug: "mclean-county"
+    slug: "mclean-county",
   },
   usiljs65: {
     hover: "MENARD",
@@ -663,7 +663,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs66: {
     hover: "MERCER",
@@ -672,7 +672,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs67: {
     hover: "MONROE",
@@ -683,7 +683,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Monroe",
-    slug: "twentieth-judicial-circuit"
+    slug: "twentieth-judicial-circuit",
   },
   usiljs68: {
     hover: "MONTGOMERY",
@@ -692,7 +692,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs69: {
     hover: "MORGAN",
@@ -701,7 +701,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs70: {
     hover: "MOULTRIE",
@@ -710,7 +710,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs71: {
     hover: "OGLE",
@@ -719,7 +719,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs72: {
     hover: "PEORIA",
@@ -730,7 +730,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Peoria",
-    slug: "peoria-county"
+    slug: "peoria-county",
   },
   usiljs73: {
     hover: "PERRY",
@@ -741,7 +741,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Perry",
-    slug: "washington-perry-counties"
+    slug: "washington-perry-counties",
   },
   usiljs74: {
     hover: "PIATT",
@@ -750,7 +750,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs75: {
     hover: "PIKE",
@@ -759,7 +759,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs76: {
     hover: "POPE",
@@ -768,7 +768,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs77: {
     hover: "PULASKI",
@@ -777,7 +777,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs78: {
     hover: "PUTNAM",
@@ -786,7 +786,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs79: {
     hover: "RANDOLPH",
@@ -795,7 +795,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs80: {
     hover: "RICHLAND",
@@ -806,7 +806,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Richland",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs81: {
     hover: "ROCK ISLAND",
@@ -815,7 +815,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs82: {
     hover: "SALINE",
@@ -824,7 +824,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs83: {
     hover: "SANGAMON",
@@ -835,7 +835,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Sangamon",
-    slug: "sangamon-county"
+    slug: "sangamon-county",
   },
   usiljs84: {
     hover: "SCHUYLER",
@@ -844,7 +844,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs85: {
     hover: "SCOTT",
@@ -853,7 +853,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs86: {
     hover: "SHELBY",
@@ -862,7 +862,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs87: {
     hover: "ST. CLAIR",
@@ -873,7 +873,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "St. Clair",
-    slug: "twentieth-judicial-circuit"
+    slug: "twentieth-judicial-circuit",
   },
   usiljs88: {
     hover: "STARK",
@@ -882,7 +882,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs89: {
     hover: "STEPHENSON",
@@ -891,7 +891,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs90: {
     hover: "TAZEWELL",
@@ -900,7 +900,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs91: {
     hover: "UNION",
@@ -909,7 +909,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs92: {
     hover: "VERMILION",
@@ -918,7 +918,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs93: {
     hover: "WABASH",
@@ -929,7 +929,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Wabash",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs94: {
     hover: "WARREN",
@@ -940,7 +940,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Warren",
-    slug: "ninth-judicial-circuit"
+    slug: "ninth-judicial-circuit",
   },
   usiljs95: {
     hover: "WASHINGTON",
@@ -951,7 +951,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Washington",
-    slug: "washington-perry-counties"
+    slug: "washington-perry-counties",
   },
   usiljs96: {
     hover: "WAYNE",
@@ -962,7 +962,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Wayne",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs97: {
     hover: "WHITE",
@@ -973,7 +973,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "White",
-    slug: "second-judicial-circuit"
+    slug: "second-judicial-circuit",
   },
   usiljs98: {
     hover: "WHITESIDE",
@@ -982,7 +982,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs99: {
     hover: "WILL",
@@ -993,7 +993,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Will",
-    slug: "will-county"
+    slug: "will-county",
   },
   usiljs100: {
     hover: "WILLIAMSON",
@@ -1002,7 +1002,7 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   usiljs101: {
     hover: "WINNEBAGO",
@@ -1013,7 +1013,7 @@ const usiljsconfig = {
     downColor: "#cae9af",
     active: true,
     name: "Winnebago",
-    slug: "winnebago-county"
+    slug: "winnebago-county",
   },
   usiljs102: {
     hover: "WOODFORD",
@@ -1022,12 +1022,12 @@ const usiljsconfig = {
     upColor: "#FFFFFF",
     overColor: "#0eea50",
     downColor: "#cae9af",
-    active: false
+    active: false,
   },
   general: {
     borderColor: "#9CA8B6",
-    visibleNames: "#000000"
-  }
+    visibleNames: "#000000",
+  },
 };
 
 export { usiljsconfig };

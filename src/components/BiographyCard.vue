@@ -22,7 +22,7 @@
         <v-list-item-content>
           <div
             class="overline mb-4"
-            style="font-size: 12px !important;"
+            style="font-size: 12px !important"
             v-html="person.membership"
           ></div>
 
@@ -75,24 +75,24 @@ import TagList from "@/components/TagList";
 export default {
   mixins: [handleClicks],
   components: {
-    TagList
+    TagList,
   },
   data() {
     return {
       renderToHtml,
-      getHeadshotLink
+      getHeadshotLink,
     };
   },
   props: {
     person: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     displayCategory: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

@@ -2,15 +2,15 @@
   <div
     v-if="
       content.mediaMaterial ||
-        content.externalMediaMaterial ||
-        content.meetingMaterial
+      content.externalMediaMaterial ||
+      content.meetingMaterial
     "
   >
     <div v-if="content.mediaMaterial && content.mediaMaterial.length">
       <div style="background: #eee" class="mt-8 px-8 py-8">
-        <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
+        <h3 style="color: #222" class="mb-5">{{ header[0] }}</h3>
 
-        <ul style="color: #222;" class="" v-if="content.mediaMaterial.length">
+        <ul style="color: #222" class="" v-if="content.mediaMaterial.length">
           <div v-for="(item, index) in content.mediaMaterial" :key="index">
             <li class="mb-4" v-if="item.file">
               <span class="hover medium">
@@ -39,10 +39,10 @@
       "
     >
       <div style="background: #eee" class="mt-8 px-8 py-8">
-        <h3 style="color: #222;" class="mt-5 mb-5">{{ header[1] }}</h3>
+        <h3 style="color: #222" class="mt-5 mb-5">{{ header[1] }}</h3>
 
         <ul
-          style="color: #222;"
+          style="color: #222"
           class=""
           v-if="content.externalMediaMaterial.length"
         >
@@ -71,9 +71,9 @@
 
     <div v-if="content.meetingMaterial && content.meetingMaterial.length">
       <div style="background: #eee" class="mt-8 px-8 py-8">
-        <h3 style="color: #222;" class="mb-5">{{ header[2] }}</h3>
+        <h3 style="color: #222" class="mb-5">{{ header[2] }}</h3>
 
-        <ul style="color: #222;" class="" v-if="content.meetingMaterial.length">
+        <ul style="color: #222" class="" v-if="content.meetingMaterial.length">
           <div v-for="(item, index) in content.meetingMaterial" :key="index">
             <li class="mb-4">
               <a
@@ -103,7 +103,7 @@ import { handleClicks } from "@/mixins/handleClicks";
 export default {
   data() {
     return {
-      renderToHtml
+      renderToHtml,
     };
   },
   mixins: [handleClicks],
@@ -117,26 +117,26 @@ export default {
         this.$ga.event({
           eventCategory: "File",
           eventAction: "Download",
-          eventLabel: item.file.hash + "." + ext
+          eventLabel: item.file.hash + "." + ext,
         });
       }
-    }
+    },
   },
 
   props: {
     content: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     header: {
       type: Array,
-      default: () => ["Downloads", "External Links", "Meeting Materials"]
+      default: () => ["Downloads", "External Links", "Meeting Materials"],
     },
     linkHeader: {
       type: String,
-      default: ""
-    }
-  }
+      default: "",
+    },
+  },
 };
 </script>
 

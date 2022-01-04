@@ -21,7 +21,7 @@ async function init() {
   }
   let contents = await getFileInfo();
   //   console.log(contents.data);
-  jsonfile.writeFile(`${apiDir}/${fileName}`, contents.data, function(err) {
+  jsonfile.writeFile(`${apiDir}/${fileName}`, contents.data, function (err) {
     if (err) console.error(err);
     console.log(`Created: ${apiDir}/${fileName}`);
   });

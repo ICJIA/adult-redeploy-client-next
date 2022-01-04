@@ -8,7 +8,7 @@
       class="elevation-1 tagTable"
     >
       <template v-slot:item.title="{ item }">
-        <span style="font-weight:bold">{{ item.title }}</span>
+        <span style="font-weight: bold">{{ item.title }}</span>
       </template>
       <template v-slot:item.scheduledDate="{ item }">
         {{ item.scheduledDate | format }}
@@ -32,7 +32,7 @@
 import { truncate, stripHTML } from "@/services/Utilities";
 export default {
   mounted() {
-    Array.prototype.insert = function(index, item) {
+    Array.prototype.insert = function (index, item) {
       this.splice(index, 0, item);
     };
     if (this.contentType === "meeting") {
@@ -40,7 +40,7 @@ export default {
         text: "Scheduled",
         align: "left",
         sortable: true,
-        value: "scheduledDate"
+        value: "scheduledDate",
       };
 
       this.headers.insert(0, obj);
@@ -51,7 +51,7 @@ export default {
         text: "Publication Date",
         align: "left",
         sortable: true,
-        value: "publicationDate"
+        value: "publicationDate",
       };
 
       this.headers.insert(1, obj);
@@ -60,20 +60,20 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     contentType: {
       type: String,
-      default: "undefined"
+      default: "undefined",
     },
     singletonPath: {
       type: String,
-      default: ""
+      default: "",
     },
     appendCategory: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     getRoute(item) {
@@ -84,7 +84,7 @@ export default {
       } else {
         return `/${item.section.slug}/${item.slug}`;
       }
-    }
+    },
   },
   data() {
     return {
@@ -95,18 +95,18 @@ export default {
           text: "Title",
           align: "left",
           sortable: true,
-          value: "title"
+          value: "title",
         },
         {
           text: "Summary",
           align: "left",
           sortable: true,
-          value: "summary"
+          value: "summary",
         },
-        { text: "Link", value: "slug", align: "center", sortable: false }
-      ]
+        { text: "Link", value: "slug", align: "center", sortable: false },
+      ],
     };
-  }
+  },
 };
 </script>
 

@@ -12,7 +12,7 @@ const getSearchIndex = async () => {
   try {
     let searchIndex = await searchIndexPromise;
 
-    let pages = searchIndex["pages"].map(item => {
+    let pages = searchIndex["pages"].map((item) => {
       if (item.slug === "home") {
         item.parentPath = "/";
       } else {
@@ -31,36 +31,36 @@ const getSearchIndex = async () => {
       return item;
     });
 
-    let news = searchIndex["news"].map(item => {
+    let news = searchIndex["news"].map((item) => {
       item.parentPath = "/news";
       return item;
     });
-    let sections = searchIndex["sections"].map(item => {
+    let sections = searchIndex["sections"].map((item) => {
       item.parentPath = "";
       return item;
     });
 
-    let tags = searchIndex["tags"].map(item => {
+    let tags = searchIndex["tags"].map((item) => {
       item.parentPath = `/tags`;
       return item;
     });
 
-    let meetings = searchIndex["meetings"].map(item => {
+    let meetings = searchIndex["meetings"].map((item) => {
       item.parentPath = `/about/meetings/${item.category}`;
       return item;
     });
 
-    let sites = searchIndex["sites"].map(item => {
+    let sites = searchIndex["sites"].map((item) => {
       item.parentPath = "/sites";
       return item;
     });
 
-    let biographies = searchIndex["biographies"].map(item => {
+    let biographies = searchIndex["biographies"].map((item) => {
       item.parentPath = "/about/biographies";
       return item;
     });
 
-    let resources = searchIndex["resources"].map(item => {
+    let resources = searchIndex["resources"].map((item) => {
       item.parentPath = `/resources/${item.category}`;
       return item;
     });
@@ -73,7 +73,7 @@ const getSearchIndex = async () => {
       ...biographies,
       ...resources,
       ...sections,
-      ...tags
+      ...tags,
     ];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());

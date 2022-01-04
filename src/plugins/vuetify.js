@@ -8,7 +8,7 @@ Vue.use(Vuetify);
 
 var opts = {
   icons: {
-    iconfont: "mdi" // default - only for display purposes
+    iconfont: "mdi", // default - only for display purposes
   },
   theme: {
     themes: {
@@ -19,9 +19,9 @@ var opts = {
         error: "#e91e63",
         warning: "#ffc107",
         info: "#03a9f4",
-        success: "#4caf50"
-      }
-    }
-  }
+        success: "#4caf50",
+      },
+    },
+  },
 };
 export default new Vuetify(opts);

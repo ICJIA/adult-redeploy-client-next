@@ -24,7 +24,7 @@
       <v-container>
         <v-row>
           <v-col class="text-center">
-            <div style="margin-top: 150px;">
+            <div style="margin-top: 150px">
               <loader></loader>
             </div>
           </v-col>
@@ -46,7 +46,7 @@ import OutdatedBrowser from "@/components/OutdatedBrowser";
 import {
   getAllSections,
   getAppCount,
-  getArticleCount
+  getArticleCount,
 } from "@/services/Content";
 export default {
   name: "App",
@@ -57,7 +57,7 @@ export default {
       // all titles will be injected into this template
       titleTemplate: "ARI | %s",
       htmlAttrs: {
-        lang: "en"
+        lang: "en",
       },
       link: [{ rel: "canonical", href: this.canonical }],
       meta: [
@@ -65,15 +65,15 @@ export default {
         {
           vmid: "robots",
           name: "robots",
-          content: "index, follow"
+          content: "index, follow",
         },
         {
           vmid: "description",
           name: "description",
           content:
-            "Adult Redeploy Illinois was established by the Crime Reduction Act (Public Act 96-0761) to provide financial incentives to local jurisdictions for programs that allow diversion of individuals from state prisons by providing community-based services."
-        }
-      ]
+            "Adult Redeploy Illinois was established by the Crime Reduction Act (Public Act 96-0761) to provide financial incentives to local jurisdictions for programs that allow diversion of individuals from state prisons by providing community-based services.",
+        },
+      ],
     };
   },
   components: {
@@ -82,7 +82,7 @@ export default {
     AppFooter,
     Corona,
     Loader,
-    OutdatedBrowser
+    OutdatedBrowser,
   },
   methods: {},
   watch: {
@@ -90,10 +90,10 @@ export default {
     $route(to, from) {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
       if (this.$refs.alert) this.$refs.alert.reset();
-    }
+    },
   },
   async mounted() {
-    EventBus.$on("showWarning", bool => (this.showWarning = bool));
+    EventBus.$on("showWarning", (bool) => (this.showWarning = bool));
   },
   async created() {
     this.loading = true;
@@ -141,8 +141,8 @@ export default {
       env: process.env.NODE_ENV,
       canonical: null,
       appCount: null,
-      showWarning: true
+      showWarning: true,
     };
-  }
+  },
 };
 </script>

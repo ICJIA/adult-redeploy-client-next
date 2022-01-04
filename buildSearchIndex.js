@@ -157,8 +157,8 @@ if (!fs.existsSync(apiDir)) {
   console.log(`Created: ${apiDir}/`);
 }
 
-request(api, query).then(res => {
-  jsonfile.writeFile(`${apiDir}/${fileName}`, res, function(err) {
+request(api, query).then((res) => {
+  jsonfile.writeFile(`${apiDir}/${fileName}`, res, function (err) {
     if (err) console.error(err);
     console.log(`Created: ${apiDir}/${fileName}`);
   });

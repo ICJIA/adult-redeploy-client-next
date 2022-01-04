@@ -1,7 +1,7 @@
 const { MD5 } = require("crypto-js");
 const config = require("@/config.json");
 
-const getHash = str => {
+const getHash = (str) => {
   let hash = MD5(str).toString();
   return hash;
 };
@@ -9,14 +9,14 @@ const getHash = str => {
 const getSectionContent = (sections, slug) => {
   // console.log("sections: ", sections);
   // console.log("section: ", slug);
-  const content = sections.filter(sec => {
+  const content = sections.filter((sec) => {
     return sec.slug === slug;
   });
   //console.log(content);
   return content;
 };
 
-const checkIfValidPage = arr => {
+const checkIfValidPage = (arr) => {
   if (arr) {
     return !!arr.length;
   } else {
@@ -24,24 +24,24 @@ const checkIfValidPage = arr => {
   }
 };
 
-const stripHTML = str => {
+const stripHTML = (str) => {
   if (!str) return;
   let regex = /(<([^>]+)>)/gi;
   return str.replace(regex, "");
 };
 
-const titleCase = str => {
+const titleCase = (str) => {
   if (!str) return;
   return str
     .toLowerCase()
     .split(" ")
-    .map(function(word) {
+    .map(function (word) {
       return word.charAt(0).toUpperCase() + word.slice(1);
     })
     .join(" ");
 };
 
-const getOffset = function(el) {
+const getOffset = function (el) {
   var _x = 0;
   var _y = 0;
   while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
@@ -52,7 +52,7 @@ const getOffset = function(el) {
   return { top: _y, left: _x };
 };
 
-const truncate = function(string, maxWords = 10) {
+const truncate = function (string, maxWords = 10) {
   if (!string) return;
   let strippedString = string.trim();
   let array = strippedString.split(" ");
@@ -66,36 +66,36 @@ const truncate = function(string, maxWords = 10) {
   return string;
 };
 
-const strapiEnumToObject = function(contentType, strapiEnum) {
+const strapiEnumToObject = function (contentType, strapiEnum) {
   let content = config.strapiEnums[contentType] || [
     {
       slug: null,
       title: null,
-      enum: null
-    }
+      enum: null,
+    },
   ];
 
-  return content.filter(e => {
+  return content.filter((e) => {
     return e.enum === strapiEnum;
   });
 };
 
-const strapiSlugToObject = function(contentType, strapiSlug) {
+const strapiSlugToObject = function (contentType, strapiSlug) {
   let content = config.strapiEnums[contentType] || [
     {
       slug: null,
       title: null,
-      enum: null
-    }
+      enum: null,
+    },
   ];
 
-  return content.filter(e => {
+  return content.filter((e) => {
     return e.slug === strapiSlug;
   });
 };
 
-const addAttributeToElement = function(className, attribute, text) {
-  return function() {
+const addAttributeToElement = function (className, attribute, text) {
+  return function () {
     let elements = document.getElementsByClassName(className);
     for (let i = 0; i < elements.length; i++) {
       elements[i].setAttribute(attribute, text);
@@ -103,7 +103,7 @@ const addAttributeToElement = function(className, attribute, text) {
   };
 };
 
-const dateFormat = function(d) {
+const dateFormat = function (d) {
   var monthNames = [
     "January",
     "February",
@@ -116,7 +116,7 @@ const dateFormat = function(d) {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
   function pad(n) {
     return n < 10 ? "0" + n : n;
@@ -151,5 +151,5 @@ export {
   strapiEnumToObject,
   strapiSlugToObject,
   addAttributeToElement,
-  dateFormat
+  dateFormat,
 };

@@ -57,7 +57,7 @@
 
                   <ListTableMeeting
                     :items="filterMeetingData(category.enum)"
-                    class="mt-8 "
+                    class="mt-8"
                     :hideCategory="true"
                     :class="{
                       'pl-6':
@@ -67,7 +67,7 @@
                       'pr-6':
                         $vuetify.breakpoint.md ||
                         $vuetify.breakpoint.lg ||
-                        $vuetify.breakpoint.xl
+                        $vuetify.breakpoint.xl,
                     }"
                   ></ListTableMeeting>
                 </div>
@@ -75,7 +75,7 @@
               <div v-if="displayMode.message === 'By Date'">
                 <ListTableMeeting
                   :items="meetings"
-                  class="mt-8 "
+                  class="mt-8"
                   :hideCategory="false"
                 ></ListTableMeeting>
               </div>
@@ -126,7 +126,7 @@ export default {
   mixins: [handleClicks],
   metaInfo() {
     return {
-      title: this.computedTitle
+      title: this.computedTitle,
     };
   },
   data() {
@@ -139,27 +139,27 @@ export default {
       sectionContent: null,
       meetings: null,
       displayMode: {},
-      title: ""
+      title: "",
     };
   },
   components: {
     BaseContent,
     TOC,
     ListTableMeeting,
-    Toggle
+    Toggle,
   },
   created() {
     this.fetchContent();
   },
   mounted() {
-    EventBus.$on("toggle", payload => {
+    EventBus.$on("toggle", (payload) => {
       this.displayMode = payload;
     });
   },
   computed: {
     computedTitle() {
       return this.title;
-    }
+    },
   },
 
   methods: {
@@ -174,14 +174,14 @@ export default {
       contentMap.set(name, {
         hash: getHash(name),
         query: getPageBySection,
-        params: { section, slug }
+        params: { section, slug },
       });
 
       const meetingsName = "getAllMeetings";
       contentMap.set(meetingsName, {
         hash: getHash(meetingsName),
         query: getAllMeetings,
-        params: {}
+        params: {},
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -200,7 +200,7 @@ export default {
           this.$ga.page({
             page: this.$route.path,
             title: this.title,
-            location: window.location.href
+            location: window.location.href,
           });
         } else {
           this.routeToError();
@@ -217,7 +217,7 @@ export default {
       this.loading = false;
     },
     filterMeetingData(categoryEnum) {
-      return this.meetings.filter(meeting => {
+      return this.meetings.filter((meeting) => {
         return meeting.category === categoryEnum;
       });
     },
@@ -241,13 +241,13 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
-    }
-  }
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

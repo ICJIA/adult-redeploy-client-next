@@ -3,7 +3,7 @@
     <div
       class="box box-1"
       @click="
-        $router.push('/programs').catch(err => {
+        $router.push('/programs').catch((err) => {
           $vuetify.goTo(0);
         })
       "
@@ -21,7 +21,7 @@
     <div
       class="box box-3"
       @click="
-        $router.push('/grants').catch(err => {
+        $router.push('/grants').catch((err) => {
           $vuetify.goTo(0);
         })
       "
@@ -38,7 +38,7 @@
     <div
       class="box box-2"
       @click="
-        $router.push('/resources').catch(err => {
+        $router.push('/resources').catch((err) => {
           $vuetify.goTo(0);
         })
       "
@@ -59,7 +59,7 @@
 export default {
   mounted() {
     this.$emit("home-boxes");
-  }
+  },
 };
 </script>
 

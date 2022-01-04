@@ -48,23 +48,15 @@
       </v-data-table>
     </v-card>
     <div v-else>
-      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc;">
+      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc">
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">
-                Scheduled
-              </th>
-              <th class="text-left">
-                Category
-              </th>
-              <th class="text-left">
-                Meeting Title
-              </th>
+              <th class="text-left">Scheduled</th>
+              <th class="text-left">Category</th>
+              <th class="text-left">Meeting Title</th>
 
-              <th class="text-left">
-                Link
-              </th>
+              <th class="text-left">Link</th>
             </tr>
           </thead>
           <tbody>
@@ -81,9 +73,7 @@
               </td>
               <td>
                 <v-btn @click.stop="getRoute(item)">
-                  <v-icon>
-                    link
-                  </v-icon>
+                  <v-icon> link </v-icon>
                 </v-btn>
               </td>
             </tr>
@@ -101,18 +91,18 @@ import { addAttributeToElement, dateFormat } from "@/services/Utilities";
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    MeetingCard
+    MeetingCard,
   },
   mounted() {
     if (!this.hideCategory) {
-      Array.prototype.insert = function(index, item) {
+      Array.prototype.insert = function (index, item) {
         this.splice(index, 0, item);
       };
       let obj = {
         text: "Category",
         align: "left",
         sortable: true,
-        value: "category"
+        value: "category",
       };
 
       this.headers.insert(1, obj);
@@ -135,22 +125,22 @@ export default {
           text: "Scheduled",
           align: "left",
           sortable: true,
-          value: "scheduledDate"
+          value: "scheduledDate",
         },
-        { text: "Meeting Title", value: "title" }
+        { text: "Meeting Title", value: "title" },
         // {
         //   text: "",
         //   value: "slug",
         //   align: "center",
         //   sortable: false
         // }
-      ]
+      ],
     };
   },
   methods: {
     getRoute(meeting) {
       let parentPath = this.$store.getters.config.strapiEnums.meetings.filter(
-        cat => {
+        (cat) => {
           return cat.enum === meeting.category;
         }
       );
@@ -178,7 +168,7 @@ export default {
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                "Preview: " + this.expanded[0].title + ": " + scheduled
+                "Preview: " + this.expanded[0].title + ": " + scheduled,
             });
           }
         } else {
@@ -190,7 +180,7 @@ export default {
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                "Preview: " + this.expanded[0].title + ": " + scheduled
+                "Preview: " + this.expanded[0].title + ": " + scheduled,
             });
           }
         }
@@ -198,12 +188,12 @@ export default {
     },
     getCategoryTitle(catEnum) {
       let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
-        c => {
+        (c) => {
           return c.enum === catEnum;
         }
       );
       return categoryName[0].short;
-    }
+    },
   },
   computed: {
     showSimpleTable() {
@@ -212,18 +202,18 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   props: {
     items: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     hideCategory: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

@@ -75,22 +75,14 @@
       </v-data-table>
     </v-card>
     <div v-else>
-      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc;">
+      <v-simple-table fixed-header style="border-bottom: 1px solid #ccc">
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">
-                Published
-              </th>
-              <th class="text-left">
-                Category
-              </th>
-              <th class="text-left">
-                Title
-              </th>
-              <th class="text-left">
-                Link
-              </th>
+              <th class="text-left">Published</th>
+              <th class="text-left">Category</th>
+              <th class="text-left">Title</th>
+              <th class="text-left">Link</th>
             </tr>
           </thead>
           <tbody>
@@ -107,9 +99,7 @@
               </td>
               <td>
                 <v-btn @click.stop="routeTo(item)">
-                  <v-icon>
-                    link
-                  </v-icon>
+                  <v-icon> link </v-icon>
                 </v-btn>
               </td>
             </tr>
@@ -125,12 +115,12 @@ import ResourceDisplay from "@/components/ResourceDisplay";
 // import { EventBus } from "@/event-bus";
 import {
   strapiEnumToObject,
-  addAttributeToElement
+  addAttributeToElement,
 } from "@/services/Utilities";
 import moment from "moment";
 export default {
   components: {
-    ResourceDisplay
+    ResourceDisplay,
   },
   computed: {
     showSimpleTable() {
@@ -139,7 +129,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   mounted() {
     addAttributeToElement(
@@ -164,9 +154,9 @@ export default {
           text: "",
           value: "slug",
           align: "center",
-          sortable: false
-        }
-      ]
+          sortable: false,
+        },
+      ],
     };
   },
   methods: {
@@ -185,7 +175,7 @@ export default {
             this.$ga.event({
               eventCategory: "Resource",
               eventAction: "Preview",
-              eventLabel: "Preview: " + this.expanded[0].title
+              eventLabel: "Preview: " + this.expanded[0].title,
             });
           }
         } else {
@@ -195,7 +185,7 @@ export default {
             this.$ga.event({
               eventCategory: "Resource",
               eventAction: "Preview",
-              eventLabel: "Preview: " + this.expanded[0].title
+              eventLabel: "Preview: " + this.expanded[0].title,
             });
           }
         }
@@ -207,7 +197,7 @@ export default {
       this.$ga.event({
         eventCategory: "File",
         eventAction: "Download",
-        eventLabel: item.mediaMaterial.file.hash + "." + ext
+        eventLabel: item.mediaMaterial.file.hash + "." + ext,
       });
       let path = item.mediaMaterial.file.url;
       window.open(this.$store.getters.config.baseURL + path);
@@ -218,7 +208,7 @@ export default {
         this.$ga.event({
           eventCategory: "Video",
           eventAction: "Play",
-          eventLabel: item.externalMediaMaterial.url
+          eventLabel: item.externalMediaMaterial.url,
         });
         window.open(item.externalMediaMaterial.url);
       }
@@ -250,19 +240,19 @@ export default {
       let path = `/resources/${cat[0].slug}/${item.slug}`;
       console.log(path);
       this.$router.push(path);
-    }
+    },
   },
 
   props: {
     items: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     hideCategory: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

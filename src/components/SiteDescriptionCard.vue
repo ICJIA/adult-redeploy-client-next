@@ -26,23 +26,23 @@ import TagList from "@/components/TagList";
 export default {
   mixins: [handleClicks],
   components: {
-    TagList
+    TagList,
   },
   data() {
     return {
-      renderToHtml
+      renderToHtml,
     };
   },
   props: {
     content: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     showUpdated: {
       type: Boolean,
-      default: true
-    }
-  }
+      default: true,
+    },
+  },
 };
 </script>
 

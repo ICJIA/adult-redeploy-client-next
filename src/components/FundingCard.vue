@@ -27,19 +27,19 @@ export default {
   props: {
     item: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     toggleState: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   methods: {
     routeToItem(item) {
       // this.$router.push(item.path);
       window.open(`https://icjia.illinois.gov/gata${item.path}`);
-    }
-  }
+    },
+  },
 };
 </script>
 

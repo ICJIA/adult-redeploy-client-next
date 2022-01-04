@@ -17,7 +17,7 @@ const sections = [
   "meetings",
   "sites",
   "sections",
-  "biographies"
+  "biographies",
 ];
 const publicPath = "/adultredeploy";
 let routes = [];
@@ -83,10 +83,10 @@ if (!fs.existsSync(apiDir)) {
   console.log(`Created: ${apiDir}/`);
 }
 
-request(api, query).then(res => {
-  sections.forEach(section => {
+request(api, query).then((res) => {
+  sections.forEach((section) => {
     console.log(section);
-    let sectionRoutes = res[section].map(item => {
+    let sectionRoutes = res[section].map((item) => {
       let path;
       /**
        *
@@ -146,7 +146,7 @@ request(api, query).then(res => {
        *
        */
       if (section === "resources") {
-        let catEnum = config.strapiEnums.resources.filter(cat => {
+        let catEnum = config.strapiEnums.resources.filter((cat) => {
           return item.category === cat.enum;
         });
 
@@ -157,7 +157,7 @@ request(api, query).then(res => {
        * Meetings
        *
        */
-      let catEnum = config.strapiEnums.meetings.filter(cat => {
+      let catEnum = config.strapiEnums.meetings.filter((cat) => {
         return item.category === cat.enum;
       });
       if (section === "meetings") {
@@ -174,7 +174,7 @@ request(api, query).then(res => {
    */
 
   for (let category in config.strapiEnums) {
-    let categoryRoutes = config.strapiEnums[category].map(m => {
+    let categoryRoutes = config.strapiEnums[category].map((m) => {
       let singleRoute;
       if (category === "meetings") {
         singleRoute = `${publicPath}/about/${category}/${m.slug}`;
@@ -195,12 +195,12 @@ request(api, query).then(res => {
   // add root
   paths.push(`${publicPath}`);
   lastModMap.set(`${publicPath}`, new Date());
-  jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
+  jsonfile.writeFile(`${apiDir}/${filename}`, paths, function (err) {
     if (err) console.error(err);
     console.log(`Created: ${apiDir}/${filename}`);
   });
 
-  let urls = paths.map(route => {
+  let urls = paths.map((route) => {
     let obj = {};
     obj.url = route;
     obj.changefreq = "weekly";
@@ -212,7 +212,7 @@ request(api, query).then(res => {
   let sitemap = sm.createSitemap({
     hostname: `${config.clientURL}`,
     cacheTime: 600000, //600 sec (10 min) cache purge period
-    urls
+    urls,
   });
 
   fs.writeFileSync("./public/sitemap.xml", sitemap.toString());

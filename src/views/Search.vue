@@ -53,7 +53,7 @@ import Search from "@/components/Search";
 import {
   //getHash,
   checkIfValidPage,
-  getSectionContent
+  getSectionContent,
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { getSearchIndex } from "@/services/Search";
@@ -62,7 +62,7 @@ export default {
   mixins: [handleClicks],
   metaInfo() {
     return {
-      title: "Search"
+      title: "Search",
     };
   },
   data() {
@@ -71,12 +71,12 @@ export default {
       content: null,
       checkIfValidPage,
       renderToHtml,
-      searchIndex: null
+      searchIndex: null,
     };
   },
   components: {
     BaseContent,
-    Search
+    Search,
   },
   created() {
     this.fetchContent();
@@ -105,7 +105,7 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: "Search",
-        location: window.location.href
+        location: window.location.href,
       });
       this.loading = false;
     },
@@ -115,12 +115,12 @@ export default {
       this.$router
         .push({
           name: "error",
-          params: { msg: "Page not found", statusCode: 404 }
+          params: { msg: "Page not found", statusCode: 404 },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
-    }
-  }
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

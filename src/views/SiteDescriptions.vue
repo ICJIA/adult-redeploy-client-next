@@ -58,11 +58,11 @@ import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
   watch: {
-    $route: "fetchContent"
+    $route: "fetchContent",
   },
   metaInfo() {
     return {
-      title: this.title
+      title: this.title,
     };
   },
   mixins: [handleClicks],
@@ -77,13 +77,13 @@ export default {
       descriptionDisplay: [],
       expand: false,
       sites: null,
-      title: "All Sites"
+      title: "All Sites",
     };
   },
   components: {
     BaseContent,
     BaseList,
-    SiteDescriptionCard
+    SiteDescriptionCard,
   },
   created() {
     this.fetchContent();
@@ -91,7 +91,7 @@ export default {
   computed: {
     dynamicFlex() {
       return this.showToc ? "xs10" : "xs12";
-    }
+    },
   },
 
   methods: {
@@ -115,7 +115,7 @@ export default {
       contentMap.set(getSitesName, {
         hash: getHash(getSitesName),
         query: getAllSiteDescriptions,
-        params: {}
+        params: {},
       });
 
       await this.$store.dispatch("cacheContent", contentMap);
@@ -132,7 +132,7 @@ export default {
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
-        location: window.location.href
+        location: window.location.href,
       });
 
       this.loading = false;
@@ -150,13 +150,13 @@ export default {
           params: {
             msg: "Page not found",
             statusCode: 404,
-            debug: this.$route.params
-          }
+            debug: this.$route.params,
+          },
         })
         // eslint-disable-next-line no-unused-vars
-        .catch(err => {});
-    }
-  }
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

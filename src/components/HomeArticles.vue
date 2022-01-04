@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: -25px;">
+  <div style="margin-top: -25px">
     <p>
       Adult Redeploy Illinois is housed at the
       <a href="https://icjia.illinois.gov"
@@ -60,7 +60,7 @@
               <span v-if="index < article.authors.length - 1 && index > 0"
                 >,</span
               >
-              <span style="font-weight: bold; color: #065F60">
+              <span style="font-weight: bold; color: #065f60">
                 {{ author.title }}
               </span>
             </span>
@@ -117,7 +117,7 @@ export default {
       loading: true,
       articles: null,
 
-      error: {}
+      error: {},
     };
   },
   components: {
@@ -136,13 +136,13 @@ export default {
             props: {
               boilerplate: true,
               elevation: 2,
-              ...props
-            }
+              ...props,
+            },
           },
           children
         );
-      }
-    }
+      },
+    },
   },
   created() {
     this.fetchContent();
@@ -161,7 +161,7 @@ export default {
     },
     length() {
       return Math.floor(this.maxArticles / this.perPage) + 1;
-    }
+    },
   },
 
   methods: {
@@ -186,7 +186,7 @@ export default {
       contentMap.set(`getRecentArticles_${this.start}`, {
         hash: getHash(`getRecentArticles_${this.start}`),
         query: getRecentArticles,
-        params: { limit: this.perPage, start: this.start }
+        params: { limit: this.perPage, start: this.start },
       });
       await this.$store.dispatch("cacheContent", contentMap);
       this.articles = this.$store.getters.getContentFromCache(
@@ -203,12 +203,12 @@ export default {
           eventCategory: "Error",
           eventAction: "Network error.",
           eventLabel:
-            "Unable to fetch Research Hub articles. Please reload this page."
+            "Unable to fetch Research Hub articles. Please reload this page.",
         });
       }
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

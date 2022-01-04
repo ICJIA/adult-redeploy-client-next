@@ -24,6 +24,7 @@
   "license": "MIT",
   "homepage": "https://icjia.illinois.gov/adultredeploy",
   "dependencies": {
+    "@vue/compiler-sfc": "^3.2.26",
     "aos": "^3.0.0-beta.6",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",

@@ -122,17 +122,17 @@ export default {
   methods: {
     getArchive() {
       return `https://${process.env.VUE_APP_ARCHIVE_SERVER_URL}`;
-    }
+    },
   },
   props: {
     sections: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data: () => ({
-    icons: ["fab fa-facebook", "fab fa-twitter"]
-  })
+    icons: ["fab fa-facebook", "fab fa-twitter"],
+  }),
 };
 </script>
 
