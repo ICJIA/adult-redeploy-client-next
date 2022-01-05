@@ -29,7 +29,7 @@
           </v-row>
         </v-container>
 
-        <v-container
+        <!-- <v-container
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
           v-if="content"
         >
@@ -51,7 +51,7 @@
               </template>
             </base-list>
           </ul>
-        </v-container>
+        </v-container> -->
       </template>
     </base-content>
   </div>
@@ -60,7 +60,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
-import FundingDisplay from "@/components/FundingDisplay";
+// import FundingDisplay from "@/components/FundingDisplay";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 export default {
@@ -85,7 +85,7 @@ export default {
     BaseContent,
     // eslint-disable-next-line vue/no-unused-components
     BaseList,
-    FundingDisplay,
+    // FundingDisplay,
   },
   methods: {
     routeToError() {

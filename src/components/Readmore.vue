@@ -28,7 +28,7 @@
       <button
         type="button"
         @click="toggle(eventLabel)"
-        class="readMore btn"
+        class="readMore btn mt-8"
         :class="triggerPosition"
         :style="{ 'font-size': triggerFontSize + 'px' }"
       >
@@ -82,11 +82,11 @@ export default {
     },
     height: {
       type: Number,
-      default: 300,
+      default: 400,
     },
     hideFade: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     hideReadLess: {
       type: Boolean,
