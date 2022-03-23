@@ -36,7 +36,7 @@
     "fuse.js": "^3.4.6",
     "graphql-request": "^1.8.2",
     "lodash": "^4.17.15",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^3.0.1",
     "markdown-it-named-headers": "0.0.4",
     "moment": "^2.24.0",
