@@ -39,7 +39,7 @@
     "markdown-it": "^10.0.0",
     "markdown-it-attrs": "^3.0.1",
     "markdown-it-named-headers": "0.0.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.28",
     "netlify-lambda": "^1.6.3",
     "nprogress": "^0.2.0",
