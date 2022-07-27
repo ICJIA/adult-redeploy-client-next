@@ -14,7 +14,7 @@
       >
         <Corona ref="alert" />
         <transition name="fade" mode="out-in">
-          <router-view></router-view>
+          <router-view style="min-height: 75vh !important"></router-view>
         </transition>
       </v-content>
 
