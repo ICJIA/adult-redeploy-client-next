@@ -4,7 +4,7 @@
 
     <app-drawer :sections="sections"></app-drawer>
 
-    <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>
+    <!-- <outdated-browser v-if="$browserDetect.isIE"></outdated-browser> -->
 
     <div v-if="!loading">
       <v-content
@@ -12,7 +12,6 @@
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
       >
-        <Corona ref="alert" />
         <transition name="fade" mode="out-in">
           <router-view style="min-height: 75vh !important"></router-view>
         </transition>
@@ -39,10 +38,9 @@ import { EventBus } from "@/event-bus";
 import AppNav from "@/components/AppNav";
 import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
-import Corona from "@/components/Corona";
 
 import Loader from "@/components/Loader";
-import OutdatedBrowser from "@/components/OutdatedBrowser";
+
 import {
   getAllSections,
   getAppCount,
@@ -80,9 +78,8 @@ export default {
     AppNav,
     AppDrawer,
     AppFooter,
-    Corona,
+
     Loader,
-    OutdatedBrowser,
   },
   methods: {},
   watch: {
