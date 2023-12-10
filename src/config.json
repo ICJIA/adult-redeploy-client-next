@@ -119,6 +119,13 @@
         "description": ""
       },
       {
+        "enum": "other",
+        "slug": "other",
+        "title": "Other",
+        "short": "Other",
+        "description": ""
+      },
+      {
         "enum": "researchReport",
         "slug": "research-report",
         "title": "Research Reports",
