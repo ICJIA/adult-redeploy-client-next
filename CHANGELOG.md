@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.1] - 2026-04-03
+
+### Security Hardening (Round 2)
+
+- `src/components/Readmore.vue` - Added `xss()` sanitization on the `content` prop as defense-in-depth for `v-html` rendering.
+- `src/components/Corona.vue` - Deleted orphaned component that rendered unsanitized HTML from an external API.
+- `public/index.html` - Added Subresource Integrity (SRI) hashes to all CDN scripts and stylesheets (promise-polyfill, fetch-polyfill, NProgress CSS/JS, animate.css).
+- `npm audit fix` - Reduced npm vulnerabilities from 202 to 167 (safe patches only).
+
+---
+
 ## [0.3.0] - 2026-04-03
 
 ### Node 22 Upgrade
