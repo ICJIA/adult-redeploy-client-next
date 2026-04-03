@@ -40,7 +40,7 @@
           <div
             @click="handleClicks"
             class="dynamic-content mt-5"
-            style="line-height: 20px !important"
+            style="line-height: 1.4em"
             v-if="person.content"
             v-html="renderToHtml(person.content)"
           ></div>

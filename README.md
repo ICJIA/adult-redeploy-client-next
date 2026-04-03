@@ -14,17 +14,23 @@ Results expected with Adult Redeploy Illinois include reduced prison overcrowdin
 
 https://icjia.illinois.gov/adultredeploy
 
+## Stack
+
+- **Vue 2.6** / Vue Router 3 / Vuex 3
+- **Vuetify 2** (Material Design component library)
+- **GraphQL** (Strapi CMS backend at `ari.icjia-api.cloud`)
+- **Netlify** (hosting, serverless functions, CI/CD)
+- **Node 16** (see `.nvmrc`)
+
 ## Setup
 
 ```
 npm install
 ```
 
-## Installation
-
 Rename `env.sample` to `.env` and fill in missing variables.
 
-## Compile and hot-reload for development
+## Development
 
 ```
 npm run serve
@@ -37,3 +43,42 @@ npm run build
 ```
 
 Deploy `/dist` folder.
+
+## Testing
+
+The project uses **Jest** with **@vue/test-utils** for unit and component tests.
+
+```
+npm run test:unit
+```
+
+## Accessibility
+
+An automated axe-core audit script is included. To run it (requires Node 18+):
+
+```bash
+nvm use 22   # or any Node >= 18
+cd /tmp && mkdir -p axe-audit && cd axe-audit
+npm init -y && npm install puppeteer @axe-core/puppeteer
+cp /path/to/project/axe-audit.mjs .
+node axe-audit.mjs
+```
+
+The dev server must be running on `localhost:8080` before running the audit.
+
+### Remediation log (2026-04-03)
+
+Full axe-core audit across 39 pages. All WCAG 2.1 AA violations resolved:
+
+| Rule | Severity | Pages | Elements | Status |
+|------|----------|-------|----------|--------|
+| `button-name` | Critical | 39 | 181 | Fixed |
+| `color-contrast` | Serious | 2 | 8 | Fixed |
+| `avoid-inline-spacing` | Serious | 17 | 30 | Fixed |
+| `page-has-heading-one` | Moderate | 25 | 25 | Fixed |
+
+See [CHANGELOG.md](CHANGELOG.md) for details.
+
+## Security
+
+Security headers are configured in `netlify.toml` (CSP, X-Frame-Options, etc.). See the security hardening section in CHANGELOG.md for the full list of mitigations applied.

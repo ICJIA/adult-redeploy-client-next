@@ -1,0 +1,286 @@
+{
+  "timestamp": "2026-04-03T14:47:35.591Z",
+  "baseUrl": "http://localhost:8080",
+  "summary": {
+    "pagesAudited": 39,
+    "pagesWithErrors": 0,
+    "totalUniqueViolations": 0,
+    "totalAffectedElements": 0
+  },
+  "violationsByRule": [],
+  "pageResults": [
+    {
+      "path": "/",
+      "url": "http://localhost:8080/",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/programs",
+      "url": "http://localhost:8080/programs",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/sites",
+      "url": "http://localhost:8080/sites",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/news",
+      "url": "http://localhost:8080/news",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/apps",
+      "url": "http://localhost:8080/apps",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/oversight",
+      "url": "http://localhost:8080/about/oversight",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/staff",
+      "url": "http://localhost:8080/about/staff",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/meetings",
+      "url": "http://localhost:8080/about/meetings",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/resources",
+      "url": "http://localhost:8080/resources",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/search",
+      "url": "http://localhost:8080/search",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/grants",
+      "url": "http://localhost:8080/grants",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/faqs",
+      "url": "http://localhost:8080/about/faqs",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/news/SFY27-Implementation-NOFO",
+      "url": "http://localhost:8080/news/SFY27-Implementation-NOFO",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/news/pm-committee-meeting-02062026-news",
+      "url": "http://localhost:8080/news/pm-committee-meeting-02062026-news",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/news/adhoc-committee-meeting-01282026-news",
+      "url": "http://localhost:8080/news/adhoc-committee-meeting-01282026-news",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/news/ari-oversight-board-meeting-11172025-news",
+      "url": "http://localhost:8080/news/ari-oversight-board-meeting-11172025-news",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about",
+      "url": "http://localhost:8080/about",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/approach",
+      "url": "http://localhost:8080/approach",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/latoya-hughes",
+      "url": "http://localhost:8080/about/biographies/latoya-hughes",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/joshua-brooks",
+      "url": "http://localhost:8080/about/biographies/joshua-brooks",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/delrice-adams",
+      "url": "http://localhost:8080/about/biographies/delrice-adams",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/brad-bullock",
+      "url": "http://localhost:8080/about/biographies/brad-bullock",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/emily-cole",
+      "url": "http://localhost:8080/about/biographies/emily-cole",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/victoria-gonzalez",
+      "url": "http://localhost:8080/about/biographies/victoria-gonzalez",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/jonas-harger",
+      "url": "http://localhost:8080/about/biographies/jonas-harger",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/kent-holsopple",
+      "url": "http://localhost:8080/about/biographies/kent-holsopple",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/scott-main",
+      "url": "http://localhost:8080/about/biographies/scott-main",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/nancy-michaels",
+      "url": "http://localhost:8080/about/biographies/nancy-michaels",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/jim-montgomery",
+      "url": "http://localhost:8080/about/biographies/jim-montgomery",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/james-m-radcliffe",
+      "url": "http://localhost:8080/about/biographies/james-m-radcliffe",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/parle-roe-taylor",
+      "url": "http://localhost:8080/about/biographies/parle-roe-taylor",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/kathy-starkovich",
+      "url": "http://localhost:8080/about/biographies/kathy-starkovich",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/thomas-sumner",
+      "url": "http://localhost:8080/about/biographies/thomas-sumner",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/megan-volker",
+      "url": "http://localhost:8080/about/biographies/megan-volker",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/quintin-williams",
+      "url": "http://localhost:8080/about/biographies/quintin-williams",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/mary-ann-dyar",
+      "url": "http://localhost:8080/about/biographies/mary-ann-dyar",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/caitlyn-rothenberg",
+      "url": "http://localhost:8080/about/biographies/caitlyn-rothenberg",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/cortisa-evans",
+      "url": "http://localhost:8080/about/biographies/cortisa-evans",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    },
+    {
+      "path": "/about/biographies/stacey-woods",
+      "url": "http://localhost:8080/about/biographies/stacey-woods",
+      "violationCount": 0,
+      "totalNodes": 0,
+      "violations": []
+    }
+  ]
+}

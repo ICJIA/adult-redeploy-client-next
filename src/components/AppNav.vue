@@ -6,6 +6,7 @@
         class="hidden-md-and-up"
         style="color: black"
         large
+        aria-label="Open navigation menu"
       ></v-app-bar-nav-icon>
 
       <div style="width: 15px"></div>
@@ -104,7 +105,7 @@
             </v-menu>
           </span>
         </span>
-        <v-btn depressed small color="white" to="/search"
+        <v-btn depressed small color="white" to="/search" aria-label="Search"
           ><v-icon>search</v-icon></v-btn
         >
       </v-toolbar-items>

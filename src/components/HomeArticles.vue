@@ -25,6 +25,9 @@
       :total-visible="visible"
       @input="fetchContent($event)"
       class="mt-8 mb-5"
+      aria-label="Publications pagination"
+      previous-aria-label="Previous page"
+      next-aria-label="Next page"
     ></v-pagination>
     <div v-if="error.status" class="my-5 text-center" style="color: red">
       {{ error.msg }}
@@ -99,6 +102,9 @@
         :total-visible="visible"
         @input="fetchContent($event)"
         class="mt-1"
+        aria-label="Publications pagination"
+        previous-aria-label="Previous page"
+        next-aria-label="Next page"
       ></v-pagination>
     </div>
   </div>
@@ -147,6 +153,19 @@ export default {
   created() {
     this.fetchContent();
     console.log(this.$store.getters);
+  },
+  updated() {
+    this.$nextTick(() => {
+      const navBtns = this.$el.querySelectorAll(".v-pagination__navigation");
+      navBtns.forEach((btn, i) => {
+        if (!btn.getAttribute("aria-label")) {
+          btn.setAttribute(
+            "aria-label",
+            i % 2 === 0 ? "Previous page" : "Next page"
+          );
+        }
+      });
+    });
   },
   computed: {
     maxArticles() {
@@ -214,7 +233,7 @@ export default {
 
 <style>
 .card-banner {
-  background: rgba(79, 80, 79, 0.5);
+  background: rgba(0, 0, 0, 0.7);
 }
 .card:hover {
   box-shadow: 0px 0px 15px #000000;

@@ -1,6 +1,22 @@
 <template>
   <div>
     <base-content :loading="loading" id="baseContentTop">
+      <template v-slot:title>
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
+          <v-row>
+            <v-col>
+              <h1 class="page-title">
+                {{ content[0].prefix }} {{ content[0].firstName }}
+                {{ content[0].middleName }} {{ content[0].lastName
+                }}{{ content[0].suffix }}
+              </h1>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
       <template v-slot:content>
         <v-container
           v-if="content"

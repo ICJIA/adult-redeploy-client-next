@@ -30,9 +30,7 @@
               @click="$vuetify.goTo('#about', { offset: 130 })"
               >Learn More</v-btn
             >&nbsp;&nbsp;
-            <v-btn class="mt-6" to="/about/faqs" outlined color="white"
-              >FAQs</v-btn
-            >
+            <v-btn class="mt-6" to="/about/faqs" color="white">FAQs</v-btn>
           </v-col>
         </div>
       </v-row>
