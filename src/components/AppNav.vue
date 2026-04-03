@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <nav role="navigation" aria-label="Main navigation">
     <v-app-bar app fixed color="white" height="90" class="noprint">
       <v-app-bar-nav-icon
         @click="toggleDrawer"
@@ -110,7 +110,7 @@
         >
       </v-toolbar-items>
     </v-app-bar>
-  </div>
+  </nav>
 </template>
 
 <script>
