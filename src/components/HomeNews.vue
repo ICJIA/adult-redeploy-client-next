@@ -41,6 +41,6 @@ export default {
 
 <style>
 .shaded {
-  color: #067879;
+  color: #043e3f;
 }
 </style>

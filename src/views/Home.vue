@@ -20,7 +20,7 @@
                 style="
                   display: block;
                   font-size: 32px;
-                  color: #444;
+                  color: #000;
                   font-weight: 900;
                   border-bottom: 1px solid #bbb;
                   padding-bottom: 8px;
@@ -60,7 +60,7 @@
                 style="
                   display: block;
                   font-size: 32px;
-                  color: #444;
+                  color: #000;
                   font-weight: 900;
                   border-bottom: 1px solid #bbb;
                   padding-bottom: 8px;
@@ -84,7 +84,7 @@
                   display: block;
                   width: 100%;
                   font-size: 32px;
-                  color: #444;
+                  color: #000;
                   font-weight: 900;
                   border-bottom: 1px solid #bbb;
                   padding-bottom: 8px;
@@ -205,6 +205,6 @@ export default {
 
 <style>
 .news-title:hover {
-  color: #065f60 !important;
+  color: #043e3f !important;
 }
 </style>

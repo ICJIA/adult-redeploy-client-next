@@ -3,7 +3,7 @@
   position: absolute;
   top: -100%;
   left: 0;
-  background: #065f60;
+  background: #043e3f;
   color: #fff;
   padding: 12px 24px;
   z-index: 9999;
@@ -93,9 +93,6 @@ blockquote {
 .default-font {
   font-family: "Lato", sans-serif !important;
 }
-a:hover {
-  color: #aaa !important;
-}
 a.no-underline {
   text-decoration: none;
 }
@@ -166,7 +163,7 @@ a {
 }
 
 .agency {
-  color: #555;
+  color: #000;
   font-size: 24px;
 }
 
@@ -219,7 +216,7 @@ summary:hover {
 /* site styles */
 
 .site-desription-title {
-  background: #067879;
+  background: #043e3f;
   font-weight: 900;
   color: #ffff;
   text-transform: uppercase;
@@ -244,7 +241,7 @@ summary:hover {
 }
 
 .news-link:hover {
-  color: #aaa;
+  color: #000;
 }
 .newsCard {
   min-height: 250px;
@@ -273,7 +270,7 @@ summary:hover {
 }
 
 .category {
-  background: #075e60;
+  background: #043e3f;
   color: #fff;
   padding: 5px 10px;
   font-size: 12px;
@@ -285,8 +282,52 @@ summary:hover {
 }
 
 .category:hover {
-  background: #aaa;
+  background: #000;
   color: #fff;
+}
+
+/* a11y: force high contrast — eliminate all grey text for AAA compliance */
+.v-list-item__subtitle,
+.v-card__subtitle,
+.v-card__text,
+.v-data-table th,
+.v-data-table thead th,
+.overline,
+.overline.mb-4,
+div.overline,
+div.mb-4,
+.v-subheader,
+.theme--light .overline,
+[class*="anchor"],
+.v-label,
+.v-input label,
+.v-text-field label,
+.text--secondary,
+.text--disabled {
+  color: #000 !important;
+}
+.v-app-bar .v-btn,
+.v-app-bar .v-btn .v-btn__content,
+.v-app-bar .v-btn .v-btn__content span,
+.v-toolbar .v-btn,
+.v-toolbar .v-btn .v-btn__content,
+.v-toolbar .v-btn .v-btn__content span {
+  color: #000 !important;
+  font-weight: 900 !important;
+  font-size: 0.975rem !important;
+}
+.theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  color: #000 !important;
+}
+.theme--light.v-label {
+  color: #000 !important;
+}
+.theme--light.v-input input,
+.theme--light.v-input textarea {
+  color: #000 !important;
+}
+a:hover {
+  color: #000 !important;
 }
 
 /* a11y: override CMS inline spacing so users can adjust with custom stylesheets */

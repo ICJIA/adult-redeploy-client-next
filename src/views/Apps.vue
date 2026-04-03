@@ -89,7 +89,7 @@
                     "
                     x-small
                     text
-                    style="color: #075e60"
+                    style="color: #043e3f"
                     @click.native="
                       newApps[app - 1]['show'] = !newApps[app - 1]['show']
                     "

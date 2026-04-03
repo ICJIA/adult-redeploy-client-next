@@ -91,15 +91,15 @@ h2 {
 }
 
 .box-1 {
-  background: #065f60;
+  background: #043e3f;
 }
 
 .box-2 {
-  background: #067879;
+  background: #043e3f;
 }
 
 .box-3 {
-  background: #068384;
+  background: #043e3f;
 }
 
 .box:hover {

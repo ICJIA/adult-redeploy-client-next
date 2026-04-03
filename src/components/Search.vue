@@ -24,7 +24,7 @@
                   <!-- <template slot="contentType">
                     <div
                       class="pl-3 pr-3 pt-3 heavy"
-                      style="color: #065f60; font-size: 12px;"
+                      style="color: #043e3f; font-size: 12px;"
                     >
                       {{ $store.getters.config.clientURL
                       }}{{ $store.getters.config.publicPath

@@ -24,7 +24,7 @@
               color="secondary"
               :aria-label="link.title"
             >
-              <span style="font-size: 12px">{{ link.title }}</span>
+              <span style="font-size: 14px">{{ link.title }}</span>
             </v-btn>
           </span>
         </span>

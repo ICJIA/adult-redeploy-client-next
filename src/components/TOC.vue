@@ -163,7 +163,7 @@ ul.toc-list li {
 }
 
 ul.toc-list li:hover {
-  color: #065f60;
+  color: #043e3f;
   background: #eee;
 }
 @media only screen and (max-width: 1024px) {

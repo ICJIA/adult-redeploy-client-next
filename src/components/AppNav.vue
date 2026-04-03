@@ -49,7 +49,7 @@
                     height: 99%;
                     margin-bottom: 1px;
                     margin-top: 0px;
-                    font-size: 13px;
+                    font-size: 14px;
                   "
                   class="heavy white"
                   v-on="on"
@@ -63,7 +63,7 @@
                     height: 99%;
                     margin-bottom: 1px;
                     margin-top: 0px;
-                    font-size: 13px;
+                    font-size: 14px;
                   "
                   class="heavy white"
                   :to="`/${link.slug}`"

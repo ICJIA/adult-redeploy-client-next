@@ -108,7 +108,7 @@ export default {
 <style>
 .onClickLink {
   text-decoration: underline;
-  color: #065f60;
+  color: #043e3f;
   font-weight: bold;
 }
 

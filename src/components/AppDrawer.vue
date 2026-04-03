@@ -89,6 +89,6 @@ export default {
 } */
 
 .link-item:hover {
-  background: #268384;
+  background: #065f60;
 }
 </style>

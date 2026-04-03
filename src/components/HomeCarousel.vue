@@ -64,7 +64,7 @@ export default {
 <style scoped>
 .banner {
   width: 100%;
-  background: rgba(79, 80, 79, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   padding: 30px;
   margin-top: 100px;
 }
@@ -72,7 +72,7 @@ export default {
 @media only screen and (max-width: 600px) {
   .banner {
     height: 100%;
-    background: rgba(79, 80, 79, 0.5);
+    background: rgba(0, 0, 0, 0.8);
   }
 }
 </style>

@@ -4,7 +4,7 @@
       <v-container class="text-center" data-aos="fade-right">
         <v-row align="center">
           <v-col>
-            <h1 style="font-size: 48px; color: #067879">Oops.</h1>
+            <h1 style="font-size: 48px; color: #043e3f">Oops.</h1>
             <h2
               class="mt-10"
               v-if="
