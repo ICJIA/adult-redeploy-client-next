@@ -9,7 +9,7 @@
         :style="{ height: getHeight, transition: getTransitionSpeed }"
       >
         <span
-          v-html="content"
+          v-html="sanitizedContent"
           @click="handleClicks"
           class="dynamic-content"
         ></span>
@@ -50,6 +50,7 @@
 
 <script>
 import TagList from "@/components/TagList";
+const xss = require("xss");
 export default {
   components: {
     TagList,
@@ -132,6 +133,9 @@ export default {
     };
   },
   computed: {
+    sanitizedContent() {
+      return xss(this.content);
+    },
     getWordCount() {
       return this.content.split(" ").length;
     },
