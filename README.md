@@ -20,7 +20,7 @@ https://icjia.illinois.gov/adultredeploy
 - **Vuetify 2** (Material Design component library)
 - **GraphQL** (Strapi CMS backend at `ari.icjia-api.cloud`)
 - **Netlify** (hosting, serverless functions, CI/CD)
-- **Node 16** (see `.nvmrc`)
+- **Node 22** (see `.nvmrc`; uses `--openssl-legacy-provider` for webpack 4 compatibility)
 
 ## Setup
 

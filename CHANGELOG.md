@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0] - 2026-04-03
+
+### Node 22 Upgrade
+
+- `.nvmrc` - Updated from `v16.20.2` to `v22.22.0` (Node 16 was EOL since Sept 2023).
+- `package.json` - Added `NODE_OPTIONS=--openssl-legacy-provider` to `serve`, `build`, and `deploy` scripts for webpack 4 / OpenSSL 3.x compatibility.
+- `sass` - Pinned to `1.32.13` to silence Vuetify 2 SCSS `/` division deprecation warnings (Vuetify 2 uses the deprecated slash-division syntax; Dart Sass 1.33+ warns aggressively about it).
+- Clean `node_modules` reinstall for Node 22.
+- Revert point tagged as `v0.2.1-pre-node22`.
+
+---
+
 ## [0.2.1] - 2026-04-03
 
 ### Accessibility Best Practices
