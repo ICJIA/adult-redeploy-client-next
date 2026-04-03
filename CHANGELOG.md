@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.2.1] - 2026-04-03
+
+### Accessibility Best Practices
+
+#### Skip to main content
+- `src/App.vue` - Added skip link as first focusable element, targeting `#content-top`.
+- `src/css/app.css` - Skip link styled offscreen by default, slides into view on keyboard focus with high-contrast teal/yellow styling.
+
+#### Landmark roles
+- `src/components/AppNav.vue` - Wrapped in `<nav role="navigation" aria-label="Main navigation">`.
+- `src/components/AppFooter.vue` - Added `role="contentinfo"` and `aria-label="Site footer"`.
+- `src/components/AppDrawer.vue` - Added `role="navigation"` and `aria-label="Mobile navigation"`.
+
+#### Focus management on route change
+- `src/App.vue` - On every Vue Router navigation, focus moves to `#content-top` (`tabindex="-1"`) so keyboard users start at the top of the new page content.
+
+#### Screen reader route announcements
+- `src/App.vue` - Added a visually hidden `aria-live="polite"` region that announces "Navigated to {page title}" on each route change.
+
+#### Visible focus indicators
+- `src/css/app.css` - Added global `*:focus-visible` outline (3px solid `#f9a825` yellow) for keyboard navigation. Applied to all interactive elements including Vuetify buttons and links.
+
+#### Reduced motion support
+- `src/css/app.css` - Added `@media (prefers-reduced-motion: reduce)` to disable all CSS animations, transitions, and AOS library effects for users with that OS preference.
+
+#### Screen-reader utility class
+- `src/css/app.css` - Added `.sr-only` class for visually hidden but screen-reader-accessible content.
+
+---
+
 ## [0.2.0] - 2026-04-03
 
 ### Accessibility Remediation (WCAG 2.1 AA)
