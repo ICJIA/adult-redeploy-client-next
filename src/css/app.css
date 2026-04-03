@@ -1,3 +1,24 @@
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: #065f60;
+  color: #fff;
+  padding: 12px 24px;
+  z-index: 9999;
+  font-weight: 900;
+  font-size: 16px;
+  text-decoration: none;
+  border-bottom-right-radius: 4px;
+}
+.skip-link:focus {
+  top: 0;
+  color: #fff !important;
+  outline: 3px solid #f9a825;
+  outline-offset: 2px;
+}
+
 h2 {
   margin-bottom: 20px;
   margin-top: 50px;
