@@ -68,14 +68,17 @@ The dev server must be running on `localhost:8080` before running the audit.
 
 ### Remediation log (2026-04-03)
 
-Full axe-core audit across 39 pages. All WCAG 2.1 AA violations resolved:
+Full axe-core audit across 39 pages. All WCAG 2.1 AA and AAA violations resolved:
 
 | Rule | Severity | Pages | Elements | Status |
 |------|----------|-------|----------|--------|
 | `button-name` | Critical | 39 | 181 | Fixed |
 | `color-contrast` | Serious | 2 | 8 | Fixed |
+| `color-contrast-enhanced` | Serious (AAA) | 14 | 248 | Fixed |
 | `avoid-inline-spacing` | Serious | 17 | 30 | Fixed |
 | `page-has-heading-one` | Moderate | 25 | 25 | Fixed |
+
+Current status: **0 violations** at WCAG A, AA, and AAA across all 39 pages.
 
 See [CHANGELOG.md](CHANGELOG.md) for details.
 

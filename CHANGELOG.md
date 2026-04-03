@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.2] - 2026-04-03
+
+### WCAG AAA Contrast Compliance
+
+Forced high-contrast color scheme across all elements. AAA `color-contrast-enhanced` violations reduced from 248 to 0.
+
+- `src/plugins/vuetify.js` - Darkened Vuetify theme primary/secondary from `#065f60`/`#067879` to `#043e3f`.
+- `src/css/app.css` - Forced all subtitle, table header, overline, label, card text, subheader, and nav button text to `#000`. Added `font-weight: 900` and `font-size: 0.975rem` to app-bar buttons. Replaced all `#aaa` hover states with `#000`.
+- `src/components/HomeCarousel.vue` - Darkened banner overlay from `rgba(79, 80, 79, 0.7)` to `rgba(0, 0, 0, 0.8)`.
+- `src/components/HomeBoxes.vue` - Unified box backgrounds to `#043e3f` for sufficient white-text contrast.
+- `src/components/AppNav.vue` - Bumped nav button font size from 13px to 14px.
+- `src/components/AppFooter.vue` - Bumped footer nav font from 12px to 14px.
+- `src/views/Home.vue` - Changed section heading color from `#444` to `#000`.
+- Updated all teal color references (`#065f60`, `#067879`, `#075e60`, `#068384`) across 10 components to `#043e3f`.
+
+---
+
 ## [0.3.1] - 2026-04-03
 
 ### Security Hardening (Round 2)
