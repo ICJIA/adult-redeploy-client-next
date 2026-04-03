@@ -12,6 +12,34 @@ function readComponent(relativePath) {
   return readFileSync(resolve(__dirname, "../../src", relativePath), "utf-8");
 }
 
+describe("Accessibility - Skip link", () => {
+  it("App.vue has a skip-to-main-content link as first focusable element", () => {
+    const source = readFileSync(resolve(__dirname, "../../src/App.vue"), "utf-8");
+    expect(source).toContain('class="skip-link"');
+    expect(source).toContain('href="#content-top"');
+    expect(source).toContain("Skip to main content");
+  });
+
+  it("App.vue content area has tabindex for skip link target", () => {
+    const source = readFileSync(resolve(__dirname, "../../src/App.vue"), "utf-8");
+    expect(source).toMatch(/id="content-top"[^>]*tabindex="-1"/);
+  });
+
+  it("App.vue content area has role=main", () => {
+    const source = readFileSync(resolve(__dirname, "../../src/App.vue"), "utf-8");
+    expect(source).toMatch(/id="content-top"[^>]*role="main"/);
+  });
+
+  it("app.css has skip-link styles", () => {
+    const css = readFileSync(
+      resolve(__dirname, "../../src/css/app.css"),
+      "utf-8"
+    );
+    expect(css).toContain(".skip-link");
+    expect(css).toContain(".skip-link:focus");
+  });
+});
+
 describe("Accessibility - ARIA labels", () => {
   it("AppNav hamburger has aria-label", () => {
     const source = readComponent("components/AppNav.vue");

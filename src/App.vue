@@ -1,5 +1,6 @@
 <template>
   <v-app id="page-top">
+    <a href="#content-top" class="skip-link">Skip to main content</a>
     <app-nav :sections="sections"></app-nav>
 
     <app-drawer :sections="sections"></app-drawer>
@@ -9,8 +10,10 @@
     <div v-if="!loading">
       <v-content
         id="content-top"
+        role="main"
         aria-live="polite"
-        style="background: #fafafa; min-height: 68vh"
+        tabindex="-1"
+        style="background: #fafafa; min-height: 68vh; outline: none"
       >
         <transition name="fade" mode="out-in">
           <router-view style="min-height: 75vh !important"></router-view>
