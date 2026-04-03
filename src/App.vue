@@ -8,10 +8,12 @@
     <!-- <outdated-browser v-if="$browserDetect.isIE"></outdated-browser> -->
 
     <div v-if="!loading">
+      <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
+        {{ routeAnnouncement }}
+      </div>
       <v-content
         id="content-top"
         role="main"
-        aria-live="polite"
         tabindex="-1"
         style="background: #fafafa; min-height: 68vh; outline: none"
       >
@@ -84,12 +86,30 @@ export default {
 
     Loader,
   },
-  methods: {},
+  methods: {
+    focusMainContent() {
+      this.$nextTick(() => {
+        const main = document.getElementById("content-top");
+        if (main) main.focus();
+      });
+    },
+  },
   watch: {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
       if (this.$refs.alert) this.$refs.alert.reset();
+      // Announce route change to screen readers
+      const title =
+        to.meta && to.meta.title
+          ? to.meta.title
+          : document.title || "Page loaded";
+      this.routeAnnouncement = "";
+      this.$nextTick(() => {
+        this.routeAnnouncement = "Navigated to " + title;
+      });
+      // Move focus to main content
+      this.focusMainContent();
     },
   },
   async mounted() {
@@ -142,6 +162,7 @@ export default {
       canonical: null,
       appCount: null,
       showWarning: true,
+      routeAnnouncement: "",
     };
   },
 };

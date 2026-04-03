@@ -14,19 +14,28 @@ function readComponent(relativePath) {
 
 describe("Accessibility - Skip link", () => {
   it("App.vue has a skip-to-main-content link as first focusable element", () => {
-    const source = readFileSync(resolve(__dirname, "../../src/App.vue"), "utf-8");
+    const source = readFileSync(
+      resolve(__dirname, "../../src/App.vue"),
+      "utf-8"
+    );
     expect(source).toContain('class="skip-link"');
     expect(source).toContain('href="#content-top"');
     expect(source).toContain("Skip to main content");
   });
 
   it("App.vue content area has tabindex for skip link target", () => {
-    const source = readFileSync(resolve(__dirname, "../../src/App.vue"), "utf-8");
+    const source = readFileSync(
+      resolve(__dirname, "../../src/App.vue"),
+      "utf-8"
+    );
     expect(source).toMatch(/id="content-top"[^>]*tabindex="-1"/);
   });
 
   it("App.vue content area has role=main", () => {
-    const source = readFileSync(resolve(__dirname, "../../src/App.vue"), "utf-8");
+    const source = readFileSync(
+      resolve(__dirname, "../../src/App.vue"),
+      "utf-8"
+    );
     expect(source).toMatch(/id="content-top"[^>]*role="main"/);
   });
 
@@ -37,6 +46,83 @@ describe("Accessibility - Skip link", () => {
     );
     expect(css).toContain(".skip-link");
     expect(css).toContain(".skip-link:focus");
+  });
+});
+
+describe("Accessibility - Landmark roles", () => {
+  it("AppNav has role=navigation", () => {
+    const source = readComponent("components/AppNav.vue");
+    expect(source).toContain('role="navigation"');
+    expect(source).toContain('aria-label="Main navigation"');
+  });
+
+  it("AppFooter has role=contentinfo", () => {
+    const source = readComponent("components/AppFooter.vue");
+    expect(source).toContain('role="contentinfo"');
+  });
+
+  it("AppDrawer has role=navigation with mobile label", () => {
+    const source = readComponent("components/AppDrawer.vue");
+    expect(source).toContain('role="navigation"');
+    expect(source).toContain('aria-label="Mobile navigation"');
+  });
+
+  it("App.vue main content has role=main", () => {
+    const source = readFileSync(
+      resolve(__dirname, "../../src/App.vue"),
+      "utf-8"
+    );
+    expect(source).toMatch(/id="content-top"[^>]*role="main"/);
+  });
+});
+
+describe("Accessibility - Route change announcements", () => {
+  it("App.vue has a screen-reader live region for route announcements", () => {
+    const source = readFileSync(
+      resolve(__dirname, "../../src/App.vue"),
+      "utf-8"
+    );
+    expect(source).toContain('aria-live="polite"');
+    expect(source).toContain('role="status"');
+    expect(source).toContain("routeAnnouncement");
+  });
+
+  it("App.vue focuses main content on route change", () => {
+    const source = readFileSync(
+      resolve(__dirname, "../../src/App.vue"),
+      "utf-8"
+    );
+    expect(source).toContain("focusMainContent");
+    expect(source).toContain('getElementById("content-top")');
+  });
+});
+
+describe("Accessibility - Focus indicators and reduced motion", () => {
+  it("app.css has focus-visible styles", () => {
+    const css = readFileSync(
+      resolve(__dirname, "../../src/css/app.css"),
+      "utf-8"
+    );
+    expect(css).toContain("*:focus-visible");
+    expect(css).toContain("outline: 3px solid #f9a825");
+  });
+
+  it("app.css has sr-only utility class", () => {
+    const css = readFileSync(
+      resolve(__dirname, "../../src/css/app.css"),
+      "utf-8"
+    );
+    expect(css).toContain(".sr-only");
+    expect(css).toContain("clip: rect(0, 0, 0, 0)");
+  });
+
+  it("app.css has prefers-reduced-motion media query", () => {
+    const css = readFileSync(
+      resolve(__dirname, "../../src/css/app.css"),
+      "utf-8"
+    );
+    expect(css).toContain("prefers-reduced-motion: reduce");
+    expect(css).toContain("[data-aos]");
   });
 });
 
