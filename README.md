@@ -81,4 +81,4 @@ See [CHANGELOG.md](CHANGELOG.md) for details.
 
 ## Security
 
-Security headers are configured in `netlify.toml` (CSP, X-Frame-Options, etc.). See the security hardening section in CHANGELOG.md for the full list of mitigations applied.
+Security headers are configured in `netlify.toml` (CSP, X-Frame-Options, etc.). See the security hardening section in [CHANGELOG.md](CHANGELOG.md) for the full list of mitigations applied.
