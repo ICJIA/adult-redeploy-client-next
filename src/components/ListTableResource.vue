@@ -46,9 +46,8 @@
             outlined
             @click.stop.prevent="download(item)"
             v-if="item.mediaMaterial && item.mediaMaterial.file"
-            >Read&nbsp;&nbsp;&nbsp;<v-icon class="ml-1"
-              >cloud_download</v-icon
-            ></v-btn
+            :aria-label="'Download ' + item.title"
+            >Read <v-icon class="ml-1">cloud_download</v-icon></v-btn
           >
 
           <v-btn
@@ -56,6 +55,7 @@
             outlined
             @click="gotoExternal(item)"
             v-if="item.externalMediaMaterial && item.externalMediaMaterial.url"
+            :aria-label="'Go to ' + item.title"
             >GO TO <v-icon class="ml-1">open_in_new</v-icon></v-btn
           >
         </template>
@@ -98,7 +98,10 @@
                 {{ item.title }}
               </td>
               <td>
-                <v-btn @click.stop="routeTo(item)">
+                <v-btn
+                  @click.stop="routeTo(item)"
+                  :aria-label="'View ' + item.title"
+                >
                   <v-icon> link </v-icon>
                 </v-btn>
               </td>

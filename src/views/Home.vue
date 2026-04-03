@@ -16,7 +16,7 @@
               style="padding-left: 30px; padding-right: 30px"
               class="mb-10"
             >
-              <span
+              <h2
                 style="
                   display: block;
                   font-size: 32px;
@@ -25,11 +25,13 @@
                   border-bottom: 1px solid #bbb;
                   padding-bottom: 8px;
                   margin-bottom: 50px;
+                  margin-top: 0;
                 "
                 class="news-title hover"
                 @click="$router.push('/about/overview')"
-                >ABOUT ADULT REDEPLOY ILLINOIS</span
               >
+                ABOUT ADULT REDEPLOY ILLINOIS
+              </h2>
 
               <home-about
                 :content="about"
@@ -54,7 +56,7 @@
             </v-col>
 
             <v-col cols="12" sm="12" md="6" class="mb-10">
-              <span
+              <h2
                 style="
                   display: block;
                   font-size: 32px;
@@ -63,11 +65,13 @@
                   border-bottom: 1px solid #bbb;
                   padding-bottom: 8px;
                   margin-bottom: 50px;
+                  margin-top: 0;
                 "
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >ARI NEWS</span
               >
+                ARI NEWS
+              </h2>
               <home-news
                 :content="news"
                 v-if="news"
@@ -75,7 +79,7 @@
               ></home-news>
             </v-col>
             <v-col cols="12" sm="12" md="6" class="mb-10">
-              <span
+              <h2
                 style="
                   display: block;
                   width: 100%;
@@ -85,11 +89,13 @@
                   border-bottom: 1px solid #bbb;
                   padding-bottom: 8px;
                   margin-bottom: 50px;
+                  margin-top: 0;
                 "
                 class="news-title hover"
                 @click="$router.push('/news')"
-                >ICJIA PUBLICATIONS</span
               >
+                ICJIA PUBLICATIONS
+              </h2>
               <HomeArticles
                 style="margin: 0; padding: 0; width: 100%"
               ></HomeArticles>

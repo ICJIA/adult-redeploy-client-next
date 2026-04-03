@@ -223,3 +223,10 @@ summary:hover {
   background: #aaa;
   color: #fff;
 }
+
+/* a11y: override CMS inline spacing so users can adjust with custom stylesheets */
+.dynamic-content * {
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  word-spacing: inherit !important;
+}

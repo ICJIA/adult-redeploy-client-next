@@ -42,8 +42,8 @@ export default new Vuex.Store({
     apiStatus: null,
     cache: new Map(),
     selectedCountyData: null,
-    jwt: localStorage.getItem("jwt") || "",
-    userMeta: JSON.parse(localStorage.getItem("userMeta")) || "",
+    jwt: "",
+    userMeta: "",
   },
   mutations: {
     CLEAR_CACHE(state) {

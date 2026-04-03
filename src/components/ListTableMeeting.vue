@@ -72,7 +72,10 @@
                 {{ item.title }}
               </td>
               <td>
-                <v-btn @click.stop="getRoute(item)">
+                <v-btn
+                  @click.stop="getRoute(item)"
+                  :aria-label="'View ' + item.title"
+                >
                   <v-icon> link </v-icon>
                 </v-btn>
               </td>

@@ -378,7 +378,7 @@ li.pageTitle {
   margin-bottom: 10px;
 }
 .card-banner {
-  background: rgba(25, 26, 25, 0.3);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .appCardInfo:hover {

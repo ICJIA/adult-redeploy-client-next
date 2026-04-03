@@ -1,6 +1,18 @@
 <template>
   <div>
     <base-content :loading="loading">
+      <template v-slot:title>
+        <v-container
+          v-if="content"
+          :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        >
+          <v-row>
+            <v-col cols="12">
+              <h1 class="page-title">{{ content[0].title }}</h1>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
       <template v-slot:content>
         <v-container
           v-if="content"
