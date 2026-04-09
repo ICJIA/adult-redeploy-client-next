@@ -32,7 +32,7 @@
                   >
                     <v-col cols="12" class="mt-12">
                       <SiteDescriptionCard
-                        :content="[...item]"
+                        :content="[item]"
                       ></SiteDescriptionCard>
                     </v-col>
                   </v-container>
