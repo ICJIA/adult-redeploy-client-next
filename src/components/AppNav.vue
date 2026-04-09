@@ -15,6 +15,7 @@
         :src="require('@/assets/icjia-logo.png')"
         alt="Illinois Criminal Justice Information Authority"
         :width="logoWidth()"
+        :height="logoHeight()"
         style="margin-left: -5px; margin-right: 8px"
         class="hover"
         @click="
@@ -135,11 +136,17 @@ export default {
       EventBus.$emit("toggleDrawer");
     },
     logoWidth() {
-      //console.log(this.$vuetify.breakpoint);
       if (this.$vuetify.breakpoint.xs) {
         return 50;
       } else {
         return 90;
+      }
+    },
+    logoHeight() {
+      if (this.$vuetify.breakpoint.xs) {
+        return 35;
+      } else {
+        return 63;
       }
     },
   },

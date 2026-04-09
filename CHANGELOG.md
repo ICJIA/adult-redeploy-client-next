@@ -14,6 +14,11 @@
 - `src/components/ListTableNews.vue` — Scoped global `td` styles to `.newsTable` to prevent cross-component CLS. Added `role="cell"` to expanded rows.
 - `src/components/ListTableMeeting.vue` — Added `role="cell"` to expanded rows.
 - `src/components/ListTableResource.vue` — Scoped global `td` styles to `.meetingTable`. Added `role="cell"` to expanded rows. Removed `console.log`.
+- `src/components/AppNav.vue` — Added `height` attribute to nav logo for layout stability.
+- `src/components/AppFooter.vue` — Added `height="29"` to footer logo.
+- `src/components/HomeCarousel.vue` — Set correct `aspect-ratio`, added `eager` loading and `width` for LCP optimization.
+- `public/index.html` — Added `preconnect` hints for Google Fonts and cdnjs. Upgraded Google Fonts to CSS2 API with `display=swap`. Trimmed unused font weights. Deferred animate.css loading.
+- `vue.config.js` — Disabled webpack `prefetch` plugin to reduce unnecessary upfront resource loading.
 
 ---
 

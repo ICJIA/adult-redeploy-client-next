@@ -44,6 +44,7 @@
           :src="require('@/assets/icjia-logo-white.png')"
           alt="Illinois Criminal Justice Information Authority"
           width="65"
+          height="29"
           class="mt-3"
         />
         <br />

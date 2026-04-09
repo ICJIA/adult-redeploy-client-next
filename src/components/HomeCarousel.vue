@@ -2,9 +2,11 @@
   <v-img
     :src="require('@/assets/ari-splash-01.jpg')"
     :lazy-src="require('@/assets/ari-splash-01-tiny.jpg')"
-    aspect-ratio="1"
+    aspect-ratio="2.06"
     class="grey lighten-2"
     max-height="600"
+    width="100%"
+    eager
     style="margin-top: -12px"
     ><v-container
       class="fill-height text-center"
