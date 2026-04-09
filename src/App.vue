@@ -86,6 +86,11 @@ export default {
 
     Loader,
   },
+  computed: {
+    canonical() {
+      return "https://icjia.illinois.gov/adultredeploy" + this.$route.path;
+    },
+  },
   methods: {
     focusMainContent() {
       this.$nextTick(() => {
@@ -97,10 +102,6 @@ export default {
   watch: {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
-      this.canonical =
-        this.$store.getters.config.clientURL +
-        this.$store.getters.config.publicPath +
-        this.$route.path;
       if (this.$refs.alert) this.$refs.alert.reset();
       // Announce route change to screen readers
       const title =
@@ -152,10 +153,6 @@ export default {
       this.$store.dispatch("setArticleCount", this.articleCount);
 
       this.$store.dispatch("initApp");
-      this.canonical =
-        this.$store.getters.config.clientURL +
-        this.$store.getters.config.publicPath +
-        this.$route.path;
       this.loading = false;
     }
   },
@@ -165,7 +162,6 @@ export default {
       loading: true,
       test: [],
       env: process.env.NODE_ENV,
-      canonical: "",
       appCount: null,
       showWarning: true,
       routeAnnouncement: "",
