@@ -8,8 +8,4 @@ module.exports = {
       locales: ["en"],
     },
   },
-  chainWebpack: (config) => {
-    // Disable prefetch of async chunks — loads too many unused resources upfront
-    config.plugins.delete("prefetch");
-  },
 };
