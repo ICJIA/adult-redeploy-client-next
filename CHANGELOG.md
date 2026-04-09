@@ -19,6 +19,8 @@
 - `src/components/HomeCarousel.vue` — Set correct `aspect-ratio`, added `eager` loading and `width` for LCP optimization.
 - `public/index.html` — Added `preconnect` hints for Google Fonts and cdnjs. Upgraded Google Fonts to CSS2 API with `display=swap`. Trimmed unused font weights. Deferred animate.css loading.
 - `vue.config.js` — Disabled webpack `prefetch` plugin to reduce unnecessary upfront resource loading.
+- `src/App.vue` — Fixed canonical URL to include `publicPath` (was missing `/adultredeploy` prefix).
+- `public/index.html` — Async-loaded all external CSS (Google Fonts, FontAwesome, animate.css) via `media="print" onload` pattern to eliminate render-blocking. Combined 3 Google Font requests into 1.
 
 ---
 
