@@ -97,7 +97,10 @@ export default {
   watch: {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
-      this.canonical = this.$store.getters.config.clientURL + this.$store.getters.config.publicPath + this.$route.path;
+      this.canonical =
+        this.$store.getters.config.clientURL +
+        this.$store.getters.config.publicPath +
+        this.$route.path;
       if (this.$refs.alert) this.$refs.alert.reset();
       // Announce route change to screen readers
       const title =
@@ -149,7 +152,10 @@ export default {
       this.$store.dispatch("setArticleCount", this.articleCount);
 
       this.$store.dispatch("initApp");
-      this.canonical = this.$store.getters.config.clientURL + this.$store.getters.config.publicPath + this.$route.path;
+      this.canonical =
+        this.$store.getters.config.clientURL +
+        this.$store.getters.config.publicPath +
+        this.$route.path;
       this.loading = false;
     }
   },
