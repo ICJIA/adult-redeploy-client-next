@@ -11,7 +11,7 @@
       <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
         {{ routeAnnouncement }}
       </div>
-      <v-main
+      <v-content
         id="content-top"
         role="main"
         tabindex="-1"
@@ -20,7 +20,7 @@
         <transition name="fade" mode="out-in">
           <router-view style="min-height: 75vh !important"></router-view>
         </transition>
-      </v-main>
+      </v-content>
 
       <app-footer :sections="sections"></app-footer>
     </div>
