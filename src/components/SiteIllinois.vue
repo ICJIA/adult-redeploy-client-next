@@ -1490,117 +1490,113 @@ export default {
         navigator.msMaxTouchPoints > 0
       );
     }
-    jQuery(function() {
-      jQuery("path[id^=usiljs]").each(function(i, e) {
-        usiladdEvent(jQuery(e).attr("id"));
-      });
-    });
-    function usiladdEvent(id, relationId) {
-      var _obj = jQuery("#" + id);
+
+    function qsa(selector) {
+      return Array.from(document.querySelectorAll(selector));
+    }
+
+    function qs(selector) {
+      return document.querySelector(selector);
+    }
+
+    function usiladdEvent(id) {
+      var obj = qs("#" + id);
       var arr = id.split("");
-      var _Textobj = jQuery(
-        "#" + id + "," + "#usiljsvn" + arr.slice(6).join("")
-      );
-      jQuery("#" + ["visnames"]).attr({
-        fill: usiljsconfig.general.visibleNames
-      });
-      _obj.attr({
-        fill: usiljsconfig[id].upColor,
-        stroke: usiljsconfig.general.borderColor
-      });
-      _Textobj.attr({ cursor: "default" });
+      var textSelector = "#" + id + ", #usiljsvn" + arr.slice(6).join("");
+      var textObjs = qsa(textSelector);
+      var tip = qs("#usiljstip");
+      var visnames = qs("#visnames");
+
+      if (visnames) {
+        visnames.setAttribute("fill", usiljsconfig.general.visibleNames);
+      }
+      if (obj) {
+        obj.setAttribute("fill", usiljsconfig[id].upColor);
+        obj.setAttribute("stroke", usiljsconfig.general.borderColor);
+      }
+      textObjs.forEach(function(el) { el.style.cursor = "default"; });
+
       if (usiljsconfig[id].active === true) {
-        _Textobj.attr({ cursor: "pointer" });
-        _Textobj.hover(
-          function() {
-            jQuery("#usiljstip")
-              .show()
-              .html(usiljsconfig[id].hover);
-            _obj.css({ fill: usiljsconfig[id].overColor });
-          },
-          function() {
-            jQuery("#usiljstip").hide();
-            jQuery("#" + id).css({ fill: usiljsconfig[id].upColor });
-          }
-        );
+        textObjs.forEach(function(el) { el.style.cursor = "pointer"; });
+
+        textObjs.forEach(function(el) {
+          el.addEventListener("mouseenter", function() {
+            if (tip) { tip.style.display = "block"; tip.innerHTML = usiljsconfig[id].hover; }
+            if (obj) obj.style.fill = usiljsconfig[id].overColor;
+          });
+          el.addEventListener("mouseleave", function() {
+            if (tip) tip.style.display = "none";
+            if (obj) obj.style.fill = usiljsconfig[id].upColor;
+          });
+        });
+
         if (usiljsconfig[id].target !== "none") {
-          _Textobj.mousedown(function() {
-            jQuery("#" + id).css({ fill: usiljsconfig[id].downColor });
+          textObjs.forEach(function(el) {
+            el.addEventListener("mousedown", function() {
+              if (obj) obj.style.fill = usiljsconfig[id].downColor;
+            });
           });
         }
-        _Textobj.mouseup(function() {
-          jQuery("#" + id).css({ fill: usiljsconfig[id].overColor });
-          if (usiljsconfig[id].target === "new_window") {
-            window.open(usiljsconfig[id].url);
-          } else if (usiljsconfig[id].target === "same_window") {
-            window.parent.location.href = usiljsconfig[id].url;
-          } else if (usiljsconfig[id].target === "modal") {
-            jQuery(usiljsconfig[id].url).modal("show");
-          } else if (usiljsconfig[id].target === "vue") {
-            //vm.countyData = usiljsconfig[id];
-            vm.getCountyData(usiljsconfig[id]);
-            // console.log(usiljsconfig[id])
-          }
-        });
-        _Textobj.mousemove(function(e) {
-          var x = e.pageX + 20,
-            y = e.pageY - 75;
-          var tipw = jQuery("#usiljstip").outerWidth(),
-            tiph = jQuery("#usiljstip").outerHeight(),
-            x =
-              x + tipw > jQuery(document).scrollLeft() + jQuery(window).width()
-                ? x - tipw - 20 * 2
-                : x;
-          y =
-            y + tiph > jQuery(document).scrollTop() + jQuery(window).height()
-              ? jQuery(document).scrollTop() +
-                jQuery(window).height() -
-                tiph -
-                10
-              : y;
 
-          jQuery("#usiljstip").css({ left: x, top: y });
-        });
-        if (isTouchEnabled()) {
-          _Textobj.on("touchstart", function(e) {
-            var touch = e.originalEvent.touches[0];
-            var x = touch.pageX + 10,
-              y = touch.pageY + 15;
-            var tipw = jQuery("#usiljstip").outerWidth(),
-              tiph = jQuery("#usiljstip").outerHeight(),
-              x =
-                x + tipw >
-                jQuery(document).scrollLeft() + jQuery(window).width()
-                  ? x - tipw - 20 * 2
-                  : x;
-            y =
-              y + tiph > jQuery(document).scrollTop() + jQuery(window).height()
-                ? jQuery(document).scrollTop() +
-                  jQuery(window).height() -
-                  tiph -
-                  10
-                : y;
-            jQuery("#" + id).css({ fill: usiljsconfig[id].downColor });
-            jQuery("#usiljstip")
-              .show()
-              .html(usiljsconfig[id].hover);
-            jQuery("#usiljstip").css({ left: x, top: y });
-          });
-          _Textobj.on("touchend", function() {
-            jQuery("#" + id).css({ fill: usiljsconfig[id].upColor });
+        textObjs.forEach(function(el) {
+          el.addEventListener("mouseup", function() {
+            if (obj) obj.style.fill = usiljsconfig[id].overColor;
             if (usiljsconfig[id].target === "new_window") {
               window.open(usiljsconfig[id].url);
             } else if (usiljsconfig[id].target === "same_window") {
               window.parent.location.href = usiljsconfig[id].url;
-            } else if (usiljsconfig[id].target === "modal") {
-              jQuery(usiljsconfig[id].url).modal("show");
             } else if (usiljsconfig[id].target === "vue") {
-              // console.log(usiljsconfig[id])
+              vm.getCountyData(usiljsconfig[id]);
             }
+          });
+        });
+
+        textObjs.forEach(function(el) {
+          el.addEventListener("mousemove", function(e) {
+            if (!tip) return;
+            var x = e.pageX + 20, y = e.pageY - 75;
+            var tipw = tip.offsetWidth, tiph = tip.offsetHeight;
+            x = (x + tipw > window.scrollX + window.innerWidth) ? x - tipw - 40 : x;
+            y = (y + tiph > window.scrollY + window.innerHeight) ? window.scrollY + window.innerHeight - tiph - 10 : y;
+            tip.style.left = x + "px";
+            tip.style.top = y + "px";
+          });
+        });
+
+        if (isTouchEnabled()) {
+          textObjs.forEach(function(el) {
+            el.addEventListener("touchstart", function(e) {
+              var touch = e.touches[0];
+              var x = touch.pageX + 10, y = touch.pageY + 15;
+              if (!tip) return;
+              var tipw = tip.offsetWidth, tiph = tip.offsetHeight;
+              x = (x + tipw > window.scrollX + window.innerWidth) ? x - tipw - 40 : x;
+              y = (y + tiph > window.scrollY + window.innerHeight) ? window.scrollY + window.innerHeight - tiph - 10 : y;
+              if (obj) obj.style.fill = usiljsconfig[id].downColor;
+              tip.style.display = "block";
+              tip.innerHTML = usiljsconfig[id].hover;
+              tip.style.left = x + "px";
+              tip.style.top = y + "px";
+            });
+            el.addEventListener("touchend", function() {
+              if (obj) obj.style.fill = usiljsconfig[id].upColor;
+              if (usiljsconfig[id].target === "new_window") {
+                window.open(usiljsconfig[id].url);
+              } else if (usiljsconfig[id].target === "same_window") {
+                window.parent.location.href = usiljsconfig[id].url;
+              } else if (usiljsconfig[id].target === "vue") {
+                vm.getCountyData(usiljsconfig[id]);
+              }
+            });
           });
         }
       }
     }
+
+    // Initialize all map paths
+    qsa("path[id^=usiljs]").forEach(function(el) {
+      usiladdEvent(el.getAttribute("id"));
+    });
   }
 };
 </script>

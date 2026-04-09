@@ -21,6 +21,7 @@
 - `vue.config.js` — Disabled webpack `prefetch` plugin to reduce unnecessary upfront resource loading.
 - `src/App.vue` — Fixed canonical URL to include `publicPath` (was missing `/adultredeploy` prefix).
 - `public/index.html` — Async-loaded all external CSS (Google Fonts, FontAwesome, animate.css) via `media="print" onload` pattern to eliminate render-blocking. Combined 3 Google Font requests into 1.
+- `src/components/SiteIllinois.vue` — Replaced all jQuery calls (30 references) with vanilla JS. jQuery was never actually installed as a dependency, causing `ReferenceError` on the map page.
 
 ---
 
