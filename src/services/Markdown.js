@@ -54,19 +54,16 @@ const renderToHtml = function (markdown) {
   const raw = md.render(markdown);
   let html = xss(raw, xssOptions);
 
-  // Add aria-label to links with generic text like "here"
+  // Replace generic link text ("here", "click here") with descriptive text
   html = html.replace(
     /<a\s([^>]*)>([^<]*)<\/a>/gi,
     function (match, attrs, text) {
-      if (
-        genericLinkPattern.test(text.trim()) &&
-        attrs.indexOf("aria-label") === -1
-      ) {
+      if (genericLinkPattern.test(text.trim())) {
         var hrefMatch = attrs.match(/href="([^"]*)"/);
-        var label = hrefMatch
-          ? "Visit " + hrefMatch[1].split("/").pop().replace(/-/g, " ")
-          : text;
-        return "<a " + attrs + ' aria-label="' + label + '">' + text + "</a>";
+        if (hrefMatch) {
+          var slug = hrefMatch[1].split("/").pop().replace(/-/g, " ");
+          return "<a " + attrs + ">" + slug + "</a>";
+        }
       }
       return match;
     }
