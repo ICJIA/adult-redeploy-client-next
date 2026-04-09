@@ -21,6 +21,8 @@
 - `public/index.html` — Added static `<link rel="canonical">` for SEO (vue-meta canonical is client-side only, invisible to crawlers).
 - `public/index.html` — Async-loaded all external CSS (Google Fonts, FontAwesome, animate.css) via `media="print" onload` pattern to eliminate render-blocking. Combined 3 Google Font requests into 1.
 - `src/components/SiteIllinois.vue` — Replaced all jQuery calls (30 references) with vanilla JS. jQuery was never actually installed as a dependency, causing `ReferenceError` on the map page.
+- `src/services/Markdown.js` — Auto-add `aria-label` to CMS links with generic text ("here", "click here", etc.) for SEO link-text audit. Allow `aria-label` through XSS filter.
+- `src/components/HomeAbout.vue` — Auto-size CMS images missing `height` attribute after render, using natural aspect ratio.
 
 ---
 

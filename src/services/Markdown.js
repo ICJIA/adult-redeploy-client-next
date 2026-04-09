@@ -15,7 +15,7 @@ const xssOptions = {
     span: ["style", "class"],
     div: ["style", "class", "id"],
     p: ["style", "class"],
-    a: ["href", "title", "target", "rel", "class"],
+    a: ["href", "title", "target", "rel", "class", "aria-label"],
     img: ["src", "alt", "title", "width", "height", "class"],
     h1: ["id", "class"],
     h2: ["id", "class"],
@@ -47,10 +47,32 @@ const xssOptions = {
   stripIgnoreTag: true,
 };
 
+const genericLinkPattern = /^(here|click here|more|link|go)$/i;
+
 const renderToHtml = function (markdown) {
   if (!markdown) return "";
   const raw = md.render(markdown);
-  return xss(raw, xssOptions);
+  let html = xss(raw, xssOptions);
+
+  // Add aria-label to links with generic text like "here"
+  html = html.replace(
+    /<a\s([^>]*)>([^<]*)<\/a>/gi,
+    function (match, attrs, text) {
+      if (
+        genericLinkPattern.test(text.trim()) &&
+        attrs.indexOf("aria-label") === -1
+      ) {
+        var hrefMatch = attrs.match(/href="([^"]*)"/);
+        var label = hrefMatch
+          ? "Visit " + hrefMatch[1].split("/").pop().replace(/-/g, " ")
+          : text;
+        return "<a " + attrs + ' aria-label="' + label + '">' + text + "</a>";
+      }
+      return match;
+    }
+  );
+
+  return html;
 };
 
 export { renderToHtml };

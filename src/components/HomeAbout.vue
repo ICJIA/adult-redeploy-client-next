@@ -36,6 +36,21 @@ export default {
     };
   },
   methods: {},
+  updated() {
+    // Fix unsized CMS images — add height when only width is set
+    const imgs = this.$el.querySelectorAll("img[width]:not([height])");
+    imgs.forEach(function (img) {
+      if (img.naturalWidth && img.naturalHeight) {
+        var ratio = img.naturalHeight / img.naturalWidth;
+        img.setAttribute("height", Math.round(parseInt(img.width) * ratio));
+      } else {
+        img.addEventListener("load", function () {
+          var ratio = img.naturalHeight / img.naturalWidth;
+          img.setAttribute("height", Math.round(parseInt(img.width) * ratio));
+        });
+      }
+    });
+  },
 };
 </script>
 
