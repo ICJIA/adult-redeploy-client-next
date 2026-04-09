@@ -15,13 +15,12 @@ Vue.use(VueMeta, {
   refreshOnceOnNavigation: true,
 });
 
-import VueAnalytics from "vue-analytics";
-Vue.use(VueAnalytics, {
-  id: "UA-150082887-3",
-  debug: {
-    sendHitTask: process.env.NODE_ENV === "production",
-  },
-});
+// vue-analytics removed — using Plausible instead.
+// Provide a no-op $ga stub so existing $ga.event()/$ga.page() calls don't throw.
+Vue.prototype.$ga = {
+  event() {},
+  page() {},
+};
 
 import VueRouterBackButton from "vue-router-back-button";
 Vue.use(VueRouterBackButton, { router });

@@ -6,8 +6,9 @@
 
 - `src/components/AppFooter.vue` — Changed ICJIA link from `http://` to `https://` to eliminate insecure request.
 - `src/App.vue` — Replaced deprecated `<v-content>` with `<v-main>`. Set canonical URL on initial page load. Unified conflicting `min-height` values (68vh/75vh). Removed debug `console.log`.
-- `public/index.html` — Removed deprecated `promise-polyfill` and `fetch-polyfill` scripts (native in all supported browsers).
-- `src/main.js` — Removed deprecated `babel-polyfill` import and IE-era prototype shims (`NodeList.forEach`, `Element.matches`).
+- `public/index.html` — Removed deprecated `promise-polyfill` and `fetch-polyfill` scripts (native in all supported browsers). Replaced expired FontAwesome kit with free CDN CSS (`font-awesome/5.15.4`).
+- `src/main.js` — Removed deprecated `babel-polyfill` import and IE-era prototype shims. Removed `vue-analytics` (Google Analytics) — replaced with no-op `$ga` stub since site uses Plausible.
+- `netlify.toml` — Cleaned up CSP: removed FontAwesome kit and Google Analytics domains.
 - `src/components/HomeCarousel.vue` — Added descriptive `aria-label` to "Learn More" button for SEO link-text audit.
 - `src/components/HomeMeetings.vue` — Added descriptive `aria-label` to "Read more" buttons.
 - `src/components/ListTableNews.vue` — Scoped global `td` styles to `.newsTable` to prevent cross-component CLS. Added `role="cell"` to expanded rows.
