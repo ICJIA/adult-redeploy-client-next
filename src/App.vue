@@ -11,16 +11,16 @@
       <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
         {{ routeAnnouncement }}
       </div>
-      <v-content
+      <v-main
         id="content-top"
         role="main"
         tabindex="-1"
-        style="background: #fafafa; min-height: 68vh; outline: none"
+        style="background: #fafafa; min-height: 75vh; outline: none"
       >
         <transition name="fade" mode="out-in">
           <router-view style="min-height: 75vh !important"></router-view>
         </transition>
-      </v-content>
+      </v-main>
 
       <app-footer :sections="sections"></app-footer>
     </div>
@@ -125,7 +125,6 @@ export default {
       let config = await configPromise;
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;
-      console.log("Debug: ", this.$store.getters.debug);
       // const routesPromise = process.BROWSER_BUILD
       //   ? import("@/api/routes.json")
       //   : Promise.resolve(require("@/api/routes.json"));
@@ -150,6 +149,7 @@ export default {
       this.$store.dispatch("setArticleCount", this.articleCount);
 
       this.$store.dispatch("initApp");
+      this.canonical = this.$store.getters.config.clientURL + this.$route.path;
       this.loading = false;
     }
   },
@@ -159,7 +159,7 @@ export default {
       loading: true,
       test: [],
       env: process.env.NODE_ENV,
-      canonical: null,
+      canonical: "",
       appCount: null,
       showWarning: true,
       routeAnnouncement: "",

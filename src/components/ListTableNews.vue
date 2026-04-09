@@ -37,7 +37,7 @@
         </template>
 
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length + 2">
+          <td :colspan="headers.length + 2" role="cell">
             <div class="py-5">
               <NewsCard
                 :content="item"
@@ -183,8 +183,8 @@ export default {
 };
 </script>
 
-<style>
-td {
+<style scoped>
+.newsTable td {
   padding-top: 20px !important;
   padding-bottom: 20px !important;
 }

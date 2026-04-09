@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.3] - 2026-04-09
+
+### Lighthouse Audit Fixes
+
+- `src/components/AppFooter.vue` — Changed ICJIA link from `http://` to `https://` to eliminate insecure request.
+- `src/App.vue` — Replaced deprecated `<v-content>` with `<v-main>`. Set canonical URL on initial page load. Unified conflicting `min-height` values (68vh/75vh). Removed debug `console.log`.
+- `public/index.html` — Removed deprecated `promise-polyfill` and `fetch-polyfill` scripts (native in all supported browsers).
+- `src/main.js` — Removed deprecated `babel-polyfill` import and IE-era prototype shims (`NodeList.forEach`, `Element.matches`).
+- `src/components/HomeCarousel.vue` — Added descriptive `aria-label` to "Learn More" button for SEO link-text audit.
+- `src/components/HomeMeetings.vue` — Added descriptive `aria-label` to "Read more" buttons.
+- `src/components/ListTableNews.vue` — Scoped global `td` styles to `.newsTable` to prevent cross-component CLS. Added `role="cell"` to expanded rows.
+- `src/components/ListTableMeeting.vue` — Added `role="cell"` to expanded rows.
+- `src/components/ListTableResource.vue` — Scoped global `td` styles to `.meetingTable`. Added `role="cell"` to expanded rows. Removed `console.log`.
+
+---
+
 ## [0.3.2] - 2026-04-03
 
 ### WCAG AAA Contrast Compliance

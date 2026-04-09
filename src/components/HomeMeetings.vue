@@ -47,7 +47,7 @@
             </v-list-item>
             <div class="text-right">
               <v-card-actions>
-                <v-btn text @click="routeTo(meeting)"
+                <v-btn text @click="routeTo(meeting)" :aria-label="'Read more about ' + meeting.title"
                   >Read more<v-icon right>chevron_right</v-icon></v-btn
                 >
               </v-card-actions>

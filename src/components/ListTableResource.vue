@@ -61,7 +61,7 @@
         </template>
 
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length + 2">
+          <td :colspan="headers.length + 2" role="cell">
             <div class="py-1">
               <ResourceDisplay
                 :item="item"
@@ -241,7 +241,6 @@ export default {
     routeTo(item) {
       let cat = strapiEnumToObject("resources", item.category);
       let path = `/resources/${cat[0].slug}/${item.slug}`;
-      console.log(path);
       this.$router.push(path);
     },
   },
@@ -259,12 +258,12 @@ export default {
 };
 </script>
 
-<style>
-td {
+<style scoped>
+.meetingTable td {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
 }
-tr:nth-of-type(even) {
+.meetingTable tr:nth-of-type(even) {
   background-color: rgba(0, 0, 0, 0.04);
 }
 

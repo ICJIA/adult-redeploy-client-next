@@ -28,6 +28,7 @@
               class="mt-6"
               color="white"
               @click="$vuetify.goTo('#about', { offset: 130 })"
+              aria-label="Learn more about Adult Redeploy Illinois"
               >Learn More</v-btn
             >&nbsp;&nbsp;
             <v-btn class="mt-6" to="/about/faqs" color="white">FAQs</v-btn>
