@@ -62,7 +62,7 @@ export default {
       htmlAttrs: {
         lang: "en",
       },
-      link: [{ rel: "canonical", href: this.canonical }],
+      link: [{ vmid: "canonical", rel: "canonical", href: this.canonical }],
       meta: [
         { charset: "utf-8" },
         {
