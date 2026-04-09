@@ -5,7 +5,7 @@
 ### Lighthouse Audit Fixes
 
 - `src/components/AppFooter.vue` — Changed ICJIA link from `http://` to `https://` to eliminate insecure request.
-- `src/App.vue` — Replaced deprecated `<v-content>` with `<v-main>`. Set canonical URL on initial page load. Unified conflicting `min-height` values (68vh/75vh). Removed debug `console.log`.
+- `src/App.vue` — Set canonical URL on initial page load with `publicPath` prefix. Unified conflicting `min-height` values (68vh/75vh). Removed debug `console.log`.
 - `public/index.html` — Removed deprecated `promise-polyfill` and `fetch-polyfill` scripts (native in all supported browsers). Replaced expired FontAwesome kit with free CDN CSS (`font-awesome/5.15.4`).
 - `src/main.js` — Removed deprecated `babel-polyfill` import and IE-era prototype shims. Removed `vue-analytics` (Google Analytics) — replaced with no-op `$ga` stub since site uses Plausible.
 - `netlify.toml` — Cleaned up CSP: removed FontAwesome kit and Google Analytics domains.
@@ -18,8 +18,7 @@
 - `src/components/AppFooter.vue` — Added `height="29"` to footer logo.
 - `src/components/HomeCarousel.vue` — Set correct `aspect-ratio`, added `eager` loading and `width` for LCP optimization.
 - `public/index.html` — Added `preconnect` hints for Google Fonts and cdnjs. Upgraded Google Fonts to CSS2 API with `display=swap`. Trimmed unused font weights. Deferred animate.css loading.
-- `vue.config.js` — Disabled webpack `prefetch` plugin to reduce unnecessary upfront resource loading.
-- `src/App.vue` — Fixed canonical URL to include `publicPath` (was missing `/adultredeploy` prefix).
+- `public/index.html` — Added static `<link rel="canonical">` for SEO (vue-meta canonical is client-side only, invisible to crawlers).
 - `public/index.html` — Async-loaded all external CSS (Google Fonts, FontAwesome, animate.css) via `media="print" onload` pattern to eliminate render-blocking. Combined 3 Google Font requests into 1.
 - `src/components/SiteIllinois.vue` — Replaced all jQuery calls (30 references) with vanilla JS. jQuery was never actually installed as a dependency, causing `ReferenceError` on the map page.
 
