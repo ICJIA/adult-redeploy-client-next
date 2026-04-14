@@ -725,7 +725,10 @@
               d="M223.858,209.937c-2.037,1.811-2.413,6.639-6.487,11.392s-2.942,6.79-1.962,7.846c0.98,1.057,0.905,2.641,0.905,2.641h21.727v15.805h6.563v2.603h13.467v-2.603h3.395v-1.585l5.847-0.112v-4.301h6.147v-11.09h5.432l-0.037-20.595h-11.542H223.858z"
             ></path>
           </g>
-          <g id="visnames">
+          <g
+            id="visnames"
+            style="paint-order: stroke; stroke: #ffffff; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round;"
+          >
             <text
               id="usiljsvn1"
               transform="matrix(1 0 0 1 28 327)"
