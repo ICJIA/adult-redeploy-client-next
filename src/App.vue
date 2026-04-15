@@ -8,14 +8,14 @@
     <!-- <outdated-browser v-if="$browserDetect.isIE"></outdated-browser> -->
 
     <div v-if="!loading">
-      <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
-        {{ routeAnnouncement }}
-      </div>
       <v-content
         id="content-top"
         tabindex="-1"
         style="background: #fafafa; min-height: 75vh; outline: none"
       >
+        <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
+          {{ routeAnnouncement }}
+        </div>
         <transition name="fade" mode="out-in">
           <router-view style="min-height: 75vh !important"></router-view>
         </transition>
