@@ -3,7 +3,6 @@
     dark
     padless
     class="noprint"
-    role="contentinfo"
     aria-label="Site footer"
   >
     <v-card

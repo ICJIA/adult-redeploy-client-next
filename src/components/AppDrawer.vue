@@ -7,7 +7,6 @@
     v-model="drawer"
     clipped
     disable-resize-watcher
-    role="navigation"
     aria-label="Mobile navigation"
   >
     <v-list class="drawer" rounded>

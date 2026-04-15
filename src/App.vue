@@ -13,7 +13,6 @@
       </div>
       <v-content
         id="content-top"
-        role="main"
         tabindex="-1"
         style="background: #fafafa; min-height: 75vh; outline: none"
       >

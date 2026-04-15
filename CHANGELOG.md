@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.4] - 2026-04-15
+
+### Siteimprove A11y Fix — "All roles are invalid"
+
+Removed redundant `role` attributes from semantic HTML5 elements that already carry the implicit role. Resolves Siteimprove WCAG 2.1 SC 4.1.2 occurrences across `/`, `/programs`, `/grants`, `/news`, `/apps`, `/resources`, and `/search`.
+
+- `src/components/AppNav.vue` — Removed `role="navigation"` from `<nav>`.
+- `src/components/AppDrawer.vue` — Removed `role="navigation"` from `<v-navigation-drawer>` (renders as `<nav>`).
+- `src/components/AppFooter.vue` — Removed `role="contentinfo"` from `<v-footer>` (renders as `<footer>`).
+- `src/App.vue` — Removed `role="main"` from `<v-content>` (renders as `<main>`).
+- `src/components/ListTableResource.vue`, `ListTableNews.vue`, `ListTableMeeting.vue` — Removed `role="cell"` from `<td>` (implicit cell role within native tables).
+
 ## [0.3.3] - 2026-04-09
 
 ### Lighthouse Audit Fixes
