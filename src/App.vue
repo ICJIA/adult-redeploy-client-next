@@ -15,7 +15,7 @@
         tabindex="-1"
         style="background: #fafafa; min-height: 75vh; outline: none"
       >
-        <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
+        <div aria-live="polite" aria-atomic="true" class="visually-hidden" role="status">
           {{ routeAnnouncement }}
         </div>
         <transition name="fade" mode="out-in">

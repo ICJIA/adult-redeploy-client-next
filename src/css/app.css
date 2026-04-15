@@ -19,15 +19,17 @@
   outline-offset: 2px;
 }
 
-/* Screen reader only utility */
-.sr-only {
+/* Screen reader only utility — modern visually-hidden pattern.
+   Avoids overflow:hidden so Siteimprove's WCAG 1.4.4 "text clipped at 200%"
+   check doesn't false-positive on aria-live announcements. */
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
   margin: -1px;
-  overflow: hidden;
   clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
