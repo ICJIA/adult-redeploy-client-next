@@ -1,7 +1,9 @@
 <template>
   <v-app id="page-top">
-    <a href="#content-top" class="skip-link">Skip to main content</a>
-    <app-nav :sections="sections"></app-nav>
+    <header>
+      <a href="#content-top" class="skip-link">Skip to main content</a>
+      <app-nav :sections="sections"></app-nav>
+    </header>
 
     <app-drawer :sections="sections"></app-drawer>
 

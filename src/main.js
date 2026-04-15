@@ -27,7 +27,11 @@ Vue.use(VueRouterBackButton, { router });
 
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
-NProgress.configure({ showSpinner: false });
+NProgress.configure({
+  showSpinner: false,
+  barSelector: '.bar',
+  template: '<div class="bar" aria-hidden="true"><div class="peg"></div></div>',
+});
 
 new Vue({
   router,
