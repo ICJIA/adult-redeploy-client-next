@@ -1113,8 +1113,8 @@ const getUpcomingMeetings = async ({ targetDate, limit }) => {
 
 const getGATAFunding = async () => {
   try {
-    let funding = getGATAFundingQuery();
-    return funding;
+    let funding = await getGATAFundingQuery();
+    return funding.data;
   } catch (e) {
     console.log("contentServiceError", e.toString());
     NProgress.done();

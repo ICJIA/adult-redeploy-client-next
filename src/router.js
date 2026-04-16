@@ -200,16 +200,20 @@ const router = new Router({
     },
     /**
      *
-     * Sandbox
+     * Sandbox (dev only)
      *
      */
 
-    {
-      path: "/sandbox",
-      name: "sandbox",
-      component: () =>
-        import(/* webpackChunkName: "sandbox" */ "./views/Sandbox.vue"),
-    },
+    ...(process.env.NODE_ENV !== "production"
+      ? [
+          {
+            path: "/sandbox",
+            name: "sandbox",
+            component: () =>
+              import(/* webpackChunkName: "sandbox" */ "./views/Sandbox.vue"),
+          },
+        ]
+      : []),
     /**
      *
      * Search

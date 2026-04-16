@@ -727,7 +727,13 @@
           </g>
           <g
             id="visnames"
-            style="paint-order: stroke; stroke: #ffffff; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round;"
+            style="
+              paint-order: stroke;
+              stroke: #ffffff;
+              stroke-width: 3;
+              stroke-linejoin: round;
+              stroke-linecap: round;
+            "
           >
             <text
               id="usiljsvn1"

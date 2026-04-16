@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.3.5] - 2026-04-16
+
+### Performance and hygiene pass
+
+Addresses Lighthouse prod results (desktop Perf 55, LCP 25.2s) by removing the root-level render-blocking gate. Dev Perf moved from 78 → 93 on the same URL after the change; real prod impact TBD after deploy.
+
+- `src/App.vue` — Removed the global `loading` loader gate that blocked first paint until `getAllSections`, `setApiStatus`, `getAppCount`, and `getArticleCount` all resolved serially. Shell and route view now render immediately; config and searchIndex load synchronously from bundled JSON; sections/appCount/articleCount fire as background promises and populate the nav/footer when ready. Dropped the `Loader` component import and associated template branch.
+- `vue.config.js` — Added `configureWebpack` hook that enables Terser `drop_console: true` for production builds, stripping the 104 `console.log` calls across the source tree from prod bundles without touching development builds.
+- `src/router.js` — Wrapped the `/sandbox` route in a `NODE_ENV !== "production"` conditional spread so the `Sandbox` chunk is excluded from production builds entirely.
+- `src/services/Content.js` — Fixed `getGATAFunding` missing `await` on `getGATAFundingQuery()` (was returning an unresolved Promise). Now awaits and returns `.data` consistent with sibling functions.
+
+### Known follow-ups surfaced during the pass
+
+- `v-data-table` views (`/news`, `/resources`, `/about/meetings`) trigger axe `td-has-header` (WCAG 1.3.1) — cells not associated with column headers. Lighthouse a11y still scores 100 but a thorough audit will flag it.
+- `store.js` retains dead `fetchData`/`buildStatusUrl` block and hard-coded `SET_API_STATUS(200)` bypass.
+- Image pipeline still ships ~109 KiB of unoptimized assets (seal, nav/footer logos); `image.icjia.cloud` responsive variants would address it.
+- 167 npm vulns (18 critical, 39 high); Vue 2 / Vuetify 2 / Vue CLI 4 stack is EOL.
+
 ## [0.3.4] - 2026-04-15
 
 ### Siteimprove A11y Fix — "All roles are invalid"

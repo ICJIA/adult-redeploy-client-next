@@ -1,10 +1,5 @@
 <template>
-  <v-footer
-    dark
-    padless
-    class="noprint"
-    aria-label="Site footer"
-  >
+  <v-footer dark padless class="noprint" aria-label="Site footer">
     <v-card
       flat
       tile
