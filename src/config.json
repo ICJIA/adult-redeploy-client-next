@@ -90,10 +90,6 @@
       "appendCategory": true
     }
   ],
-  "status": {
-    "dev": "http://localhost:9000/.netlify/functions/status",
-    "prod": "https://adultredeploy.netlify.com/.netlify/functions/status"
-  },
   "debug": true,
   "strapiEnums": {
     "resources": [

@@ -113,7 +113,6 @@ export default {
     this.$store.dispatch("setConfig", config);
     const searchIndex = require("@/api/searchIndex.json");
     this.$store.dispatch("setSearchIndex", searchIndex);
-    this.$store.dispatch("setApiStatus");
     this.$store.dispatch("initApp");
 
     getAllSections()

@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.3.6] - 2026-04-16
+
+### Remove unused Netlify Functions; pin build Node version
+
+Netlify build log was warning about deprecated Node 16 functions runtime. Investigation showed the only deployed function was a `"Hello, World"` stub that nothing in the app calls. Removed the functions plumbing entirely rather than upgrading the runtime for code that serves no purpose.
+
+- Deleted `src/lambda/` (source) and `netlify/` (webpack-4 bundled output).
+- `package.json` — Removed `netlify-lambda` dependency; removed `build:lambda` and `start:lambda` scripts; dropped `build:lambda` step from the `deploy` script.
+- `netlify.toml` — Removed `Functions = "netlify"`. Added `[build.environment]` block with `NODE_VERSION = "22"` so the build container is explicit instead of relying on `.nvmrc` detection.
+- `src/config.json` — Removed the `status` object that referenced a `/.netlify/functions/status` endpoint that never existed in this repo.
+- `src/store.js` — Removed dead `buildStatusUrl`/`fetchData` helpers, the `setApiStatus` action (whose body was commented out with a hardcoded 200 bypass), the `SET_API_STATUS` mutation, the `apiStatus` state, and the unused `isApiReady` getter. Net: 58 lines of dead code gone.
+- `src/App.vue` — Removed the `setApiStatus` dispatch call.
+
+Lint clean. Dev-server smoke test: `http://localhost:8080` Lighthouse A11y 100, Perf 82, LCP 3.2s. No functional change expected in prod beyond the Netlify warning clearing.
+
 ## [0.3.5] - 2026-04-16
 
 ### Performance and hygiene pass

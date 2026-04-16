@@ -8,9 +8,7 @@
     "build": "NODE_OPTIONS=--openssl-legacy-provider node buildSearchIndex.js && node buildSitemap.js && NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "deploy": "NODE_OPTIONS=--openssl-legacy-provider node buildSearchIndex.js && node buildSitemap.js && NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build && npm run build:lambda && node generateBuildInfo.js",
-    "build:lambda": "netlify-lambda build ./src/lambda",
-    "start:lambda": "netlify-lambda serve ./src/lambda",
+    "deploy": "NODE_OPTIONS=--openssl-legacy-provider node buildSearchIndex.js && node buildSitemap.js && NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build && node generateBuildInfo.js",
     "postbuild": "node generateBuildInfo.js"
   },
   "author": {
@@ -41,7 +39,6 @@
     "markdown-it-named-headers": "0.0.4",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
-    "netlify-lambda": "^1.6.3",
     "nprogress": "^0.2.0",
     "rimraf": "^3.0.0",
     "sitemap": "^5.1.0",

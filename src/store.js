@@ -1,32 +1,9 @@
 /* eslint-disable no-console */
 import Vue from "vue";
 import Vuex from "vuex";
-const config = require("@/config.json");
 const LS_ROUTE_KEY = process.env.VUE_APP_LS_ROUTE_KEY;
-//console.log("LS_ROUTE_KEY", LS_ROUTE_KEY);
 
 Vue.use(Vuex);
-
-// eslint-disable-next-line no-unused-vars
-function buildStatusUrl() {
-  let url;
-  let endpoint = ".netlify/functions/status";
-  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-    url = `http://localhost:9000/${endpoint}`;
-  } else {
-    url = `${config.clientURL}${config.publicPath}${endpoint}`;
-  }
-
-  return url;
-}
-
-// eslint-disable-next-line no-unused-vars
-async function fetchData(endpoint) {
-  // eslint-disable-next-line no-unused-vars
-  let data;
-  let response = await fetch(endpoint);
-  return (data = await response.json());
-}
 
 export default new Vuex.Store({
   state: {
@@ -39,7 +16,6 @@ export default new Vuex.Store({
     searchIndex: null,
     lastDeploy: null,
     lastBuild: null,
-    apiStatus: null,
     cache: new Map(),
     selectedCountyData: null,
     jwt: "",
@@ -88,10 +64,6 @@ export default new Vuex.Store({
       state.articleCount = articleCount;
       console.log("Researchhub articles: ", articleCount);
     },
-    SET_API_STATUS(state, apiStatus) {
-      state.apiStatus = apiStatus;
-      console.log("API status code: ", apiStatus);
-    },
     SET_SELECTED_COUNTY_DATA(state, payload) {
       state.selectedCountyData = payload;
       //console.log("Selected county data: ", payload);
@@ -102,29 +74,6 @@ export default new Vuex.Store({
       commit("CLEAR_CACHE");
       commit("CLEAR_LOCAL_STORAGE");
       commit("SET_APP_READY", true);
-    },
-    async setApiStatus({ commit }) {
-      // try {
-      //   let status = await fetchData(buildStatusUrl());
-      //   let apiStatus = status.filter(server => {
-      //     if (server.server === "api") {
-      //       return server;
-      //     }
-      //   });
-      //   if (apiStatus.length) {
-      //     console.log("Successfully connected to status server.");
-      //     commit("SET_API_STATUS", apiStatus[0]["status"]);
-      //   } else {
-      //     console.error("Status server error");
-      //     commit("SET_API_STATUS", 500);
-      //   }
-      // } catch (e) {
-      //   console.log("Can't connect to status server.");
-      //   console.log(e);
-      //   commit("SET_API_STATUS", 500);
-      // }
-      commit("SET_API_STATUS", 200);
-      console.log("status server bypassed");
     },
     setConfig({ commit }, config) {
       commit("SET_CONFIG", config);
@@ -215,13 +164,6 @@ export default new Vuex.Store({
     // eslint-disable-next-line no-unused-vars
     inCache: (state) => (hash) => {
       return state.cache.has(hash);
-    },
-    isApiReady: (state) => {
-      if (state.apiStatus === 200 || state.apiStatus === 204) {
-        return true;
-      } else {
-        return false;
-      }
     },
     config: (state) => {
       return state.config;
