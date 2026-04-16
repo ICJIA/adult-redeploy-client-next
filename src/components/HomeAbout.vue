@@ -37,6 +37,13 @@ export default {
   },
   methods: {},
   updated() {
+    // First image in the about block is the LCP element — prioritize it
+    const firstImg = this.$el.querySelector("#about img");
+    if (firstImg) {
+      firstImg.setAttribute("fetchpriority", "high");
+      firstImg.setAttribute("loading", "eager");
+      firstImg.setAttribute("decoding", "async");
+    }
     // Fix unsized CMS images — add height when only width is set
     const imgs = this.$el.querySelectorAll("img[width]:not([height])");
     imgs.forEach(function (img) {

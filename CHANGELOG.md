@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.7] - 2026-04-16
+
+### LCP image priority; drop unused babel-polyfill
+
+Prod deploy of 0.3.6 improved desktop FCP by ~2.3s but LCP was unchanged (25.2s → 28.6s, within noise). Root cause: the LCP element is the Illinois State Seal image inside home's About section, which waits for the Strapi content fetch, markdown parse, and then the PNG request — none of which the App.vue render-gate fix touched.
+
+- `public/index.html` — Added `<link rel="preload" as="image" fetchpriority="high">` for the state-seal PNG so the browser starts the image request in parallel with JS bundle download instead of waiting for Strapi + markdown parse. Added `<link rel="preconnect">` for `ari.icjia-api.cloud` since it's the content host.
+- `src/components/HomeAbout.vue` — After markdown renders, the first `#about` image gets `fetchpriority="high"`, `loading="eager"`, `decoding="async"` so it reuses the preloaded fetch.
+- `package.json` — Removed `babel-polyfill@6.26.0` dep. Import was already deleted in 0.3.3 but the dep stayed in `package.json`; this drops it from the lockfile too.
+
+Skipped from the earlier recommendations list:
+- **Font-display swap**: the 90ms lightcap savings is coming from FontAwesome's CDN `@font-face` declarations. Google Fonts already has `display=swap`; we don't control FA's CSS. Not worth the invasive fix (local-host FA or swap for a different icon lib).
+- **Prerender About content**: biggest possible LCP win, but requires vue-cli prerender plugin + a markdown-rendered snapshot at build time. Too risky to rush before the 2026-04-24 deadline; queue for the post-deadline framework refresh.
+
 ## [0.3.6] - 2026-04-16
 
 ### Remove unused Netlify Functions; pin build Node version
