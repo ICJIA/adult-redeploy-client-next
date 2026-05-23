@@ -20,5 +20,18 @@
     "email": "christopher.schweda@illinois.gov"
   },
   "license": "MIT",
-  "homepage": "https://icjia.illinois.gov/adultredeploy"
+  "homepage": "https://icjia.illinois.gov/adultredeploy",
+  "dependencies": {
+    "@alpinejs/focus": "^3.15.12",
+    "@tailwindcss/vite": "^4.3.0",
+    "alpinejs": "^3.15.12",
+    "astro": "^5.18.1",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.7",
+    "zod": "^3.25.76"
+  }
 }
