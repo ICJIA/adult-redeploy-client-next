@@ -4,9 +4,13 @@ interface Row { [k: string]: unknown; href: string; }
 interface Props { columns: Column[]; rows: Row[]; ariaLabel: string; }
 const { columns, rows, ariaLabel } = Astro.props;
 const initial = JSON.stringify(rows);
+// Reserve vertical space so footer doesn't shift when Alpine populates
+// the <template x-for> rows on the client. ~46px per row + ~110px chrome.
+const reservedPx = Math.min(rows.length * 46 + 110, 2200);
 ---
 <div x-data={`listingTable(${initial})`}
-     class="bg-surface rounded shadow-elev1 p-4">
+     class="bg-surface rounded shadow-elev1 p-4"
+     style={`min-height: ${reservedPx}px`}>
   <div class="flex justify-end mb-4">
     <label class="sr-only" for={`flt-${ariaLabel}`}>Filter</label>
     <input id={`flt-${ariaLabel}`} type="search" x-model="q"

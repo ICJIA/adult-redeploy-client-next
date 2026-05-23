@@ -17,7 +17,8 @@ const staff: Bio[] = entries
     (a.order ?? 999) - (b.order ?? 999) ||
     (a.lastName ?? '').localeCompare(b.lastName ?? ''));
 ---
-<BaseLayout title="Staff">
+<BaseLayout title="Staff"
+            description="The Adult Redeploy Illinois staff team at the Illinois Criminal Justice Information Authority.">
   <div class="max-w-5xl mx-auto px-6 py-10">
     <Breadcrumb items={[
       { label: 'Home',  href: `${base}/` },
