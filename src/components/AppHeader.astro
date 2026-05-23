@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import DropdownMenu from './alpine/DropdownMenu.astro';
+
+const sectionEntries = await getCollection('sections');
+const sections = sectionEntries
+  .map(e => e.data)
+  .filter(s => (s.pages ?? []).some(p => p.displayNav));
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<header class="noprint sticky top-0 z-30 bg-surface shadow-elev1 h-[90px]">
+  <nav aria-label="Main navigation"
+       class="max-w-7xl mx-auto h-full flex items-center gap-3 px-4">
+    <button type="button"
+            class="md:hidden p-2 -ml-2"
+            x-data
+            @click="$store.drawer.open = true"
+            :aria-expanded="$store.drawer.open"
+            aria-controls="nav-drawer">
+      <span class="sr-only">Open navigation menu</span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <a href={`${base}/`} class="flex items-center gap-3 hover:opacity-80">
+      <img src={`${base}/img/icjia-logo.png`}
+           alt="Illinois Criminal Justice Information Authority"
+           width="90" height="63"
+           class="w-[50px] md:w-[90px] h-auto" />
+      <span class="font-heading font-black text-base md:text-lg lg:text-xl
+                   leading-tight">
+        ADULT REDEPLOY ILLINOIS
+      </span>
+    </a>
+    <div class="flex-1" />
+    <ul class="hidden md:flex items-center gap-1">
+      {sections.map(s => (
+        <li>
+          <DropdownMenu label={s.title}
+                        basePath={s.slug}
+                        items={s.pages?.filter(p => p.displayNav) ?? []} />
+        </li>
+      ))}
+      <li>
+        <form action={`${base}/search`} method="get" class="flex">
+          <label class="sr-only" for="header-q">Search</label>
+          <input id="header-q" name="q" type="search" placeholder="Search…"
+                 class="hidden lg:inline-block w-32 lg:w-48 border border-brand-muted/40 rounded px-3 py-1 text-sm
+                        focus-visible:outline focus-visible:outline-2
+                        focus-visible:outline-brand-primary focus-visible:outline-offset-2" />
+          <button type="submit"
+                  class="ml-1 p-2 rounded hover:bg-surface-shaded"
+                  aria-label="Search">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</header>

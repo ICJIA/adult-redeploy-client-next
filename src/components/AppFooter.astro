@@ -1,0 +1,57 @@
+---
+const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<footer class="noprint bg-brand-primary text-white mt-12 print:hidden"
+        aria-label="Site footer">
+  <div class="max-w-7xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-3">
+    <div>
+      <h2 class="font-heading font-black text-lg mb-3">
+        Adult Redeploy Illinois
+      </h2>
+      <p class="text-sm leading-relaxed">
+        ARI provides financial incentives to local jurisdictions for
+        community-based alternatives to incarceration.
+      </p>
+    </div>
+    <div>
+      <h2 class="font-heading font-black text-lg mb-3">Contact</h2>
+      <address class="text-sm not-italic">
+        Illinois Criminal Justice Information Authority<br/>
+        60 E. Van Buren St., Suite 650<br/>
+        Chicago, IL 60605
+      </address>
+    </div>
+    <div>
+      <h2 class="font-heading font-black text-lg mb-3">Resources</h2>
+      <ul class="text-sm space-y-1">
+        <li>
+          <a href={`${base}/about/contact`}
+             class="footer-link underline hover:no-underline">
+            Contact us
+          </a>
+        </li>
+        <li>
+          <a href={`${base}/news`}
+             class="footer-link underline hover:no-underline">
+            News
+          </a>
+        </li>
+        <li>
+          <a href="https://icjia.illinois.gov"
+             class="footer-link underline hover:no-underline">
+            ICJIA home
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/20">
+    <div class="max-w-7xl mx-auto px-6 py-4 text-xs flex flex-wrap gap-4">
+      <span>© {year} State of Illinois</span>
+      <span aria-hidden="true">•</span>
+      <a href="https://www.illinois.gov/about/accessibility"
+         class="underline hover:no-underline">Accessibility</a>
+    </div>
+  </div>
+</footer>

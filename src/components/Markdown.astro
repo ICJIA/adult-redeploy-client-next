@@ -1,0 +1,8 @@
+---
+import { renderMarkdown } from '../lib/markdown';
+
+interface Props { content?: string | null; class?: string; }
+const { content, class: cls = '' } = Astro.props;
+const html = renderMarkdown(content ?? '');
+---
+<div class={`prose max-w-none ${cls}`} set:html={html} />
