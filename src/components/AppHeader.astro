@@ -1,11 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import DropdownMenu from './alpine/DropdownMenu.astro';
 
+type Section = CollectionEntry<'sections'>['data'];
+type SectionPage = NonNullable<Section['pages']>[number];
+
 const sectionEntries = await getCollection('sections');
-const sections = sectionEntries
-  .map(e => e.data)
-  .filter(s => (s.pages ?? []).some(p => p.displayNav));
+const sections: Section[] = sectionEntries
+  .map((e) => e.data)
+  .filter((s) => (s.pages ?? []).some((p: SectionPage) => p.displayNav));
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
 <header class="noprint sticky top-0 z-30 bg-surface shadow-elev1 h-[90px]">
@@ -37,11 +40,11 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
     </a>
     <div class="flex-1" />
     <ul class="hidden md:flex items-center gap-1">
-      {sections.map(s => (
+      {sections.map((s: Section) => (
         <li>
           <DropdownMenu label={s.title}
                         basePath={s.slug}
-                        items={s.pages?.filter(p => p.displayNav) ?? []} />
+                        items={s.pages?.filter((p: SectionPage) => p.displayNav) ?? []} />
         </li>
       ))}
       <li>

@@ -1,10 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type Section = CollectionEntry<'sections'>['data'];
+type SectionPage = NonNullable<Section['pages']>[number];
 
 const sectionEntries = await getCollection('sections');
-const sections = sectionEntries
-  .map(e => e.data)
-  .filter(s => (s.pages ?? []).some(p => p.displayNav));
+const sections: Section[] = sectionEntries
+  .map((e) => e.data)
+  .filter((s) => (s.pages ?? []).some((p: SectionPage) => p.displayNav));
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
 <div id="nav-drawer"
@@ -41,13 +44,15 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
        class="px-3 py-2 font-bold hover:bg-surface-shaded rounded">
       Home
     </a>
-    {sections.map(s => (
+    {sections.map((s: Section) => (
       <details class="group">
         <summary class="px-3 py-2 font-bold hover:bg-surface-shaded rounded cursor-pointer list-none">
           {s.title}
         </summary>
         <ul class="ml-4 mt-1 flex flex-col gap-1">
-          {(s.pages ?? []).filter(p => p.displayNav).map(p => (
+          {(s.pages ?? [])
+            .filter((p: SectionPage) => p.displayNav)
+            .map((p: SectionPage) => (
             <li>
               <a href={`${base}/${s.slug}/${p.slug}`}
                  class="block px-3 py-1.5 text-sm hover:bg-surface-shaded rounded">
