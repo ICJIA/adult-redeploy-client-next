@@ -4,6 +4,7 @@ import HomeHero from '../components/HomeHero.astro';
 import HomeBoxes from '../components/HomeBoxes.astro';
 import HomeMeetings from '../components/HomeMeetings.astro';
 import HomeNews from '../components/HomeNews.astro';
+import HomeArticles from '../components/HomeArticles.astro';
 import Markdown from '../components/Markdown.astro';
 import { getEntry } from 'astro:content';
 
@@ -38,5 +39,6 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
   </div>
   <div class="max-w-6xl mx-auto px-6 mt-16 grid gap-8 md:grid-cols-2">
     <HomeNews />
+    <HomeArticles />
   </div>
 </BaseLayout>
