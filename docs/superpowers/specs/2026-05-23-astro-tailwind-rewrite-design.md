@@ -41,7 +41,9 @@ site until the cutover.
 ### Stack
 
 - **Astro 5** — static output, `base: '/adultredeploy'`.
-- **Tailwind CSS 4** via `@astrojs/tailwind` integration.
+- **Tailwind CSS 4** via the `@tailwindcss/vite` plugin (Tailwind 4's
+  current Astro path; `@astrojs/tailwind` is v3-only). Design tokens
+  live in CSS via `@theme`, not a JS config.
 - **Alpine.js 3** + `@alpinejs/focus` for client interactivity. Total JS
   on interactive pages ≈ 12 KiB gzipped. Pages without interactive
   components ship zero JS.
@@ -52,8 +54,7 @@ site until the cutover.
 
 ```
 /
-├── astro.config.mjs            # base path, integrations
-├── tailwind.config.mjs         # design tokens
+├── astro.config.mjs            # base path, integrations, Vite plugins
 ├── netlify.toml                # build cmd + headers (CSP kept)
 ├── package.json
 ├── public/                     # static assets, favicon, robots.txt, /img
@@ -72,7 +73,8 @@ site until the cutover.
     │   └── Markdown.astro
     ├── pages/                  # file-based routing
     ├── lib/                    # markdown, dates, slug utils
-    └── styles/global.css
+    └── styles/
+        └── global.css          # Tailwind import + @theme tokens
 ```
 
 ### Two-stage build
@@ -245,37 +247,33 @@ Every page sets `<title>`, `<meta name="description">`, and
 ### Design tokens
 
 Extracted from the current Vuetify site by sampling live styles, encoded
-in `tailwind.config.mjs`:
+in `src/styles/global.css` using Tailwind 4's `@theme` block (CSS-first
+config — no `tailwind.config.mjs`):
 
-```js
-theme: {
-  extend: {
-    colors: {
-      brand: {
-        primary:   '#043e3f',  // dark teal — links, headings, CTA hover
-        secondary: '#05797a',  // teal accent — badges, "Scheduled" label
-        accent:    '#B158C2',  // purple — overlays, "spac-purple"
-        ink:       '#222',     // body text
-        muted:     '#aaa',     // dividers, borders
-      },
-      surface: {
-        DEFAULT: '#fff',
-        subtle:  '#fafafa',    // page background
-        shaded:  '#eee',       // DownloadBox / panel bg
-      },
-    },
-    fontFamily: {
-      sans:    ['Lato', 'Roboto', 'system-ui', 'sans-serif'],
-      heading: ['Roboto', 'Lato', 'system-ui', 'sans-serif'],
-    },
-    fontSize: {
-      'page-title': ['32px', { lineHeight: '1.2', fontWeight: '900' }],
-    },
-    boxShadow: {
-      elev1: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-      elev3: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-    },
-  },
+```css
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — sampled from the Vuetify site */
+  --color-brand-primary:    #043e3f;  /* dark teal — links, headings */
+  --color-brand-secondary:  #05797a;  /* teal accent — "Scheduled" */
+  --color-brand-accent:     #B158C2;  /* purple — overlays */
+  --color-brand-ink:        #222;     /* body text */
+  --color-brand-muted:      #aaa;     /* dividers, borders */
+
+  --color-surface:          #fff;
+  --color-surface-subtle:   #fafafa;  /* page background */
+  --color-surface-shaded:   #eee;     /* panel bg, DownloadBox */
+
+  /* Type */
+  --font-sans:    "Lato", "Roboto", system-ui, sans-serif;
+  --font-heading: "Roboto", "Lato", system-ui, sans-serif;
+
+  /* Vuetify-equivalent elevations */
+  --shadow-elev1: 0 1px 3px rgb(0 0 0 / 0.12),
+                  0 1px 2px rgb(0 0 0 / 0.24);
+  --shadow-elev3: 0 3px 6px rgb(0 0 0 / 0.16),
+                  0 3px 6px rgb(0 0 0 / 0.23);
 }
 ```
 
@@ -471,6 +469,11 @@ a11y score drops below 100.
 
 ### Manual checks before merge
 
+- Run axe DevTools (Deque Chrome extension) on at least one page of
+  every template type — `best-practices` + `experimental` rules enabled.
+  Target: 0 serious findings. Catches the advanced rules that bundled
+  axe-core (axecap) doesn't run, such as `css-focus-visible`,
+  `heading-markup`, and `focus-order-semantics`.
 - Tab through every page from the top — focus order matches reading
   order, no traps, every focus ring visible.
 - Activate every interactive element with keyboard only (Enter, Space,
@@ -537,21 +540,24 @@ tests/
 package-lock.json            # wiped, regenerated with new deps
 ```
 
-**Kept:**
+**Kept (contents may be rewritten):**
 
 ```
 .git/                        # history preserved
-.gitignore                   # re-checked
+.gitignore                   # re-checked, adds src/content/_data.json
 .nvmrc                       # Node 22, still right
 .env.sample                  # refreshed with STRAPI_ENDPOINT
 .vscode/                     # editor config
 README.md                    # rewritten for the new stack
+package.json                 # rewritten — Astro/Tailwind/Alpine deps only
 netlify.toml                 # rewritten for Astro
 CHANGELOG.md                 # kept, rewrite work appends new entries
 docs/                        # this spec lives here
 ```
 
-After this commit: `grep -r vue` returns nothing relevant.
+After this commit: searching the working tree (excluding `.git/`,
+`node_modules/`, and `package-lock.json`) for `vue`, `vuetify`, or
+`vue-cli` should return zero matches.
 
 ### Netlify config
 
@@ -573,13 +579,12 @@ We test on the preview throughout, never touching production.
 [build.environment]
   NODE_VERSION = "22"
 
-# CSP / X-Frame-Options / etc. copied from current netlify.toml.
-# script-src: revisit 'unsafe-inline'/'unsafe-eval' after measuring
-# whether Pagefind UI's bundle requires them.
-[[headers]]
-  for = "/*"
-  [headers.values]
-    # ...
+# All [[headers]] blocks from the current netlify.toml are carried
+# over verbatim (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection,
+# Referrer-Policy, Permissions-Policy, Content-Security-Policy). The
+# only field that may need adjustment is script-src: revisit
+# 'unsafe-inline'/'unsafe-eval' after measuring whether Pagefind UI's
+# bundle requires them. Astro itself doesn't.
 ```
 
 ### Cutover checklist
@@ -644,6 +649,8 @@ Roughly 9 phases. Each ships something testable on the preview URL.
 - axe-core (axecap) 0 violations at WCAG 2.1 AA.
 - axe DevTools (Deque advanced + experimental rules) 0 serious findings.
 - Visual review confirms layout and brand parity with the current site.
-- `grep -r vue` on the merged branch returns nothing relevant.
+- Searching the merged branch (excluding `.git/`, `node_modules/`,
+  `package-lock.json`) for `vue`, `vuetify`, or `vue-cli` returns
+  zero matches.
 - Build time ≤ 2 minutes on Netlify.
 - Final JS payload on a content page (e.g., `/news`) ≤ 30 KiB gzipped.
