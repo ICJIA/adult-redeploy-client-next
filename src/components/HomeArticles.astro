@@ -26,11 +26,15 @@ const authorString = (authors: Article['authors']): string => {
 };
 
 // Pre-render every article as a card; Alpine just controls which page is visible.
+// IMPORTANT: researchhub returns `splash` and `thumbnail` as base64 data URIs
+// that can be ~600 KB each. Embedding 100 of those inline would ship ~30 MB
+// to every home-page visit, so cards omit the image entirely (the prod Vue
+// site lazy-loaded only the visible 2 via API; SSG can't replicate that
+// without shipping all of them).
 const cards = articles.map((a) => ({
   slug: a.slug,
   title: a.title,
   url: `${RH_BASE}/${a.slug}`,
-  splash: a.splash ?? null,
   date: a.date ? formatDate(a.date) : '',
   authors: authorString(a.authors),
   abstract: a.abstract ?? '',
@@ -139,36 +143,29 @@ const pageCount = Math.max(1, Math.ceil(total / PER_PAGE));
         </button>
       </nav>
 
-      <ul class="mt-6 space-y-4 min-h-[600px]">
+      <ul class="mt-6 space-y-4">
         {cards.map((a, i) => (
           <li x-show={`visible(${i})`}
-              class="border border-brand-muted/40 rounded overflow-hidden bg-surface">
+              class="border border-brand-muted/40 rounded bg-surface">
             <a href={a.url}
                target="_blank" rel="noopener"
-               class="block hover:shadow-elev1 transition
+               class="block p-4 hover:shadow-elev1 transition
                       focus-visible:outline focus-visible:outline-2
                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-              {a.splash && (
-                <img src={a.splash} alt=""
-                     loading="lazy" decoding="async"
-                     class="w-full h-44 object-cover bg-surface-shaded" />
+              <h3 class="font-heading font-bold text-lg text-brand-primary leading-tight">
+                {a.title}
+              </h3>
+              {a.authors && (
+                <p class="text-xs font-bold text-brand-primary mt-1">
+                  By {a.authors}
+                </p>
               )}
-              <div class="p-4">
-                <h3 class="font-heading font-bold text-lg text-brand-primary leading-tight">
-                  {a.title}
-                </h3>
-                {a.authors && (
-                  <p class="text-xs font-bold text-brand-primary mt-1">
-                    By {a.authors}
-                  </p>
-                )}
-                {a.date && (
-                  <p class="text-xs text-gray-700 mt-1">{a.date}</p>
-                )}
-                {a.abstract && (
-                  <p class="text-sm mt-2">{a.abstract}</p>
-                )}
-              </div>
+              {a.date && (
+                <p class="text-xs text-gray-700 mt-1">{a.date}</p>
+              )}
+              {a.abstract && (
+                <p class="text-sm mt-2">{a.abstract}</p>
+              )}
             </a>
           </li>
         ))}
