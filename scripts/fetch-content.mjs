@@ -30,21 +30,26 @@ async function main() {
   if (data.posts && !data.news) data.news = data.posts;
   delete data.posts;
 
-  // Pull apps from researchhub (separate Strapi instance).
+  // Pull apps + recent articles from researchhub (separate Strapi instance).
   const RH = 'https://researchhub.icjia-api.cloud/graphql';
   const RH_QUERY = `{
     apps(sort: "date:desc", where: { status: "published" }) {
       slug title status date description image url contributors
     }
+    articles(sort: "date:desc", limit: 12, where: { status: "published" }) {
+      slug title status date abstract thumbnail splash authors
+    }
   }`;
   try {
     const rh = await request(RH, RH_QUERY);
     data.applications = rh.apps ?? [];
-    console.log(`[fetch] researchhub apps: ${data.applications.length}`);
+    data.articles = rh.articles ?? [];
+    console.log(`[fetch] researchhub apps: ${data.applications.length}, articles: ${data.articles.length}`);
   } catch (err) {
-    console.warn('[fetch] researchhub fetch failed, apps will be empty');
+    console.warn('[fetch] researchhub fetch failed, apps and articles will be empty');
     console.warn('  ' + (err?.message ?? err));
     data.applications = [];
+    data.articles = [];
   }
 
   await fs.mkdir(path.dirname(OUT), { recursive: true });

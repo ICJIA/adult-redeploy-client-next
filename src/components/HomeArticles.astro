@@ -2,49 +2,75 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatDate } from '../lib/dates';
 
-type App = CollectionEntry<'applications'>['data'];
+type Article = CollectionEntry<'articles'>['data'];
 
-const entries = await getCollection('applications');
-const articles: App[] = entries
+const entries = await getCollection('articles');
+const articles: Article[] = entries
   .map((e) => e.data)
-  .sort((a: App, b: App) =>
+  .sort((a: Article, b: Article) =>
     (a.date ?? '') < (b.date ?? '') ? 1 : -1)
   .slice(0, 4);
-const base = import.meta.env.BASE_URL || '/adultredeploy';
+
+const RH_BASE = 'https://icjia.illinois.gov/researchhub/articles';
+const articleLink = (slug: string) => `${RH_BASE}/${slug}`;
+
+const authorString = (authors: Article['authors']): string => {
+  if (!authors) return '';
+  if (typeof authors === 'string') return authors;
+  if (Array.isArray(authors)) {
+    const names = authors
+      .map((a: any) => (typeof a === 'string' ? a : (a?.title ?? '')))
+      .filter(Boolean);
+    return names.join(', ');
+  }
+  return '';
+};
 ---
 <section>
   <h2 class="text-page-title">
-    <a href={`${base}/apps`}
+    <a href="https://icjia.illinois.gov/researchhub/articles"
+       target="_blank" rel="noopener"
        class="text-brand-ink hover:text-brand-muted underline-offset-4 hover:underline
               focus-visible:outline focus-visible:outline-2
               focus-visible:outline-brand-primary focus-visible:outline-offset-2">
       ICJIA PUBLICATIONS
     </a>
   </h2>
+  <p class="mt-4 text-sm">
+    Recent articles from the <a
+      href="https://icjia.illinois.gov/researchhub"
+      target="_blank" rel="noopener"
+      class="text-brand-primary underline hover:no-underline">ICJIA Research Hub</a>.
+  </p>
   {articles.length === 0 ? (
     <p class="mt-6 italic">No publications available.</p>
   ) : (
     <ul class="mt-6 space-y-4">
-      {articles.map((a: App) => (
+      {articles.map((a: Article) => (
         <li class="border border-brand-muted/40 rounded overflow-hidden bg-surface">
-          <a href={a.url}
+          <a href={articleLink(a.slug)}
              target="_blank" rel="noopener"
              class="block hover:shadow-elev1 transition
                     focus-visible:outline focus-visible:outline-2
                     focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-            {a.image && (
-              <img src={a.image} alt=""
-                   class="w-full h-40 object-cover bg-surface-shaded" />
+            {a.splash && (
+              <img src={a.splash} alt=""
+                   class="w-full h-44 object-cover bg-surface-shaded" />
             )}
             <div class="p-4">
-              <h3 class="font-heading font-bold text-lg text-brand-primary">
+              <h3 class="font-heading font-bold text-lg text-brand-primary leading-tight">
                 {a.title}
               </h3>
+              {authorString(a.authors) && (
+                <p class="text-xs font-bold text-brand-primary mt-1">
+                  By {authorString(a.authors)}
+                </p>
+              )}
               {a.date && (
                 <p class="text-xs text-gray-700 mt-1">{formatDate(a.date)}</p>
               )}
-              {a.description && (
-                <p class="text-sm mt-2 line-clamp-3">{a.description}</p>
+              {a.abstract && (
+                <p class="text-sm mt-2 line-clamp-3">{a.abstract}</p>
               )}
             </div>
           </a>

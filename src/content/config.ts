@@ -161,7 +161,21 @@ const applications = defineCollection({
   }),
 });
 
+const articles = defineCollection({
+  loader: file(DATA, { parser: withId('articles') }),
+  schema: z.object({
+    slug: z.string(),
+    title: z.string(),
+    status: z.string().nullable().optional(),
+    date: z.string().nullable().optional(),
+    abstract: z.string().nullable().optional(),
+    thumbnail: z.string().nullable().optional(),
+    splash: z.string().nullable().optional(),
+    authors: z.union([z.string(), z.array(z.any())]).nullable().optional(),
+  }),
+});
+
 export const collections = {
   news, meetings, sites, biographies, resources, pages, sections, tags,
-  applications,
+  applications, articles,
 };
