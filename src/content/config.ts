@@ -147,6 +147,21 @@ const tags = defineCollection({
   }),
 });
 
+const applications = defineCollection({
+  loader: file(DATA, { parser: withId('applications') }),
+  schema: z.object({
+    slug: z.string(),
+    title: z.string(),
+    status: z.string().nullable().optional(),
+    date: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
+    image: z.string().nullable().optional(),
+    url: z.string(),
+    contributors: z.union([z.string(), z.array(z.any())]).nullable().optional(),
+  }),
+});
+
 export const collections = {
   news, meetings, sites, biographies, resources, pages, sections, tags,
+  applications,
 };

@@ -1,0 +1,44 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/ui/Card.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+type App = CollectionEntry<'applications'>['data'];
+
+const entries = await getCollection('applications');
+const apps: App[] = entries.map((e) => e.data);
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<BaseLayout title="Apps">
+  <div class="max-w-5xl mx-auto px-6 py-10">
+    <Breadcrumb items={[
+      { label: 'Home', href: `${base}/` },
+      { label: 'Apps' },
+    ]} />
+    <h1 class="text-page-title mt-4">Apps</h1>
+    <p class="mt-3 text-lg">
+      Research applications from the Illinois Criminal Justice Information
+      Authority Research Hub.
+    </p>
+    {apps.length === 0 ? (
+      <p class="mt-8 italic">No apps available.</p>
+    ) : (
+      <div class="grid gap-4 md:grid-cols-3 mt-8">
+        {apps.map((app: App) => (
+          <Card variant="elevated" href={app.url}>
+            {app.image && (
+              <img src={app.image}
+                   alt=""
+                   class="w-full h-40 object-cover rounded mb-3" />
+            )}
+            <h2 class="font-bold text-lg">{app.title}</h2>
+            {app.description && (
+              <p class="text-sm mt-2">{app.description}</p>
+            )}
+          </Card>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>
