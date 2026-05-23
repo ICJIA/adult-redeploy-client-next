@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant?: 'solid' | 'outlined' | 'text';
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+  ariaLabel?: string;
+}
+const {
+  variant = 'solid', href, type = 'button',
+  class: cls = '', ariaLabel,
+} = Astro.props;
+const styles = {
+  solid:    'bg-brand-primary text-white hover:bg-brand-primary/90',
+  outlined: 'border border-brand-primary text-brand-primary hover:bg-brand-primary/10',
+  text:     'text-brand-primary hover:bg-brand-primary/10',
+}[variant];
+const base = 'inline-flex items-center gap-2 px-4 py-2 rounded font-bold ' +
+             'text-sm uppercase ' +
+             'focus-visible:outline focus-visible:outline-2 ' +
+             'focus-visible:outline-brand-primary focus-visible:outline-offset-2 ' +
+             styles;
+const Tag = href ? 'a' : 'button';
+---
+<Tag href={href} type={!href ? type : undefined}
+     aria-label={ariaLabel} class={`${base} ${cls}`}>
+  <slot />
+</Tag>

@@ -1,0 +1,25 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Markdown from '../../components/Markdown.astro';
+
+type Site = CollectionEntry<'sites'>['data'];
+
+export async function getStaticPaths() {
+  const items = await getCollection('sites');
+  return items.map((s) => ({
+    params: { slug: s.data.slug },
+    props: { item: s.data },
+  }));
+}
+const { item } = Astro.props as { item: Site };
+---
+<BaseLayout title={item.title} description={item.summary ?? undefined}>
+  <ArticleCard title={item.title}
+               badge={item.siteType ?? undefined}
+               pagefindMeta={{ type: 'site' }}>
+    {item.summary && <p class="text-lg italic mb-6">{item.summary}</p>}
+    <Markdown content={item.content} />
+  </ArticleCard>
+</BaseLayout>

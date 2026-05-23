@@ -1,0 +1,220 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/dates';
+
+type Article = CollectionEntry<'articles'>['data'];
+
+const entries = await getCollection('articles');
+const articles: Article[] = entries
+  .map((e) => e.data)
+  .sort((a: Article, b: Article) =>
+    (a.date ?? '') < (b.date ?? '') ? 1 : -1);
+
+const RH_BASE = 'https://icjia.illinois.gov/researchhub/articles';
+const PER_PAGE = 2;
+
+const authorString = (authors: Article['authors']): string => {
+  if (!authors) return '';
+  if (typeof authors === 'string') return authors;
+  if (Array.isArray(authors)) {
+    const names = authors
+      .map((a: any) => (typeof a === 'string' ? a : (a?.title ?? '')))
+      .filter(Boolean);
+    return names.join(', ');
+  }
+  return '';
+};
+
+// Pre-render every article as a card; Alpine just controls which page is visible.
+const cards = articles.map((a) => ({
+  slug: a.slug,
+  title: a.title,
+  url: `${RH_BASE}/${a.slug}`,
+  splash: a.splash ?? null,
+  date: a.date ? formatDate(a.date) : '',
+  authors: authorString(a.authors),
+  abstract: a.abstract ?? '',
+}));
+const total = cards.length;
+const pageCount = Math.max(1, Math.ceil(total / PER_PAGE));
+---
+<section x-data={`{
+  page: 1,
+  perPage: ${PER_PAGE},
+  pageCount: ${pageCount},
+  visible(i) {
+    const s = (this.page - 1) * this.perPage;
+    return i >= s && i < s + this.perPage;
+  },
+  go(p) {
+    if (p === '...' || p < 1 || p > this.pageCount) return;
+    this.page = p;
+    this.$el.scrollIntoView({behavior:'smooth',block:'start'});
+  },
+  buildPages() {
+    const total = this.pageCount;
+    if (total <= 7) return Array.from({length: total}, (_,i) => i + 1);
+    const cur = this.page;
+    const set = new Set([1, total, cur, cur - 1, cur + 1]);
+    if (cur <= 3) [2, 3, 4].forEach(n => set.add(n));
+    if (cur >= total - 2) [total - 1, total - 2, total - 3].forEach(n => set.add(n));
+    const nums = [...set].filter(n => n >= 1 && n <= total).sort((a, b) => a - b);
+    const out = [];
+    let prev = 0;
+    for (const n of nums) {
+      if (prev && n - prev > 1) out.push('...');
+      out.push(n);
+      prev = n;
+    }
+    return out;
+  },
+}`}>
+  <h2 class="text-page-title">
+    <a href="https://icjia.illinois.gov/researchhub/articles"
+       target="_blank" rel="noopener"
+       class="text-brand-ink hover:text-brand-muted underline-offset-4 hover:underline
+              focus-visible:outline focus-visible:outline-2
+              focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+      ICJIA PUBLICATIONS
+    </a>
+  </h2>
+  <p class="mt-4 text-sm">
+    Adult Redeploy Illinois is housed at the <a href="https://icjia.illinois.gov"
+      target="_blank" rel="noopener" class="text-brand-primary underline hover:no-underline">Illinois Criminal Justice Information Authority (ICJIA)</a>,
+    the state's lead agency on justice funding and research. ICJIA launched the
+    <a href="https://icjia.illinois.gov/researchhub" target="_blank" rel="noopener"
+       class="text-brand-primary underline hover:no-underline">Research Hub</a>
+    which provides a host of resources to support data-driven decision-making.
+  </p>
+  <p class="mt-3 text-sm text-right">
+    <a href="https://icjia.illinois.gov/researchhub" target="_blank" rel="noopener"
+       class="text-brand-primary underline hover:no-underline font-bold">
+      Visit ICJIA's Research Hub »
+    </a>
+  </p>
+
+  {total === 0 ? (
+    <p class="mt-6 italic">No publications available.</p>
+  ) : (
+    <>
+      <nav aria-label="Publications pagination"
+           class="mt-6 flex items-center justify-center gap-1 flex-wrap">
+        <button type="button"
+                x-bind:disabled="page === 1"
+                x-on:click="go(page - 1)"
+                aria-label="Previous page"
+                class="px-2 h-8 rounded text-brand-primary disabled:opacity-40
+                       hover:bg-brand-primary/10
+                       focus-visible:outline focus-visible:outline-2
+                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+          ‹
+        </button>
+        <template x-for="(p, i) in buildPages()" x-bind:key="p + '-' + i">
+          <button type="button"
+                  x-on:click="if (p !== '...') go(p)"
+                  x-bind:disabled="p === '...'"
+                  x-bind:aria-current="page === p ? 'page' : null"
+                  x-bind:aria-label="p === '...' ? null : 'Page ' + p"
+                  x-bind:aria-hidden="p === '...' ? 'true' : null"
+                  x-bind:tabindex="p === '...' ? '-1' : null"
+                  x-bind:class="p === '...'
+                                ? 'text-brand-muted cursor-default'
+                                : (page === p
+                                   ? 'bg-brand-primary text-white'
+                                   : 'text-brand-primary hover:bg-brand-primary/10')"
+                  class="min-w-8 h-8 px-2 rounded text-sm font-bold
+                         focus-visible:outline focus-visible:outline-2
+                         focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+                  x-text="p"></button>
+        </template>
+        <button type="button"
+                x-bind:disabled="page === pageCount"
+                x-on:click="go(page + 1)"
+                aria-label="Next page"
+                class="px-2 h-8 rounded text-brand-primary disabled:opacity-40
+                       hover:bg-brand-primary/10
+                       focus-visible:outline focus-visible:outline-2
+                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+          ›
+        </button>
+      </nav>
+
+      <ul class="mt-6 space-y-4 min-h-[600px]">
+        {cards.map((a, i) => (
+          <li x-show={`visible(${i})`}
+              class="border border-brand-muted/40 rounded overflow-hidden bg-surface">
+            <a href={a.url}
+               target="_blank" rel="noopener"
+               class="block hover:shadow-elev1 transition
+                      focus-visible:outline focus-visible:outline-2
+                      focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+              {a.splash && (
+                <img src={a.splash} alt=""
+                     loading="lazy" decoding="async"
+                     class="w-full h-44 object-cover bg-surface-shaded" />
+              )}
+              <div class="p-4">
+                <h3 class="font-heading font-bold text-lg text-brand-primary leading-tight">
+                  {a.title}
+                </h3>
+                {a.authors && (
+                  <p class="text-xs font-bold text-brand-primary mt-1">
+                    By {a.authors}
+                  </p>
+                )}
+                {a.date && (
+                  <p class="text-xs text-gray-700 mt-1">{a.date}</p>
+                )}
+                {a.abstract && (
+                  <p class="text-sm mt-2">{a.abstract}</p>
+                )}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <nav aria-label="Publications pagination, bottom"
+           class="mt-6 flex items-center justify-center gap-1 flex-wrap">
+        <button type="button"
+                x-bind:disabled="page === 1"
+                x-on:click="go(page - 1)"
+                aria-label="Previous page"
+                class="px-2 h-8 rounded text-brand-primary disabled:opacity-40
+                       hover:bg-brand-primary/10
+                       focus-visible:outline focus-visible:outline-2
+                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+          ‹
+        </button>
+        <template x-for="(p, i) in buildPages()" x-bind:key="p + '-' + i">
+          <button type="button"
+                  x-on:click="if (p !== '...') go(p)"
+                  x-bind:disabled="p === '...'"
+                  x-bind:aria-current="page === p ? 'page' : null"
+                  x-bind:aria-label="p === '...' ? null : 'Page ' + p"
+                  x-bind:aria-hidden="p === '...' ? 'true' : null"
+                  x-bind:tabindex="p === '...' ? '-1' : null"
+                  x-bind:class="p === '...'
+                                ? 'text-brand-muted cursor-default'
+                                : (page === p
+                                   ? 'bg-brand-primary text-white'
+                                   : 'text-brand-primary hover:bg-brand-primary/10')"
+                  class="min-w-8 h-8 px-2 rounded text-sm font-bold
+                         focus-visible:outline focus-visible:outline-2
+                         focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+                  x-text="p"></button>
+        </template>
+        <button type="button"
+                x-bind:disabled="page === pageCount"
+                x-on:click="go(page + 1)"
+                aria-label="Next page"
+                class="px-2 h-8 rounded text-brand-primary disabled:opacity-40
+                       hover:bg-brand-primary/10
+                       focus-visible:outline focus-visible:outline-2
+                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+          ›
+        </button>
+      </nav>
+    </>
+  )}
+</section>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/HomeHero.astro';
+import HomeBoxes from '../components/HomeBoxes.astro';
+import HomeMeetings from '../components/HomeMeetings.astro';
+import HomeNews from '../components/HomeNews.astro';
+import HomeArticles from '../components/HomeArticles.astro';
+import Markdown from '../components/Markdown.astro';
+import { getEntry } from 'astro:content';
+
+const homePage = await getEntry('pages', 'home/home');
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<BaseLayout title="Home"
+            description="Adult Redeploy Illinois — community-based alternatives to incarceration.">
+  <Fragment slot="head">
+    <link rel="preload" as="image"
+          href={`${base}/img/ari-splash-01.jpg`}
+          fetchpriority="high" />
+  </Fragment>
+  <HomeHero />
+  <HomeBoxes />
+  <div id="about"
+       class="max-w-6xl mx-auto px-6 mt-12 grid gap-8 md:grid-cols-3 scroll-mt-24">
+    <div class="md:col-span-2">
+      <h2 class="text-page-title">
+        <a href={`${base}/about/overview`}
+           class="text-brand-ink hover:text-brand-muted underline-offset-4 hover:underline
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+          ABOUT ADULT REDEPLOY ILLINOIS
+        </a>
+      </h2>
+      {homePage && <Markdown content={homePage.data.content} class="mt-6" />}
+    </div>
+    <aside>
+      <HomeMeetings />
+    </aside>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 mt-16 grid gap-8 md:grid-cols-2">
+    <HomeNews />
+    <HomeArticles />
+  </div>
+</BaseLayout>

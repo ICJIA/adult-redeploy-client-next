@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageTitle from '../../../components/ui/PageTitle.astro';
+import ListingTable from '../../../components/alpine/ListingTable.astro';
+import { MEETING_CATEGORIES, enumToSlug } from '../../../lib/meetings';
+
+type Meeting = CollectionEntry<'meetings'>['data'];
+
+const entries = await getCollection('meetings');
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+const rows = entries
+  .map((e) => e.data)
+  .sort((a: Meeting, b: Meeting) =>
+    (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1)
+  .map((m: Meeting) => ({
+    scheduledDate: m.scheduledDate ?? '',
+    title: m.title,
+    category: MEETING_CATEGORIES.find((c) => c.enum === m.category)?.short
+              ?? m.category,
+    href: `${base}/about/meetings/${enumToSlug[m.category] ?? m.category}/${m.slug}`,
+  }));
+---
+<BaseLayout title="Meetings"
+            description="Adult Redeploy Illinois Oversight Board and committee meetings.">
+  <div class="max-w-6xl mx-auto px-6 py-10">
+    <PageTitle title="Meetings" />
+    <ListingTable ariaLabel="meetings"
+      columns={[
+        { key: 'scheduledDate', label: 'Scheduled', format: 'date' },
+        { key: 'title',         label: 'Meeting Title' },
+        { key: 'category',      label: 'Category' },
+      ]}
+      rows={rows}
+    />
+  </div>
+</BaseLayout>

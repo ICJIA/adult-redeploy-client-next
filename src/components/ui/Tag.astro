@@ -1,0 +1,12 @@
+---
+interface Props { label: string; href?: string; }
+const { label, href } = Astro.props;
+const base = 'inline-block px-2 py-0.5 text-xs font-bold rounded ' +
+             'bg-brand-secondary text-white';
+const interactive = ' hover:bg-brand-secondary/90 ' +
+                    'focus-visible:outline focus-visible:outline-2 ' +
+                    'focus-visible:outline-brand-primary focus-visible:outline-offset-2';
+---
+{href
+  ? <a href={href} class={`${base}${interactive}`}>{label}</a>
+  : <span class={base}>{label}</span>}

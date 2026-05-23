@@ -1,0 +1,71 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type Section = CollectionEntry<'sections'>['data'];
+type SectionPage = NonNullable<Section['pages']>[number];
+
+const sectionEntries = await getCollection('sections');
+const sections: Section[] = sectionEntries
+  .map((e) => e.data)
+  .filter((s) => (s.pages ?? []).some((p: SectionPage) => p.displayNav));
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<div id="nav-drawer"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Site navigation"
+     class="noprint fixed inset-0 z-40"
+     x-data
+     x-show="$store.drawer.open"
+     x-transition.opacity
+     x-trap.noscroll.inert="$store.drawer.open"
+     @keydown.escape.window="$store.drawer.open = false"
+     style="display: none">
+  <div class="absolute inset-0 bg-black/50"
+       @click="$store.drawer.open = false"></div>
+  <nav class="absolute left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-surface
+              shadow-elev3 overflow-y-auto p-4 flex flex-col gap-2">
+    <div class="flex items-center justify-between mb-4">
+      <span class="font-heading font-black text-lg">
+        ADULT REDEPLOY ILLINOIS
+      </span>
+      <button type="button"
+              class="p-2 -mr-2"
+              @click="$store.drawer.open = false">
+        <span class="sr-only">Close navigation</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <a href={`${base}/`}
+       class="px-3 py-2 font-bold hover:bg-surface-shaded rounded">
+      Home
+    </a>
+    {sections.map((s: Section) => (
+      <details class="group">
+        <summary class="px-3 py-2 font-bold hover:bg-surface-shaded rounded cursor-pointer list-none">
+          {s.title}
+        </summary>
+        <ul class="ml-4 mt-1 flex flex-col gap-1">
+          {(s.pages ?? [])
+            .filter((p: SectionPage) => p.displayNav)
+            .map((p: SectionPage) => (
+            <li>
+              <a href={`${base}/${s.slug}/${p.slug}`}
+                 class="block px-3 py-1.5 text-sm hover:bg-surface-shaded rounded">
+                {p.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    ))}
+    <a href={`${base}/search`}
+       class="mt-2 px-3 py-2 font-bold hover:bg-surface-shaded rounded">
+      Search
+    </a>
+  </nav>
+</div>

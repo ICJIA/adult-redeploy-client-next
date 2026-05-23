@@ -1,0 +1,116 @@
+---
+interface Column { key: string; label: string; format?: 'date' | 'text'; }
+interface Row { [k: string]: unknown; href: string; }
+interface Props { columns: Column[]; rows: Row[]; ariaLabel: string; }
+const { columns, rows, ariaLabel } = Astro.props;
+const initial = JSON.stringify(rows);
+// Reserve vertical space so footer doesn't shift when Alpine populates
+// the <template x-for> rows on the client. ~46px per row + ~110px chrome.
+const reservedPx = Math.min(rows.length * 46 + 110, 2200);
+---
+<div x-data={`listingTable(${initial})`}
+     class="bg-surface rounded shadow-elev1 p-4"
+     style={`min-height: ${reservedPx}px`}>
+  <div class="flex justify-end mb-4">
+    <label class="sr-only" for={`flt-${ariaLabel}`}>Filter</label>
+    <input id={`flt-${ariaLabel}`} type="search" x-model="q"
+           placeholder="Search…"
+           class="w-full md:w-64 border border-brand-muted/40 rounded px-3 py-2
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-brand-primary focus-visible:outline-offset-2" />
+  </div>
+  <table class="w-full border-collapse" aria-label={ariaLabel}>
+    <thead class="border-b border-brand-muted/40">
+      <tr>
+        {columns.map((c) => (
+          <th scope="col" class="text-left p-2 font-bold text-sm"
+              x-bind:aria-sort={`sortKey === '${c.key}'
+                                 ? (sortDir === 'asc' ? 'ascending' : 'descending')
+                                 : 'none'`}>
+            <button type="button"
+                    class="inline-flex items-center gap-1
+                           focus-visible:outline focus-visible:outline-2
+                           focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+                    x-on:click={`sortBy('${c.key}')`}>
+              {c.label}
+              <span aria-hidden="true"
+                    x-text={`sortKey === '${c.key}'
+                             ? (sortDir === 'asc' ? '↑' : '↓') : ''`}></span>
+            </button>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      <template x-for="row in filtered" x-bind:key="row.href">
+        <tr class="border-b border-brand-muted/20 hover:bg-surface-subtle">
+          {columns.map((c, i) => (
+            <td class="p-2 text-sm">
+              {i === 0 ? (
+                <a x-bind:href="row.href"
+                   x-text={`fmt(row['${c.key}'], '${c.format ?? 'text'}')`}
+                   class="text-brand-primary font-bold underline-offset-4 hover:underline
+                          focus-visible:outline focus-visible:outline-2
+                          focus-visible:outline-brand-primary focus-visible:outline-offset-2"></a>
+              ) : (
+                <span x-text={`fmt(row['${c.key}'], '${c.format ?? 'text'}')`}></span>
+              )}
+            </td>
+          ))}
+        </tr>
+      </template>
+    </tbody>
+  </table>
+  <p x-show="filtered.length === 0"
+     class="text-center py-8 italic"
+     style="display: none">No results.</p>
+</div>
+
+<script is:inline>
+  function listingTable(rows) {
+    return {
+      items: rows,
+      q: '',
+      sortKey: null,
+      sortDir: 'asc',
+      get filtered() {
+        let r = this.items;
+        if (this.q) {
+          const q = this.q.toLowerCase();
+          r = r.filter((x) =>
+            Object.values(x).some(
+              (v) => typeof v === 'string' && v.toLowerCase().includes(q),
+            ),
+          );
+        }
+        if (this.sortKey) {
+          const k = this.sortKey;
+          const dir = this.sortDir === 'asc' ? 1 : -1;
+          r = [...r].sort((a, b) =>
+            (a[k] > b[k] ? 1 : a[k] < b[k] ? -1 : 0) * dir,
+          );
+        }
+        return r;
+      },
+      sortBy(k) {
+        if (this.sortKey === k) {
+          this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          this.sortKey = k;
+          this.sortDir = 'asc';
+        }
+      },
+      fmt(v, kind) {
+        if (v == null) return '';
+        if (kind === 'date') {
+          const d = new Date(v);
+          if (Number.isNaN(d.getTime())) return v;
+          const months = ['January','February','March','April','May','June',
+            'July','August','September','October','November','December'];
+          return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        }
+        return String(v);
+      },
+    };
+  }
+</script>

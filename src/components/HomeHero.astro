@@ -1,0 +1,57 @@
+---
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<section class="relative w-full">
+  <img
+    src={`${base}/img/ari-splash-01.jpg`}
+    alt=""
+    width="3000"
+    height="1457"
+    fetchpriority="high"
+    decoding="async"
+    class="w-full h-auto max-h-[600px] object-cover block bg-surface-shaded"
+  />
+  <div class="absolute inset-0 flex items-center justify-center px-4
+              pointer-events-none">
+    <div class="banner max-w-3xl w-full text-center pointer-events-auto">
+      <h1 class="font-heading font-black text-white
+                 text-2xl sm:text-4xl md:text-5xl tracking-tight">
+        Adult Redeploy Illinois
+      </h1>
+      <p class="text-white/95 mt-4 text-sm sm:text-base md:text-lg
+                leading-relaxed">
+        Reallocating state resources to develop more effective, less
+        expensive community-based alternatives to incarceration and
+        improve access to interventions that reduce crime.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3 justify-center">
+        <a href="#about"
+           class="inline-block bg-white text-brand-primary font-bold
+                  uppercase text-xs sm:text-sm px-5 py-2.5 rounded
+                  hover:bg-surface-shaded transition
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-white focus-visible:outline-offset-2">
+          Learn More
+        </a>
+        <a href={`${base}/about/faqs`}
+           class="inline-block bg-white text-brand-primary font-bold
+                  uppercase text-xs sm:text-sm px-5 py-2.5 rounded
+                  hover:bg-surface-shaded transition
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-white focus-visible:outline-offset-2">
+          FAQs
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .banner {
+    background: rgba(0, 0, 0, 0.78);
+    padding: 1.75rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .banner { padding: 2.25rem 2.5rem; }
+  }
+</style>

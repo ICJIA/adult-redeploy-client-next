@@ -1,0 +1,41 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import Markdown from '../../../components/Markdown.astro';
+
+type Bio = CollectionEntry<'biographies'>['data'];
+
+export async function getStaticPaths() {
+  const items = await getCollection('biographies');
+  return items.map((b) => ({
+    params: { slug: b.data.slug },
+    props: { item: b.data },
+  }));
+}
+const { item } = Astro.props as { item: Bio };
+const STRAPI_BASE = 'https://ari.icjia-api.cloud';
+const fullName = [item.prefix, item.firstName, item.middleName,
+                  item.lastName, item.suffix].filter(Boolean).join(' ');
+const isStaff = item.category === 'staff';
+---
+<BaseLayout title={fullName}>
+  <ArticleCard title={fullName}
+               badge={isStaff ? 'Staff' : 'Oversight Board'}
+               pagefindMeta={{ type: 'biography' }}>
+    <div class="grid gap-6 md:grid-cols-3">
+      {item.headshot && (
+        <div class="md:col-span-1">
+          <img src={`${STRAPI_BASE}${item.headshot.url}`}
+               alt=""
+               class="w-full rounded shadow-elev1" />
+        </div>
+      )}
+      <div class={item.headshot ? 'md:col-span-2' : 'md:col-span-3'}>
+        {item.title && <p class="text-lg italic">{item.title}</p>}
+        {item.membership && <p class="text-sm mt-1">{item.membership}</p>}
+        <Markdown content={item.content} class="mt-6" />
+      </div>
+    </div>
+  </ArticleCard>
+</BaseLayout>

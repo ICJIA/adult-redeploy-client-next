@@ -1,0 +1,20 @@
+---
+interface Props {
+  variant?: 'elevated' | 'outlined';
+  href?: string;
+  class?: string;
+}
+const { variant = 'elevated', href, class: cls = '' } = Astro.props;
+const base = 'block bg-surface rounded p-4 ' +
+             (variant === 'outlined'
+               ? 'border border-brand-muted/40'
+               : 'shadow-elev1');
+const hoverable = href
+  ? ' hover:shadow-elev3 focus-visible:outline focus-visible:outline-2 ' +
+    'focus-visible:outline-brand-primary focus-visible:outline-offset-2'
+  : '';
+const Tag = href ? 'a' : 'div';
+---
+<Tag href={href} class={`${base}${hoverable} ${cls}`}>
+  <slot />
+</Tag>

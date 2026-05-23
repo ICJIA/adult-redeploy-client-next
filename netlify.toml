@@ -1,5 +1,5 @@
 [build]
-  Command = "npm run deploy"
+  Command = "npm run build"
   Publish = "dist"
 
 [build.environment]
@@ -13,4 +13,4 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://plausible.icjia.cloud https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://ari.icjia-api.cloud https://researchhub.icjia-api.cloud https://image.icjia.cloud https://archive.icjia.cloud https://coronavirus.icjia-api.cloud https://plausible.icjia.cloud https://icjia.illinois.gov; frame-ancestors 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://ari.icjia-api.cloud https://image.icjia.cloud https://archive.icjia.cloud https://plausible.icjia.cloud; frame-ancestors 'self'"

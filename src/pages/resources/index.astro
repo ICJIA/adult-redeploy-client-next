@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageTitle from '../../components/ui/PageTitle.astro';
+import ListingTable from '../../components/alpine/ListingTable.astro';
+import { RESOURCE_CATEGORIES, resEnumToSlug } from '../../lib/resources';
+
+type Resource = CollectionEntry<'resources'>['data'];
+
+const entries = await getCollection('resources');
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+const rows = entries
+  .map((e) => e.data)
+  .sort((a: Resource, b: Resource) =>
+    (a.publicationDate ?? '') < (b.publicationDate ?? '') ? 1 : -1)
+  .map((r: Resource) => ({
+    publicationDate: r.publicationDate ?? '',
+    title: r.title,
+    category: RESOURCE_CATEGORIES.find((c) => c.enum === r.category)?.short
+              ?? r.category,
+    href: `${base}/resources/${resEnumToSlug[r.category] ?? r.category}/${r.slug}`,
+  }));
+---
+<BaseLayout title="Resources"
+            description="Annual reports, evaluation reports, fact sheets, summits, toolkits, and other publications from Adult Redeploy Illinois.">
+  <div class="max-w-6xl mx-auto px-6 py-10">
+    <PageTitle title="Resources" />
+    <ListingTable ariaLabel="resources"
+      columns={[
+        { key: 'publicationDate', label: 'Published', format: 'date' },
+        { key: 'title',           label: 'Title' },
+        { key: 'category',        label: 'Category' },
+      ]}
+      rows={rows}
+    />
+  </div>
+</BaseLayout>

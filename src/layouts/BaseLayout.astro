@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import AppHeader from '../components/AppHeader.astro';
+import AppFooter from '../components/AppFooter.astro';
+import DrawerNav from '../components/alpine/DrawerNav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+const { title, description, ogImage } = Astro.props;
+const siteOrigin = (Astro.site
+  ? new URL(Astro.site).origin
+  : 'https://icjia.illinois.gov');
+const canonical = `${siteOrigin}${Astro.url.pathname}`.replace(/\/$/, '');
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN
+  ?? 'icjia.illinois.gov/adultredeploy';
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ARI | {title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="icon" href={`${base}/favicon.ico`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lato:wght@300;400;700;900&display=swap"
+          media="print"
+          onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lato:wght@300;400;700;900&display=swap" />
+    </noscript>
+    <script is:inline defer data-domain={plausibleDomain}
+            src="https://plausible.icjia.cloud/js/script.file-downloads.outbound-links.js"></script>
+    <slot name="head" />
+  </head>
+  <body class="font-sans bg-surface-subtle text-brand-ink min-h-screen flex flex-col">
+    <a href="#content-top"
+       class="visually-hidden focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-brand-primary focus:text-white focus:px-4 focus:py-2 focus:rounded">
+      Skip to main content
+    </a>
+    <AppHeader />
+    <DrawerNav />
+    <main id="content-top" tabindex="-1" class="flex-1 outline-none">
+      <slot />
+    </main>
+    <AppFooter />
+    <script>
+      import Alpine from 'alpinejs';
+      import focus from '@alpinejs/focus';
+      Alpine.plugin(focus);
+      Alpine.store('drawer', { open: false });
+      Alpine.start();
+    </script>
+  </body>
+</html>

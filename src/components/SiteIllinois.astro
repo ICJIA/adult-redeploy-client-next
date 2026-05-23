@@ -1,0 +1,97 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import paths from './svg/illinois-paths.html?raw';
+import counties from '../lib/counties-data.json';
+
+type Site = CollectionEntry<'sites'>['data'];
+
+// Map county-slug → site data so the side panel can show the site for
+// each county. Many counties share a circuit-level slug (e.g.
+// fourth-judicial-circuit) so a single site backs multiple counties.
+const sites: Site[] = (await getCollection('sites')).map((e) => e.data);
+const siteBySlug = Object.fromEntries(sites.map((s) => [s.slug, s]));
+
+const bySlug: Record<string, { title: string; slug: string; summary?: string | null }> = {};
+for (const c of counties) {
+  if (!c.active || !c.slug) continue;
+  const site = siteBySlug[c.slug];
+  if (!site) continue;
+  bySlug[c.slug] = {
+    title: site.title,
+    slug: site.slug,
+    summary: site.summary ?? null,
+  };
+}
+const SITE_DATA = JSON.stringify(bySlug);
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<div x-data={`ilMap(${SITE_DATA}, '${base}')`}
+     class="grid gap-6 md:grid-cols-2 items-start">
+  <div class="il-map-wrap">
+    <Fragment set:html={paths} />
+  </div>
+  <aside class="min-h-[200px]" aria-live="polite" aria-atomic="true">
+    <template x-if="selected">
+      <div class="p-4 border border-brand-muted/40 rounded bg-surface">
+        <h3 class="font-heading font-bold text-xl" x-text="selected.title"></h3>
+        <p x-show="selected.summary" class="mt-2 text-sm" x-text="selected.summary"></p>
+        <a x-bind:href="base + '/sites/' + selected.slug"
+           class="mt-4 inline-block text-brand-primary font-bold underline
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+          Visit site page
+        </a>
+      </div>
+    </template>
+    <p x-show="!selected" class="italic">
+      Select a county on the map for site details.
+    </p>
+  </aside>
+</div>
+
+<script is:inline>
+  function ilMap(byCounty, base) {
+    return {
+      base,
+      byCounty,
+      selected: null,
+      init() {
+        const root = this.$el;
+        root.querySelectorAll('svg [data-county]').forEach((el) => {
+          el.addEventListener('click', () => this.select(el.dataset.county));
+          el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.select(el.dataset.county);
+            }
+          });
+        });
+      },
+      select(county) {
+        this.selected = this.byCounty[county] ?? null;
+      },
+    };
+  }
+</script>
+
+<style is:global>
+  .il-map-wrap svg {
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+    display: block;
+  }
+  .il-map-wrap svg [data-county] {
+    cursor: pointer;
+    transition: fill 120ms ease;
+  }
+  .il-map-wrap svg [data-county]:hover,
+  .il-map-wrap svg [data-county]:focus {
+    fill: var(--color-brand-secondary);
+    outline: none;
+  }
+  .il-map-wrap svg [data-county]:focus-visible {
+    stroke: var(--color-brand-primary);
+    stroke-width: 2;
+  }
+</style>
