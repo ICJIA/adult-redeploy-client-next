@@ -5,10 +5,14 @@
 //   active county paths so the runtime can wire Alpine handlers
 
 import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SRC = '/tmp/site-illinois-template.html';
-const COUNTIES = './src/lib/counties-data.json';
-const OUT = './src/components/svg/illinois-paths.html';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, '..');
+const SRC = path.resolve(__dirname, 'illinois-svg.html');
+const COUNTIES = path.resolve(ROOT, 'src/lib/counties-data.json');
+const OUT = path.resolve(ROOT, 'src/components/svg/illinois-paths.html');
 
 const [raw, countiesText] = await Promise.all([
   fs.readFile(SRC, 'utf8'),

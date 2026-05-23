@@ -4,9 +4,11 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SRC = '/tmp/usiljs-config.js';
-const OUT = 'src/lib/counties-data.json';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const SRC = path.resolve(__dirname, 'usiljs-config.js');
+const OUT = path.resolve(__dirname, '..', 'src/lib/counties-data.json');
 
 const raw = await fs.readFile(SRC, 'utf8');
 
