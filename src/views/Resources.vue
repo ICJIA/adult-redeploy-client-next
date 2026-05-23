@@ -112,6 +112,7 @@ import {
   checkIfValidPage,
   // eslint-disable-next-line no-unused-vars
   getSectionContent,
+  whenSectionsReady,
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
@@ -166,6 +167,7 @@ export default {
   methods: {
     async fetchContent() {
       this.loading = true;
+      await whenSectionsReady(this.$store);
 
       this.content = getSectionContent(this.$store.state.sections, "resources");
 

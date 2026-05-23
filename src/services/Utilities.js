@@ -7,14 +7,28 @@ const getHash = (str) => {
 };
 
 const getSectionContent = (sections, slug) => {
-  // console.log("sections: ", sections);
-  // console.log("section: ", slug);
-  const content = sections.filter((sec) => {
+  if (!sections) return null;
+  return sections.filter((sec) => {
     return sec.slug === slug;
   });
-  //console.log(content);
-  return content;
 };
+
+const whenSectionsReady = (store) =>
+  new Promise((resolve) => {
+    if (store.state.sections) {
+      resolve(store.state.sections);
+      return;
+    }
+    const unwatch = store.watch(
+      (state) => state.sections,
+      (v) => {
+        if (v) {
+          unwatch();
+          resolve(v);
+        }
+      }
+    );
+  });
 
 const checkIfValidPage = (arr) => {
   if (arr) {
@@ -144,6 +158,7 @@ export {
   getHash,
   titleCase,
   getSectionContent,
+  whenSectionsReady,
   checkIfValidPage,
   stripHTML,
   truncate,

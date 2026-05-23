@@ -4,6 +4,7 @@
       indeterminate
       color="primary"
       size="50"
+      aria-label="Loading content"
     ></v-progress-circular>
   </div>
 </template>

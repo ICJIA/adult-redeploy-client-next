@@ -22,8 +22,13 @@
         item-key="slug"
         :single-expand="singleExpand"
         :expanded.sync="expanded"
+        hide-default-footer
         @click:row="clicked"
       >
+        <template v-slot:header.data-table-expand>
+          <span class="visually-hidden">Expand row</span>
+        </template>
+
         <template v-slot:item.createdAt="{ item }">
           <span v-html="displayNewLabel(item.createdAt)"></span>
         </template>
@@ -61,7 +66,7 @@
         </template>
 
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length + 2">
+          <td :colspan="headers.length + 2" role="presentation">
             <div class="py-1">
               <ResourceDisplay
                 :item="item"

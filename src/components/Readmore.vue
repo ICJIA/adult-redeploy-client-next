@@ -370,6 +370,10 @@ export default {
 .readMore.btn:hover {
   background-color: #ccc;
 }
+.readMore.btn:focus-visible {
+  outline: 2px solid #043e3f;
+  outline-offset: 2px;
+}
 .readMore.btn > * {
   position: relative;
 }

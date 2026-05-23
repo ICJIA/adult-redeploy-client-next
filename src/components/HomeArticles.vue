@@ -38,7 +38,13 @@
       style="min-height: 475px"
     >
       <div v-for="article in articles" :key="article.slug">
-        <v-card class="mb-5 hover card" @click="routeTo(article)">
+        <v-card
+          class="mb-5 hover card"
+          role="link"
+          @click="routeTo(article)"
+          @keydown.enter="routeTo(article)"
+          @keydown.space.prevent="routeTo(article)"
+        >
           <v-img
             class="white--text align-end"
             height="225px"

@@ -54,6 +54,7 @@ import {
   //getHash,
   checkIfValidPage,
   getSectionContent,
+  whenSectionsReady,
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { getSearchIndex } from "@/services/Search";
@@ -84,6 +85,7 @@ export default {
   methods: {
     async fetchContent() {
       this.loading = true;
+      await whenSectionsReady(this.$store);
 
       this.content = getSectionContent(this.$store.state.sections, "search");
 

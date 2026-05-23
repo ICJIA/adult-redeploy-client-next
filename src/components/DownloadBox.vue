@@ -11,8 +11,8 @@
         <h3 style="color: #222" class="mb-5">{{ header[0] }}</h3>
 
         <ul style="color: #222" class="" v-if="content.mediaMaterial.length">
-          <div v-for="(item, index) in content.mediaMaterial" :key="index">
-            <li class="mb-4" v-if="item.file">
+          <template v-for="(item, index) in content.mediaMaterial">
+            <li class="mb-4" v-if="item.file" :key="index">
               <span class="hover medium">
                 <a
                   :href="`${$store.getters.config.baseURL}${item.file.url}`"
@@ -29,7 +29,7 @@
               </span>
               <br />
             </li>
-          </div>
+          </template>
         </ul>
       </div>
     </div>
@@ -46,11 +46,8 @@
           class=""
           v-if="content.externalMediaMaterial.length"
         >
-          <div
-            v-for="(item, index) in content.externalMediaMaterial"
-            :key="index"
-          >
-            <li class="mb-4" v-if="item.url">
+          <template v-for="(item, index) in content.externalMediaMaterial">
+            <li class="mb-4" v-if="item.url" :key="index">
               <a
                 :href="`${item.url}`"
                 target="_blank"
@@ -64,7 +61,7 @@
 
               <br />
             </li>
-          </div>
+          </template>
         </ul>
       </div>
     </div>
@@ -74,23 +71,25 @@
         <h3 style="color: #222" class="mb-5">{{ header[2] }}</h3>
 
         <ul style="color: #222" class="" v-if="content.meetingMaterial.length">
-          <div v-for="(item, index) in content.meetingMaterial" :key="index">
-            <li class="mb-4">
-              <a
-                :href="`${$store.getters.config.baseURL}${item.file.url}`"
-                target="_blank"
-                @click="fireDownloadEvent(item)"
-                style="text-decoration: none !important"
-                >{{ item.name
-                }}<v-icon class="ml-2" color="green darken-4"
-                  >cloud_download</v-icon
-                ></a
-              >
-              <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
+          <li
+            v-for="(item, index) in content.meetingMaterial"
+            :key="index"
+            class="mb-4"
+          >
+            <a
+              :href="`${$store.getters.config.baseURL}${item.file.url}`"
+              target="_blank"
+              @click="fireDownloadEvent(item)"
+              style="text-decoration: none !important"
+              >{{ item.name
+              }}<v-icon class="ml-2" color="green darken-4"
+                >cloud_download</v-icon
+              ></a
+            >
+            <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
 
-              <br />
-            </li>
-          </div>
+            <br />
+          </li>
         </ul>
       </div>
     </div>

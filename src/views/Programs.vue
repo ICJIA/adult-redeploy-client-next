@@ -62,6 +62,7 @@ import {
   getHash,
   checkIfValidPage,
   getSectionContent,
+  whenSectionsReady,
 } from "@/services/Utilities";
 import SiteDescription from "@/components/SiteDescription";
 import SiteIllinois from "@/components/SiteIllinois";
@@ -93,6 +94,7 @@ export default {
   methods: {
     async fetchContent() {
       this.loading = true;
+      await whenSectionsReady(this.$store);
 
       this.content = getSectionContent(this.$store.state.sections, "programs");
       if (checkIfValidPage(this.content)) {

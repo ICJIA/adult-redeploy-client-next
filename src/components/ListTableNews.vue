@@ -22,8 +22,13 @@
         item-key="slug"
         :single-expand="singleExpand"
         :expanded.sync="expanded"
+        hide-default-footer
         @click:row="clicked"
       >
+        <template v-slot:header.data-table-expand>
+          <span class="visually-hidden">Expand row</span>
+        </template>
+
         <template v-slot:item.publicationDate="{ item }">
           {{ item.publicationDate | format }}
         </template>
@@ -37,7 +42,7 @@
         </template>
 
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length + 2">
+          <td :colspan="headers.length + 2" role="presentation">
             <div class="py-5">
               <NewsCard
                 :content="item"

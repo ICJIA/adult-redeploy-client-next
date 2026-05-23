@@ -201,7 +201,11 @@ import { VSkeletonLoader } from "vuetify/lib";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import { getApplications } from "@/services/Content";
-import { getHash, checkIfValidPage } from "@/services/Utilities";
+import {
+  getHash,
+  checkIfValidPage,
+  whenSectionsReady,
+} from "@/services/Utilities";
 export default {
   mixins: [handleClicks],
   watch: {
@@ -293,6 +297,7 @@ export default {
     },
     async fetchContent() {
       this.loading = true;
+      await whenSectionsReady(this.$store);
       const section = "apps";
       if (section !== "home") {
         this.content = this.$store.getters.sections.find(

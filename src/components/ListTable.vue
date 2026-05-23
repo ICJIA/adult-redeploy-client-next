@@ -6,6 +6,7 @@
       :items="items"
       :items-per-page="-1"
       class="elevation-1 tagTable"
+      hide-default-footer
     >
       <template v-slot:item.title="{ item }">
         <span style="font-weight: bold">{{ item.title }}</span>

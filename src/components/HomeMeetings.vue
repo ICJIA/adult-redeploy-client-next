@@ -1,24 +1,30 @@
 <template>
   <div>
-    <span
+    <h2
       style="
         display: block;
         font-size: 32px;
         font-weight: 900;
         padding-bottom: 7px !important;
         border-bottom: 1px solid #aaa !important;
+        margin: 0;
       "
       class="hover meetingTitle"
-      @click="$router.push('/about/meetings')"
-      >UPCOMING MEETINGS</span
     >
+      <router-link to="/about/meetings" class="meetingTitle-link"
+        >UPCOMING MEETINGS</router-link
+      >
+    </h2>
     <div v-if="content && content.length">
       <div class="mt-8">
         <div v-for="(meeting, index) in content" :key="index">
           <v-card
             class="mx-auto mb-10 hover card"
             outlined
+            role="link"
             @click="routeTo(meeting)"
+            @keydown.enter="routeTo(meeting)"
+            @keydown.space.prevent="routeTo(meeting)"
           >
             <v-list-item three-line>
               <v-list-item-content>
@@ -89,5 +95,13 @@ export default {
 <style>
 .meetingTitle:hover {
   color: #aaa;
+}
+.meetingTitle-link {
+  color: inherit;
+  text-decoration: none;
+}
+.meetingTitle-link:focus-visible {
+  outline: 2px solid #043e3f;
+  outline-offset: 2px;
 }
 </style>
