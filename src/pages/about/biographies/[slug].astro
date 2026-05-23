@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
 import Markdown from '../../../components/Markdown.astro';
 
 type Bio = CollectionEntry<'biographies'>['data'];
@@ -14,24 +14,16 @@ export async function getStaticPaths() {
   }));
 }
 const { item } = Astro.props as { item: Bio };
-const base = import.meta.env.BASE_URL || '/adultredeploy';
 const STRAPI_BASE = 'https://ari.icjia-api.cloud';
 const fullName = [item.prefix, item.firstName, item.middleName,
                   item.lastName, item.suffix].filter(Boolean).join(' ');
 const isStaff = item.category === 'staff';
 ---
 <BaseLayout title={fullName}>
-  <article data-pagefind-body
-           data-pagefind-meta="type:biography"
-           class="max-w-3xl mx-auto px-6 py-10">
-    <Breadcrumb items={[
-      { label: 'Home',  href: `${base}/` },
-      { label: 'About', href: `${base}/about` },
-      { label: isStaff ? 'Staff' : 'Oversight Board',
-        href: isStaff ? `${base}/about/staff` : `${base}/about/oversight` },
-      { label: fullName },
-    ]} />
-    <div class="mt-6 grid gap-6 md:grid-cols-3">
+  <ArticleCard title={fullName}
+               badge={isStaff ? 'Staff' : 'Oversight Board'}
+               pagefindMeta={{ type: 'biography' }}>
+    <div class="grid gap-6 md:grid-cols-3">
       {item.headshot && (
         <div class="md:col-span-1">
           <img src={`${STRAPI_BASE}${item.headshot.url}`}
@@ -40,11 +32,10 @@ const isStaff = item.category === 'staff';
         </div>
       )}
       <div class={item.headshot ? 'md:col-span-2' : 'md:col-span-3'}>
-        <h1 class="text-page-title">{fullName}</h1>
-        {item.title && <p class="text-lg italic mt-1">{item.title}</p>}
+        {item.title && <p class="text-lg italic">{item.title}</p>}
         {item.membership && <p class="text-sm mt-1">{item.membership}</p>}
         <Markdown content={item.content} class="mt-6" />
       </div>
     </div>
-  </article>
+  </ArticleCard>
 </BaseLayout>

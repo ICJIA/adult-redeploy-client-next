@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  badge?: string;
+  pagefindMeta?: Record<string, string>;
+}
+const { title, badge, pagefindMeta } = Astro.props;
+const metaPairs = Object.entries(pagefindMeta ?? {});
+---
+<article
+  data-pagefind-body
+  data-pagefind-meta={metaPairs.length > 0
+    ? metaPairs.map(([k, v]) => `${k}:${v}`).join(', ')
+    : undefined}
+  class="max-w-4xl mx-auto my-8 bg-surface shadow-elev1 rounded
+         overflow-hidden"
+>
+  <header class="bg-brand-primary text-white px-6 sm:px-10 py-5
+                 flex items-center justify-between gap-4">
+    <h1 class="font-heading font-black uppercase tracking-tight
+               text-lg sm:text-xl md:text-2xl leading-tight">
+      {title}
+    </h1>
+    {badge && (
+      <span class="shrink-0 inline-block bg-brand-secondary text-white
+                   text-xs font-bold uppercase tracking-wider
+                   px-3 py-1.5 rounded">
+        {badge}
+      </span>
+    )}
+  </header>
+  <div class="px-6 sm:px-10 py-8">
+    <slot />
+  </div>
+</article>

@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../../components/ui/Breadcrumb.astro';
+import ArticleCard from '../../../../components/ArticleCard.astro';
 import Markdown from '../../../../components/Markdown.astro';
 import Tag from '../../../../components/ui/Tag.astro';
 import { formatDate } from '../../../../lib/dates';
@@ -39,23 +39,13 @@ const STRAPI_BASE = 'https://ari.icjia-api.cloud';
 const meetingMaterial = (item.meetingMaterial ?? []) as Material[];
 ---
 <BaseLayout title={item.title} description={item.summary ?? undefined}>
-  <article data-pagefind-body
-           data-pagefind-meta="type:meeting"
-           data-pagefind-meta={`date:${item.scheduledDate ?? ''}`}
-           class="max-w-3xl mx-auto px-6 py-10">
-    <Breadcrumb items={[
-      { label: 'Home',     href: `${base}/` },
-      { label: 'About',    href: `${base}/about` },
-      { label: 'Meetings', href: `${base}/about/meetings` },
-      { label: category.short,
-        href: `${base}/about/meetings/${category.slug}` },
-      { label: item.title },
-    ]} />
-    <p class="mt-4 text-sm font-bold text-brand-secondary uppercase">
+  <ArticleCard title={item.title}
+               badge={category.title}
+               pagefindMeta={{ type: 'meeting', date: item.scheduledDate ?? '' }}>
+    <p class="text-sm font-bold text-brand-secondary uppercase mb-4">
       Scheduled: {formatDate(item.scheduledDate)}
     </p>
-    <h1 class="text-page-title mt-1">{item.title}</h1>
-    <Markdown content={item.content} class="mt-6" />
+    <Markdown content={item.content} />
 
     {meetingMaterial.length > 0 && (
       <div class="mt-8 bg-surface-shaded p-6 rounded">
@@ -84,5 +74,5 @@ const meetingMaterial = (item.meetingMaterial ?? []) as Material[];
         ))}
       </div>
     )}
-  </article>
+  </ArticleCard>
 </BaseLayout>

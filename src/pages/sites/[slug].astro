@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 import Markdown from '../../components/Markdown.astro';
 
 type Site = CollectionEntry<'sites'>['data'];
@@ -14,24 +14,12 @@ export async function getStaticPaths() {
   }));
 }
 const { item } = Astro.props as { item: Site };
-const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
 <BaseLayout title={item.title} description={item.summary ?? undefined}>
-  <article data-pagefind-body
-           data-pagefind-meta="type:site"
-           class="max-w-3xl mx-auto px-6 py-10">
-    <Breadcrumb items={[
-      { label: 'Home', href: `${base}/` },
-      { label: 'Sites', href: `${base}/sites` },
-      { label: item.title },
-    ]} />
-    <h1 class="text-page-title mt-4">{item.title}</h1>
-    {item.siteType && (
-      <p class="mt-1 text-sm font-bold text-brand-secondary uppercase">
-        {item.siteType}
-      </p>
-    )}
-    {item.summary && <p class="mt-3 text-lg italic">{item.summary}</p>}
-    <Markdown content={item.content} class="mt-6" />
-  </article>
+  <ArticleCard title={item.title}
+               badge={item.siteType ?? undefined}
+               pagefindMeta={{ type: 'site' }}>
+    {item.summary && <p class="text-lg italic mb-6">{item.summary}</p>}
+    <Markdown content={item.content} />
+  </ArticleCard>
 </BaseLayout>
