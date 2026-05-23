@@ -6,10 +6,34 @@ type Section = CollectionEntry<'sections'>['data'];
 type SectionPage = NonNullable<Section['pages']>[number];
 
 const sectionEntries = await getCollection('sections');
-const sections: Section[] = sectionEntries
-  .map((e) => e.data)
-  .filter((s) => (s.pages ?? []).some((p: SectionPage) => p.displayNav));
+const sectionMap = new Map(sectionEntries.map((e) => [e.data.slug, e.data]));
+
+// Top-level nav order matches prod exactly.
+const NAV_ORDER = [
+  { slug: 'about',     label: 'About' },
+  { slug: 'approach',  label: 'Approach' },
+  { slug: 'programs',  label: 'Programs' },
+  { slug: 'grants',    label: 'Grants' },
+  { slug: 'news',      label: 'News' },
+  { slug: 'resources', label: 'Resources' },
+  { slug: 'apps',      label: 'Apps' },
+] as const;
+
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+
+// For each top-level slug: render as dropdown if the section has
+// nav-able sub-pages, otherwise as a direct link to the section.
+const navItems = NAV_ORDER.map((item) => {
+  const section = sectionMap.get(item.slug);
+  const navPages = (section?.pages ?? []).filter(
+    (p: SectionPage) => p.displayNav && p.isPublished !== false,
+  );
+  return {
+    label: item.label,
+    href: `${base}/${item.slug}`,
+    pages: navPages,
+  };
+});
 ---
 <header class="noprint sticky top-0 z-30 bg-surface shadow-elev1 h-[90px]">
   <nav aria-label="Main navigation"
@@ -28,42 +52,52 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
         <line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
     </button>
-    <a href={`${base}/`} class="flex items-center gap-3 hover:opacity-80">
+    <a href={`${base}/`} class="flex items-center gap-3 hover:opacity-80
+                                shrink-0">
       <img src={`${base}/img/icjia-logo.png`}
            alt="Illinois Criminal Justice Information Authority"
            width="90" height="63"
            class="w-[50px] md:w-[90px] h-auto" />
-      <span class="font-heading font-black text-base md:text-lg lg:text-xl
-                   leading-tight">
+      <span class="font-heading font-black uppercase tracking-tight
+                   text-base md:text-lg lg:text-xl
+                   leading-tight whitespace-nowrap">
         ADULT REDEPLOY ILLINOIS
       </span>
     </a>
     <div class="flex-1" />
-    <ul class="hidden md:flex items-center gap-1">
-      {sections.map((s: Section) => (
+    <ul class="hidden md:flex items-center gap-0">
+      {navItems.map((item) => (
         <li>
-          <DropdownMenu label={s.title}
-                        basePath={s.slug}
-                        items={s.pages?.filter((p: SectionPage) => p.displayNav) ?? []} />
+          {item.pages.length > 0 ? (
+            <DropdownMenu
+              label={item.label}
+              basePath={new URL(item.href, 'http://x').pathname.slice(base.length + 1)}
+              items={item.pages}
+            />
+          ) : (
+            <a href={item.href}
+               class="inline-flex items-center px-3 h-12 text-sm font-bold
+                      uppercase tracking-wider hover:bg-surface-shaded rounded
+                      focus-visible:outline focus-visible:outline-2
+                      focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+              {item.label}
+            </a>
+          )}
         </li>
       ))}
       <li>
-        <form action={`${base}/search`} method="get" class="flex">
-          <label class="sr-only" for="header-q">Search</label>
-          <input id="header-q" name="q" type="search" placeholder="Search…"
-                 class="hidden lg:inline-block w-32 lg:w-48 border border-brand-muted/40 rounded px-3 py-1 text-sm
-                        focus-visible:outline focus-visible:outline-2
-                        focus-visible:outline-brand-primary focus-visible:outline-offset-2" />
-          <button type="submit"
-                  class="ml-1 p-2 rounded hover:bg-surface-shaded"
-                  aria-label="Search">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="11" cy="11" r="7"/>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-          </button>
-        </form>
+        <a href={`${base}/search`}
+           class="inline-flex items-center justify-center w-12 h-12 rounded
+                  hover:bg-surface-shaded
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+           aria-label="Search">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </a>
       </li>
     </ul>
   </nav>

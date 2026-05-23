@@ -10,7 +10,8 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
 <div x-data="{ open: false }" class="relative">
   <button type="button" x-ref="btn"
-          class="px-3 h-12 font-bold text-sm hover:bg-surface-shaded rounded
+          class="inline-flex items-center px-3 h-12 font-bold text-sm
+                 uppercase tracking-wider hover:bg-surface-shaded rounded
                  focus-visible:outline focus-visible:outline-2
                  focus-visible:outline-brand-primary focus-visible:outline-offset-2"
           @click="open = !open"
