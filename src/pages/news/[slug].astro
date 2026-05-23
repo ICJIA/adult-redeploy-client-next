@@ -1,0 +1,46 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import Markdown from '../../components/Markdown.astro';
+import Tag from '../../components/ui/Tag.astro';
+import { formatDate } from '../../lib/dates';
+
+type News = CollectionEntry<'news'>['data'];
+
+export async function getStaticPaths() {
+  const items = await getCollection('news');
+  return items.map((item) => ({
+    params: { slug: item.data.slug },
+    props: { item: item.data },
+  }));
+}
+const { item } = Astro.props as { item: News };
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+const posted = item.publicationDate ?? item.createdAt;
+---
+<BaseLayout title={item.title} description={item.summary ?? undefined}>
+  <article data-pagefind-body
+           data-pagefind-meta="type:news"
+           data-pagefind-meta={`date:${posted}`}
+           class="max-w-3xl mx-auto px-6 py-10">
+    <Breadcrumb items={[
+      { label: 'Home', href: `${base}/` },
+      { label: 'News', href: `${base}/news` },
+      { label: item.title },
+    ]} />
+    <p class="mt-4 text-sm text-gray-700">
+      Posted: {formatDate(posted)}
+    </p>
+    <h1 class="text-page-title mt-2">{item.title}</h1>
+    {item.summary && <p class="mt-3 text-lg italic">{item.summary}</p>}
+    <Markdown content={item.content} class="mt-8" />
+    {item.tags && item.tags.length > 0 && (
+      <div class="mt-8 flex flex-wrap gap-2">
+        {item.tags.map((t) => (
+          <Tag label={t.name} href={`${base}/tags/${t.slug}`} />
+        ))}
+      </div>
+    )}
+  </article>
+</BaseLayout>
