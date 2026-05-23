@@ -36,7 +36,7 @@ async function main() {
     apps(sort: "date:desc", where: { status: "published" }) {
       slug title status date description image url contributors
     }
-    articles(sort: "date:desc", limit: 12, where: { status: "published" }) {
+    articles(sort: "date:desc", limit: 100, where: { status: "published" }) {
       slug title status date abstract thumbnail splash authors
     }
   }`;
