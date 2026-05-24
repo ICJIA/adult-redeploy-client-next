@@ -1,6 +1,6 @@
 {
   "name": "adult-redeploy-client-next",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Adult Redeploy Illinois — Astro/Tailwind rewrite",
   "private": true,
   "type": "module",
@@ -14,7 +14,8 @@
     "test": "vitest run",
     "audit:axe": "node scripts/audit-axe.mjs",
     "audit:lh": "node scripts/audit-lighthouse.mjs",
-    "audit": "npm run audit:axe && npm run audit:lh"
+    "audit": "npm run audit:axe && npm run audit:lh",
+    "check:links": "node scripts/check-links.mjs"
   },
   "author": {
     "name": "Illinois Criminal Justice Information Authority",

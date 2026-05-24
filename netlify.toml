@@ -5,6 +5,25 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Redirects for CMS-authored meeting links that used the wrong category slug
+# (links live in published news article bodies and can't be edited from the
+# Astro side). 301s so search engines / external sites update; safe to remove
+# once Strapi content is corrected.
+[[redirects]]
+  from = "/adultredeploy/about/meetings/site-selection/adhoc-committee-meeting-01282026"
+  to   = "/adultredeploy/about/meetings/ad-hoc/adhoc-committee-meeting-01282026"
+  status = 301
+
+[[redirects]]
+  from = "/adultredeploy/about/meetings/site-selection/adhoc-committee-meeting-10302025"
+  to   = "/adultredeploy/about/meetings/ad-hoc/adhoc-committee-meeting-10302025"
+  status = 301
+
+[[redirects]]
+  from = "/adultredeploy/about/meetings/regular/ariob-meeting-2025-4"
+  to   = "/adultredeploy/about/meetings/regular-oversight/ariob-meeting-2025-4"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]

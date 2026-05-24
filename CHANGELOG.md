@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.5] - 2026-05-24
+
+### Broken-link sweep — fixes + tooling
+
+Built `scripts/check-links.mjs` (`npm run check:links`) — walks every page in `dist/`, extracts `<a>` and non-hint `<link>` hrefs (skips `preconnect` / `preload` / `prefetch` / icon / manifest), HTML-decodes entities, treats absolute URLs back at `https://icjia.illinois.gov/adultredeploy/...` as internal so they're checked against the filesystem, and HEAD-checks every external URL with a real browser UA plus a GET fallback for hosts that reject HEAD. After the fixes below the rendered HTML has **zero broken internal links**; the only remaining failures are CMS-authored third-party links that the editorial team will need to refresh.
+
+- `src/components/alpine/DrawerNav.astro` — Mobile drawer was emitting nav items for `displayNav: true` pages regardless of `isPublished`. The desktop header already filtered both. Added a shared `navablePage` helper used in both the section filter and the inner pages filter. Removed 4 broken links from every page's mobile nav: `/approach/evaluation`, `/grants/explore`, `/grants/apply`, `/grants/implement` (all still placeholder pages in Strapi).
+- `src/components/AppFooter.astro` — Footer accessibility link updated from `https://www.illinois.gov/about/accessibility` (404 since the illinois.gov rebuild) to `https://doit.illinois.gov/initiatives/accessibility/iitaa.html`, the current State of Illinois IITAA page.
+- `scripts/fetch-content.mjs` — Build-time meeting-URL canonicalizer. Builds a `slug → canonical-category-slug` map from the meetings collection, then rewrites every `/about/meetings/<X>/<slug>` link in news / page / meeting bodies to use the actual category. Fixes two classes of CMS-author errors in one pass: enum-vs-slug confusion (`regular` → `regular-oversight`) and wrong category assignment (adhoc meeting linked under `site-selection`). Pre-fix, three published news articles emitted 404 links; post-fix, rendered HTML uses canonical URLs and SiteImprove no longer follows / flags those legacy redirects. Three items currently get rewritten; the rewriter is idempotent so corrected CMS entries pass through unchanged.
+- `netlify.toml` — Added three `[[redirects]]` (301) for the same legacy meeting URLs, kept as a safety net for external bookmarks / search-engine results. With the build-time rewriter in place, the rendered site never links to these URLs, so SiteImprove won't encounter (or flag) the redirects during its crawl.
+- `scripts/check-links.mjs` + `package.json` script `check:links` — Scanner is now part of the repo so it can be run any time (locally or pre-deploy).
+- `package.json` — Bumped to `2.0.5`.
+
+**Editorial follow-ups (CMS-side, not in this commit):**
+- News article `ari-covid19` references three dead external resources: `https://www.ncsc.org/pandemic` (404), `http://www.jmijustice.org/covid-19/` (406 — site rejects non-browser request types), `https://connect.appa-net.org/resources/covid-19` (403 — bot-blocked). All three orgs reorganized their COVID-era resource pages.
+- Resource `housing-webinars` references two Egnyte share links (`https://cshcloud.egnyte.com/dl/V5WrzTL80U/`, `https://cshcloud.egnyte.com/dl/wNeWHdieCL`) that fail DNS — share links likely expired.
+- `https://www.facebook.com/ICJIA` is flagged by the checker as a 400 but is fine in a real browser — Facebook rejects programmatic HEAD / GET requests regardless of user-agent. Treat as a known false positive.
+
 ## [2.0.4] - 2026-05-24
 
 ### Skip-link actually visible on focus

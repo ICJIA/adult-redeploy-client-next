@@ -30,6 +30,47 @@ async function main() {
   if (data.posts && !data.news) data.news = data.posts;
   delete data.posts;
 
+  // Build canonical meeting URLs from the meetings collection, then rewrite
+  // any /about/meetings/<wrong-cat>/<slug> link in news/page bodies to use the
+  // correct category slug. CMS authors sometimes put `regular` (the enum)
+  // instead of `regular-oversight` (the route slug), or attach an adhoc
+  // meeting to the wrong committee URL. Without this, SiteImprove flags
+  // 301-redirected URLs as "issues" even though they resolve — better to
+  // emit the canonical URL in the rendered HTML in the first place.
+  const MEETING_ENUM_TO_SLUG = {
+    adHoc:         'ad-hoc',
+    outreach:      'outreach',
+    performance:   'performance',
+    regular:       'regular-oversight',
+    siteSelection: 'site-selection',
+  };
+  const canonicalCatBySlug = {};
+  for (const m of (data.meetings ?? [])) {
+    if (!m.slug || !m.category) continue;
+    const cat = MEETING_ENUM_TO_SLUG[m.category] ?? m.category;
+    canonicalCatBySlug[m.slug] = cat;
+  }
+  const MEETING_URL_RX = /\/about\/meetings\/([a-z0-9-]+)\/([a-z0-9-]+)/g;
+  const rewriteMeetingUrls = (s) => {
+    if (typeof s !== 'string') return s;
+    return s.replace(MEETING_URL_RX, (match, cat, slug) => {
+      const canonical = canonicalCatBySlug[slug];
+      return canonical && canonical !== cat
+        ? `/about/meetings/${canonical}/${slug}`
+        : match;
+    });
+  };
+  let rewrites = 0;
+  for (const bucket of ['news', 'pages', 'meetings']) {
+    for (const item of (data[bucket] ?? [])) {
+      if (typeof item?.content !== 'string') continue;
+      const before = item.content;
+      item.content = rewriteMeetingUrls(before);
+      if (item.content !== before) rewrites++;
+    }
+  }
+  if (rewrites) console.log(`[fetch] rewrote meeting URLs in ${rewrites} item(s)`);
+
   // Pull apps + recent articles from researchhub (separate Strapi instance).
   const RH = 'https://researchhub.icjia-api.cloud/graphql';
   const RH_QUERY = `{
