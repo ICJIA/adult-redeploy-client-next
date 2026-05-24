@@ -12,6 +12,15 @@
 - `src/pages/apps.astro` — `<img src={app.image}>` swapped for `getCmsImage(app.image)` returning `{ src, srcset, sizes, width, height }`. `apps/index.html` dropped from **1.56 MB to 24 KB** (64× smaller).
 - `src/lib/cms-image.ts` — Unchanged API; manifest lookup already handled arbitrary string keys, so `cms-base64:<hash>` works identically to a Strapi URL.
 
+**Audit deltas (`/apps`):**
+
+| Viewport | Perf | LCP | HTML size |
+|---|---|---|---|
+| mobile  | (very low) → **87**  | — → **3.1s** | 1.56 MB → **24 KB** |
+| desktop | (very low) → **100** | — → fast     | 1.56 MB → **24 KB** |
+
+A11y / BP / SEO are 100 on both viewports.
+
 ### Staff page: restore bio body; strip legacy <span class="heavy"> tags
 
 Regression noticed on `/about/staff` after the Astro rewrite: the page only showed name + title in a compact grid, no bio prose. The Nuxt version rendered each staff member's full bio. Also, CMS titles like `<span class="heavy">Program Director</span>` were leaking as literal text on both staff and oversight pages because the `.heavy` class from the legacy site isn't carried forward.
