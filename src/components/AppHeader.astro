@@ -1,6 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import DropdownMenu from './alpine/DropdownMenu.astro';
+import logo from '../assets/icjia-logo.png';
 
 type Section = CollectionEntry<'sections'>['data'];
 type SectionPage = NonNullable<Section['pages']>[number];
@@ -54,10 +56,13 @@ const navItems = NAV_ORDER.map((item) => {
     </button>
     <a href={`${base}/`} class="flex items-center gap-3 hover:opacity-80
                                 shrink-0">
-      <img src={`${base}/img/icjia-logo.png`}
-           alt="Illinois Criminal Justice Information Authority"
-           width="90" height="63"
-           class="w-[50px] md:w-[90px] h-auto" />
+      <Image src={logo}
+             alt="Illinois Criminal Justice Information Authority"
+             widths={[50, 90, 180]}
+             sizes="(min-width: 768px) 90px, 50px"
+             formats={['webp']}
+             loading="eager"
+             class="w-[50px] md:w-[90px] h-auto" />
       <span class="font-heading font-black uppercase tracking-tight
                    text-base md:text-lg lg:text-xl
                    leading-tight whitespace-nowrap">

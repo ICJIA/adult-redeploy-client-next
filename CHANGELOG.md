@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.0] - 2026-05-24
+
+### Mobile-perf pass: build-time image optimization, lazy-load CMS images, drop Thumbor
+
+Lighthouse mobile was Perf 77, LCP 4.7s — most of the spend was the hero JPG (233 KB at 3000×1457) plus CMS-embedded images all loading eagerly in parallel. This pass shifts the asset pipeline to Astro's build-time image optimization (Sharp) and adds lazy/decoding hints across the rendered HTML. Thumbor (`image.icjia.cloud`) was reserved in CSP from the rewrite spec for responsive variants but never wired up; dropped.
+
+- **Local images moved out of `public/` into `src/assets/`** so Astro's image pipeline can process them. `public/img/ari-splash-01-tiny.jpg` was a leftover LQIP placeholder not referenced anywhere — deleted. `public/img/` is now empty.
+- `src/components/HomeHero.astro` — Hero now uses `<Image>` from `astro:assets` with `widths={[640, 960, 1280, 1920]}`, `sizes="100vw"`, `formats={['webp']}`. Astro generates five WebP variants at build time. Mobile (~414px viewport) picks the **640w / 15 KB WebP** instead of the **3000w / 233 KB JPG** — ~93% smaller for the LCP image. Keeps `loading="eager"` + `fetchpriority="high"`.
+- `src/components/AppHeader.astro` / `AppFooter.astro` — ICJIA logo also moved through `<Image>` with WebP variants (576 B–2.8 KB per size). Header logo is `loading="eager"`; footer logo is `loading="lazy"` (off-screen on initial paint).
+- `src/pages/index.astro` — Dropped the static `<link rel="preload" as="image" href=".../ari-splash-01.jpg">`. It pinned the unoptimized 233 KB original; with `srcset` + `fetchpriority="high"` on the `<Image>` the browser picks the right variant directly.
+- `src/lib/markdown.ts` — Post-process the rendered HTML to inject `loading="lazy"` and `decoding="async"` on every `<img>` that doesn't already specify them. Covers both markdown `![]()` syntax and raw HTML `<img>` tags (the state seal, news embeds, biographies, etc. are all raw HTML in the CMS). Also extended the xss whitelist for `<img>` to allow these new attrs plus `fetchpriority`, `sizes`, `srcset` (sanitizer was stripping them otherwise).
+- `src/layouts/BaseLayout.astro` — Added `<link rel="preconnect" href="https://ari.icjia-api.cloud" crossorigin>` so the TLS handshake to the CMS image host overlaps with HTML parsing instead of starting when the first image element renders. Helps every page that embeds CMS images (biographies, news, the home about section).
+- `netlify.toml` — Removed `https://image.icjia.cloud` from CSP `connect-src`. Nothing in the rendered HTML or JS references Thumbor; the entry was a holdover from the rewrite spec.
+- `package.json` — Bumped to `2.1.0` (minor bump because the asset pipeline changed shape).
+
+Audit results vs 2.0.5 are appended after deploy.
+
 ## [2.0.5] - 2026-05-24
 
 ### Broken-link sweep — fixes + tooling

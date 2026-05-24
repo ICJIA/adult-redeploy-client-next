@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/icjia-logo.png';
+
 const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const currentPath = Astro.url.pathname.replace(base, '') || '/';
@@ -47,10 +50,13 @@ const isActive = (m: string) =>
        class="inline-block rounded
               focus-visible:outline focus-visible:outline-2
               focus-visible:outline-white focus-visible:outline-offset-4">
-      <img src={`${base}/img/icjia-logo.png`}
-           alt="Illinois Criminal Justice Information Authority"
-           width="120" height="84"
-           class="block h-auto w-[120px]" />
+      <Image src={logo}
+             alt="Illinois Criminal Justice Information Authority"
+             widths={[120, 240]}
+             sizes="120px"
+             formats={['webp']}
+             loading="lazy"
+             class="block h-auto w-[120px]" />
     </a>
 
     <ul class="flex items-center gap-4">

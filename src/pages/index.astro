@@ -13,11 +13,6 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
 <BaseLayout title="Home"
             description="Adult Redeploy Illinois — community-based alternatives to incarceration.">
-  <Fragment slot="head">
-    <link rel="preload" as="image"
-          href={`${base}/img/ari-splash-01.jpg`}
-          fetchpriority="high" />
-  </Fragment>
   <HomeHero />
   <HomeBoxes />
   <div id="about"
