@@ -3,12 +3,15 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import Markdown from '../../components/Markdown.astro';
+import { getCmsImageByPath } from '../../lib/cms-image';
 
 type Bio = CollectionEntry<'biographies'>['data'];
 
+const stripTags = (s: string | null | undefined) =>
+  (s ?? '').replace(/<[^>]+>/g, '').trim();
+
 const page = await getEntry('pages', 'about/oversight');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const STRAPI_BASE = 'https://ari.icjia-api.cloud';
 const entries = await getCollection('biographies');
 const board: Bio[] = entries
   .map((e) => e.data)
@@ -30,7 +33,10 @@ const board: Bio[] = entries
     <ul class="mt-8 grid gap-6 md:grid-cols-2">
       {board.map((b: Bio) => {
         const name = [b.prefix, b.firstName, b.middleName, b.lastName, b.suffix]
-                       .filter(Boolean).join(' ');
+                       .filter(Boolean).map((s) => s!.trim()).join(' ');
+        const title = stripTags(b.title);
+        const membership = stripTags(b.membership);
+        const headshot = b.headshot ? getCmsImageByPath(b.headshot.url) : null;
         return (
           <li>
             <a href={`${base}/about/biographies/${b.slug}`}
@@ -38,14 +44,21 @@ const board: Bio[] = entries
                       hover:shadow-elev1
                       focus-visible:outline focus-visible:outline-2
                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-              {b.headshot && (
-                <img src={`${STRAPI_BASE}${b.headshot.url}`}
-                     alt="" class="w-20 h-20 rounded object-cover" />
+              {headshot && (
+                <img src={headshot.src}
+                     srcset={headshot.srcset}
+                     sizes="80px"
+                     width={headshot.width}
+                     height={headshot.height}
+                     alt=""
+                     loading="lazy"
+                     decoding="async"
+                     class="w-20 h-20 rounded object-cover shrink-0" />
               )}
               <div>
                 <div class="font-bold text-brand-primary">{name}</div>
-                {b.title && <div class="text-sm italic">{b.title}</div>}
-                {b.membership && <div class="text-sm">{b.membership}</div>}
+                {title && <div class="text-sm italic">{title}</div>}
+                {membership && <div class="text-sm">{membership}</div>}
               </div>
             </a>
           </li>

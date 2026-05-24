@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.2.2] - 2026-05-24
+
+### /apps mobile perf: process inline base64 images through the same build-time WebP pipeline
+
+`/about/staff` regression and the apps-page perf cliff in one release.
+
+**Apps perf — the big one.** Researchhub returns `image` on every app and `splash` / `thumbnail` on every article as **inline base64 data URIs**, ~300 KB each. The apps page rendered 5 of these straight into the HTML, so `/apps` was shipping a **1.56 MB** HTML document on every visit. After this pass:
+
+- `scripts/fetch-cms-images.mjs` — Walks `_data.json` for any `image` / `splash` / `thumbnail` field holding a `data:image/...;base64,...` URI, hashes the payload (dedupes identical images across articles), decodes to a buffer, runs through the same Sharp pipeline that handles Strapi URLs, writes WebP variants to `public/_cms-img/<hash>-<w>.webp`, and **rewrites the field in `_data.json` itself to a small `cms-base64:<hash>` key string** so subsequent build steps and rendered pages never see the original base64. 202 inline images processed on the current data set; manifest grew 43 → 245 entries; ~34 MB of optimized WebPs on disk (most from the 100 article splashes).
+- `src/pages/apps.astro` — `<img src={app.image}>` swapped for `getCmsImage(app.image)` returning `{ src, srcset, sizes, width, height }`. `apps/index.html` dropped from **1.56 MB to 24 KB** (64× smaller).
+- `src/lib/cms-image.ts` — Unchanged API; manifest lookup already handled arbitrary string keys, so `cms-base64:<hash>` works identically to a Strapi URL.
+
+### Staff page: restore bio body; strip legacy <span class="heavy"> tags
+
+Regression noticed on `/about/staff` after the Astro rewrite: the page only showed name + title in a compact grid, no bio prose. The Nuxt version rendered each staff member's full bio. Also, CMS titles like `<span class="heavy">Program Director</span>` were leaking as literal text on both staff and oversight pages because the `.heavy` class from the legacy site isn't carried forward.
+
+- `src/pages/about/staff.astro` — Layout shifted from compact 2-col cards to full per-person blocks: optimized headshot (via `getCmsImageByPath`) on the left, name (linked to the full bio detail page) + title + membership + full `<Markdown content={b.content} />` body on the right. Vertical stack of staff members instead of a grid.
+- `src/pages/about/oversight.astro` — Strips the `<span class="heavy">` wrapping from titles. Kept the compact card list (bio body lives on the detail page); switched headshot to the optimized WebP path so it benefits from the CMS image pipeline.
+- Both pages now use `getCmsImageByPath` for the bio thumbnail, so the staff/board grids no longer fetch full-res Strapi PNGs.
+- `package.json` — `2.2.1`.
+
 ## [2.2.0] - 2026-05-24
 
 ### Build-time CMS image pipeline + biography page meta

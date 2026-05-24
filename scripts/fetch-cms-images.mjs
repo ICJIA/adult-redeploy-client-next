@@ -40,6 +40,7 @@ function hashKey(url) {
 }
 
 const IMAGE_EXT_RX = /\.(jpg|jpeg|png|gif|webp)$/i;
+const DATA_URI_RX = /^data:image\/(jpe?g|png|webp|gif);base64,/i;
 
 function collectUrls(node, out) {
   if (node == null) return;
@@ -63,6 +64,27 @@ function collectUrls(node, out) {
   }
 }
 
+// Find every base64 data-URI image embedded in the dataset (researchhub
+// returns `image`, `splash`, `thumbnail` etc. as inline data URIs that can
+// be 500+ KB each). Returns the parent objects plus the field names so we
+// can rewrite them back to a small key string after processing.
+const BASE64_FIELDS = ['image', 'splash', 'thumbnail'];
+
+function collectBase64Refs(node, out) {
+  if (node == null || typeof node !== 'object') return;
+  if (Array.isArray(node)) { for (const v of node) collectBase64Refs(v, out); return; }
+  for (const key of Object.keys(node)) {
+    const v = node[key];
+    if (BASE64_FIELDS.includes(key)
+        && typeof v === 'string'
+        && DATA_URI_RX.test(v)) {
+      out.push({ parent: node, field: key, dataUri: v });
+    } else if (v && typeof v === 'object') {
+      collectBase64Refs(v, out);
+    }
+  }
+}
+
 async function loadCached(url, hash) {
   const cacheFile = path.join(CACHE_DIR, hash);
   try {
@@ -83,19 +105,72 @@ async function loadCached(url, hash) {
   }
 }
 
+async function processBuffer(buffer, hash, manifestKey) {
+  let meta;
+  try {
+    meta = await sharp(buffer).metadata();
+  } catch (err) {
+    console.warn(`[cms-img] sharp metadata failed (${hash}): ${err.message}`);
+    return null;
+  }
+  const origW = meta.width ?? 0;
+  const origH = meta.height ?? 0;
+  if (!origW || !origH) return null;
+
+  const widths = [...new Set(
+    [...TARGET_WIDTHS.filter((w) => w < origW), origW]
+  )].sort((a, b) => a - b);
+
+  const variants = [];
+  for (const w of widths) {
+    const fname = `${hash}-${w}.webp`;
+    const outPath = path.join(OUT_DIR, fname);
+    try {
+      await sharp(buffer)
+        .resize({ width: w, withoutEnlargement: true })
+        .webp({ quality: 82 })
+        .toFile(outPath);
+    } catch (err) {
+      console.warn(`[cms-img] sharp resize failed (${hash}): ${err.message}`);
+      continue;
+    }
+    variants.push({ w, src: `/_cms-img/${fname}` });
+  }
+  if (!variants.length) return null;
+
+  return {
+    key: manifestKey,
+    entry: {
+      width: origW,
+      height: origH,
+      variants,
+      largest: variants[variants.length - 1].src,
+    },
+  };
+}
+
 async function main() {
   const data = JSON.parse(await fs.readFile(DATA_PATH, 'utf8'));
   const urls = new Set();
   collectUrls(data, urls);
-  console.log(`[cms-img] found ${urls.size} unique image URL(s)`);
+
+  const base64Refs = [];
+  collectBase64Refs(data, base64Refs);
+
+  console.log(
+    `[cms-img] found ${urls.size} unique URL(s), `
+    + `${base64Refs.length} inline base64 image(s)`,
+  );
 
   await fs.mkdir(OUT_DIR, { recursive: true });
   await fs.mkdir(CACHE_DIR, { recursive: true });
 
   const manifest = {};
   let downloaded = 0, cached = 0, skipped = 0;
+  let base64Processed = 0, base64Skipped = 0;
   const t0 = Date.now();
 
+  // --- 1. Strapi-hosted images by URL --------------------------------------
   for (const url of [...urls].sort()) {
     const hash = hashKey(url);
     const cachePath = path.join(CACHE_DIR, hash);
@@ -104,54 +179,41 @@ async function main() {
     if (!buffer) { skipped++; continue; }
     if (hadCache) cached++; else downloaded++;
 
-    let meta;
-    try {
-      meta = await sharp(buffer).metadata();
-    } catch (err) {
-      console.warn(`[cms-img] sharp failed on ${url}: ${err.message}`);
-      skipped++;
-      continue;
+    const res = await processBuffer(buffer, hash, url);
+    if (!res) { skipped++; continue; }
+    manifest[res.key] = res.entry;
+  }
+
+  // --- 2. Inline base64 images (researchhub apps/articles) ----------------
+  // Hash the base64 payload so identical images dedupe; rewrite the parent
+  // object's field to a small `cms-base64:<hash>` key so _data.json doesn't
+  // ship the full 500 KB string into every page render.
+  for (const ref of base64Refs) {
+    const commaIdx = ref.dataUri.indexOf(',');
+    if (commaIdx < 0) { base64Skipped++; continue; }
+    const b64 = ref.dataUri.slice(commaIdx + 1);
+    const hash = crypto.createHash('sha1').update(b64).digest('hex').slice(0, 10);
+    const manifestKey = `cms-base64:${hash}`;
+
+    if (!manifest[manifestKey]) {
+      const buffer = Buffer.from(b64, 'base64');
+      const res = await processBuffer(buffer, hash, manifestKey);
+      if (!res) { base64Skipped++; ref.parent[ref.field] = null; continue; }
+      manifest[res.key] = res.entry;
+      base64Processed++;
     }
-    const origW = meta.width ?? 0;
-    const origH = meta.height ?? 0;
-    if (!origW || !origH) { skipped++; continue; }
+    // Rewrite the field so consumers look up via the same helper.
+    ref.parent[ref.field] = manifestKey;
+  }
 
-    // Choose widths: filter targets that are < original, then add original
-    // so we always have an at-least-original WebP. Dedupe + sort.
-    const widths = [...new Set(
-      [...TARGET_WIDTHS.filter((w) => w < origW), origW]
-    )].sort((a, b) => a - b);
-
-    const variants = [];
-    for (const w of widths) {
-      const fname = `${hash}-${w}.webp`;
-      const outPath = path.join(OUT_DIR, fname);
-      try {
-        await sharp(buffer)
-          .resize({ width: w, withoutEnlargement: true })
-          .webp({ quality: 82 })
-          .toFile(outPath);
-      } catch (err) {
-        console.warn(`[cms-img] sharp resize failed: ${err.message}`);
-        continue;
-      }
-      variants.push({ w, src: `/_cms-img/${fname}` });
-    }
-    if (!variants.length) { skipped++; continue; }
-
-    manifest[url] = {
-      width: origW,
-      height: origH,
-      variants,
-      // The largest variant is the safest default `src` for old browsers
-      // / no-JS contexts.
-      largest: variants[variants.length - 1].src,
-    };
+  // Persist the rewritten data so subsequent build steps don't see the base64.
+  if (base64Refs.length) {
+    await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2));
   }
 
   await fs.mkdir(path.dirname(MANIFEST), { recursive: true });
   await fs.writeFile(MANIFEST, JSON.stringify(manifest, null, 2));
-  const totalKB = Object.values(manifest)
+  const totalKB = await Object.values(manifest)
     .flatMap((m) => m.variants)
     .map((v) => v.src)
     .reduce(async (accP, s) => {
@@ -162,7 +224,8 @@ async function main() {
   console.log(
     `[cms-img] wrote ${Object.keys(manifest).length} entries, `
     + `${downloaded} downloaded / ${cached} cached / ${skipped} skipped, `
-    + `total ${((await totalKB) / 1024).toFixed(0)} KiB on disk, `
+    + `${base64Processed} inline / ${base64Skipped} inline-skipped, `
+    + `total ${(totalKB / 1024).toFixed(0)} KiB on disk, `
     + `${Date.now() - t0}ms`,
   );
 }

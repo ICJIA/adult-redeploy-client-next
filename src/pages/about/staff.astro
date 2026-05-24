@@ -3,12 +3,18 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import Markdown from '../../components/Markdown.astro';
+import { getCmsImageByPath } from '../../lib/cms-image';
 
 type Bio = CollectionEntry<'biographies'>['data'];
 
+// CMS titles arrive wrapped in <span class="heavy">…</span> from the legacy
+// Nuxt CSS that defined a .heavy weight; we don't carry that class forward,
+// so just unwrap to plain text and apply our own typography.
+const stripTags = (s: string | null | undefined) =>
+  (s ?? '').replace(/<[^>]+>/g, '').trim();
+
 const page = await getEntry('pages', 'about/staff');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const STRAPI_BASE = 'https://ari.icjia-api.cloud';
 const entries = await getCollection('biographies');
 const staff: Bio[] = entries
   .map((e) => e.data)
@@ -27,26 +33,43 @@ const staff: Bio[] = entries
     ]} />
     <h1 class="text-page-title mt-4">Staff</h1>
     {page && <Markdown content={page.data.content} class="mt-4" />}
-    <ul class="mt-8 grid gap-6 md:grid-cols-2">
+    <ul class="mt-8 space-y-8">
       {staff.map((b: Bio) => {
         const name = [b.prefix, b.firstName, b.middleName, b.lastName, b.suffix]
-                       .filter(Boolean).join(' ');
+                       .filter(Boolean).map((s) => s!.trim()).join(' ');
+        const title = stripTags(b.title);
+        const membership = stripTags(b.membership);
+        const headshot = b.headshot ? getCmsImageByPath(b.headshot.url) : null;
         return (
-          <li>
-            <a href={`${base}/about/biographies/${b.slug}`}
-               class="flex gap-4 p-4 border border-brand-muted/40 rounded
-                      hover:shadow-elev1
-                      focus-visible:outline focus-visible:outline-2
-                      focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-              {b.headshot && (
-                <img src={`${STRAPI_BASE}${b.headshot.url}`}
-                     alt="" class="w-20 h-20 rounded object-cover" />
+          <li class="border border-brand-muted/40 rounded p-4 md:p-6 bg-surface">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+              {headshot && (
+                <div class="md:w-40 md:shrink-0">
+                  <img src={headshot.src}
+                       srcset={headshot.srcset}
+                       sizes="(min-width: 768px) 160px, 50vw"
+                       width={headshot.width}
+                       height={headshot.height}
+                       alt=""
+                       loading="lazy"
+                       decoding="async"
+                       class="w-32 md:w-40 h-auto rounded shadow-elev1" />
+                </div>
               )}
-              <div>
-                <div class="font-bold text-brand-primary">{name}</div>
-                {b.title && <div class="text-sm italic">{b.title}</div>}
+              <div class="flex-1 min-w-0">
+                <h2 class="font-heading font-bold text-xl">
+                  <a href={`${base}/about/biographies/${b.slug}`}
+                     class="text-brand-primary hover:underline
+                            focus-visible:outline focus-visible:outline-2
+                            focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+                    {name}
+                  </a>
+                </h2>
+                {title && <p class="text-sm font-bold italic mt-1">{title}</p>}
+                {membership && <p class="text-sm mt-1">{membership}</p>}
+                {b.content && <Markdown content={b.content} class="mt-3 text-sm" />}
               </div>
-            </a>
+            </div>
           </li>
         );
       })}

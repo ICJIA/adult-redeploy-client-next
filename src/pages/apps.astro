@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Card from '../components/ui/Card.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import { getCmsImage } from '../lib/cms-image';
 
 type App = CollectionEntry<'applications'>['data'];
 
@@ -26,19 +27,28 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
       <p class="mt-8 italic">No apps available.</p>
     ) : (
       <div class="grid gap-4 md:grid-cols-3 mt-8">
-        {apps.map((app: App) => (
-          <Card variant="elevated" href={app.url}>
-            {app.image && (
-              <img src={app.image}
-                   alt=""
-                   class="w-full h-40 object-cover rounded mb-3" />
-            )}
-            <h2 class="font-bold text-lg">{app.title}</h2>
-            {app.description && (
-              <p class="text-sm mt-2">{app.description}</p>
-            )}
-          </Card>
-        ))}
+        {apps.map((app: App) => {
+          const image = getCmsImage(app.image);
+          return (
+            <Card variant="elevated" href={app.url}>
+              {image && (
+                <img src={image.src}
+                     srcset={image.srcset}
+                     sizes="(min-width: 768px) 33vw, 100vw"
+                     width={image.width}
+                     height={image.height}
+                     alt=""
+                     loading="lazy"
+                     decoding="async"
+                     class="w-full h-40 object-cover rounded mb-3" />
+              )}
+              <h2 class="font-bold text-lg">{app.title}</h2>
+              {app.description && (
+                <p class="text-sm mt-2">{app.description}</p>
+              )}
+            </Card>
+          );
+        })}
       </div>
     )}
   </div>
