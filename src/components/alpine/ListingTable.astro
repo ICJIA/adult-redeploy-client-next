@@ -23,7 +23,11 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
     <thead class="border-b border-brand-muted/40">
       <tr>
         {columns.map((c) => (
-          <th scope="col" class="text-left p-2 font-bold text-sm"
+          <th scope="col"
+              class:list={[
+                'text-left p-2 font-bold text-sm',
+                c.format === 'date' && 'whitespace-nowrap',
+              ]}
               x-bind:aria-sort={`sortKey === '${c.key}'
                                  ? (sortDir === 'asc' ? 'ascending' : 'descending')
                                  : 'none'`}>
@@ -46,7 +50,10 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
         <tr class="border-b border-brand-muted/20 hover:bg-surface-subtle cursor-pointer"
             x-on:click="rowClick($event, row.href)">
           {columns.map((c, i) => (
-            <td class="p-2 text-sm">
+            <td class:list={[
+                  'p-2 text-sm',
+                  c.format === 'date' && 'whitespace-nowrap',
+                ]}>
               {i === 0 ? (
                 <a x-bind:href="row.href"
                    x-text={`fmt(row['${c.key}'], '${c.format ?? 'text'}')`}

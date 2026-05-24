@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3] - 2026-05-24
+
+### Date column no longer wraps in listing tables
+
+- `src/components/alpine/ListingTable.astro` — Added `whitespace-nowrap` to `<th>` and `<td>` cells whose column has `format: 'date'`. On `/resources`, `/news`, `/about/meetings`, and `/about/meetings/<category>`, dates like "November 17, 2025" were wrapping into two narrow lines on desktop because the browser was sizing the date column against the bare digits "30" instead of the full formatted date. The date column now holds the full date on one line and the title / category columns absorb the freed space.
+- `package.json` — Bumped to `2.0.3`.
+
 ## [2.0.2] - 2026-05-24
 
 ### FAQ rendering + footer logo polish
