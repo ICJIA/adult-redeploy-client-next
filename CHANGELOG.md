@@ -15,7 +15,23 @@ Lighthouse mobile was Perf 77, LCP 4.7s — most of the spend was the hero JPG (
 - `netlify.toml` — Removed `https://image.icjia.cloud` from CSP `connect-src`. Nothing in the rendered HTML or JS references Thumbor; the entry was a holdover from the rewrite spec.
 - `package.json` — Bumped to `2.1.0` (minor bump because the asset pipeline changed shape).
 
-Audit results vs 2.0.5 are appended after deploy.
+**Audit deltas (2.0.5 → 2.1.0):**
+
+| Page | Viewport | Perf | LCP | A11y | BP | SEO |
+|---|---|---|---|---|---|---|
+| `/` | mobile  | 77 → **85**  (+8) | 4.7s → **3.4s** (−28%) | 100 | 100 | 100 |
+| `/` | desktop | 66 → **73**  (+7) | 7.5s → **4.8s** (−36%) | 100 | 100 | 100 |
+| `/about/overview`    | mobile | new → **90** | new → 2.9s | 100 | 100 | 100 |
+| `/about/biographies/mary-ann-dyar` | mobile | new → **89** | new → 3.1s | 100 | 96 | 92 |
+
+axe-core (WCAG AA): still 0 violations on `/`.
+
+**Remaining perf signal (residual after this pass):**
+- `unsized-images` on every CMS-embedded `<img>`. The dimensions aren't in the Strapi response, so the rendered HTML can't emit `width`/`height` without a build-time probe. Worth a follow-up: HEAD-fetch each referenced image at fetch time, parse the binary header for intrinsic dimensions, cache to JSON, inject into the post-process pass.
+- `image-delivery-insight` (~14–92 KiB savings per page). Strapi serves originals (PNG / large JPG) for CMS-embedded images. Build-time download + WebP conversion + CDN-host would eliminate this but adds complexity to the fetch step.
+- `cache-insight` (~52–102 KiB). Strapi sets short cache headers on the uploads. Could be addressed with a Netlify proxy rewrite that adds aggressive cache headers, or by mirroring CMS images into the build output.
+
+Biography pages also missed the page-level `<meta name="description">` (SEO 92) — that's a separate, easy follow-up.
 
 ## [2.0.5] - 2026-05-24
 
