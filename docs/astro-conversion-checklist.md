@@ -1,5 +1,11 @@
 # Astro conversion checklist — patterns to repeat
 
+> **This is v1 (Astro 5 + yarn, mid-2025). A newer [v2 checklist](https://github.com/ICJIA/icjia-i2i-v2-2024/blob/main/docs/astro-conversion-checklist.md)
+> supersedes it** with updates for Astro 6, pnpm, hash-locked CSP,
+> COOP/CORP, context-scoped headers, audit scripts, and a Sharp-
+> postinstall gotcha. **Use v2 for new projects.** v1 is still valid
+> for existing Astro 5 + yarn projects that aren't upgrading.
+
 Practical patterns that earned their keep on this Vue 2 / Nuxt → Astro 5 +
 Tailwind 4 + Alpine.js rewrite. Copy what fits; nothing here is sacred.
 
