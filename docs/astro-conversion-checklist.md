@@ -418,22 +418,105 @@ truncates safely. Pages without descriptions get the site-wide default.
 
 ## 9. Analytics — Plausible (self-hosted) snippet
 
-```html
+**Use this exact snippet across every ICJIA site.** Only the
+`data-domain` value changes per site.
+
+```astro
 <!-- BaseLayout.astro head -->
 <script is:inline defer
-        data-domain="yourdomain.com/section"
-        src="https://plausible.example.com/js/script.file-downloads.outbound-links.js">
+        data-domain={plausibleDomain}
+        src="https://plausible.icjia.cloud/js/script.file-downloads.outbound-links.js">
 </script>
 ```
 
-- `is:inline` keeps Astro from rewriting the script tag.
-- `defer` is the right attribute — Plausible has no critical-path work.
-- Use the `script.file-downloads.outbound-links.js` variant if you want
-  PDF / outbound-link tracking out of the box.
-- Add the analytics origin to both CSP `script-src` and `connect-src`.
-- For mounted sites, `data-domain` is the **path-segment site** (e.g.
-  `icjia.illinois.gov/adultredeploy`) so Plausible tracks it as a
-  separate dashboard.
+```ts
+// Top of BaseLayout.astro frontmatter
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN
+  ?? 'icjia.illinois.gov/<your-mount>';   // e.g. 'icjia.illinois.gov/adultredeploy'
+```
+
+### Why this script variant
+
+The path `.file-downloads.outbound-links.js` bundles two Plausible
+extensions into a single 2.5 KB request:
+
+| Event name (in Plausible) | Triggered by |
+|---|---|
+| `Outbound Link: Click` | any `<a>` click where the hostname differs from the page hostname |
+| `File Download`         | any `<a>` whose href ends in a downloadable extension (`.pdf`, `.zip`, `.docx`, `.xlsx`, `.csv`, `.dmg`, etc.) |
+
+Both fire automatically — no per-link instrumentation required. The
+extension URLs each external link as a custom-event prop, so you can
+slice "top outbound destinations" or "most-downloaded PDFs" directly
+in the Plausible dashboard.
+
+Other Plausible script variants (use **only** if a site genuinely
+doesn't need the bundled features — the size delta is trivial):
+
+- `script.js` — base only
+- `script.outbound-links.js` — outbound only
+- `script.file-downloads.js` — file downloads only
+- `script.hash.js` — for SPAs with hash routing (not relevant for Astro)
+
+### Required CSP entries
+
+```toml
+# netlify.toml
+Content-Security-Policy = """
+  script-src  'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud;
+  connect-src 'self' https://plausible.icjia.cloud;
+  ...
+"""
+```
+
+Both directives are required: `script-src` to load the JS,
+`connect-src` for the `POST /api/event` calls that fire on every
+pageview / outbound click / download.
+
+### Mounted sites — `data-domain` format
+
+For path-mounted deployments, set `data-domain` to the **full path
+identifier** (host + mount), not just the host:
+
+```
+✓ icjia.illinois.gov/adultredeploy
+✓ icjia.illinois.gov/researchhub
+✗ icjia.illinois.gov   ← rolls events up into the parent site
+```
+
+Each mount gets its own Plausible dashboard this way. The
+`PUBLIC_PLAUSIBLE_DOMAIN` env var lets you override per environment
+(staging vs. prod) without code changes.
+
+### Privacy notes (defensive)
+
+Plausible is **cookieless** — no `Set-Cookie` on the script fetch or
+the event POST. Confirmed against this instance. If a Chrome
+DevTools "Cookie" warning surfaces, it's from something else on the
+page (CMS image origin, a browser extension, etc.), not from
+Plausible.
+
+### Verification (do this after every deploy)
+
+1. Visit the deployed page, then check Plausible's "Realtime" view —
+   you should appear within seconds.
+2. Click any external `<a>` (e.g. the ICJIA Document Archive link
+   in the footer) and confirm `Outbound Link: Click` appears under
+   the site's **Goals** within ~30 seconds.
+3. Click a `.pdf` link and confirm `File Download` fires the same
+   way.
+4. In DevTools → Network, filter on `plausible` and watch for the
+   `pageview` POST plus any event POSTs as you interact.
+
+### Other tags worth knowing
+
+- `is:inline` keeps Astro from rewriting the tag during build.
+- `defer` (not `async`) — analytics is never critical-path; defer
+  lets the parser keep going, then runs the script before
+  `DOMContentLoaded`.
+- Don't preconnect to Plausible. The script is loaded `defer`, so a
+  preconnect just costs you a request slot you could give to the LCP
+  image instead.
 
 ---
 
