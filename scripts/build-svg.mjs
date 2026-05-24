@@ -1,6 +1,6 @@
 // scripts/build-svg.mjs
 // Transform the legacy Illinois SVG template into a static partial:
-// - Strip Vue template wrapper + directives
+// - Strip the outer template wrapper + any framework directives
 // - Add a11y attributes (data-county, tabindex, role, aria-label) to
 //   active county paths so the runtime can wire Alpine handlers
 
@@ -26,7 +26,7 @@ const open = raw.indexOf('<svg');
 const close = raw.lastIndexOf('</svg>') + '</svg>'.length;
 let svg = raw.slice(open, close);
 
-// Strip any Vue directive attributes (defense — should be none here)
+// Strip any leftover binding/directive attributes (:foo, @foo, v-foo)
 svg = svg.replace(/\s+(?::[\w-]+|@[\w.-]+|v-[\w-]+)="[^"]*"/g, '');
 
 // Rewrite each `id="usiljsN" ...` opening attribute set to inject data-county

@@ -43,7 +43,8 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
     </thead>
     <tbody>
       <template x-for="row in filtered" x-bind:key="row.href">
-        <tr class="border-b border-brand-muted/20 hover:bg-surface-subtle">
+        <tr class="border-b border-brand-muted/20 hover:bg-surface-subtle cursor-pointer"
+            x-on:click="rowClick($event, row.href)">
           {columns.map((c, i) => (
             <td class="p-2 text-sm">
               {i === 0 ? (
@@ -99,6 +100,14 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
           this.sortKey = k;
           this.sortDir = 'asc';
         }
+      },
+      rowClick(e, href) {
+        // Don't fire when the user actually clicked the link, a button,
+        // or selected text inside the row.
+        if (e.target.closest('a, button, input, label')) return;
+        const sel = window.getSelection && window.getSelection().toString();
+        if (sel) return;
+        window.location.href = href;
       },
       fmt(v, kind) {
         if (v == null) return '';

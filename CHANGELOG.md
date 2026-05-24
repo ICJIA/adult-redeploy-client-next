@@ -1,5 +1,33 @@
 # Changelog
 
+## [2.0.1] - 2026-05-24
+
+### Post-cutover polish
+
+Round of fixes from first prod usage of the Astro build.
+
+- `src/styles/global.css` — Added explicit `.prose` rules (paragraph spacing, list bullets, headings, links, blockquote, code, table). Tailwind 4 ships no Typography plugin so the `prose` class on `<Markdown />` output was a no-op; news / meeting / biography detail pages collapsed into wall-of-text with no visible bullets. Paragraphs now get `margin-bottom: 1em` and `line-height: 1.7`; `<ul>` / `<ol>` get disc / decimal markers and `padding-left: 1.5em`.
+- `src/components/SiteIllinois.astro` — Active counties on the `/programs` map now render with a light-teal fill at rest (`color-mix(in srgb, var(--color-brand-secondary) 35%, white)`); hover / focus darkens to full brand-secondary. Previously every county was white and users couldn't tell which were clickable until they happened to hover one.
+- `src/components/alpine/ListingTable.astro` — Whole row is clickable on every listing table (`/news`, `/about/meetings`, `/about/meetings/<category>`, `/sites`, `/apps`, `/resources/<category>`, `/about/biographies`, `/search`). Real `<a>` stays on the title cell so keyboard / screen-reader users still get a labeled link. Row click is suppressed when the click target is itself a link / button / input, or when the user has text selected (avoids hijacking copy-text drags).
+- `src/components/AppFooter.astro` — Replaced the placeholder inline ICJIA SVG with the same `public/img/icjia-logo.png` the header uses, wrapped in a white rounded pill so the colored logo reads against the dark teal footer background.
+- `README.md` — Rewritten to describe the live production state instead of the obsolete "astro-rewrite branch, WIP" language from the rewrite phase.
+- Vue / Vuetify references stripped from active source comments (`src/styles/global.css`, `src/components/HomeArticles.astro`, `scripts/build-svg.mjs`). `docs/superpowers/` plans / specs and the historical Vue-era CHANGELOG entries (0.3.7 and earlier) kept as-is — they are the record of the migration.
+- `package.json` — Bumped from `2.0.0-dev` to `2.0.1`.
+
+## [2.0.0] - 2026-05-23
+
+### Full Astro 5 + Tailwind 4 + Alpine.js rewrite
+
+Replaced the Vue 2 + Vuetify 2 build with a static Astro site at the same `/adultredeploy` base path. Same visual design and routes (290 static pages); content fetched from Strapi at build time so there are no runtime API calls. Lighthouse mobile Performance moved 54 → 96-99; A11y 100/100; axe-core 0 violations across all pages. Cutover deployed to `icjia.illinois.gov/adultredeploy`; the last Vue commit is tagged `v1-final` for rollback.
+
+- Stack: Astro 5, Tailwind 4 via `@tailwindcss/vite` with CSS-first `@theme` brand tokens (no Tailwind 3 PostCSS plugin), Alpine.js 3 + `@alpinejs/focus` for drawer / dropdown / map / pagination interactions, Pagefind for static search, `@astrojs/sitemap` for sitemap generation.
+- Content: Zod-typed Astro content collections backed by `src/content/_data.json`. `scripts/fetch-content.mjs` issues a single GraphQL query to `ari.icjia-api.cloud` plus an apps + articles query to `researchhub.icjia-api.cloud` (limit 100) at build time.
+- Illinois map: `scripts/build-svg.mjs` transforms `scripts/illinois-svg.html` into a static SVG partial with `data-county`, `tabindex`, `role`, and `aria-label` on each active county path; Alpine wires click / keyboard handlers at runtime. County metadata derived from the legacy `usiljs-config.js` via `scripts/build-counties.mjs`.
+- CSP: `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud` — Alpine evaluates `x-*` expressions via `new Function()` and requires `'unsafe-eval'`. `connect-src` extended to include `researchhub.icjia-api.cloud`.
+- Home page: hero splash image restored, three teal feature tiles, ICJIA Publications panel paginating researchhub `/articles/` (not `/apps/`) with 2 cards per page and an ellipsis paginator matching the prior Vue UI. Splash / thumbnail base64 fields stripped from the rendered cards — embedding 100 of them would have shipped ~30 MB per home-page visit.
+- Build: `npm run build` runs `fetch → build:svg → astro build → pagefind --site dist`. Build ~3.5s on the build container.
+- Hosting: Netlify site `adultredeploy` (`siteId: a1e29cf9-84eb-406a-b78d-7fa4c82646d1`), Node 22, deploys from `master`.
+
 ## [0.3.7] - 2026-04-16
 
 ### LCP image priority; drop unused babel-polyfill

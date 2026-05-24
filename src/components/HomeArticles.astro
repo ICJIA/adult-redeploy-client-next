@@ -28,9 +28,7 @@ const authorString = (authors: Article['authors']): string => {
 // Pre-render every article as a card; Alpine just controls which page is visible.
 // IMPORTANT: researchhub returns `splash` and `thumbnail` as base64 data URIs
 // that can be ~600 KB each. Embedding 100 of those inline would ship ~30 MB
-// to every home-page visit, so cards omit the image entirely (the prod Vue
-// site lazy-loaded only the visible 2 via API; SSG can't replicate that
-// without shipping all of them).
+// to every home-page visit, so cards omit the image entirely.
 const cards = articles.map((a) => ({
   slug: a.slug,
   title: a.title,
