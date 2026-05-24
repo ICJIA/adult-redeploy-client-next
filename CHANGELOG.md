@@ -16,6 +16,23 @@ The 2.1.0 pass left two big residual issues on Lighthouse: every Strapi-hosted i
 - `package.json` — Added `fetch:cms-images` script and chained it into both `dev` and `build`. Bumped to `2.2.0` (minor — new build dep on Sharp processing CMS payloads).
 - `.gitignore` — Tracks `src/lib/cms-image-manifest.json` (small, useful diffs when CMS images change), ignores `public/_cms-img/` (regenerable, ~6 MB of WebPs) and `.cache/cms-img/` (local cache).
 
+**Audit deltas (2.1.0 → 2.2.0):**
+
+| Page | Viewport | Perf | LCP | A11y | BP | SEO | image-delivery savings |
+|---|---|---|---|---|---|---|---|
+| `/` | mobile  | 85 → 84 | 3.4s → 3.4s | 100 | 100 | 100 | 92 KiB → **16 KiB** |
+| `/` | desktop | 73 → 73 | 4.8s → 5.0s | 100 | 100 | 100 | 147 KiB → **64 KiB** |
+| `/about/overview` | mobile | 90 → 89 | 2.9s → 2.9s | 100 | 100 | 100 | 14 KiB → 12 KiB |
+| `/about/biographies/<bio>` | mobile | 89 → 89 | 3.1s → **2.9s** | 100 | 96 | 92 → **100** | 25 KiB → **5 KiB** |
+
+The Perf number itself barely moves because the LCP element on home is already the optimized hero from 2.1.0, and the residual `network-dependency-tree-insight` and `render-blocking-insight` line items are driven by Google Fonts not the CMS images. What this pass actually closes is:
+
+- `unsized-images` — now zero failing instances across all pages tested.
+- `image-delivery` — savings dropped 70–82% per page; what's left is mostly the LCP image itself (which we can't shrink further without compromising the hero).
+- Biography pages went **SEO 92 → 100** — every bio now has a meaningful `<meta name="description">`.
+
+Bio pages still show **BP 96** ("image-size-responsive") because some headshots upload at 373–600px and look soft on 2× / 3× density displays. Fixing it requires higher-resolution source uploads on the CMS side; not addressable from the build.
+
 ## [2.1.0] - 2026-05-24
 
 ### Mobile-perf pass: build-time image optimization, lazy-load CMS images, drop Thumbor
