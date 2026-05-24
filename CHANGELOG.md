@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.4] - 2026-05-24
+
+### Skip-link actually visible on focus
+
+- `src/layouts/BaseLayout.astro` — Skip-link now uses Tailwind's `sr-only` instead of the custom `.visually-hidden` class. Verified via Chrome DevTools: pressing Tab on prod 2.0.3 did not surface the link. Cause: `.visually-hidden` used modern `clip-path: inset(50%)`; Tailwind's `focus:not-sr-only` only resets the deprecated `clip` property (not `clip-path`), so the link stayed clipped to zero size on focus even though `width: auto` was applied. Both Lighthouse and axe still scored the link present + targeted, which is why audits read 100/100 — neither tool verifies visible-on-focus.
+- `src/styles/global.css` — Removed the now-unused `.visually-hidden` rule. (It was only referenced from the skip-link.)
+- `package.json` — Bumped to `2.0.4`.
+
 ## [2.0.3] - 2026-05-24
 
 ### Date column no longer wraps in listing tables
