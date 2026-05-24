@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.2.0] - 2026-05-24
+
+### Build-time CMS image pipeline + biography page meta
+
+The 2.1.0 pass left two big residual issues on Lighthouse: every Strapi-hosted image was both `unsized` (no intrinsic `width`/`height`) and `image-delivery` (originals at full resolution, no WebP). This release fetches every CMS-embedded image at build time, runs them through Sharp, and rewrites the rendered HTML to use the optimized variants.
+
+- `scripts/fetch-cms-images.mjs` — New build step. Walks `src/content/_data.json` for every `ari.icjia-api.cloud/uploads/<...>.{jpg,jpeg,png,gif,webp}` URL (including nested Strapi media objects on `headshot.url`). Filters out non-image attachments (PDFs etc.). Each unique image is fetched once, cached under `.cache/cms-img/` so re-builds skip the network, then run through `sharp` to produce WebP variants at `[640, 960, 1280, original-width]` (skipping any width ≥ original). Outputs land in `public/_cms-img/<hash>-<w>.webp` (served at `/adultredeploy/_cms-img/...`). A manifest at `src/lib/cms-image-manifest.json` records intrinsic dimensions and the variants per original URL. **43 unique CMS images on the current data set → 6.2 MB of optimized WebP variants on disk.**
+- `src/lib/cms-image.ts` — Helper exposing `getCmsImage(url)` and `getCmsImageByPath(maybeUrlOrPath)`. Returns `{ src, srcset, width, height }` or `null` if the URL isn't in the manifest. Uses a JSON `import` (not `fs.readFileSync`) so Astro's Vite SSR bundling picks up the data in the same way it does for content collections.
+- `src/lib/markdown.ts` — Post-processor now does *two* things to every rendered `<img>`: rewrite Strapi URLs to the optimized WebP + add `srcset` / `sizes` / intrinsic `width` / `height`, then inject `loading="lazy"` + `decoding="async"`. Both markdown `![]()` and raw HTML `<img>` syntax flow through the same path. CMS-authored `width="150"` style attributes are stripped (they were display hints, not intrinsic) and replaced with real intrinsic values so the browser can lay out without CLS.
+- `src/pages/about/biographies/[slug].astro` — Biography pages now:
+  - Use `getCmsImageByPath(headshot.url)` so the headshot ships as WebP with `srcset` / `sizes` / intrinsic `width` / `height`.
+  - Pass an explicit `description` to `BaseLayout` built from `{fullName}, {role} — Adult Redeploy Illinois. {title} {membership}`. CMS authors sometimes wrap title in inline spans (`<span class="heavy">Program Director</span>`) — those get stripped before the description goes into the `<meta>` tag.
+  - Defensive trim on each name component so `firstName: "Mary Ann "` doesn't produce `"Mary Ann  Dyar"` (double space).
+- `package.json` — Added `fetch:cms-images` script and chained it into both `dev` and `build`. Bumped to `2.2.0` (minor — new build dep on Sharp processing CMS payloads).
+- `.gitignore` — Tracks `src/lib/cms-image-manifest.json` (small, useful diffs when CMS images change), ignores `public/_cms-img/` (regenerable, ~6 MB of WebPs) and `.cache/cms-img/` (local cache).
+
 ## [2.1.0] - 2026-05-24
 
 ### Mobile-perf pass: build-time image optimization, lazy-load CMS images, drop Thumbor

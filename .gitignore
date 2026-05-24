@@ -3,6 +3,8 @@ dist/
 .env
 .env.local
 .astro/
+.cache/
 src/content/_data.json
+public/_cms-img/
 .DS_Store
 *.log

@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleCard from '../../../components/ArticleCard.astro';
 import Markdown from '../../../components/Markdown.astro';
+import { getCmsImageByPath } from '../../../lib/cms-image';
 
 type Bio = CollectionEntry<'biographies'>['data'];
 
@@ -14,20 +15,40 @@ export async function getStaticPaths() {
   }));
 }
 const { item } = Astro.props as { item: Bio };
-const STRAPI_BASE = 'https://ari.icjia-api.cloud';
 const fullName = [item.prefix, item.firstName, item.middleName,
-                  item.lastName, item.suffix].filter(Boolean).join(' ');
+                  item.lastName, item.suffix]
+  .filter(Boolean).map((s) => s!.trim()).join(' ');
 const isStaff = item.category === 'staff';
+const role = isStaff ? 'staff' : 'Oversight Board member';
+
+// CMS titles sometimes wrap text in spans for styling (e.g.
+// "<span class=\"heavy\">Program Director</span>"). Strip tags for the
+// meta description so search engines see clean prose.
+const stripTags = (s: string) => s.replace(/<[^>]+>/g, '').trim();
+const descriptionParts = [
+  `${fullName}, ${role} — Adult Redeploy Illinois.`,
+  item.title ? stripTags(item.title) : null,
+  item.membership ? stripTags(item.membership) : null,
+].filter(Boolean);
+const description = descriptionParts.join(' ');
+
+const headshot = item.headshot ? getCmsImageByPath(item.headshot.url) : null;
 ---
-<BaseLayout title={fullName}>
+<BaseLayout title={fullName} description={description}>
   <ArticleCard title={fullName}
                badge={isStaff ? 'Staff' : 'Oversight Board'}
                pagefindMeta={{ type: 'biography' }}>
     <div class="grid gap-6 md:grid-cols-3">
-      {item.headshot && (
+      {item.headshot && headshot && (
         <div class="md:col-span-1">
-          <img src={`${STRAPI_BASE}${item.headshot.url}`}
+          <img src={headshot.src}
+               srcset={headshot.srcset}
+               sizes="(min-width: 768px) 33vw, 100vw"
+               width={headshot.width}
+               height={headshot.height}
                alt=""
+               loading="lazy"
+               decoding="async"
                class="w-full rounded shadow-elev1" />
         </div>
       )}

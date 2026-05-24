@@ -1,6 +1,7 @@
 // src/lib/markdown.ts
 import MarkdownIt from 'markdown-it';
 import xss from 'xss';
+import { getCmsImage } from './cms-image';
 
 const md = new MarkdownIt({
   html: true,
@@ -18,11 +19,36 @@ const md = new MarkdownIt({
 // Captures everything between `<img` and the closing `>`, then drops the
 // optional self-closing slash so we don't end up with `<img ... / loading=...>`.
 const IMG_RX = /<img\b((?:[^>"]|"[^"]*")*?)\s*\/?\s*>/gi;
-function addLazyToImages(html: string): string {
+const SRC_RX = /\bsrc\s*=\s*("|')([^"']+)\1/i;
+const WIDTH_RX = /\swidth\s*=\s*("|')[^"']*\1/i;
+const HEIGHT_RX = /\sheight\s*=\s*("|')[^"']*\1/i;
+const SRCSET_RX = /\ssrcset\s*=\s*("|')[^"']*\1/i;
+const SIZES_RX = /\ssizes\s*=\s*("|')[^"']*\1/i;
+
+function optimizeImage(attrs: string): string {
+  const srcMatch = attrs.match(SRC_RX);
+  if (!srcMatch) return attrs;
+  const original = srcMatch[2];
+  const cms = getCmsImage(original);
+  if (!cms) return attrs;
+  // Replace src, drop any old width/height/srcset/sizes, then re-add the
+  // intrinsic ones from the manifest. Preserves all other attrs (alt, class,
+  // title, data-*).
+  return attrs
+    .replace(SRC_RX, `src="${cms.src}"`)
+    .replace(WIDTH_RX, '')
+    .replace(HEIGHT_RX, '')
+    .replace(SRCSET_RX, '')
+    .replace(SIZES_RX, '')
+    + ` srcset="${cms.srcset}" sizes="(max-width: 768px) 100vw, 768px"`
+    + ` width="${cms.width}" height="${cms.height}"`;
+}
+
+function rewriteImages(html: string): string {
   return html.replace(IMG_RX, (_match, attrs) => {
-    let out = attrs;
-    if (!/\bloading\s*=/i.test(attrs)) out += ' loading="lazy"';
-    if (!/\bdecoding\s*=/i.test(attrs)) out += ' decoding="async"';
+    let out = optimizeImage(attrs);
+    if (!/\bloading\s*=/i.test(out)) out += ' loading="lazy"';
+    if (!/\bdecoding\s*=/i.test(out)) out += ' decoding="async"';
     return `<img${out}>`;
   });
 }
@@ -45,5 +71,5 @@ export function renderMarkdown(src: string | null | undefined): string {
       img: imgAllow,
     },
   });
-  return addLazyToImages(safe);
+  return rewriteImages(safe);
 }

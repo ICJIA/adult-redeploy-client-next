@@ -1,0 +1,611 @@
+{
+  "https://ari.icjia-api.cloud/uploads/2025Summit-Groupv2-20250903T15594314.jpg": {
+    "width": 750,
+    "height": 152,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/706f983400-640.webp"
+      },
+      {
+        "w": 750,
+        "src": "/_cms-img/706f983400-750.webp"
+      }
+    ],
+    "largest": "/_cms-img/706f983400-750.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/2025Summit-Olsonv2-20250903T16020673.jpg": {
+    "width": 600,
+    "height": 370,
+    "variants": [
+      {
+        "w": 600,
+        "src": "/_cms-img/58d6903803-600.webp"
+      }
+    ],
+    "largest": "/_cms-img/58d6903803-600.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/2025Summit-VVv2-20250903T16012483.jpg": {
+    "width": 600,
+    "height": 310,
+    "variants": [
+      {
+        "w": 600,
+        "src": "/_cms-img/cf72ea3693-600.webp"
+      }
+    ],
+    "largest": "/_cms-img/cf72ea3693-600.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARIEquityForumResize1-20221006T15143193.jpg": {
+    "width": 590,
+    "height": 444,
+    "variants": [
+      {
+        "w": 590,
+        "src": "/_cms-img/e316718008-590.webp"
+      }
+    ],
+    "largest": "/_cms-img/e316718008-590.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARIEquityForumResize2-20221006T15143719.jpg": {
+    "width": 590,
+    "height": 444,
+    "variants": [
+      {
+        "w": 590,
+        "src": "/_cms-img/7f7b5d69b4-590.webp"
+      }
+    ],
+    "largest": "/_cms-img/7f7b5d69b4-590.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARIEquityForumflyerlogoresized2-20221007T14262919.png": {
+    "width": 450,
+    "height": 150,
+    "variants": [
+      {
+        "w": 450,
+        "src": "/_cms-img/538d03a9d1-450.webp"
+      }
+    ],
+    "largest": "/_cms-img/538d03a9d1-450.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARISPMissionVisionValues-20230109T15161744.png": {
+    "width": 736,
+    "height": 1010,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/206c3b1e9d-640.webp"
+      },
+      {
+        "w": 736,
+        "src": "/_cms-img/206c3b1e9d-736.webp"
+      }
+    ],
+    "largest": "/_cms-img/206c3b1e9d-736.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARISummitGroup1-20230803T14590460.jpg": {
+    "width": 850,
+    "height": 184,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/d3953f9486-640.webp"
+      },
+      {
+        "w": 850,
+        "src": "/_cms-img/d3953f9486-850.webp"
+      }
+    ],
+    "largest": "/_cms-img/d3953f9486-850.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARIVitalVoicesForumPromo-20210318T21571829.png": {
+    "width": 1600,
+    "height": 900,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/8ff0b2b5cc-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/8ff0b2b5cc-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/8ff0b2b5cc-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/_cms-img/8ff0b2b5cc-1600.webp"
+      }
+    ],
+    "largest": "/_cms-img/8ff0b2b5cc-1600.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ARIpubs5-20221230T20060649.png": {
+    "width": 549,
+    "height": 214,
+    "variants": [
+      {
+        "w": 549,
+        "src": "/_cms-img/57bcff65f1-549.webp"
+      }
+    ],
+    "largest": "/_cms-img/57bcff65f1-549.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/BradleyBullock-TASC-20251209T16044852.jpg": {
+    "width": 150,
+    "height": 210,
+    "variants": [
+      {
+        "w": 150,
+        "src": "/_cms-img/1379bec8ea-150.webp"
+      }
+    ],
+    "largest": "/_cms-img/1379bec8ea-150.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/CEvans-photo-20210319T15014136.jpeg": {
+    "width": 720,
+    "height": 957,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/d8644b221b-640.webp"
+      },
+      {
+        "w": 720,
+        "src": "/_cms-img/d8644b221b-720.webp"
+      }
+    ],
+    "largest": "/_cms-img/d8644b221b-720.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/Caitlyn-6732-20211014T19312162.jpg": {
+    "width": 3908,
+    "height": 4726,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/b6a7f84d68-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/b6a7f84d68-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/b6a7f84d68-1280.webp"
+      },
+      {
+        "w": 3908,
+        "src": "/_cms-img/b6a7f84d68-3908.webp"
+      }
+    ],
+    "largest": "/_cms-img/b6a7f84d68-3908.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ChristiYMCAStriveGraduationv3-20240209T16554701.jpg": {
+    "width": 600,
+    "height": 450,
+    "variants": [
+      {
+        "w": 600,
+        "src": "/_cms-img/f22411b769-600.webp"
+      }
+    ],
+    "largest": "/_cms-img/f22411b769-600.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ChristiYMCAStrivev3-20240209T16551952.jpg": {
+    "width": 450,
+    "height": 600,
+    "variants": [
+      {
+        "w": 450,
+        "src": "/_cms-img/702008cfca-450.webp"
+      }
+    ],
+    "largest": "/_cms-img/702008cfca-450.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/DAdamsBioPic-20220429T20244376.jpg": {
+    "width": 1862,
+    "height": 1242,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/ff7da027dc-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/ff7da027dc-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/ff7da027dc-1280.webp"
+      },
+      {
+        "w": 1862,
+        "src": "/_cms-img/ff7da027dc-1862.webp"
+      }
+    ],
+    "largest": "/_cms-img/ff7da027dc-1862.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/EmilyCole-20200108T15585581.jpg": {
+    "width": 960,
+    "height": 1280,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/1d35f2b76f-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/1d35f2b76f-960.webp"
+      }
+    ],
+    "largest": "/_cms-img/1d35f2b76f-960.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/JamesRadcliffe-20200108T16013645.jpg": {
+    "width": 131,
+    "height": 140,
+    "variants": [
+      {
+        "w": 131,
+        "src": "/_cms-img/71a344dd8f-131.webp"
+      }
+    ],
+    "largest": "/_cms-img/71a344dd8f-131.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/JonasHarger-AG-20251209T18502197.png": {
+    "width": 744,
+    "height": 764,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/582d68e1e2-640.webp"
+      },
+      {
+        "w": 744,
+        "src": "/_cms-img/582d68e1e2-744.webp"
+      }
+    ],
+    "largest": "/_cms-img/582d68e1e2-744.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/JoshuaBrooks-IDHS-20251208T23323358.jpg": {
+    "width": 200,
+    "height": 267,
+    "variants": [
+      {
+        "w": 200,
+        "src": "/_cms-img/c4986f7949-200.webp"
+      }
+    ],
+    "largest": "/_cms-img/c4986f7949-200.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/KStarkovich-20200115T17565865.png": {
+    "width": 957,
+    "height": 1597,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/9fbc72bc00-640.webp"
+      },
+      {
+        "w": 957,
+        "src": "/_cms-img/9fbc72bc00-957.webp"
+      }
+    ],
+    "largest": "/_cms-img/9fbc72bc00-957.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/KentHolsopple-photo-20240118T20231288.jpg": {
+    "width": 200,
+    "height": 200,
+    "variants": [
+      {
+        "w": 200,
+        "src": "/_cms-img/17e79259d6-200.webp"
+      }
+    ],
+    "largest": "/_cms-img/17e79259d6-200.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/LatoyaHughes-photo-20240213T21533446.jpg": {
+    "width": 3894,
+    "height": 5000,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/8e72342b86-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/8e72342b86-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/8e72342b86-1280.webp"
+      },
+      {
+        "w": 3894,
+        "src": "/_cms-img/8e72342b86-3894.webp"
+      }
+    ],
+    "largest": "/_cms-img/8e72342b86-3894.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/MADyar-20250701T18200703.jpg": {
+    "width": 373,
+    "height": 448,
+    "variants": [
+      {
+        "w": 373,
+        "src": "/_cms-img/1ef57aeda9-373.webp"
+      }
+    ],
+    "largest": "/_cms-img/1ef57aeda9-373.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/MeganVolker-CookPD-20251209T18462485.jpg": {
+    "width": 640,
+    "height": 960,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/7fd104144a-640.webp"
+      }
+    ],
+    "largest": "/_cms-img/7fd104144a-640.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/NancyMichaels-RJI-20251209T15580270.jpg": {
+    "width": 271,
+    "height": 323,
+    "variants": [
+      {
+        "w": 271,
+        "src": "/_cms-img/eb223f87e9-271.webp"
+      }
+    ],
+    "largest": "/_cms-img/eb223f87e9-271.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ParleRoeTaylor-CCPD-20220607T17523099.jpg": {
+    "width": 2292,
+    "height": 2412,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/5cff564ba7-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/5cff564ba7-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/5cff564ba7-1280.webp"
+      },
+      {
+        "w": 2292,
+        "src": "/_cms-img/5cff564ba7-2292.webp"
+      }
+    ],
+    "largest": "/_cms-img/5cff564ba7-2292.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/QuintinWilliams-JoyceFdn-20251209T15533130.png": {
+    "width": 246,
+    "height": 326,
+    "variants": [
+      {
+        "w": 246,
+        "src": "/_cms-img/41e6032488-246.webp"
+      }
+    ],
+    "largest": "/_cms-img/41e6032488-246.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/ScottMain-OSAD-20251209T15464184.jpg": {
+    "width": 113,
+    "height": 150,
+    "variants": [
+      {
+        "w": 113,
+        "src": "/_cms-img/94f8b90441-113.webp"
+      }
+    ],
+    "largest": "/_cms-img/94f8b90441-113.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/StaceyWoods-20191211T19550482.png": {
+    "width": 321,
+    "height": 450,
+    "variants": [
+      {
+        "w": 321,
+        "src": "/_cms-img/060d052434-321.webp"
+      }
+    ],
+    "largest": "/_cms-img/060d052434-321.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/TSumnerHeadshot001-20210416T20131223.jpg": {
+    "width": 1541,
+    "height": 2117,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/fd74e86e7d-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/fd74e86e7d-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/fd74e86e7d-1280.webp"
+      },
+      {
+        "w": 1541,
+        "src": "/_cms-img/fd74e86e7d-1541.webp"
+      }
+    ],
+    "largest": "/_cms-img/fd74e86e7d-1541.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/TTADArticleOpt3Resize-20231017T21131646.png": {
+    "width": 400,
+    "height": 560,
+    "variants": [
+      {
+        "w": 400,
+        "src": "/_cms-img/8d389ec9a2-400.webp"
+      }
+    ],
+    "largest": "/_cms-img/8d389ec9a2-400.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/VictoriaGonzalez-photo-20240129T17292126.jpeg": {
+    "width": 900,
+    "height": 871,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/85167015c0-640.webp"
+      },
+      {
+        "w": 900,
+        "src": "/_cms-img/85167015c0-900.webp"
+      }
+    ],
+    "largest": "/_cms-img/85167015c0-900.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/VitalVoicesOvationCollage2-20230803T14591139.png": {
+    "width": 850,
+    "height": 378,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/b35bbc40e6-640.webp"
+      },
+      {
+        "w": 850,
+        "src": "/_cms-img/b35bbc40e6-850.webp"
+      }
+    ],
+    "largest": "/_cms-img/b35bbc40e6-850.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/image-20200624T19410087.png": {
+    "width": 1500,
+    "height": 704,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/1641051908-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/1641051908-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/1641051908-1280.webp"
+      },
+      {
+        "w": 1500,
+        "src": "/_cms-img/1641051908-1500.webp"
+      }
+    ],
+    "largest": "/_cms-img/1641051908-1500.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/image-20200819T19420667.png": {
+    "width": 1280,
+    "height": 800,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/e02123e42d-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/e02123e42d-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/_cms-img/e02123e42d-1280.webp"
+      }
+    ],
+    "largest": "/_cms-img/e02123e42d-1280.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/image-20231206T15170523.png": {
+    "width": 850,
+    "height": 378,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/0d629ce1a5-640.webp"
+      },
+      {
+        "w": 850,
+        "src": "/_cms-img/0d629ce1a5-850.webp"
+      }
+    ],
+    "largest": "/_cms-img/0d629ce1a5-850.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/image-20231206T15173639.png": {
+    "width": 850,
+    "height": 184,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/1cc3842c7f-640.webp"
+      },
+      {
+        "w": 850,
+        "src": "/_cms-img/1cc3842c7f-850.webp"
+      }
+    ],
+    "largest": "/_cms-img/1cc3842c7f-850.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/image-20231206T15412171.png": {
+    "width": 590,
+    "height": 444,
+    "variants": [
+      {
+        "w": 590,
+        "src": "/_cms-img/2693b3c48c-590.webp"
+      }
+    ],
+    "largest": "/_cms-img/2693b3c48c-590.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/image-20231206T15420175.png": {
+    "width": 590,
+    "height": 444,
+    "variants": [
+      {
+        "w": 590,
+        "src": "/_cms-img/123f6b569c-590.webp"
+      }
+    ],
+    "largest": "/_cms-img/123f6b569c-590.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/michael-torchia-20220428T20480098.png": {
+    "width": 134,
+    "height": 114,
+    "variants": [
+      {
+        "w": 134,
+        "src": "/_cms-img/4122be4570-134.webp"
+      }
+    ],
+    "largest": "/_cms-img/4122be4570-134.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/state-seal-default-20190917T17255296.png": {
+    "width": 250,
+    "height": 250,
+    "variants": [
+      {
+        "w": 250,
+        "src": "/_cms-img/886d7af709-250.webp"
+      }
+    ],
+    "largest": "/_cms-img/886d7af709-250.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/willcograduation01-min-20241021T14322151.jpg": {
+    "width": 500,
+    "height": 375,
+    "variants": [
+      {
+        "w": 500,
+        "src": "/_cms-img/7403bde2a3-500.webp"
+      }
+    ],
+    "largest": "/_cms-img/7403bde2a3-500.webp"
+  }
+}
