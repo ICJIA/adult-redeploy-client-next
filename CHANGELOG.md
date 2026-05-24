@@ -71,6 +71,28 @@ share with other repos (direct URL is the easiest entry point).
 - `package.json` — bumped to `2.3.0`, added `@fontsource/roboto`,
   `@fontsource/lato`, `astro-seo`, `build:og` script.
 
+**Audit deltas (2.2.2 → 2.3.0).** Self-hosting fonts was the single
+biggest perf lever as predicted.
+
+| Page | Viewport | Perf | LCP | FCP | A11y | BP | SEO |
+|---|---|---|---|---|---|---|---|
+| `/` | mobile  | 86 → **94** (+8)  | 3.3s → **2.7s** | 3.3s → **2.1s** | 100 | 100 | 100 |
+| `/` | desktop | 73 → **100** ✨ (+27) | 5.0s → fast | 1.4s → fast | 100 | 100 | 100 |
+| `/apps` | mobile | 89 → **97** (+8) | — | — | 100 | 100 | 100 |
+| `/programs` | mobile | 87 → **97** (+10) | — | 1.7s | 100 | 100 | 100 |
+| `/about/staff` | mobile | 89 → **97** (+8) | — | — | 100 | 100 | 100 |
+| `/resources/annual-report` | mobile | 89 → **98** (+9) | — | 1.6s | 100 | 100 | **92 → 100** |
+| `/404` | mobile | 88 → **98** (+10) | — | — | 100 | 100 | **92 → 100** |
+
+`/` desktop hits **Lighthouse 100/100/100/100**. Mobile clusters at
+94–98 across templates. All SEO scores are 100 (meta-description
+backfills closed the four pages that were 92).
+
+What's left is mostly the `image-delivery-insight` residual on a few
+CMS-uploaded images that exceed the WebP variants we generate. Could
+chase by re-uploading larger source images or by tightening the
+quality-vs-size tradeoff in Sharp; not worth blocking on.
+
 ## [2.2.2] - 2026-05-24
 
 ### /apps mobile perf: process inline base64 images through the same build-time WebP pipeline
