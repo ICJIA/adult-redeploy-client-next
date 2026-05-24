@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="630"
+     viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="corner" cx="100%" cy="100%" r="90%">
+      <stop offset="0%"   stop-color="#b158c2"    stop-opacity="0.85" />
+      <stop offset="45%"  stop-color="#05797a" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#043e3f"   stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#02282a" />
+      <stop offset="100%" stop-color="#043e3f" />
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#edge)" />
+  <rect width="1200" height="630" fill="url(#corner)" />
+
+  <!-- accent bar, top-left -->
+  <rect x="80" y="80" width="120" height="6" fill="#b158c2" />
+
+  <!-- title -->
+  <text x="80" y="220"
+        font-family="Roboto, 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900"
+        font-size="92"
+        fill="#ffffff"
+        letter-spacing="-1">ADULT REDEPLOY</text>
+  <text x="80" y="320"
+        font-family="Roboto, 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900"
+        font-size="92"
+        fill="#ffffff"
+        letter-spacing="-1">ILLINOIS</text>
+
+  <!-- tagline -->
+  <text x="80" y="410"
+        font-family="Lato, 'Helvetica Neue', Arial, sans-serif"
+        font-weight="400"
+        font-size="28"
+        fill="#ffffff"
+        opacity="0.85">Community-based alternatives to incarceration.</text>
+  <text x="80" y="450"
+        font-family="Lato, 'Helvetica Neue', Arial, sans-serif"
+        font-weight="400"
+        font-size="28"
+        fill="#ffffff"
+        opacity="0.85">An ICJIA program.</text>
+
+  <!-- footer URL -->
+  <text x="80" y="565"
+        font-family="Lato, 'Helvetica Neue', Arial, sans-serif"
+        font-weight="700"
+        font-size="22"
+        fill="#ffffff"
+        opacity="0.6"
+        letter-spacing="0.8">icjia.illinois.gov/adultredeploy</text>
+
+  <!-- accent dots, bottom-right corner -->
+  <circle cx="1080" cy="540" r="8"  fill="#b158c2"    opacity="0.9" />
+  <circle cx="1110" cy="540" r="8"  fill="#05797a" opacity="0.9" />
+  <circle cx="1140" cy="540" r="8"  fill="#ffffff"      opacity="0.85" />
+</svg>

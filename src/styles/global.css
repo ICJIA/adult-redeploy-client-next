@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Self-hosted Roboto + Lato. Replaces the cross-origin Google Fonts
+   request, which was the single biggest render-blocking line item in
+   the Lighthouse audit (~120ms desktop, FCP / LCP ~3s mobile). Fonts
+   ship via Vite-resolved @fontsource WOFF2 imports — same-origin, no
+   handshake. Only weights actually used in the design are imported. */
+@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+@import "@fontsource/roboto/900.css";
+@import "@fontsource/lato/300.css";
+@import "@fontsource/lato/400.css";
+@import "@fontsource/lato/700.css";
+@import "@fontsource/lato/900.css";
+
 @theme {
   /* Brand palette */
   --color-brand-primary:   #043e3f;

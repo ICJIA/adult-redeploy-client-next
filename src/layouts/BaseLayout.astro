@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SEO } from 'astro-seo';
 import AppHeader from '../components/AppHeader.astro';
 import AppFooter from '../components/AppFooter.astro';
 import DrawerNav from '../components/alpine/DrawerNav.astro';
@@ -8,8 +9,9 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
 }
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, ogType = 'website' } = Astro.props;
 const siteOrigin = (Astro.site
   ? new URL(Astro.site).origin
   : 'https://icjia.illinois.gov');
@@ -17,29 +19,76 @@ const canonical = `${siteOrigin}${Astro.url.pathname}`.replace(/\/$/, '');
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN
   ?? 'icjia.illinois.gov/adultredeploy';
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+
+const SITE_NAME = 'Adult Redeploy Illinois';
+const DEFAULT_DESCRIPTION =
+  'Adult Redeploy Illinois (ARI) reallocates state resources to community-based '
+  + 'alternatives to incarceration. An ICJIA program.';
+const OG_IMAGE_ALT =
+  'Adult Redeploy Illinois — community-based alternatives to incarceration.';
+
+// Strip markdown / HTML / extra whitespace, then trim to ≤160 chars on a
+// word boundary (… suffix when truncated). Search engines truncate at
+// roughly 155-160 anyway; this gives clean previews.
+function makeDescription(raw: string | undefined): string {
+  const cleaned = (raw ?? DEFAULT_DESCRIPTION)
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')   // [text](url) → text
+    .replace(/[*_`]/g, '')                       // markdown emphasis
+    .replace(/<[^>]+>/g, '')                     // any HTML
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (cleaned.length <= 160) return cleaned;
+  const cut = cleaned.slice(0, 157);
+  const lastSpace = cut.lastIndexOf(' ');
+  return cut.slice(0, lastSpace > 100 ? lastSpace : 157) + '…';
+}
+
+const metaDescription = makeDescription(description);
+const ogTitle = `${title} — ${SITE_NAME}`;
+const ogImageUrl = ogImage
+  ? (ogImage.startsWith('http') ? ogImage : `${siteOrigin}${ogImage}`)
+  : `${siteOrigin}${base}/img/og-image.png`;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>ARI | {title}</title>
-    {description && <meta name="description" content={description} />}
-    <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <link rel="icon" href={`${base}/favicon.ico`} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <SEO
+      title={`ARI | ${title}`}
+      description={metaDescription}
+      canonical={canonical}
+      openGraph={{
+        basic: {
+          title: ogTitle,
+          type: ogType,
+          image: ogImageUrl,
+          url: canonical,
+        },
+        image: {
+          width: 1200,
+          height: 630,
+          alt: OG_IMAGE_ALT,
+        },
+        optional: {
+          description: metaDescription,
+          locale: 'en_US',
+          siteName: SITE_NAME,
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: ogTitle,
+        description: metaDescription,
+        image: ogImageUrl,
+        imageAlt: OG_IMAGE_ALT,
+      }}
+      extend={{
+        meta: [{ name: 'robots', content: 'index, follow' }],
+        link: [{ rel: 'icon', href: `${base}/favicon.ico` }],
+      }}
+    />
     <link rel="preconnect" href="https://ari.icjia-api.cloud" crossorigin />
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lato:wght@300;400;700;900&display=swap"
-          media="print"
-          onload="this.media='all'" />
-    <noscript>
-      <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lato:wght@300;400;700;900&display=swap" />
-    </noscript>
     <script is:inline defer data-domain={plausibleDomain}
             src="https://plausible.icjia.cloud/js/script.file-downloads.outbound-links.js"></script>
     <slot name="head" />

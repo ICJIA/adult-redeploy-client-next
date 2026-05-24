@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://icjia.illinois.gov/adultredeploy/sitemap-index.xml

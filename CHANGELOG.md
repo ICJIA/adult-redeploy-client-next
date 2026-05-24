@@ -1,5 +1,76 @@
 # Changelog
 
+## [2.3.0] - 2026-05-24
+
+### Home page splash images restored; self-hosted fonts; full SEO; OG image; sitemap; conversion checklist
+
+Five-in-one release. Each item earns its keep on its own — bundled
+because they touch BaseLayout / global.css together.
+
+**Splash images on home article cards (`src/components/HomeArticles.astro`).**
+The 2.0.x build stripped article splash entirely because they were
+~600 KB inline base64. With the build-time WebP pipeline from 2.2.2,
+each splash now ships as a sized + srcset'd `<img>`. Off-screen cards
+are hidden via Alpine `x-show`; `loading="lazy"` keeps the browser from
+fetching anything until the user paginates into it. Cards now look
+like the Nuxt-era design again.
+
+**Self-host Roboto + Lato (`@fontsource/*`).** Removed every
+`fonts.googleapis.com` / `fonts.gstatic.com` reference. Each weight
+imports a same-origin WOFF2 via `@fontsource/<family>/<weight>.css`.
+Dropped the Google Fonts `<link>` from `BaseLayout`, dropped both
+fonts.* origins from CSP `style-src` / `font-src`. This was the
+single biggest `render-blocking-insight` line item across every page.
+
+**Full SEO via `astro-seo` (`src/layouts/BaseLayout.astro`).**
+Replaced the per-page `<meta>` tags with the `<SEO>` component:
+canonical URL, OG (`type`, `title`, `description`, `image`,
+`image:width/height/alt`, `url`, `locale`, `site_name`), Twitter
+(`summary_large_image`, `title`, `description`, `image`, `imageAlt`),
+robots, favicon. Per-page `description` props are run through a
+helper that strips markdown / HTML / extra whitespace and truncates to
+≤160 chars on a word boundary.
+
+**OG image generator (`scripts/build-og-image.mjs`).** 1200×630
+PNG built at build time from SVG via Sharp. Dark teal background
+(brand-primary) with an accent-purple radial gradient corner. Lives
+at `public/img/og-image.{svg,png}` so external services can hotlink
+it; also embedded at the top of `README.md`. Regenerable via
+`npm run build:og`.
+
+**Sitemap improvements (`astro.config.mjs`, `public/robots.txt`).**
+`@astrojs/sitemap` config now filters `/404` and any `/pagefind/`
+paths, sets `changefreq: 'weekly'`, default priority 0.7, lastmod to
+build time, and bumps the homepage to priority 1.0. `robots.txt`
+points crawlers at the sitemap.
+
+**Page-level meta-description backfills.**
+- `src/pages/resources/[category]/index.astro` — describes which
+  publication category + count.
+- `src/pages/about/meetings/[category]/index.astro` — same shape.
+- `src/pages/tags/[slug].astro` — describes tagged content.
+- `src/pages/404.astro` — explicit description + `min-h-[40vh]` to
+  close the CLS 0.24 from the earlier audit.
+
+Every page template (including the leaf content pages) was already
+passing `description` to BaseLayout — the new pieces above fill the
+gaps that the audit at 2.2.2 flagged with SEO 92.
+
+**Conversion checklist (`docs/astro-conversion-checklist.md`).**
+~1000-line guide capturing the patterns that earned their keep on
+this rewrite: project shape, config, content collections, markdown
+rendering, image optimization (three tiers — local, remote, base64),
+self-hosted fonts, Alpine, SEO, Plausible, sitemap, CSP, a11y,
+skip-link gotcha, broken-link sweep, mobile-specific optimization,
+performance strategies, and a cutover checklist. Includes how to
+share with other repos (direct URL is the easiest entry point).
+
+**Other:**
+- `netlify.toml` — CSP tightened: dropped `https://fonts.googleapis.com`
+  from `style-src` and `https://fonts.gstatic.com` from `font-src`.
+- `package.json` — bumped to `2.3.0`, added `@fontsource/roboto`,
+  `@fontsource/lato`, `astro-seo`, `build:og` script.
+
 ## [2.2.2] - 2026-05-24
 
 ### /apps mobile perf: process inline base64 images through the same build-time WebP pipeline

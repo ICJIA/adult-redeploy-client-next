@@ -1,5 +1,7 @@
 # Adult Redeploy Illinois — site
 
+![Adult Redeploy Illinois — community-based alternatives to incarceration.](./public/img/og-image.png)
+
 Astro 5 + Tailwind 4 + Alpine.js static build. Production:
 <https://icjia.illinois.gov/adultredeploy>.
 

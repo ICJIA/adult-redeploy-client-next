@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatDate } from '../lib/dates';
+import { getCmsImage } from '../lib/cms-image';
 
 type Article = CollectionEntry<'articles'>['data'];
 
@@ -26,9 +27,11 @@ const authorString = (authors: Article['authors']): string => {
 };
 
 // Pre-render every article as a card; Alpine just controls which page is visible.
-// IMPORTANT: researchhub returns `splash` and `thumbnail` as base64 data URIs
-// that can be ~600 KB each. Embedding 100 of those inline would ship ~30 MB
-// to every home-page visit, so cards omit the image entirely.
+// All splash images flow through the build-time WebP pipeline
+// (scripts/fetch-cms-images.mjs), so each card emits a sized + srcset'd
+// `<img>` instead of an inline base64 data URI. Off-screen cards are
+// hidden via x-show, and `loading="lazy"` keeps the browser from
+// downloading them until the user paginates into them.
 const cards = articles.map((a) => ({
   slug: a.slug,
   title: a.title,
@@ -36,6 +39,7 @@ const cards = articles.map((a) => ({
   date: a.date ? formatDate(a.date) : '',
   authors: authorString(a.authors),
   abstract: a.abstract ?? '',
+  splash: getCmsImage(a.splash),
 }));
 const total = cards.length;
 const pageCount = Math.max(1, Math.ceil(total / PER_PAGE));
@@ -144,26 +148,39 @@ const pageCount = Math.max(1, Math.ceil(total / PER_PAGE));
       <ul class="mt-6 space-y-4">
         {cards.map((a, i) => (
           <li x-show={`visible(${i})`}
-              class="border border-brand-muted/40 rounded bg-surface">
+              class="border border-brand-muted/40 rounded bg-surface overflow-hidden">
             <a href={a.url}
                target="_blank" rel="noopener"
-               class="block p-4 hover:shadow-elev1 transition
+               class="block hover:shadow-elev1 transition
                       focus-visible:outline focus-visible:outline-2
                       focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-              <h3 class="font-heading font-bold text-lg text-brand-primary leading-tight">
-                {a.title}
-              </h3>
-              {a.authors && (
-                <p class="text-xs font-bold text-brand-primary mt-1">
-                  By {a.authors}
-                </p>
+              {a.splash && (
+                <img src={a.splash.src}
+                     srcset={a.splash.srcset}
+                     sizes="(min-width: 768px) 50vw, 100vw"
+                     width={a.splash.width}
+                     height={a.splash.height}
+                     alt=""
+                     loading="lazy"
+                     decoding="async"
+                     class="w-full h-40 object-cover" />
               )}
-              {a.date && (
-                <p class="text-xs text-gray-700 mt-1">{a.date}</p>
-              )}
-              {a.abstract && (
-                <p class="text-sm mt-2">{a.abstract}</p>
-              )}
+              <div class="p-4">
+                <h3 class="font-heading font-bold text-lg text-brand-primary leading-tight">
+                  {a.title}
+                </h3>
+                {a.authors && (
+                  <p class="text-xs font-bold text-brand-primary mt-1">
+                    By {a.authors}
+                  </p>
+                )}
+                {a.date && (
+                  <p class="text-xs text-gray-700 mt-1">{a.date}</p>
+                )}
+                {a.abstract && (
+                  <p class="text-sm mt-2">{a.abstract}</p>
+                )}
+              </div>
             </a>
           </li>
         ))}
