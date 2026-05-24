@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.2] - 2026-05-24
+
+### FAQ rendering + footer logo polish
+
+- `src/lib/markdown.ts` — Pass `{ stripIgnoreTagBody: ['script', 'style'] }` to `xss()`. CMS authors had embedded an inline `<style>` block at the top of the FAQs body to control `<details>/<summary>` spacing; default xss behavior stripped the tag but escaped its body, leaking the CSS source onto the page as visible text. Now the whole `<style>` block is dropped (same for any `<script>`); spacing comes from our own `.prose` rules.
+- `src/styles/global.css` — Added `.prose details / summary` styling: `1.25em` vertical margin between FAQ items, light border + rounded corners on each `<details>`, bold summary with focus-visible outline, `0.75em` gap between the summary and the answer body. Matches the spacing the CMS `<style>` block was attempting.
+- `src/components/AppFooter.astro` — Dropped the white background pill behind the footer ICJIA logo. The logo's own light frame already separates it from the dark teal footer; the extra `bg-white rounded p-3` made it look like a sticker.
+- `package.json` — Bumped to `2.0.2`.
+
 ## [2.0.1] - 2026-05-24
 
 ### Post-cutover polish
