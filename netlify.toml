@@ -27,9 +27,30 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https: https://ari.icjia-api.cloud; font-src 'self' data:; connect-src 'self' https://ari.icjia-api.cloud https://researchhub.icjia-api.cloud https://archive.icjia.cloud https://plausible.icjia.cloud; frame-ancestors 'self'"
+    X-Frame-Options          = "SAMEORIGIN"
+    X-Content-Type-Options   = "nosniff"
+    # Explicit `0`. The legacy XSS filter itself has had CVEs in older
+    # browsers; modern guidance is to disable rather than enable.
+    X-XSS-Protection         = "0"
+    Referrer-Policy          = "strict-origin-when-cross-origin"
+    # FLoC opt-out (`interest-cohort=()`) plus the full feature-policy
+    # deny list. Belt-and-suspenders alongside whatever the ICJIA proxy
+    # sets — Netlify edge is the canary for direct-origin access.
+    Permissions-Policy       = "accelerometer=(), camera=(), display-capture=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), usb=(), web-share=(), xr-spatial-tracking=(), interest-cohort=()"
+    # HSTS preload-ready. The ICJIA proxy already sends an HSTS header;
+    # duplicating at the origin covers direct-origin probes that bypass
+    # the proxy and serves as the canonical source for the proxy team.
+    Strict-Transport-Security = "max-age=31536000"
+    # Process isolation: blocks cross-origin windows from accessing
+    # this origin via window.opener.
+    Cross-Origin-Opener-Policy   = "same-origin"
+    # MUST be `cross-origin` (not `same-origin`) on public ICJIA sites,
+    # otherwise modern browsers refuse to load /img/og-image.png into
+    # external OG/Twitter card scrapers (Facebook, LinkedIn, Slack,
+    # MetaPeek, GoogleBot). See checklist §"CORP cross-origin".
+    Cross-Origin-Resource-Policy = "cross-origin"
+    # img-src tightened: dropped the blanket `https:` source (which
+    # negated CSP's image restriction) and `blob:` (no object URLs in
+    # use). Every CMS image now ships from /_cms-img/ via the build-
+    # time WebP pipeline; only `data:` and the Strapi origin remain.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://ari.icjia-api.cloud; font-src 'self' data:; connect-src 'self' https://ari.icjia-api.cloud https://researchhub.icjia-api.cloud https://archive.icjia.cloud https://plausible.icjia.cloud; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"

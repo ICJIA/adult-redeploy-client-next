@@ -1,5 +1,70 @@
 # Changelog
 
+## [2.3.2] - 2026-06-01
+
+### Header hardening + homepage description (v7.1 checklist quick wins)
+
+Pulled from the v7.1 Astro conversion checklist (now living in
+`docs/astro-conversion-checklist-v7.1.md`). All edits stay inside
+`netlify.toml` and `src/pages/index.astro`; no source restructure.
+
+**`X-XSS-Protection: 1; mode=block` → `0`.** Modern guidance per the
+checklist's §11: the legacy XSS auditor has had CVEs in older browsers
+and explicit `0` beats either `1; mode=block` or unset. The proxy
+team is also moving this direction.
+
+**`Permissions-Policy` expanded from 3 to 17 features.** Previously
+only denied `camera, microphone, geolocation`. Now denies the full
+feature-policy list including `interest-cohort=()` (Google FLoC
+opt-out), `display-capture`, `screen-wake-lock`, `web-share`,
+`xr-spatial-tracking`, `payment`, `usb`, `midi`, `magnetometer`,
+`gyroscope`, `accelerometer`, `picture-in-picture`,
+`publickey-credentials-get`, with `fullscreen=(self)` since that one
+gets used by the legitimate UA.
+
+**`Strict-Transport-Security`, `Cross-Origin-Opener-Policy`,
+`Cross-Origin-Resource-Policy` added explicitly at Netlify edge.**
+The ICJIA proxy already sends these in prod (verified via
+`curl -sI https://icjia.illinois.gov/adultredeploy/`), but
+duplicating them at the origin covers direct-origin access
+(`*.netlify.app`, branch deploys, monitoring probes) that bypasses
+the proxy. **CORP is intentionally `cross-origin` (NOT `same-origin`)**
+so OG-image scrapers (Facebook, LinkedIn, Slack, MetaPeek, GoogleBot)
+can fetch `/img/og-image.png` for previews — `same-origin` would
+silently break social cards even though the URL is reachable.
+
+**`img-src` tightened.** Dropped blanket `https:` (it was negating
+the CSP's image restriction — *any* HTTPS origin could render). Also
+dropped `blob:` (no object URLs in source). Every CMS image now
+ships from `/_cms-img/` via the build-time WebP pipeline (2.2.0+);
+only `data:` URIs and the Strapi origin remain on the allow-list.
+
+**CSP gained `base-uri 'self'`, `form-action 'self'`,
+`object-src 'none'`.** Zero-impact defensive additions: locks down
+`<base>` injection, prevents off-site form posts, blocks `<object>` /
+`<embed>` plugin embeds. Belt-and-suspenders.
+
+**Homepage meta description lengthened (`src/pages/index.astro`).**
+The shipped description was 72 characters — under the 80-character
+MetaPeek + AI Readiness threshold. Now reads:
+"Adult Redeploy Illinois (ARI) is the Illinois state grant program—
+administered by ICJIA—that funds community-based alternatives to
+incarceration." (145 chars, comfortably in the 120-160 sweet spot.)
+
+Not adopted from v7.1 (would each be its own commit, recorded here so
+the next reviewer knows they were considered):
+
+- Drop `'unsafe-inline'` from `script-src` via per-script SHA-256 hashes.
+  Doable but requires hashing six inline scripts (Plausible, Alpine
+  bootstrap, ListingTable, SiteIllinois, two in `search.astro`) plus a
+  `scripts/csp-hashes.mjs` helper to keep them in sync across builds.
+- `public/_headers` as defense-in-depth.
+- Context-scoped `[[context.deploy-preview.headers]]` override.
+- pnpm migration. (Stable on npm; not worth churning.)
+- §10a trailing-slash 301 fix. Production already returns 200 for
+  both `/news` and `/news/` (proxy handles it); the fix is for sites
+  emitting a default Netlify 301, which we don't.
+
 ## [2.3.1] - 2026-06-01
 
 ### H1 page-title styling fix; meetings index grouped by committee
