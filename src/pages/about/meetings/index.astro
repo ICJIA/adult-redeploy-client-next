@@ -3,35 +3,81 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageTitle from '../../../components/ui/PageTitle.astro';
 import ListingTable from '../../../components/alpine/ListingTable.astro';
-import { MEETING_CATEGORIES, enumToSlug } from '../../../lib/meetings';
+import { MEETING_CATEGORIES } from '../../../lib/meetings';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
 
+const RECENT_PER_CATEGORY = 5;
+
 const entries = await getCollection('meetings');
+const all: Meeting[] = entries.map((e) => e.data);
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const rows = entries
-  .map((e) => e.data)
-  .sort((a: Meeting, b: Meeting) =>
-    (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1)
-  .map((m: Meeting) => ({
-    scheduledDate: m.scheduledDate ?? '',
-    title: m.title,
-    category: MEETING_CATEGORIES.find((c) => c.enum === m.category)?.short
-              ?? m.category,
-    href: `${base}/about/meetings/${enumToSlug[m.category] ?? m.category}/${m.slug}`,
-  }));
+
+const sections = MEETING_CATEGORIES.map((c) => {
+  const all_in = all
+    .filter((m) => m.category === c.enum)
+    .sort((a, b) =>
+      (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1);
+  const recent = all_in.slice(0, RECENT_PER_CATEGORY);
+  return {
+    category: c,
+    total: all_in.length,
+    rows: recent.map((m) => ({
+      title: m.title,
+      scheduledDate: m.scheduledDate ?? '',
+      href: `${base}/about/meetings/${c.slug}/${m.slug}`,
+    })),
+  };
+}).filter((s) => s.total > 0);
 ---
 <BaseLayout title="Meetings"
-            description="Adult Redeploy Illinois Oversight Board and committee meetings.">
+            description="Adult Redeploy Illinois Oversight Board and committee meetings, grouped by committee.">
   <div class="max-w-6xl mx-auto px-6 py-10">
     <PageTitle title="Meetings" />
-    <ListingTable ariaLabel="meetings"
-      columns={[
-        { key: 'scheduledDate', label: 'Scheduled', format: 'date' },
-        { key: 'title',         label: 'Meeting Title' },
-        { key: 'category',      label: 'Category' },
-      ]}
-      rows={rows}
-    />
+    <p class="-mt-2 mb-10 text-lg">
+      The Adult Redeploy Illinois Oversight Board and its committees meet
+      regularly to review program performance, set policy direction, and
+      coordinate site selection and monitoring. Meeting agendas, minutes,
+      and supporting materials are grouped below by committee.
+    </p>
+
+    <div class="space-y-14">
+      {sections.map((s) => (
+        <section aria-labelledby={`heading-${s.category.slug}`}>
+          <div class="flex flex-wrap items-baseline justify-between gap-3 mb-4">
+            <h2 id={`heading-${s.category.slug}`}
+                class="font-heading font-black uppercase tracking-tight
+                       text-xl md:text-2xl text-brand-primary">
+              <a href={`${base}/about/meetings/${s.category.slug}`}
+                 class="underline-offset-4 hover:underline
+                        focus-visible:outline focus-visible:outline-2
+                        focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+                {s.category.title}
+              </a>
+            </h2>
+            <span class="text-sm text-brand-ink/70">
+              {s.total} meeting{s.total === 1 ? '' : 's'} on record
+            </span>
+          </div>
+          <ListingTable ariaLabel={s.category.slug}
+            columns={[
+              { key: 'title',         label: 'Meeting Title' },
+              { key: 'scheduledDate', label: 'Scheduled', format: 'date' },
+            ]}
+            rows={s.rows}
+          />
+          {s.total > s.rows.length && (
+            <div class="mt-3 text-right">
+              <a href={`${base}/about/meetings/${s.category.slug}`}
+                 class="text-brand-primary font-bold underline-offset-4 hover:underline
+                        focus-visible:outline focus-visible:outline-2
+                        focus-visible:outline-brand-primary focus-visible:outline-offset-2">
+                View all {s.total} {s.category.short} meetings →
+              </a>
+            </div>
+          )}
+        </section>
+      ))}
+    </div>
   </div>
 </BaseLayout>

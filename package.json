@@ -1,6 +1,6 @@
 {
   "name": "adult-redeploy-client-next",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Adult Redeploy Illinois — Astro/Tailwind rewrite",
   "private": true,
   "type": "module",

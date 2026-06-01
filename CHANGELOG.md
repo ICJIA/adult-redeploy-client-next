@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.3.1] - 2026-06-01
+
+### H1 page-title styling fix; meetings index grouped by committee
+
+**`.text-page-title` utility defined (`src/styles/global.css`).** The
+class was sprinkled across ~12 H1s and several homepage section H2s
+(`/404`, `/programs`, `/search`, `/apps`, `/about/staff`,
+`/about/oversight`, `/about/meetings/[category]`, `/[section]/*`,
+`/tags/[slug]`, `/resources/[category]`, plus the home section
+headers), but Tailwind v4 ships no utility by that name and none of
+the project CSS defined it — so all those headings were falling back
+to default browser H1 styling (no Roboto, no uppercase, default size,
+no separator). Now defined to match the typography of the
+`PageTitle` component: `font-heading`, `font-weight: 900`,
+`uppercase`, `tracking-tight`, `text-3xl` → `text-4xl` on `md:`,
+`brand-ink`, with a `border-bottom` separator matching the rest of
+the design system. /grants and every other section-driven CMS page
+now render their H1 in brand voice instead of browser default.
+
+**Meetings index grouped by committee
+(`src/pages/about/meetings/index.astro`).** Restored the Nuxt-era
+layout: instead of one flat ListingTable across all 94 meetings, the
+landing page now renders five committee sections (Ad Hoc, Outreach
+TA & Communication, Performance Measurement, Regular Oversight, Site
+Selection & Monitoring), each with its own brand-styled H2 linking
+to its dedicated `/about/meetings/<category>` page, a per-section
+ListingTable showing the five most recent meetings, and a
+"View all N <committee> meetings →" link below the table. The
+per-committee detail pages already existed; this page just stops
+flattening them on the way in.
+
 ## [2.3.0] - 2026-05-24
 
 ### Home page splash images restored; self-hosted fonts; full SEO; OG image; sitemap; conversion checklist

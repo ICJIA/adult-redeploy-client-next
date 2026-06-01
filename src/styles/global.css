@@ -36,6 +36,27 @@
                   0 3px 6px rgb(0 0 0 / 0.23);
 }
 
+/* Page-title heading style used on most pages (h1) and the homepage's
+   section headers (h2). Class is sprinkled across markup but Tailwind v4
+   does not ship a utility by that name, so without this rule h1.text-page-title
+   was falling back to browser-default styling. Matches the PageTitle
+   component's typography. */
+.text-page-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  font-size: 1.875rem;
+  line-height: 1.15;
+  color: var(--color-brand-ink);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand-muted) 40%, transparent);
+}
+@media (min-width: 768px) {
+  .text-page-title { font-size: 2.25rem; }
+}
+
 /* Markdown rendering — paragraphs and lists need explicit spacing because
    Tailwind v4 ships no Typography plugin by default. */
 .prose p {
