@@ -1,0 +1,30 @@
+# Defense-in-depth header set served from the Netlify edge.
+#
+# These mirror the [[headers]] block in `netlify.toml`. When the same
+# header is declared in both places Netlify treats `_headers` as the
+# winner — but our deploy currently sits behind the ICJIA proxy at
+# icjia.illinois.gov, and the proxy in turn forces its own values for
+# `X-XSS-Protection` and `Permissions-Policy`. So this file's job is
+# NOT to fight the proxy; it's to cover direct-origin traffic that
+# bypasses the proxy:
+#
+#   - Netlify deploy previews (`*.netlify.app`)
+#   - Branch deploys
+#   - External uptime / security probes hitting the raw origin
+#   - Future migrations off the proxy
+#
+# Keep this and the `netlify.toml` `[[headers]]` block in lock-step.
+# If you change one, change the other in the same commit. The
+# v7.1 checklist documents the strict-CSP rationale, the COOP / CORP
+# choices, and why CORP must be `cross-origin` for public sites.
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 0
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), display-capture=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), usb=(), web-share=(), xr-spatial-tracking=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://ari.icjia-api.cloud; font-src 'self' data:; connect-src 'self' https://ari.icjia-api.cloud https://researchhub.icjia-api.cloud https://archive.icjia.cloud https://plausible.icjia.cloud; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'

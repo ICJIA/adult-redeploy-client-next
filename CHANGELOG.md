@@ -1,5 +1,40 @@
 # Changelog
 
+## [2.3.4] - 2026-06-01
+
+### `public/_headers` defense-in-depth at the Netlify edge
+
+Mirrors the `[[headers]]` block in `netlify.toml` into a `_headers`
+file under `public/`. Astro copies it verbatim into `dist/_headers`
+on every build, where Netlify reads it and serves the same security
+header set from the edge.
+
+**Why ship the same headers twice.** When the production URL
+(`icjia.illinois.gov/adultredeploy/`) is requested, the response
+flows Netlify → ICJIA proxy → browser. The proxy currently force-sets
+its own `X-XSS-Protection: 1; mode=block` and a 3-feature
+`Permissions-Policy`, overriding whatever Netlify sends. Verified
+post-2.3.2 deploy: our CSP / COOP / CORP / HSTS / `img-src` tightening
+all reach the browser, but those two specific headers do not. This
+file does NOT solve that — the proxy will still win for the headers
+it controls. It DOES cover all the routes that bypass the proxy:
+
+- Netlify branch deploys + deploy previews (`*.netlify.app`)
+- External uptime / security probes hitting the raw origin
+- Any future migration off the ICJIA proxy
+
+For those routes, every header lands with the strict v7.1 value
+(including `X-XSS-Protection: 0` and the full 17-feature
+`Permissions-Policy` deny list).
+
+The proxy-team fix is documented inline at the top of the new
+`_headers` file. Companion ask for the ICJIA proxy team is to stop
+force-setting `X-XSS-Protection` (deprecated; modern Chrome /
+Firefox / Safari ignore it) and to replace their narrow
+`Permissions-Policy` with the same 17-feature list shipping here.
+That's the only step needed to bring browser-observed headers fully
+in line with what Netlify edge already sends.
+
 ## [2.3.3] - 2026-06-01
 
 ### Docs: swap v1 conversion checklist for v7.1; CMS image manifest sync
