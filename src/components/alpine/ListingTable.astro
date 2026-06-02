@@ -1,14 +1,18 @@
 ---
 interface Column { key: string; label: string; format?: 'date' | 'text'; }
 interface Row { [k: string]: unknown; href: string; }
-interface Props { columns: Column[]; rows: Row[]; ariaLabel: string; }
-const { columns, rows, ariaLabel } = Astro.props;
+interface LiveOpts { surface: string; sig: string; params?: Record<string, unknown>; }
+interface Props { columns: Column[]; rows: Row[]; ariaLabel: string; live?: LiveOpts | null; }
+const { columns, rows, ariaLabel, live = null } = Astro.props;
 const initial = JSON.stringify(rows);
+// When `live` is set, the inline factory merges a refresh mixin from
+// window.__live so the table re-fetches and swaps rows (preserving search/sort).
+const liveAttr = live ? JSON.stringify(live) : 'null';
 // Reserve vertical space so footer doesn't shift when Alpine populates
 // the <template x-for> rows on the client. ~46px per row + ~110px chrome.
 const reservedPx = Math.min(rows.length * 46 + 110, 2200);
 ---
-<div x-data={`listingTable(${initial})`}
+<div x-data={`listingTable(${initial}, ${liveAttr})`}
      class="bg-surface rounded shadow-elev1 p-4"
      style={`min-height: ${reservedPx}px`}>
   <div class="flex justify-end mb-4">
@@ -75,8 +79,8 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
 </div>
 
 <script is:inline>
-  function listingTable(rows) {
-    return {
+  function listingTable(rows, live) {
+    const base = {
       items: rows,
       q: '',
       sortKey: null,
@@ -128,5 +132,9 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
         return String(v);
       },
     };
+    if (live && window.__live && typeof window.__live.listMixin === 'function') {
+      return Object.assign(base, window.__live.listMixin(live));
+    }
+    return base;
   }
 </script>

@@ -7,10 +7,9 @@ import { MEETING_CATEGORIES } from '../../../lib/meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from '../../../lib/live/render/meetings-splash';
 import type { MeetingRow } from '../../../lib/live/render/home-meetings';
 import { stableSignature } from '../../../lib/live/behavior/signature';
+import { meetingsIndexRows, MTG_INDEX_SIG_KEYS, RECENT_PER_CATEGORY } from '../../../lib/live/render/listing-rows';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
-
-const RECENT_PER_CATEGORY = 5;
 
 const entries = await getCollection('meetings');
 const all: Meeting[] = entries.map((e) => e.data);
@@ -27,19 +26,17 @@ const liveCtx = { endpoint: '', basePath: base };
 const splashSig = stableSignature(splashRows, SPLASH_SIG_KEYS);
 
 const sections = MEETING_CATEGORIES.map((c) => {
-  const all_in = all
-    .filter((m) => m.category === c.enum)
-    .sort((a, b) =>
-      (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1);
-  const recent = all_in.slice(0, RECENT_PER_CATEGORY);
+  const all_in = all.filter((m) => m.category === c.enum);
+  const rows = meetingsIndexRows(all, liveCtx, { enum: c.enum, slug: c.slug }, RECENT_PER_CATEGORY);
   return {
     category: c,
     total: all_in.length,
-    rows: recent.map((m) => ({
-      title: m.title,
-      scheduledDate: m.scheduledDate ?? '',
-      href: `${base}/about/meetings/${c.slug}/${m.slug}`,
-    })),
+    rows,
+    live: {
+      surface: 'meetingsIndex',
+      sig: stableSignature(rows, MTG_INDEX_SIG_KEYS),
+      params: { enum: c.enum, slug: c.slug },
+    },
   };
 }).filter((s) => s.total > 0);
 ---
@@ -83,6 +80,7 @@ const sections = MEETING_CATEGORIES.map((c) => {
               { key: 'scheduledDate', label: 'Scheduled', format: 'date' },
             ]}
             rows={s.rows}
+            live={s.live}
           />
           {s.total > s.rows.length && (
             <div class="mt-3 text-right">

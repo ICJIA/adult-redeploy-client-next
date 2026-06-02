@@ -8,6 +8,9 @@ import { NEWS_LATEST, MEETINGS_BRIEF } from './data/queries';
 import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from './render/home-news';
 import { renderHomeMeetings, HOME_MTG_SIG_KEYS, type MeetingRow } from './render/home-meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from './render/meetings-splash';
+import {
+  newsIndexRows, meetingsIndexRows, NEWS_INDEX_SIG_KEYS, MTG_INDEX_SIG_KEYS,
+} from './render/listing-rows';
 
 const env = import.meta.env as unknown as Record<string, string | undefined>;
 const endpoint = env.PUBLIC_STRAPI_ENDPOINT ?? 'https://ari.icjia-api.cloud/graphql';
@@ -43,7 +46,7 @@ export const liveConfig: LiveConfig = {
     // Homepage "UPCOMING MEETINGS" — next 4 future meetings (mirrors HomeMeetings).
     homeMeetings: {
       query: MEETINGS_BRIEF,
-      variables: { limit: 25 },
+      variables: { limit: 300 },
       select: (data) => upcoming(data, 4),
       render: (rows, ctx) => renderHomeMeetings(rows as MeetingRow[], ctx),
       signatureKeys: HOME_MTG_SIG_KEYS,
@@ -53,12 +56,31 @@ export const liveConfig: LiveConfig = {
     // /about/meetings feature splash — the single next upcoming meeting, or none.
     meetingsSplash: {
       query: MEETINGS_BRIEF,
-      variables: { limit: 25 },
+      variables: { limit: 300 },
       select: (data) => upcoming(data, 1),
       render: (rows, ctx) => renderMeetingsSplash(rows as MeetingRow[], ctx),
       signatureKeys: SPLASH_SIG_KEYS,
       mode: 'innerHTML',
       announceLabel: 'Next meeting',
+    },
+    // News archive table — all news as {publicationDate,title,href} rows (x-for).
+    newsIndex: {
+      query: NEWS_LATEST,
+      variables: { limit: 300 },
+      select: (data, ctx) => newsIndexRows(data?.posts ?? [], ctx),
+      signatureKeys: NEWS_INDEX_SIG_KEYS,
+      mode: 'xfor',
+      announceLabel: 'News list',
+    },
+    // Meetings index — per-committee recent rows; the committee arrives via params.
+    meetingsIndex: {
+      query: MEETINGS_BRIEF,
+      variables: { limit: 300 },
+      select: (data, ctx, params) =>
+        meetingsIndexRows(data?.meetings ?? [], ctx, params as { enum: string; slug: string }),
+      signatureKeys: MTG_INDEX_SIG_KEYS,
+      mode: 'xfor',
+      announceLabel: 'Meetings list',
     },
   },
   entries: {},

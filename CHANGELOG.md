@@ -36,7 +36,9 @@ for later extraction into a shared package across the other Astro sites).
 Live now: the homepage **ARI NEWS** and **UPCOMING MEETINGS** lists, plus a
 **/meetings "next upcoming" feature splash** (shows the soonest future meeting,
 recomputed by current date + live data, hidden when none are scheduled). The
-news / meetings index tables and markdown detail pages follow.
+**news and meetings index tables** refresh live too (search/sort preserved
+across a swap; the /meetings page's six meeting surfaces share one de-duplicated
+fetch). Markdown **detail pages** + the homepage **About** section follow.
 
 ### Incidental fixes & polish on this branch
 

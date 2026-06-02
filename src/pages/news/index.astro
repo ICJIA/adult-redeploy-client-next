@@ -1,22 +1,17 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageTitle from '../../components/ui/PageTitle.astro';
 import ListingTable from '../../components/alpine/ListingTable.astro';
-
-type News = CollectionEntry<'news'>['data'];
+import { newsIndexRows, NEWS_INDEX_SIG_KEYS } from '../../lib/live/render/listing-rows';
+import { stableSignature } from '../../lib/live/behavior/signature';
 
 const entries = await getCollection('news');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const rows = entries
-  .map((e) => e.data)
-  .sort((a: News, b: News) =>
-    (a.publicationDate ?? a.createdAt) < (b.publicationDate ?? b.createdAt) ? 1 : -1)
-  .map((n: News) => ({
-    publicationDate: n.publicationDate ?? n.createdAt,
-    title: n.title,
-    href: `${base}/news/${n.slug}`,
-  }));
+const ctx = { endpoint: '', basePath: base };
+// Shared row builder drives both the static table and the live refresh.
+const rows = newsIndexRows(entries.map((e) => e.data), ctx);
+const live = { surface: 'newsIndex', sig: stableSignature(rows, NEWS_INDEX_SIG_KEYS) };
 ---
 <BaseLayout title="News"
             description="Updates, announcements, and stories from the Adult Redeploy Illinois network.">
@@ -29,6 +24,7 @@ const rows = entries
         { key: 'title',           label: 'Title' },
       ]}
       rows={rows}
+      live={live}
     />
   </div>
 </BaseLayout>
