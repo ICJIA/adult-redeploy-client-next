@@ -109,6 +109,9 @@ const pages = defineCollection({
     title: z.string(),
     summary: z.string().nullable().optional(),
     content: z.string().nullable().optional(),
+    // Kept so the live "About" island can baseline its signature on updatedAt.
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
     section: z.object({
       slug: z.string(),
       title: z.string(),

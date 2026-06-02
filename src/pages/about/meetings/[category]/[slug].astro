@@ -6,19 +6,9 @@ import Markdown from '../../../../components/Markdown.astro';
 import Tag from '../../../../components/ui/Tag.astro';
 import { formatDate } from '../../../../lib/dates';
 import { MEETING_CATEGORIES, enumToSlug } from '../../../../lib/meetings';
+import { MTG_DETAIL_SIG, renderMeetingMaterials } from '../../../../lib/live/render/meeting-detail';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
-
-interface MaterialFile {
-  name?: string;
-  url?: string;
-  hash?: string;
-}
-interface Material {
-  name?: string;
-  summary?: string;
-  file?: MaterialFile;
-}
 
 export async function getStaticPaths() {
   const items = await getCollection('meetings');
@@ -35,44 +25,25 @@ export async function getStaticPaths() {
 const { item } = Astro.props as { item: Meeting };
 const category = MEETING_CATEGORIES.find((c) => c.enum === item.category)!;
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const STRAPI_BASE = 'https://ari.icjia-api.cloud';
-const meetingMaterial = (item.meetingMaterial ?? []) as Material[];
+const xData = `liveEntry({ surface: 'meetingDetail', slug: ${JSON.stringify(item.slug)}, sig: ${JSON.stringify(MTG_DETAIL_SIG(item))} })`;
 ---
 <BaseLayout title={item.title} description={item.summary ?? undefined}>
-  <ArticleCard title={item.title}
-               badge={category.title}
-               pagefindMeta={{ type: 'meeting', date: item.scheduledDate ?? '' }}>
-    <p class="text-sm font-bold text-brand-secondary uppercase mb-4">
-      Scheduled: {formatDate(item.scheduledDate)}
-    </p>
-    <Markdown content={item.content} />
-
-    {meetingMaterial.length > 0 && (
-      <div class="mt-8 bg-surface-shaded p-6 rounded">
-        <h2 class="font-bold mb-3">Meeting Materials</h2>
-        <ul class="space-y-2">
-          {meetingMaterial.filter((m) => m.file?.url).map((m) => (
-            <li>
-              <a href={`${STRAPI_BASE}${m.file!.url}`}
-                 target="_blank" rel="noopener"
-                 class="text-brand-primary font-bold underline hover:no-underline
-                        focus-visible:outline focus-visible:outline-2
-                        focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-                {m.name}
-              </a>
-              {m.summary && <p class="text-sm mt-1">{m.summary}</p>}
-            </li>
+  <div x-data={xData}>
+    <ArticleCard title={item.title}
+                 badge={category.title}
+                 pagefindMeta={{ type: 'meeting', date: item.scheduledDate ?? '' }}>
+      <p class="text-sm font-bold text-brand-secondary uppercase mb-4" data-live="scheduled">
+        Scheduled: {formatDate(item.scheduledDate)}
+      </p>
+      <Markdown content={item.content} dataLive="body" />
+      <div data-live="materials" set:html={renderMeetingMaterials((item.meetingMaterial ?? []) as any[])}></div>
+      {item.tags && item.tags.length > 0 && (
+        <div class="mt-8 flex flex-wrap gap-2">
+          {item.tags.map((t) => (
+            <Tag label={t.name} href={`${base}/tags/${t.slug}`} />
           ))}
-        </ul>
-      </div>
-    )}
-
-    {item.tags && item.tags.length > 0 && (
-      <div class="mt-8 flex flex-wrap gap-2">
-        {item.tags.map((t) => (
-          <Tag label={t.name} href={`${base}/tags/${t.slug}`} />
-        ))}
-      </div>
-    )}
-  </ArticleCard>
+        </div>
+      )}
+    </ArticleCard>
+  </div>
 </BaseLayout>

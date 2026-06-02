@@ -5,6 +5,7 @@
 
 import { liveConfig } from './config';
 import { makeLiveCollection } from './behavior/liveCollection';
+import { makeLiveEntry } from './behavior/liveEntry';
 import { makeListMixin } from './behavior/liveList';
 import type { LiveListOpts } from './types';
 
@@ -16,7 +17,7 @@ interface AlpineLike {
 
 export function registerLive(alpine: AlpineLike): void {
   alpine.data('liveCollection', makeLiveCollection(liveConfig));
-  // alpine.data('liveEntry', ...) added in Phase 3.
+  alpine.data('liveEntry', makeLiveEntry(liveConfig));
   (window as unknown as { __live?: unknown }).__live = {
     config: liveConfig,
     // The inline ListingTable Object.assigns this mixin onto its base.

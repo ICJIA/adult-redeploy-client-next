@@ -38,7 +38,12 @@ Live now: the homepage **ARI NEWS** and **UPCOMING MEETINGS** lists, plus a
 recomputed by current date + live data, hidden when none are scheduled). The
 **news and meetings index tables** refresh live too (search/sort preserved
 across a swap; the /meetings page's six meeting surfaces share one de-duplicated
-fetch). Markdown **detail pages** + the homepage **About** section follow.
+fetch). **Markdown detail pages** (news + meetings, incl. the Meeting Materials
+list) and the homepage **About** section are live too — the markdown renderer is
+a separate chunk imported only when an entry actually changed, so most views
+never download it. Detail fetches pass `where` as a JSON variable (Strapi 3
+silently ignores a GraphQL variable used inside a `where` object literal and
+would otherwise return the wrong record).
 
 ### Incidental fixes & polish on this branch
 

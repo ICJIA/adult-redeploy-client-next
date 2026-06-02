@@ -5,6 +5,7 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import Markdown from '../../components/Markdown.astro';
 import Tag from '../../components/ui/Tag.astro';
 import { formatDate } from '../../lib/dates';
+import { NEWS_DETAIL_SIG } from '../../lib/live/render/news-detail';
 
 type News = CollectionEntry<'news'>['data'];
 
@@ -18,22 +19,26 @@ export async function getStaticPaths() {
 const { item } = Astro.props as { item: News };
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const posted = item.publicationDate ?? item.createdAt;
+const xData = `liveEntry({ surface: 'newsDetail', slug: ${JSON.stringify(item.slug)}, sig: ${JSON.stringify(NEWS_DETAIL_SIG(item))} })`;
 ---
 <BaseLayout title={item.title} description={item.summary ?? undefined}>
-  <ArticleCard title={item.title}
-               badge="Adult Redeploy Illinois News"
-               pagefindMeta={{ type: 'news', date: posted }}>
-    <p class="text-sm text-gray-700 mb-4">
-      Posted: {formatDate(posted)}
-    </p>
-    {item.summary && <p class="text-lg italic mb-6">{item.summary}</p>}
-    <Markdown content={item.content} />
-    {item.tags && item.tags.length > 0 && (
-      <div class="mt-8 flex flex-wrap gap-2">
-        {item.tags.map((t) => (
-          <Tag label={t.name} href={`${base}/tags/${t.slug}`} />
-        ))}
-      </div>
-    )}
-  </ArticleCard>
+  <div x-data={xData}>
+    <ArticleCard title={item.title}
+                 badge="Adult Redeploy Illinois News"
+                 pagefindMeta={{ type: 'news', date: posted }}>
+      <p class="text-sm text-gray-700 mb-4" data-live="posted">
+        Posted: {formatDate(posted)}
+      </p>
+      <p class="text-lg italic mb-6" data-live="summary"
+         style={item.summary ? undefined : 'display:none'}>{item.summary}</p>
+      <Markdown content={item.content} dataLive="body" />
+      {item.tags && item.tags.length > 0 && (
+        <div class="mt-8 flex flex-wrap gap-2">
+          {item.tags.map((t) => (
+            <Tag label={t.name} href={`${base}/tags/${t.slug}`} />
+          ))}
+        </div>
+      )}
+    </ArticleCard>
+  </div>
 </BaseLayout>

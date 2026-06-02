@@ -17,17 +17,21 @@ export const MEETINGS_BRIEF = /* GraphQL */ `
     }
   }`;
 
+// Detail queries pass the whole `where` as a JSON variable. Strapi 3's `where`
+// is a JSON scalar, so a variable used INSIDE a where object literal
+// (e.g. `slug: $slug`) is silently ignored and returns ALL rows — passing the
+// whole object as `$where` is the reliable form.
 export const NEWS_BY_SLUG = /* GraphQL */ `
-  query NewsBySlug($slug: String!) {
-    posts(where: { isPublished: true, slug: $slug }) {
+  query NewsBySlug($where: JSON) {
+    posts(where: $where) {
       slug title summary content publicationDate createdAt updatedAt
       tags { name slug }
     }
   }`;
 
 export const MEETING_BY_SLUG = /* GraphQL */ `
-  query MeetingBySlug($slug: String!) {
-    meetings(where: { isPublished: true, slug: $slug }) {
+  query MeetingBySlug($where: JSON) {
+    meetings(where: $where) {
       slug title summary content scheduledDate category createdAt updatedAt
       meetingMaterial { name summary file { name url hash } }
       tags { name slug }

@@ -4,13 +4,18 @@
 // site supplies its own config.ts (+ render/ functions) like this one.
 
 import type { LiveConfig } from './types';
-import { NEWS_LATEST, MEETINGS_BRIEF } from './data/queries';
+import {
+  NEWS_LATEST, MEETINGS_BRIEF, NEWS_BY_SLUG, MEETING_BY_SLUG, PAGE_HOME,
+} from './data/queries';
 import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from './render/home-news';
 import { renderHomeMeetings, HOME_MTG_SIG_KEYS, type MeetingRow } from './render/home-meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from './render/meetings-splash';
 import {
   newsIndexRows, meetingsIndexRows, NEWS_INDEX_SIG_KEYS, MTG_INDEX_SIG_KEYS,
 } from './render/listing-rows';
+import { applyNewsDetail, NEWS_DETAIL_SIG } from './render/news-detail';
+import { applyMeetingDetail, MTG_DETAIL_SIG } from './render/meeting-detail';
+import { applyHomeAbout, ABOUT_SIG } from './render/home-about';
 
 const env = import.meta.env as unknown as Record<string, string | undefined>;
 const endpoint = env.PUBLIC_STRAPI_ENDPOINT ?? 'https://ari.icjia-api.cloud/graphql';
@@ -83,5 +88,33 @@ export const liveConfig: LiveConfig = {
       announceLabel: 'Meetings list',
     },
   },
-  entries: {},
+  entries: {
+    // News detail — full body; markdown re-rendered client-side only on change.
+    newsDetail: {
+      query: NEWS_BY_SLUG,
+      variables: (slug) => ({ where: { isPublished: true, slug } }),
+      select: (data) => (data?.posts ?? [])[0] ?? null,
+      applyTo: applyNewsDetail,
+      signature: NEWS_DETAIL_SIG,
+      announceLabel: 'Article',
+    },
+    // Meeting detail — body + Meeting Materials list.
+    meetingDetail: {
+      query: MEETING_BY_SLUG,
+      variables: (slug) => ({ where: { isPublished: true, slug } }),
+      select: (data) => (data?.meetings ?? [])[0] ?? null,
+      applyTo: applyMeetingDetail,
+      signature: MTG_DETAIL_SIG,
+      announceLabel: 'Meeting',
+    },
+    // Homepage About — the CMS `home` page body.
+    homeAbout: {
+      query: PAGE_HOME,
+      variables: () => ({}),
+      select: (data) => (data?.pages ?? [])[0] ?? null,
+      applyTo: applyHomeAbout,
+      signature: ABOUT_SIG,
+      announceLabel: 'Page',
+    },
+  },
 };

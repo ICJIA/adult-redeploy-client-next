@@ -7,9 +7,11 @@ import HomeNews from '../components/HomeNews.astro';
 import HomeArticles from '../components/HomeArticles.astro';
 import Markdown from '../components/Markdown.astro';
 import { getEntry } from 'astro:content';
+import { ABOUT_SIG } from '../lib/live/render/home-about';
 
 const homePage = await getEntry('pages', 'home/home');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+const aboutXData = `liveEntry({ surface: 'homeAbout', slug: 'home', sig: ${JSON.stringify(ABOUT_SIG(homePage?.data))} })`;
 ---
 <BaseLayout title="Home"
             description="Adult Redeploy Illinois (ARI) is the Illinois state grant program—administered by ICJIA—that funds community-based alternatives to incarceration.">
@@ -17,7 +19,7 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
   <HomeBoxes />
   <div id="about"
        class="max-w-6xl mx-auto px-6 mt-12 grid gap-8 md:grid-cols-3 scroll-mt-24">
-    <div class="md:col-span-2">
+    <div class="md:col-span-2" x-data={aboutXData}>
       <h2 class="text-page-title">
         <a href={`${base}/about/overview`}
            class="text-brand-ink hover:text-brand-muted underline-offset-4 hover:underline
@@ -26,7 +28,7 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
           ABOUT ADULT REDEPLOY ILLINOIS
         </a>
       </h2>
-      {homePage && <Markdown content={homePage.data.content} class="mt-6" />}
+      {homePage && <Markdown content={homePage.data.content} class="mt-6" dataLive="body" />}
     </div>
     <aside>
       <HomeMeetings />
