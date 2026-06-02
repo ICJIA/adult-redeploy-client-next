@@ -42,25 +42,22 @@
   to = "/sitemap-0.xml"
   status = 200
 
-# Branch-deploy / deploy-preview ONLY — never production. Lets you view the
-# based-pathed site on the raw *.netlify.app URL, which has no ICJIA proxy in
-# front. Astro emits files at the dist root while links carry the /adultredeploy
-# prefix (prod's proxy strips it); these rewrites strip it here instead. The
-# production context omits these blocks and keeps relying on the proxy, so
-# nothing here affects prod behavior or headers.
-[[context.deploy-preview.redirects]]
+# View the based-pathed site DIRECTLY on the raw *.netlify.app host (ALL contexts,
+# incl. production) — fast checks without the icjia.illinois.gov proxy. Astro emits
+# files at the dist root while links carry the /adultredeploy prefix; these strip it
+# so /adultredeploy/* resolves on the bare host (visit
+# https://adultredeploy.netlify.app/adultredeploy/).
+#
+# SAFE for production + the proxy: the ICJIA proxy 200!-rewrites
+# icjia.illinois.gov/adultredeploy/* -> this site /:splat, so proxied requests arrive
+# already STRIPPED (/news, /_astro/…, /sitemap.xml) and never match /adultredeploy/* —
+# this rule fires ONLY for direct raw-host visits. Canonical URLs point at
+# icjia.illinois.gov (astro.config `site`), so there's no duplicate-content concern.
+[[redirects]]
   from = "/adultredeploy/*"
   to = "/:splat"
   status = 200
-[[context.deploy-preview.redirects]]
-  from = "/adultredeploy"
-  to = "/"
-  status = 200
-[[context.branch-deploy.redirects]]
-  from = "/adultredeploy/*"
-  to = "/:splat"
-  status = 200
-[[context.branch-deploy.redirects]]
+[[redirects]]
   from = "/adultredeploy"
   to = "/"
   status = 200

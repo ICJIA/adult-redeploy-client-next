@@ -5,16 +5,19 @@
 
 import type { LiveConfig } from './types';
 import {
-  NEWS_LATEST, MEETINGS_BRIEF, NEWS_BY_SLUG, MEETING_BY_SLUG, PAGE_HOME,
+  NEWS_LATEST, MEETINGS_BRIEF, SITES_BRIEF,
+  NEWS_BY_SLUG, MEETING_BY_SLUG, SITE_BY_SLUG, PAGE_HOME,
 } from './data/queries';
 import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from './render/home-news';
 import { renderHomeMeetings, HOME_MTG_SIG_KEYS, type MeetingRow } from './render/home-meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from './render/meetings-splash';
 import {
-  newsIndexRows, meetingsIndexRows, NEWS_INDEX_SIG_KEYS, MTG_INDEX_SIG_KEYS,
+  newsIndexRows, meetingsIndexRows, sitesIndexRows,
+  NEWS_INDEX_SIG_KEYS, MTG_INDEX_SIG_KEYS, SITES_INDEX_SIG_KEYS,
 } from './render/listing-rows';
 import { applyNewsDetail, NEWS_DETAIL_SIG } from './render/news-detail';
 import { applyMeetingDetail, MTG_DETAIL_SIG } from './render/meeting-detail';
+import { applySiteDetail, SITE_DETAIL_SIG } from './render/site-detail';
 import { applyHomeAbout, ABOUT_SIG } from './render/home-about';
 
 const env = import.meta.env as unknown as Record<string, string | undefined>;
@@ -87,6 +90,15 @@ export const liveConfig: LiveConfig = {
       mode: 'xfor',
       announceLabel: 'Meetings list',
     },
+    // /sites table — all funded sites as {title,siteType,href} rows, A→Z (x-for).
+    sitesIndex: {
+      query: SITES_BRIEF,
+      variables: { limit: 300 },
+      select: (data, ctx) => sitesIndexRows(data?.sites ?? [], ctx),
+      signatureKeys: SITES_INDEX_SIG_KEYS,
+      mode: 'xfor',
+      announceLabel: 'Sites list',
+    },
   },
   entries: {
     // News detail — full body; markdown re-rendered client-side only on change.
@@ -106,6 +118,15 @@ export const liveConfig: LiveConfig = {
       applyTo: applyMeetingDetail,
       signature: MTG_DETAIL_SIG,
       announceLabel: 'Meeting',
+    },
+    // Site detail — summary + body; markdown re-rendered client-side only on change.
+    siteDetail: {
+      query: SITE_BY_SLUG,
+      variables: (slug) => ({ where: { slug } }),
+      select: (data) => (data?.sites ?? [])[0] ?? null,
+      applyTo: applySiteDetail,
+      signature: SITE_DETAIL_SIG,
+      announceLabel: 'Site',
     },
     // Homepage About — the CMS `home` page body.
     homeAbout: {

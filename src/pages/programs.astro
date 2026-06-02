@@ -5,6 +5,10 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import Markdown from '../components/Markdown.astro';
 import SiteIllinois from '../components/SiteIllinois.astro';
 
+// Defensive: there is currently no `programs/programs` CMS page, so this renders
+// nothing — kept so a future CMS programs page would surface automatically. The
+// page's live content is the county map below (SiteIllinois), whose side-panel
+// site data refreshes from Strapi without a rebuild.
 const page = await getEntry('pages', 'programs/programs');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---

@@ -18,6 +18,11 @@ export interface MeetingEntity {
   scheduledDate?: string | null;
   category: string;
 }
+export interface SiteEntity {
+  slug: string;
+  title: string;
+  siteType?: string | null;
+}
 export interface TableRow {
   href: string;
   [k: string]: unknown;
@@ -25,6 +30,7 @@ export interface TableRow {
 
 export const NEWS_INDEX_SIG_KEYS = ['publicationDate', 'title', 'href'];
 export const MTG_INDEX_SIG_KEYS = ['scheduledDate', 'title', 'href'];
+export const SITES_INDEX_SIG_KEYS = ['title', 'siteType', 'href'];
 export const RECENT_PER_CATEGORY = 5;
 
 export function newsIndexRows(items: NewsEntity[], ctx: LiveContext): TableRow[] {
@@ -35,6 +41,18 @@ export function newsIndexRows(items: NewsEntity[], ctx: LiveContext): TableRow[]
       href: `${ctx.basePath}/news/${n.slug}`,
     }))
     .sort((a, b) => (a.publicationDate < b.publicationDate ? 1 : -1));
+}
+
+// Sites index — alphabetical by title (mirrors sites/index.astro's localeCompare
+// sort). Type column is the siteType; no date column.
+export function sitesIndexRows(items: SiteEntity[], ctx: LiveContext): TableRow[] {
+  return items
+    .map((s) => ({
+      title: s.title,
+      siteType: s.siteType ?? '',
+      href: `${ctx.basePath}/sites/${s.slug}`,
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title));
 }
 
 export function meetingsIndexRows(

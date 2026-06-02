@@ -52,6 +52,9 @@ const sites = defineCollection({
     summary: z.string().nullable().optional(),
     content: z.string().nullable().optional(),
     siteType: z.string().nullable().optional(),
+    // Kept so the live site-detail island can baseline its signature on updatedAt.
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
   }),
 });
 

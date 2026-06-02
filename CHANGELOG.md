@@ -1,5 +1,57 @@
 # Changelog
 
+## [2.5.0] - 2026-06-02 — live islands for /sites + /programs map · raw netlify-host viewing · docs v8.1
+
+### Live CMS islands extended to /sites and /programs
+
+The client-side live-refresh from 2.4.0 now covers the last frequently-edited
+surfaces, so authors see those edits without waiting for a rebuild:
+
+- **/sites** — the index table and every site detail page refresh live, mirroring
+  /news (a `sitesIndex` listingTable mixin + a `siteDetail` `liveEntry`). The
+  `sites` collection schema **and** the build GraphQL query gained `createdAt`/
+  `updatedAt` so the detail-page signature has a real baseline — without it the
+  region swaps on every load (the same trap fixed for the About page in 2.4.0).
+- **/programs** — the Illinois county map's **side panel** (the site title/summary/
+  link shown when a county is clicked) refreshes live via a new `liveMap` Alpine
+  component, reusing the existing fetch / progress / announce / focus-refetch +
+  signature-gate primitives. The set of *clickable* counties stays build-time on
+  purpose: it comes from a static legacy config (`scripts/usiljs-config.js`), not
+  the CMS, so a newly-funded county still appears on the next rebuild while
+  existing counties' panel data is live.
+
+Internals: the homepage-About body-swap generalized into a reusable `page-body`
+surface (a thin re-export keeps the old `applyHomeAbout`/`ABOUT_SIG` API); the
+map's pure data/signature helpers are split from its browser factory so the
+`.astro` build imports the baseline signature without pulling in browser-only
+modules; `ArticleCard` gained an inert `data-live="badge"` hook. Live fetch
+verified firing (200, no console errors) on /sites, /sites/&lt;slug&gt;, and
+/programs.
+
+### View the raw Netlify deploy directly
+
+Promoted the `/adultredeploy/*` → `/:splat` rewrite to all contexts (incl.
+production), so the based-path site renders on the bare host at
+`https://adultredeploy.netlify.app/adultredeploy/` for quick checks without the
+icjia.illinois.gov proxy. Safe: proxied requests arrive already stripped and never
+match `/adultredeploy/*`; canonical URLs still point at icjia.illinois.gov.
+
+### Accessibility
+
+Verified the skip-link: a single **Skip to main content** link is the first
+focusable element in `<body>`, targets the focusable `<main id="content-top"
+tabindex="-1">`, and is visible-on-focus with sufficient contrast — present on
+every page via BaseLayout. That satisfies WCAG 2.4.1 (bypass blocks); no change
+needed.
+
+### Docs
+
+README rewritten (live-islands feature, proxy/base-path, raw-host viewing, CMS,
+sitemap, scripts). Conversion checklist v8.0 → **v8.1**: a fourth island shape
+(live data over a build-time-static structure), the `updatedAt`-baseline-needs-the-
+build-query trap, the verify-the-data-source-first lesson, the pure-vs-browser
+signature split, and a new "proxied based-path sub-site specifics" subsection.
+
 ## [2.4.3] - 2026-06-02 — fix: /sitemap.xml lists every page (was showing the index)
 
 `@astrojs/sitemap` regenerates the sitemap on **every build** (it always has),

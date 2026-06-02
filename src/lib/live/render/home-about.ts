@@ -1,17 +1,7 @@
 // src/lib/live/render/home-about.ts
-// Live update for the homepage "About" section (the CMS `home` page body).
-// Markdown imported lazily, gated on a real change.
+// The homepage "About" island is just the generic CMS page-body surface. This
+// shim preserves the original public API (applyHomeAbout / ABOUT_SIG) so existing
+// imports keep working; the implementation now lives in page-body.ts (shared with
+// /programs and any future single-CMS-page island).
 
-import { liveEl } from './shared';
-import { fadeSwap } from '../behavior/transition';
-import type { LiveContext } from '../types';
-
-export const ABOUT_SIG = (v: any): string => String(v?.updatedAt ?? '');
-
-export async function applyHomeAbout(root: HTMLElement, view: any, _ctx: LiveContext): Promise<void> {
-  const body = liveEl(root, 'body');
-  if (body) {
-    const { renderMarkdown } = await import('../../markdown/core');
-    fadeSwap(body, () => { body.innerHTML = renderMarkdown(view.content ?? ''); });
-  }
-}
+export { applyPageBody as applyHomeAbout, PAGE_BODY_SIG as ABOUT_SIG } from './page-body';

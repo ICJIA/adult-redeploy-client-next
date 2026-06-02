@@ -22,6 +22,7 @@ export const QUERY = /* GraphQL */ `{
   }
   sites {
     id slug title summary content searchMeta siteType
+    createdAt updatedAt
   }
   biographies(where: { isPublished: true }) {
     slug firstName middleName lastName prefix suffix title

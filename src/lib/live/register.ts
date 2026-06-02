@@ -7,6 +7,7 @@ import { liveConfig } from './config';
 import { makeLiveCollection } from './behavior/liveCollection';
 import { makeLiveEntry } from './behavior/liveEntry';
 import { makeListMixin } from './behavior/liveList';
+import { makeLiveMap } from './render/programs-map-live';
 import type { LiveListOpts } from './types';
 
 // Structural type — only the .data() method we use, to avoid coupling to
@@ -18,6 +19,8 @@ interface AlpineLike {
 export function registerLive(alpine: AlpineLike): void {
   alpine.data('liveCollection', makeLiveCollection(liveConfig));
   alpine.data('liveEntry', makeLiveEntry(liveConfig));
+  // ARI /programs county map — refreshes the side-panel site data live.
+  alpine.data('liveMap', makeLiveMap(liveConfig));
   (window as unknown as { __live?: unknown }).__live = {
     config: liveConfig,
     // The inline ListingTable Object.assigns this mixin onto its base.

@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import paths from './svg/illinois-paths.html?raw';
 import counties from '../lib/counties-data.json';
+import { mapSignature } from '../lib/live/render/programs-map';
 
 type Site = CollectionEntry<'sites'>['data'];
 
@@ -24,8 +25,11 @@ for (const c of counties) {
 }
 const SITE_DATA = JSON.stringify(bySlug);
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+// Baseline over ALL sites' panel fields; the live refresh re-signs the same way,
+// so the panel only updates when a site's title/summary actually changed.
+const mapSig = mapSignature(sites);
 ---
-<div x-data={`ilMap(${SITE_DATA}, '${base}')`}
+<div x-data={`liveMap({ byCounty: ${SITE_DATA}, base: '${base}', sig: ${JSON.stringify(mapSig)} })`}
      class="grid gap-6 md:grid-cols-2 items-start">
   <div class="il-map-wrap">
     <Fragment set:html={paths} />
@@ -48,31 +52,6 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
     </p>
   </aside>
 </div>
-
-<script is:inline>
-  function ilMap(byCounty, base) {
-    return {
-      base,
-      byCounty,
-      selected: null,
-      init() {
-        const root = this.$el;
-        root.querySelectorAll('svg [data-county]').forEach((el) => {
-          el.addEventListener('click', () => this.select(el.dataset.county));
-          el.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              this.select(el.dataset.county);
-            }
-          });
-        });
-      },
-      select(county) {
-        this.selected = this.byCounty[county] ?? null;
-      },
-    };
-  }
-</script>
 
 <style is:global>
   .il-map-wrap svg {

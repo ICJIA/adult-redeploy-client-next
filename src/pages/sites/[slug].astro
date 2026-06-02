@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Markdown from '../../components/Markdown.astro';
+import { SITE_DETAIL_SIG } from '../../lib/live/render/site-detail';
 
 type Site = CollectionEntry<'sites'>['data'];
 
@@ -14,12 +15,16 @@ export async function getStaticPaths() {
   }));
 }
 const { item } = Astro.props as { item: Site };
+const xData = `liveEntry({ surface: 'siteDetail', slug: ${JSON.stringify(item.slug)}, sig: ${JSON.stringify(SITE_DETAIL_SIG(item))} })`;
 ---
 <BaseLayout title={item.title} description={item.summary ?? undefined}>
-  <ArticleCard title={item.title}
-               badge={item.siteType ?? undefined}
-               pagefindMeta={{ type: 'site' }}>
-    {item.summary && <p class="text-lg italic mb-6">{item.summary}</p>}
-    <Markdown content={item.content} />
-  </ArticleCard>
+  <div x-data={xData}>
+    <ArticleCard title={item.title}
+                 badge={item.siteType ?? undefined}
+                 pagefindMeta={{ type: 'site' }}>
+      <p class="text-lg italic mb-6" data-live="summary"
+         style={item.summary ? undefined : 'display:none'}>{item.summary}</p>
+      <Markdown content={item.content} dataLive="body" />
+    </ArticleCard>
+  </div>
 </BaseLayout>

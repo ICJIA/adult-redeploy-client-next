@@ -26,7 +26,8 @@ const metaPairs = Object.entries(pagefindMeta ?? {});
       <!-- Compact category marker, upper-right of the card. Just a visual
            tag — small + width-capped so long committee names stay unobtrusive.
            Full bg-brand-secondary kept (no opacity) to preserve contrast. -->
-      <span class="shrink-0 inline-block bg-brand-secondary text-white
+      <span data-live="badge"
+            class="shrink-0 inline-block bg-brand-secondary text-white
                    text-[10px] font-semibold uppercase tracking-wide
                    px-2 py-1 rounded max-w-[42%] text-right leading-snug">
         {badge}

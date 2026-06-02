@@ -17,6 +17,16 @@ export const MEETINGS_BRIEF = /* GraphQL */ `
     }
   }`;
 
+// Sites carry no `isPublished` flag (the build fetches them all — see
+// scripts/strapi-query.mjs), so the live queries don't filter on it either.
+// `summary` feeds the /programs map side panel; the /sites index ignores it.
+export const SITES_BRIEF = /* GraphQL */ `
+  query SitesBrief($limit: Int) {
+    sites(sort: "title:asc", limit: $limit) {
+      slug title siteType summary
+    }
+  }`;
+
 // Detail queries pass the whole `where` as a JSON variable. Strapi 3's `where`
 // is a JSON scalar, so a variable used INSIDE a where object literal
 // (e.g. `slug: $slug`) is silently ignored and returns ALL rows — passing the
@@ -35,6 +45,13 @@ export const MEETING_BY_SLUG = /* GraphQL */ `
       slug title summary content scheduledDate category createdAt updatedAt
       meetingMaterial { name summary file { name url hash } }
       tags { name slug }
+    }
+  }`;
+
+export const SITE_BY_SLUG = /* GraphQL */ `
+  query SiteBySlug($where: JSON) {
+    sites(where: $where) {
+      slug title summary content siteType updatedAt
     }
   }`;
 
