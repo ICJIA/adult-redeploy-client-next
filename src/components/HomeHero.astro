@@ -4,7 +4,12 @@ import splash from '../assets/ari-splash-01.jpg';
 
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
-<section class="relative w-full">
+<!-- Hero: the image is an absolute cover and the banner sits in normal flow
+     inside a flex section with a responsive min-height. This guarantees the
+     section is always at least as tall as the banner, so on narrow/mobile
+     widths the dark banner can never overflow into the next section. -->
+<section class="relative w-full overflow-hidden flex items-center justify-center
+                min-h-[20rem] sm:min-h-[24rem] md:min-h-[30rem] lg:min-h-[34rem]">
   <Image
     src={splash}
     widths={[640, 960, 1280, 1920]}
@@ -13,39 +18,36 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
     alt=""
     loading="eager"
     fetchpriority="high"
-    class="w-full h-auto max-h-[600px] object-cover block bg-surface-shaded"
+    class="absolute inset-0 h-full w-full object-cover bg-surface-shaded"
   />
-  <div class="absolute inset-0 flex items-center justify-center px-4
-              pointer-events-none">
-    <div class="banner max-w-3xl w-full text-center pointer-events-auto">
-      <h1 class="font-heading font-black text-white
-                 text-2xl sm:text-4xl md:text-5xl tracking-tight">
-        Adult Redeploy Illinois
-      </h1>
-      <p class="text-white/95 mt-4 text-sm sm:text-base md:text-lg
-                leading-relaxed">
-        Reallocating state resources to develop more effective, less
-        expensive community-based alternatives to incarceration and
-        improve access to interventions that reduce crime.
-      </p>
-      <div class="mt-5 flex flex-wrap gap-3 justify-center">
-        <a href="#about"
-           class="inline-block bg-white text-brand-primary font-bold
-                  uppercase text-xs sm:text-sm px-5 py-2.5 rounded
-                  hover:bg-surface-shaded transition
-                  focus-visible:outline focus-visible:outline-2
-                  focus-visible:outline-white focus-visible:outline-offset-2">
-          Learn More
-        </a>
-        <a href={`${base}/about/faqs`}
-           class="inline-block bg-white text-brand-primary font-bold
-                  uppercase text-xs sm:text-sm px-5 py-2.5 rounded
-                  hover:bg-surface-shaded transition
-                  focus-visible:outline focus-visible:outline-2
-                  focus-visible:outline-white focus-visible:outline-offset-2">
-          FAQs
-        </a>
-      </div>
+  <div class="banner relative z-10 max-w-3xl w-full mx-4 my-8 text-center">
+    <h1 class="font-heading font-black text-white
+               text-2xl sm:text-4xl md:text-5xl tracking-tight">
+      Adult Redeploy Illinois
+    </h1>
+    <p class="text-white/95 mt-4 text-sm sm:text-base md:text-lg
+              leading-relaxed">
+      Reallocating state resources to develop more effective, less
+      expensive community-based alternatives to incarceration and
+      improve access to interventions that reduce crime.
+    </p>
+    <div class="mt-5 flex flex-wrap gap-3 justify-center">
+      <a href="#about"
+         class="inline-block bg-white text-brand-primary font-bold
+                uppercase text-xs sm:text-sm px-5 py-2.5 rounded
+                hover:bg-surface-shaded transition
+                focus-visible:outline focus-visible:outline-2
+                focus-visible:outline-white focus-visible:outline-offset-2">
+        Learn More
+      </a>
+      <a href={`${base}/about/faqs`}
+         class="inline-block bg-white text-brand-primary font-bold
+                uppercase text-xs sm:text-sm px-5 py-2.5 rounded
+                hover:bg-surface-shaded transition
+                focus-visible:outline focus-visible:outline-2
+                focus-visible:outline-white focus-visible:outline-offset-2">
+        FAQs
+      </a>
     </div>
   </div>
 </section>

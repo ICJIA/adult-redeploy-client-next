@@ -49,6 +49,9 @@ meetings index tables, and markdown detail pages follow.
 - **Compact card category badge.** The `ArticleCard` category marker (news,
   meetings, resources) is smaller and pinned to the card's upper right — a
   quiet visual tag rather than a prominent banner.
+- **Hero contained on mobile.** The homepage hero image is now an absolute
+  cover behind a normal-flow banner with a responsive `min-height`, so the
+  dark banner no longer overflows into the next section on narrow widths.
 - **Branch-deploy viewing.** Context-scoped Netlify rewrites (`branch-deploy`
   + `deploy-preview` only) map `/adultredeploy/*` to the dist root so the
   based-path site is viewable on raw `*.netlify.app` URLs, which have no ICJIA
