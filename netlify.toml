@@ -24,6 +24,17 @@
   to   = "/adultredeploy/about/meetings/regular-oversight/ariob-meeting-2025-4"
   status = 301
 
+# /sitemap.xml is the conventional path crawlers/validators probe; @astrojs/sitemap
+# emits sitemap-index.xml (robots.txt already points there). Serve the index at the
+# conventional path too — a 200 rewrite (URL stays /sitemap.xml). UN-prefixed on
+# purpose: in production the ICJIA proxy strips /adultredeploy before this site sees
+# the path, so site-level redirects must match the STRIPPED path (the prefixed
+# legacy redirects above were found NOT to fire in prod for this reason).
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 200
+
 # Branch-deploy / deploy-preview ONLY — never production. Lets you view the
 # based-pathed site on the raw *.netlify.app URL, which has no ICJIA proxy in
 # front. Astro emits files at the dist root while links carry the /adultredeploy

@@ -7,6 +7,7 @@ import Tag from '../../../../components/ui/Tag.astro';
 import { formatDate } from '../../../../lib/dates';
 import { MEETING_CATEGORIES, enumToSlug } from '../../../../lib/meetings';
 import { MTG_DETAIL_SIG, renderMeetingMaterials } from '../../../../lib/live/render/meeting-detail';
+import { meetingEvent } from '../../../../lib/jsonld';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
 
@@ -26,8 +27,16 @@ const { item } = Astro.props as { item: Meeting };
 const category = MEETING_CATEGORIES.find((c) => c.enum === item.category)!;
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const xData = `liveEntry({ surface: 'meetingDetail', slug: ${JSON.stringify(item.slug)}, sig: ${JSON.stringify(MTG_DETAIL_SIG(item))} })`;
+const eventJsonLd = meetingEvent({
+  url: `https://icjia.illinois.gov${base}/about/meetings/${category.slug}/${item.slug}`,
+  name: item.title,
+  description: item.summary,
+  startDate: item.scheduledDate,
+});
 ---
-<BaseLayout title={item.title} description={item.summary ?? undefined}>
+<BaseLayout title={item.title} description={item.summary ?? undefined}
+            ogType="article" jsonLd={eventJsonLd}
+            published={item.createdAt} modified={item.updatedAt}>
   <div x-data={xData}>
     <ArticleCard title={item.title}
                  badge={category.title}

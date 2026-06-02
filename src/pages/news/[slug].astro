@@ -6,6 +6,7 @@ import Markdown from '../../components/Markdown.astro';
 import Tag from '../../components/ui/Tag.astro';
 import { formatDate } from '../../lib/dates';
 import { NEWS_DETAIL_SIG } from '../../lib/live/render/news-detail';
+import { newsArticle } from '../../lib/jsonld';
 
 type News = CollectionEntry<'news'>['data'];
 
@@ -20,8 +21,17 @@ const { item } = Astro.props as { item: News };
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const posted = item.publicationDate ?? item.createdAt;
 const xData = `liveEntry({ surface: 'newsDetail', slug: ${JSON.stringify(item.slug)}, sig: ${JSON.stringify(NEWS_DETAIL_SIG(item))} })`;
+const articleJsonLd = newsArticle({
+  url: `https://icjia.illinois.gov${base}/news/${item.slug}`,
+  headline: item.title,
+  description: item.summary,
+  datePublished: posted,
+  dateModified: item.updatedAt,
+});
 ---
-<BaseLayout title={item.title} description={item.summary ?? undefined}>
+<BaseLayout title={item.title} description={item.summary ?? undefined}
+            ogType="article" jsonLd={articleJsonLd}
+            published={posted} modified={item.updatedAt}>
   <div x-data={xData}>
     <ArticleCard title={item.title}
                  badge="Adult Redeploy Illinois News"

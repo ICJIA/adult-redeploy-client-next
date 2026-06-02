@@ -6,14 +6,25 @@ import AppFooter from '../components/AppFooter.astro';
 import DrawerNav from '../components/alpine/DrawerNav.astro';
 import LiveRegion from '../components/alpine/LiveRegion.astro';
 import LiveProgress from '../components/alpine/LiveProgress.astro';
+import { organization } from '../lib/jsonld';
 
 interface Props {
   title: string;
   description?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
+  jsonLd?: object | object[];
+  published?: string;
+  modified?: string;
+  author?: string;
 }
-const { title, description, ogImage, ogType = 'website' } = Astro.props;
+const { title, description, ogImage, ogType = 'website',
+        jsonLd, published, modified, author = 'Adult Redeploy Illinois' } = Astro.props;
+// Site-wide Organization on every page (fixes "no JSON-LD" + authorship for AI
+// readiness) plus any per-page schema (WebSite / WebPage / NewsArticle / Event).
+// `<` is escaped so a string value can't break out of the <script> tag.
+const jsonLdBlocks = [organization(), ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [])];
+const serializeJsonLd = (o: unknown) => JSON.stringify(o).replace(/</g, '\\u003c');
 const siteOrigin = (Astro.site
   ? new URL(Astro.site).origin
   : 'https://icjia.illinois.gov');
@@ -94,6 +105,12 @@ const ogImageUrl = ogImage
     <script is:inline defer data-domain={plausibleDomain}
             src="https://plausible.icjia.cloud/js/script.file-downloads.outbound-links.js"></script>
     <slot name="head" />
+    <meta name="author" content={author} />
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={serializeJsonLd(block)} />
+    ))}
   </head>
   <body class="font-sans bg-surface-subtle text-brand-ink min-h-screen flex flex-col">
     <a href="#content-top"

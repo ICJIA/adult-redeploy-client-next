@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.4.1] - 2026-06-02 — AI-readiness (JSON-LD) + sleek 404 + sitemap alias
+
+### AI-readiness: structured data, authorship, freshness
+
+Every page now emits a site-wide **Organization** JSON-LD + `<meta name="author">`;
+detail pages add per-type schema with dates — news → **NewsArticle**
+(`datePublished`/`dateModified` + `article:published_time`/`modified_time`),
+meetings → **Event** (`startDate`, online attendance, organizer), homepage →
+**WebSite** + **WebPage** (`dateModified`). Builders live in `src/lib/jsonld.ts`
+and emit via a BaseLayout `jsonLd` / `published` / `modified` prop (with `<`
+escaped). Resolves the three AI-readiness FAILs (JSON-LD / authorship / freshness).
+
+### Sleek 404
+
+Redesigned `/404` from a bare link into an on-brand page: large decorative `404`,
+clear message, primary **Return home** + **Search the site** actions, and a
+responsive section quick-link grid. Accessible (decorative number `aria-hidden`,
+labeled `nav`, focus-visible states throughout).
+
+### `/sitemap.xml` alias
+
+`@astrojs/sitemap` emits `sitemap-index.xml` (robots.txt already points there, so
+crawlers were always covered). Added a `200` rewrite so the conventional
+`/sitemap.xml` resolves to the index too. **Un-prefixed** because the ICJIA proxy
+strips `/adultredeploy` before this site sees the path — verified in prod, where
+the *prefixed* legacy meeting-redirects don't fire for the same reason (their
+`from` should be un-prefixed while `to` stays prefixed — flagged for a separate
+cleanup; build-time URL canonicalization already protects internal links).
+
 ## [2.4.0] - 2026-06-02 — feat/live-cms-islands
 
 ### Live CMS islands — client-side refresh for news, meetings, and the homepage

@@ -8,13 +8,24 @@ import HomeArticles from '../components/HomeArticles.astro';
 import Markdown from '../components/Markdown.astro';
 import { getEntry } from 'astro:content';
 import { ABOUT_SIG } from '../lib/live/render/home-about';
+import { webSite, webPage } from '../lib/jsonld';
 
 const homePage = await getEntry('pages', 'home/home');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const aboutXData = `liveEntry({ surface: 'homeAbout', slug: 'home', sig: ${JSON.stringify(ABOUT_SIG(homePage?.data))} })`;
+const homeJsonLd = [
+  webSite(),
+  webPage({
+    url: 'https://icjia.illinois.gov/adultredeploy',
+    name: 'Adult Redeploy Illinois',
+    description: 'Adult Redeploy Illinois (ARI) is the Illinois state grant program—administered by ICJIA—that funds community-based alternatives to incarceration.',
+    dateModified: homePage?.data.updatedAt,
+  }),
+];
 ---
 <BaseLayout title="Home"
-            description="Adult Redeploy Illinois (ARI) is the Illinois state grant program—administered by ICJIA—that funds community-based alternatives to incarceration.">
+            description="Adult Redeploy Illinois (ARI) is the Illinois state grant program—administered by ICJIA—that funds community-based alternatives to incarceration."
+            jsonLd={homeJsonLd}>
   <HomeHero />
   <HomeBoxes />
   <div id="about"
