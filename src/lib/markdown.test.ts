@@ -19,4 +19,11 @@ describe('renderMarkdown', () => {
     expect(renderMarkdown(undefined)).toBe('');
     expect(renderMarkdown('')).toBe('');
   });
+  it('preserves safe CMS inline image styles so text wraps (e.g. the state seal)', () => {
+    const html = renderMarkdown(
+      '<img src="https://ari.icjia-api.cloud/uploads/x.png" alt="seal" '
+      + 'style="float: left; margin: 4px 10px 0 0;">',
+    );
+    expect(html).toMatch(/float\s*:\s*left/);
+  });
 });

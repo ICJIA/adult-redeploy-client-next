@@ -74,7 +74,11 @@ function rewriteImages(html: string, resolve?: ImageResolver): string {
 // as visible text. Per-tag spacing rules live in global.css under .prose.
 // Also extend the img whitelist with `loading` / `decoding` so the perf
 // attributes our markdown-it rule injects survive sanitization.
-const imgAllow = ['src', 'alt', 'title', 'width', 'height',
+// `style` is allowed so CMS-authored inline layout survives — e.g. the state
+// seal on the homepage uses `style="float: left; margin: …"` to wrap body text
+// around it. xss still runs the style value through its built-in CSS filter
+// (safe props like float/margin pass; expression()/dangerous CSS is stripped).
+const imgAllow = ['src', 'alt', 'title', 'width', 'height', 'style',
                   'loading', 'decoding', 'fetchpriority', 'sizes', 'srcset'];
 
 export function renderMarkdown(src: string | null | undefined,
@@ -87,12 +91,19 @@ export function renderMarkdown(src: string | null | undefined,
   const defaultWhiteList = (xss as unknown as {
     getDefaultWhiteList(): Record<string, string[]>;
   }).getDefaultWhiteList();
+  // cssfilter (xss's inline-style sanitizer) disallows `float` by default, which
+  // would strip the CMS seal's `float: left`. Re-allow just `float` on top of
+  // the safe default CSS whitelist; every other CSS property stays filtered.
+  const cssWhiteList = (xss as unknown as {
+    getDefaultCSSWhiteList(): Record<string, unknown>;
+  }).getDefaultCSSWhiteList();
   const safe = xss(html, {
     stripIgnoreTagBody: ['script', 'style'],
     whiteList: {
       ...defaultWhiteList,
       img: imgAllow,
     },
+    css: { whiteList: { ...cssWhiteList, float: true } },
   });
   return rewriteImages(safe, opts.imageResolver);
 }
