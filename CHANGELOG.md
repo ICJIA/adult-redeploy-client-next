@@ -1,5 +1,41 @@
 # Changelog
 
+## [Unreleased] — feat/live-cms-islands
+
+### Live CMS islands — client-side refresh for news, meetings, and the homepage
+
+Strapi content authors can now see published changes immediately, without
+waiting for a rebuild or the nightly job. Small Alpine islands hydrate the
+last-built HTML (so SEO, Pagefind, no-JS, and first paint are unchanged),
+then — deferred to idle and again on tab focus — fetch live data straight
+from the Strapi GraphQL endpoint and swap a region in only when it actually
+changed. No new runtime dependency (reuses the Alpine already shipped); no
+CSP change (the endpoint is already in `connect-src`; Strapi CORS reflects
+the request origin, so it works on localhost, branch deploys, and prod).
+
+Feedback is built in: a thin progress bar under the nav runs on **every**
+live query (even when nothing changed), with a guaranteed-perceptible
+minimum duration; on a real change the new content **fades in** rather than
+popping; screen readers hear a single polite "…updated" only on real
+changes (no per-poll chatter). All motion respects `prefers-reduced-motion`,
+and the bar/fade are overlay/opacity-only, so there is no layout shift.
+Any fetch failure keeps the static DOM — the page is never blanked.
+
+**Groundwork (behavior-preserving; static build output unchanged):**
+
+- `src/lib/markdown.ts` split into an isomorphic `markdown/core.ts`
+  (markdown-it + xss only) so the *same* renderer runs at build and, lazily,
+  in the browser; the build shim still injects the CMS image manifest so
+  static output is byte-identical.
+- Committee category enum→slug map single-sourced in
+  `src/lib/live/data/meeting-cats.mjs` (shared by the Node build script and
+  the browser/Astro code) — removes three drifting copies.
+
+**Live module** under `src/lib/live/` (data / behavior / render split, built
+for later extraction into a shared package across the other Astro sites).
+First surface live: the homepage **ARI NEWS** list. Meetings, the news and
+meetings index tables, and markdown detail pages follow.
+
 ## [2.3.4] - 2026-06-01
 
 ### `public/_headers` defense-in-depth at the Netlify edge

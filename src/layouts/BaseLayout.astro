@@ -4,6 +4,8 @@ import { SEO } from 'astro-seo';
 import AppHeader from '../components/AppHeader.astro';
 import AppFooter from '../components/AppFooter.astro';
 import DrawerNav from '../components/alpine/DrawerNav.astro';
+import LiveRegion from '../components/alpine/LiveRegion.astro';
+import LiveProgress from '../components/alpine/LiveProgress.astro';
 
 interface Props {
   title: string;
@@ -100,15 +102,19 @@ const ogImageUrl = ogImage
     </a>
     <AppHeader />
     <DrawerNav />
+    <LiveProgress />
     <main id="content-top" tabindex="-1" class="flex-1 outline-none">
       <slot />
     </main>
     <AppFooter />
+    <LiveRegion />
     <script>
       import Alpine from 'alpinejs';
       import focus from '@alpinejs/focus';
+      import { registerLive } from '../lib/live/register';
       Alpine.plugin(focus);
       Alpine.store('drawer', { open: false });
+      registerLive(Alpine);
       Alpine.start();
     </script>
   </body>

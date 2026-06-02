@@ -1,0 +1,6 @@
+---
+// Single shared polite live region for live-fetch announcements. Mounted once
+// in BaseLayout. announce() (src/lib/live/behavior/announce.ts) writes here only
+// on a real content change — never on no-change polls — to avoid SR spam.
+---
+<div id="live-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>

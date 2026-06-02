@@ -1,0 +1,19 @@
+---
+// Thin top progress bar shown under the nav while ANY live query is in flight
+// (including no-change refreshes). Fixed overlay → no layout shift. Decorative
+// (aria-hidden) — screen readers are served by LiveRegion instead. Driven by
+// src/lib/live/behavior/progress.ts. The 90px offset matches AppHeader's
+// sticky h-[90px]; override via the --live-progress-top CSS var if that changes.
+---
+<div id="live-progress" aria-hidden="true"
+     class="fixed left-0 right-0 z-40 pointer-events-none"
+     style="top: var(--live-progress-top, 90px); opacity: 0; transition: opacity 220ms ease;">
+  <div data-fill class="h-[3px] w-0 bg-brand-secondary"></div>
+</div>
+<style>
+  #live-progress [data-fill] { transition: width 200ms ease; }
+  @media (prefers-reduced-motion: reduce) {
+    #live-progress,
+    #live-progress [data-fill] { transition: none !important; }
+  }
+</style>
