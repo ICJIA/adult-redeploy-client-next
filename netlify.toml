@@ -29,15 +29,17 @@
   to   = "/adultredeploy/about/meetings/regular-oversight/ariob-meeting-2025-4"
   status = 301
 
-# /sitemap.xml is the conventional path crawlers/validators probe; @astrojs/sitemap
-# emits sitemap-index.xml (robots.txt already points there). Serve the index at the
-# conventional path too — a 200 rewrite (URL stays /sitemap.xml). UN-prefixed on
-# purpose: in production the ICJIA proxy strips /adultredeploy before this site sees
-# the path, so site-level redirects must match the STRIPPED path (the prefixed
-# legacy redirects above were found NOT to fire in prod for this reason).
+# /sitemap.xml is the conventional path crawlers/Search Console use. @astrojs/sitemap
+# regenerates the sitemap EVERY build, emitting an INDEX (sitemap-index.xml) plus the
+# actual URL list in sitemap-0.xml. Point the conventional /sitemap.xml at the URL
+# LIST (sitemap-0.xml) so it shows every page directly — the index lists only the one
+# sub-sitemap, which read as "a single page". 200 rewrite (URL stays /sitemap.xml).
+# UN-prefixed: the ICJIA proxy strips /adultredeploy before this site matches the path
+# (verified). ARI is ~hundreds of URLs, well under @astrojs/sitemap's 45k split, so
+# there is only ever sitemap-0.xml.
 [[redirects]]
   from = "/sitemap.xml"
-  to = "/sitemap-index.xml"
+  to = "/sitemap-0.xml"
   status = 200
 
 # Branch-deploy / deploy-preview ONLY — never production. Lets you view the

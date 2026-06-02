@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.4.3] - 2026-06-02 — fix: /sitemap.xml lists every page (was showing the index)
+
+`@astrojs/sitemap` regenerates the sitemap on **every build** (it always has),
+emitting a sitemap **index** (`sitemap-index.xml`) plus the actual URL list
+(`sitemap-0.xml`, ~291 pages). The v2.4.1 `/sitemap.xml` rewrite pointed at the
+**index**, which lists only the single sub-sitemap — so `/sitemap.xml` looked like
+"one page". Re-pointed `/sitemap.xml` → `sitemap-0.xml` (the full `<urlset>`) and
+aligned `robots.txt` to `/sitemap.xml`, so the Search-Console-submitted path shows
+every page directly. (ARI is far under `@astrojs/sitemap`'s 45k split → only ever
+`sitemap-0.xml`. No plugin change needed — it was already regenerating each build.)
+
 ## [2.4.2] - 2026-06-02 — fix: legacy meeting redirects now fire in production
 
 The three CMS-meeting 301-redirects had a **prefixed `from`** (`/adultredeploy/…`),
