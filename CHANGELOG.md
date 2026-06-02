@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.4.2] - 2026-06-02 — fix: legacy meeting redirects now fire in production
+
+The three CMS-meeting 301-redirects had a **prefixed `from`** (`/adultredeploy/…`),
+but the ICJIA proxy strips `/adultredeploy` before this site matches the path — so
+they never fired in prod (verified: a redirect *source* `404`'d while its *target*
+`200`'d). Un-prefixed each `from` to match the stripped path; `to` keeps the prefix
+(it's the public `Location` the browser follows). Same root cause as the v2.4.1
+`/sitemap.xml` rewrite. Internal links were already safe (build-time URL
+canonicalization); this restores the 301s for external/bookmarked old URLs.
+
 ## [2.4.1] - 2026-06-02 — AI-readiness (JSON-LD) + sleek 404 + sitemap alias
 
 ### AI-readiness: structured data, authorship, freshness
