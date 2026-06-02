@@ -16,15 +16,18 @@ const metaPairs = Object.entries(pagefindMeta ?? {});
          overflow-hidden"
 >
   <header class="bg-brand-primary text-white px-6 sm:px-10 py-5
-                 flex items-center justify-between gap-4">
+                 flex items-start justify-between gap-4">
     <h1 class="font-heading font-black uppercase tracking-tight
                text-lg sm:text-xl md:text-2xl leading-tight">
       {title}
     </h1>
     {badge && (
+      <!-- Compact category marker, upper-right of the card. Just a visual
+           tag — small + width-capped so long committee names stay unobtrusive.
+           Full bg-brand-secondary kept (no opacity) to preserve contrast. -->
       <span class="shrink-0 inline-block bg-brand-secondary text-white
-                   text-xs font-bold uppercase tracking-wider
-                   px-3 py-1.5 rounded">
+                   text-[10px] font-semibold uppercase tracking-wide
+                   px-2 py-1 rounded max-w-[42%] text-right leading-snug">
         {badge}
       </span>
     )}

@@ -36,6 +36,24 @@ for later extraction into a shared package across the other Astro sites).
 First surface live: the homepage **ARI NEWS** list. Meetings, the news and
 meetings index tables, and markdown detail pages follow.
 
+### Incidental fixes & polish on this branch
+
+- **Restored CMS image text-wrap.** The homepage state seal (and any CMS
+  image authored with `style="float: …"`) wraps body text again — the
+  migration's markdown sanitizer had been stripping inline image styles.
+  `style` is re-allowed on images and `float` re-added to the (otherwise
+  default) xss CSS whitelist; all other inline CSS stays filtered.
+- **Full-bleed HomeBoxes band.** The Programs / Grants / Resources band now
+  spans edge-to-edge (no max-width gutters); paragraph line length is capped
+  so it stays readable on wide screens.
+- **Compact card category badge.** The `ArticleCard` category marker (news,
+  meetings, resources) is smaller and pinned to the card's upper right — a
+  quiet visual tag rather than a prominent banner.
+- **Branch-deploy viewing.** Context-scoped Netlify rewrites (`branch-deploy`
+  + `deploy-preview` only) map `/adultredeploy/*` to the dist root so the
+  based-path site is viewable on raw `*.netlify.app` URLs, which have no ICJIA
+  proxy. Production is untouched.
+
 ## [2.3.4] - 2026-06-01
 
 ### `public/_headers` defense-in-depth at the Netlify edge
