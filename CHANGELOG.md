@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] — feat/live-cms-islands
+## [2.4.0] - 2026-06-02 — feat/live-cms-islands
 
 ### Live CMS islands — client-side refresh for news, meetings, and the homepage
 
