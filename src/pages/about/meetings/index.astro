@@ -4,6 +4,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageTitle from '../../../components/ui/PageTitle.astro';
 import ListingTable from '../../../components/alpine/ListingTable.astro';
 import { MEETING_CATEGORIES } from '../../../lib/meetings';
+import { renderMeetingsSplash, SPLASH_SIG_KEYS } from '../../../lib/live/render/meetings-splash';
+import type { MeetingRow } from '../../../lib/live/render/home-meetings';
+import { stableSignature } from '../../../lib/live/behavior/signature';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
 
@@ -12,6 +15,16 @@ const RECENT_PER_CATEGORY = 5;
 const entries = await getCollection('meetings');
 const all: Meeting[] = entries.map((e) => e.data);
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+
+// Feature splash: the single next upcoming meeting (or none). Live island
+// recomputes by current date + live data on load/focus and hides when empty.
+const now = new Date().toISOString();
+const splashRows = all
+  .filter((m) => m.scheduledDate && m.scheduledDate > now)
+  .sort((a, b) => ((a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? -1 : 1))
+  .slice(0, 1) as unknown as MeetingRow[];
+const liveCtx = { endpoint: '', basePath: base };
+const splashSig = stableSignature(splashRows, SPLASH_SIG_KEYS);
 
 const sections = MEETING_CATEGORIES.map((c) => {
   const all_in = all
@@ -34,6 +47,11 @@ const sections = MEETING_CATEGORIES.map((c) => {
             description="Adult Redeploy Illinois Oversight Board and committee meetings, grouped by committee.">
   <div class="max-w-6xl mx-auto px-6 py-10">
     <PageTitle title="Meetings" />
+
+    <div x-data={`liveCollection({ surface: 'meetingsSplash', sig: ${JSON.stringify(splashSig)} })`}>
+      <div x-ref="region" set:html={renderMeetingsSplash(splashRows, liveCtx)}></div>
+    </div>
+
     <p class="-mt-2 mb-10 text-lg">
       The Adult Redeploy Illinois Oversight Board and its committees meet
       regularly to review program performance, set policy direction, and

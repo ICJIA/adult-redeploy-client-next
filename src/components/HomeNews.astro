@@ -1,24 +1,23 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { formatDate } from '../lib/dates';
-import { NEWS_CLASSES, NEWS_SIG_KEYS, type NewsRow } from '../lib/live/render/home-news';
+import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from '../lib/live/render/home-news';
 import { stableSignature } from '../lib/live/behavior/signature';
 
 type News = CollectionEntry<'news'>['data'];
 
 const newsEntries = await getCollection('news');
-const items: News[] = newsEntries
+const items = newsEntries
   .map((e) => e.data)
   .filter((n: News) => n.publicationDate)
   .sort((a: News, b: News) =>
     (a.publicationDate ?? '') < (b.publicationDate ?? '') ? 1 : -1)
-  .slice(0, 4);
+  .slice(0, 4) as unknown as NewsRow[];
 
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-
-// Baseline signature of the build-time rows. The live island compares this to
-// the freshly-fetched signature and only swaps + announces on a real change.
-const sig = stableSignature(items as unknown as NewsRow[], NEWS_SIG_KEYS);
+const ctx = { endpoint: '', basePath: base };
+// Same render fn drives the static markup (set:html) and the live swap, so they
+// can't diverge. Baseline signature lets the island skip no-op refreshes.
+const sig = stableSignature(items, NEWS_SIG_KEYS);
 const xData = `liveCollection({ surface: 'homeNews', sig: ${JSON.stringify(sig)} })`;
 ---
 <section x-data={xData}>
@@ -30,19 +29,5 @@ const xData = `liveCollection({ surface: 'homeNews', sig: ${JSON.stringify(sig)}
       ARI NEWS
     </a>
   </h2>
-  <ul class="mt-6 space-y-4" x-ref="region">
-    {items.map((item: News) => (
-      <li class={NEWS_CLASSES.li}>
-        <div class={NEWS_CLASSES.date}>
-          Posted: {formatDate(item.publicationDate)}
-        </div>
-        <h3 class={NEWS_CLASSES.h3}>
-          <a href={`${base}/news/${item.slug}`} class={NEWS_CLASSES.link}>
-            {item.title}
-          </a>
-        </h3>
-        {item.summary && <p class={NEWS_CLASSES.summary}>{item.summary}</p>}
-      </li>
-    ))}
-  </ul>
+  <ul class="mt-6 space-y-4" x-ref="region" set:html={renderHomeNews(items, ctx)}></ul>
 </section>
