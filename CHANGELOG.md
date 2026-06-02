@@ -65,6 +65,11 @@ would otherwise return the wrong record).
   + `deploy-preview` only) map `/adultredeploy/*` to the dist root so the
   based-path site is viewable on raw `*.netlify.app` URLs, which have no ICJIA
   proxy. Production is untouched.
+- **Conversion checklist v7.1 → v8.0** (`docs/astro-conversion-checklist-v8.0.md`,
+  renamed). New section: the three live-CMS render models (SSG / static+islands /
+  cached-SSR), a decision matrix, and the grounded call to keep the
+  `icjia.illinois.gov` flagship on cached-SSR rather than porting it to this
+  island model. Major bump for a large standalone section on an already-large file.
 
 ## [2.3.4] - 2026-06-01
 

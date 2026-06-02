@@ -1,6 +1,8 @@
-# Astro Migration Checklist — v7.1 (VR-harness documentation + final pre-cutover visual-regression sweep — icjia.illinois.gov flagship, 2026-06-01)
+# Astro Migration Checklist — v8.0 (the three live-CMS render models + the static-islands-vs-cached-SSR decision matrix — adult-redeploy + icjia flagship, 2026-06-02)
 
-> **Checklist version: v7.1 (canonical / current). Continuously updated.**
+> **Checklist version: v8.0 (canonical / current). Continuously updated.**
+>
+> File renamed from `astro-conversion-checklist-v7.1.md` → `astro-conversion-checklist-v8.0.md` on 2026-06-02. **v8.0 adds the THIRD live-CMS render model** — `output:'static'` + **client-side live islands** (Alpine refetch-on-`updatedAt`/signature), shipped on `adult-redeploy-client-next`. It completes the rendering-strategy picture (SSG / static+islands / cached-SSR), adds a **decision matrix**, and records the grounded call that the **flagship should KEEP cached-SSR** (islands trade down on crawler-freshness + CMS-shielding and reintroduce full builds at 2,000-page scale). Major bump (not v7.2) because it's a large standalone section on an already-large file. See the new **"## The three live-CMS render models — and when to use each"** section + "What changed from v7.1 → v8.0" below.
 >
 > File renamed from `astro-conversion-checklist-v7.0.md` → `astro-conversion-checklist-v7.1.md` on 2026-06-01. **v7.1 documents the standalone visual-regression harness** (`scripts/vr/`): why a cross-engine (Vue/Vuetify → Astro/Tailwind) migration needs a parity gate that sees past sub-pixel anti-aliasing, how its capture → normalize → `<h1>`-align → pixelmatch → gate pipeline works, and how to port the two-file harness to a smaller site. It also records the **final pre-cutover sweep** (all 25 routes × 5 viewports — the 768 + xl-1920 edge widths re-armed per L6) and the two methodology traps it surfaced (frozen-clock-vs-SSR date boundary; v-container *wrapper* ≠ *content* width). See the new **"## The Visual Regression Harness (`scripts/vr/`)"** section + "What changed from v7.0 → v7.1" below.
 >
@@ -337,6 +339,10 @@ v6.4 is a **single-pattern increment** authored from the SFS post-launch UX surf
 
 ---
 
+## What changed from v7.1 → v8.0
+
+v8.0 is a **rendering-strategy increment** authored from `adult-redeploy-client-next` (ARI) — the first site to ship the **third live-CMS model**: an `output:'static'` build PLUS **client-side "live islands"** (Alpine) that hydrate the last-built HTML, then on idle + tab-focus refetch Strapi from the browser and swap a region in only when its content signature changed. It's the deliberate counterpart to v7.0's cached-SSR: same goal (editors see changes without a rebuild), opposite mechanism (browser refetch vs server render). The big new section **"## The three live-CMS render models — and when to use each"** (below, right after the v7.0 SSR material) lays out all three models, a **decision matrix**, and the grounded conclusion that **the flagship should KEEP cached-SSR — islands are a step back at 2,000-page scale** (loses crawler-freshness + CMS-shielding; reintroduces full builds; "build-everything + client-fetch-everything" is the worst of both). Two reusable specifics also landed: the **`where`-as-`$where:JSON`** fix (generalizes lesson #2 — ARI's agency Strapi `ari.icjia-api.cloud` ALSO ignores a variable used inside a `where` literal), and a **signature-gated swap** that imports the markdown renderer only on a real change.
+
 ## What changed from v7.0 → v7.1
 
 v7.1 is a **documentation + verification increment** (no new site) authored while running the flagship's **final pre-cutover visual-regression sweep**. Three things landed:
@@ -413,6 +419,43 @@ v7.0 is the **`icjia.illinois.gov` flagship increment** — the last and largest
 > 2. In EACH new Strapi 5 admin (agency + researchhub), re-add the webhook → URL `https://icjia.illinois.gov/.netlify/functions/purge-cache`, header `x-icjia-purge-secret: <PURGE_SECRET>`, on Entry create/update/delete/publish/unpublish.
 > 3. **VERIFY the `MODEL_TAG` map in `astro/netlify/functions/purge-cache.mjs` still matches Strapi 5's webhook payload.** Strapi 5 changed the webhook payload shape + content-type identifiers vs v3 — the function reads `body.model || body.uid.split('.').pop()`; confirm the model names (`post`/`meeting`/`biography`/`event`/`funding`/`grant`/`job` + hub `article`/`dataset`/`app`) still arrive as expected and adjust the map if Strapi 5 sends different identifiers.
 > 4. **Test:** publish one record per content-type → the matching section's tag should purge → the page reflects the edit within seconds. (Cross-ref the cutover steps; this is the same wiring, just against the new backend.)
+
+## The three live-CMS render models — and when to use each (v8.0)
+
+Through v6.x the checklist had ONE model (SSG). v7.0 added cached-SSR for the flagship. v8.0 adds a third — **static + client-side live islands** (ARI) — so there are now three ways to make a CMS-backed Astro site reflect edits without a code push, each matched to a site's scale / traffic / SEO needs. **None is "best"; pick by the site.** This section is the canonical decision aid.
+
+### The three models
+
+1. **Pure SSG** (`output:'static'`) — content baked at build; refreshes only on a rebuild (push, or a nightly/manual build-hook). Crawlers + humans see last-build content. **Use when:** content is low-churn and rebuild-latency for new/edited entries is acceptable.
+
+2. **Static + client-side live islands** (ARI, v8.0) — `output:'static'` builds EVERY page (SEO / Pagefind / no-JS / instant-paint all intact), THEN small **Alpine islands** hydrate the last-built region and, deferred to idle + on tab-focus, **fetch Strapi directly from the browser** and swap in only when a content **signature** (a list's tracked fields, or an entry's `updatedAt`) changed. Static-first → the swap is additive; a fetch failure keeps the static DOM (never blanks). UX baked in: a top progress bar runs on EVERY query (incl. no-change), changed content **fades in**, ONE polite `aria-live` announce on a real change, all motion `prefers-reduced-motion`-gated, opacity/overlay-only so **no CLS**. Detail-page markdown is re-rendered client-side by the SAME isomorphic renderer as the build, imported **lazily and gated on change** — a separate chunk most views never download. **Use when:** small / low-to-moderate traffic, you want live edits WITHOUT server functions, the CMS can take direct browser load, and crawler-staleness-by-one-build is fine. (ARI: ~hundreds of records, low traffic → ideal; prod Lighthouse mobile a11y 100 / perf ~95–99 / SEO 100, live JS idle-deferred so FCP/LCP untouched.)
+
+3. **Cached-SSR + tag-purge** (flagship, v7.0 — see that section for the full recipe) — `output:'server'`; pages render server-side per request, edge-cached with `Netlify-CDN-Cache-Control: …, durable` + SWR, a Strapi publish webhook purges by `Netlify-Cache-Tag` (instant), keep-warm covers cold starts, 14 CMS-independent pages prerendered static. **Use when:** large / high-traffic / SEO-critical; you need crawler-fresh HTML, CMS shielding, and fast deploys (no full-site build).
+
+### Decision matrix
+
+| Factor | Pure SSG | Static + islands | Cached-SSR |
+|---|---|---|---|
+| Editor sees change w/o rebuild | ❌ (rebuild) | ✅ ~1s client refetch | ✅ instant (purge) |
+| **Crawler / SEO freshness** | last build | **last build** (live invisible to bots) | **server-fresh** (purged) |
+| **CMS load / exposure** | build-only | **every browser hits Strapi per view** (POST = uncacheable; endpoint public) | cache absorbs ~all; Strapi server-side, shielded |
+| **Build time @ N pages** | builds all N | builds all N | static subset only; SSR the rest on-demand (renders only what's visited) |
+| Server functions | none | none | SSR fn + keep-warm + purge |
+| First paint | instant (CDN) | instant (CDN) | edge-cached when warm (cold-start risk on long tail) |
+| Best fit | low-churn | small / low-traffic | flagship / high-traffic / SEO-critical |
+
+### Why the flagship should NOT switch to islands (grounded, 2026-06-02)
+
+For a 2,000-page, SEO-critical, public flagship the island model is a **step back**, for two decisive reasons: **(1) CMS load + exposure** — islands make EVERY visitor's browser POST Strapi on EVERY view (POST isn't CDN-cacheable; the GraphQL endpoint becomes publicly queryable by anyone), whereas cached-SSR's Durable Cache absorbs nearly all traffic and keeps Strapi server-side; **(2) crawler freshness** — islands serve bots last-build HTML across all 2,000 pages, while cached-SSR serves fresh, purge-on-publish HTML. Islands ALSO reintroduce full 2,000-page builds (cached-SSR renders only what's visited) and add a stale→live flash. The "build-everything-for-SEO + client-fetch-for-all-pages" framing lands on the **worst of both**: full builds AND per-visitor CMS load AND crawler staleness — exactly the costs cached-SSR avoids. **A Netlify Pro plan removes the only real argument FOR going static** (function-invocation cost — already low, because the edge Durable Cache means functions mostly don't run). The one place an island helps a flagship is a **single sub-`s-maxage` widget** (a live "now" status / ticker / counter) where even instant-purge isn't live enough — add it there only, never wholesale. **Bottom line: match the tool to the site — islands for ARI-scale, cached-SSR for the flagship; they're already correctly matched, so don't migrate the flagship.**
+
+### Reusable specifics from the ARI islands build
+
+- **`where`-as-`$where:JSON` (generalizes lesson #2).** Strapi v3 silently ignores a GraphQL variable used INSIDE a `where` object literal (`where:{ slug:$slug }` → returns ALL rows → detail pages all rendered `item[0]`, the WRONG record). v7.0's fix inlined the slug (escaped); the cleaner fix is to pass the whole filter as a JSON variable — `query($where: JSON){ posts(where:$where){…} }` with `variables:{ where:{ isPublished:true, slug } }`. **Confirmed on ARI's `ari.icjia-api.cloud`, so this is NOT ResearchHub-specific** — assume any Strapi v3 endpoint has it; an inline `where:{ slug:"…" }` literal works, a variable inside the literal does not. (Caught only because a browser check showed a detail page live-swapping to a different meeting — a build + curl wouldn't have.)
+- **Signature-gated swap.** Baseline a compact signature at build (FNV-1a of a list's tracked fields, or an entry's `updatedAt`) and serialize it into the island; the live fetch swaps only when the signature differs → no-op refreshes write nothing, and for entry pages the heavy markdown chunk is imported ONLY on a real change (most views never download markdown-it). **Schema trap:** the Astro content-collection schema must INCLUDE `updatedAt` or Zod strips it → the build baseline is empty → it mismatches the live value → the region swaps on EVERY load. (Add `updatedAt` to any collection an entry-island baselines on.)
+- **Single-source render fns.** Each live region's markup lives in ONE render fn that the `.astro` emits via `set:html` AND the island reuses on swap — static + live can't drift, and there's no parity test to maintain. Index tables augment the EXISTING inline `listingTable` via a `window.__live` bridge (the `is:inline` script can't `import`); a swap reassigns `items` so Alpine re-renders while preserving the user's search/sort.
+- **De-dupe concurrent identical fetches.** A page with many islands sharing one query (ARI `/meetings`: a splash + 5 category tables, all the same meetings query) should de-dupe in the fetch layer (in-flight promise keyed by endpoint+query+vars) → ONE network call, not six. Matters more the larger the site.
+- **Extraction-ready module** (`src/lib/live/`, data / behavior / render / config layers; see its README). The generic behavior + data-endpoint layers lift into a shared package; each consuming site keeps its own `config.ts` + render fns and adds the API origin to its CSP `connect-src`. ARI's CSP already allowed it (a prior `preconnect` + `connect-src` entry), so islands needed ZERO header change there.
+- **a11y/perf invariants** (carry to any site adopting islands): idle-deferred fetch (LCP/FCP untouched), opacity/overlay-only motion (no CLS), polite-announce-on-real-change only (no per-poll SR chatter), never blank on failure. Verify perf on the DEPLOY/preview, never the dev server — `astro dev` ships unminified JS + the Astro toolbar, so its Lighthouse (perf ~59, an SEO "link-text" ding from the toolbar's own link) is a pure artifact; the production build was 95–99 / 100 / 100 / 100.
 
 ## What changed from v6.4 → v6.5
 
