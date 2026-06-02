@@ -6,6 +6,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { QUERY } from './strapi-query.mjs';
+import { MEETING_ENUM_TO_SLUG } from '../src/lib/live/data/meeting-cats.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -37,13 +38,6 @@ async function main() {
   // meeting to the wrong committee URL. Without this, SiteImprove flags
   // 301-redirected URLs as "issues" even though they resolve — better to
   // emit the canonical URL in the rendered HTML in the first place.
-  const MEETING_ENUM_TO_SLUG = {
-    adHoc:         'ad-hoc',
-    outreach:      'outreach',
-    performance:   'performance',
-    regular:       'regular-oversight',
-    siteSelection: 'site-selection',
-  };
   const canonicalCatBySlug = {};
   for (const m of (data.meetings ?? [])) {
     if (!m.slug || !m.category) continue;

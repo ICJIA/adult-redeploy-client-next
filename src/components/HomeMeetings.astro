@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatDate } from '../lib/dates';
+import { enumToSlug } from '../lib/meetings';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
 
@@ -13,13 +14,6 @@ const upcoming: Meeting[] = meetingEntries
     (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? -1 : 1)
   .slice(0, 4);
 
-const catSlug: Record<string, string> = {
-  adHoc: 'ad-hoc',
-  outreach: 'outreach',
-  performance: 'performance',
-  regular: 'regular-oversight',
-  siteSelection: 'site-selection',
-};
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 ---
 <section>
@@ -37,7 +31,7 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
     <ul class="mt-6 space-y-4">
       {upcoming.map((m: Meeting) => (
         <li>
-          <a href={`${base}/about/meetings/${catSlug[m.category] ?? m.category}/${m.slug}`}
+          <a href={`${base}/about/meetings/${enumToSlug[m.category] ?? m.category}/${m.slug}`}
              class="block border border-brand-muted/40 rounded p-4
                     hover:shadow-elev1
                     focus-visible:outline focus-visible:outline-2

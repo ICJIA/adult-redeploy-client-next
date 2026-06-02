@@ -1,27 +1,15 @@
-export const MEETING_CATEGORIES = [
-  { enum: 'adHoc',         slug: 'ad-hoc',
-    title: 'Ad Hoc Committee',
-    short: 'Ad Hoc' },
-  { enum: 'outreach',      slug: 'outreach',
-    title: 'Outreach, Technical Assistance & Communication Committee',
-    short: 'Outreach' },
-  { enum: 'performance',   slug: 'performance',
-    title: 'Performance Measurement Committee',
-    short: 'Performance Measurement' },
-  { enum: 'regular',       slug: 'regular-oversight',
-    title: 'Regular Oversight Meeting',
-    short: 'Regular Oversight' },
-  { enum: 'siteSelection', slug: 'site-selection',
-    title: 'Site Selection & Monitoring Committee',
-    short: 'Site Selection' },
-] as const;
+// src/lib/meetings.ts
+// Category metadata for ARI Oversight Board committees. The raw array and the
+// enum→route-slug map live in ./live/data/meeting-cats.mjs (plain ESM) so the
+// Node build scripts (scripts/*.mjs) and the browser/Astro code share ONE
+// definition and can never drift. This module adds the TS types and the
+// slug→category lookup used by the Astro pages.
+import { MEETING_CATEGORIES } from './live/data/meeting-cats.mjs';
+import type { MeetingCategory } from './live/data/meeting-cats.mjs';
 
-export type MeetingCategory = typeof MEETING_CATEGORIES[number];
+export { MEETING_CATEGORIES, MEETING_ENUM_TO_SLUG as enumToSlug } from './live/data/meeting-cats.mjs';
+export type { MeetingCategory } from './live/data/meeting-cats.mjs';
 export type MeetingCategoryEnum = MeetingCategory['enum'];
-
-export const enumToSlug = Object.fromEntries(
-  MEETING_CATEGORIES.map((c) => [c.enum, c.slug]),
-) as Record<string, string>;
 
 export const slugToCategory = Object.fromEntries(
   MEETING_CATEGORIES.map((c) => [c.slug, c]),

@@ -1,75 +1,17 @@
 // src/lib/markdown.ts
-import MarkdownIt from 'markdown-it';
-import xss from 'xss';
+// Build/SSR entry point. Preserves the original manifest-aware behavior so
+// static output stays byte-identical — it just injects the build-time CMS image
+// resolver into the isomorphic renderer in ./markdown/core.
+//
+// Browser/live code imports ./markdown/core directly and omits the resolver
+// (new Strapi images keep their original URLs, which CSP img-src already
+// allows). Keeping ./markdown/core free of the manifest import means the
+// lazy-loaded browser markdown chunk never ships the 76 KB image manifest.
+import { renderMarkdown as renderCore } from './markdown/core';
 import { getCmsImage } from './cms-image';
 
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  breaks: false,
-  langPrefix: 'language-',
-});
-
-// Inject loading="lazy" + decoding="async" on every <img> in the output.
-// CMS content embeds large Strapi-hosted images (bio headshots, state seal,
-// news article art) via both markdown ![]() syntax and raw HTML <img> tags;
-// without these attributes the browser eagerly downloads them all in
-// parallel, blowing up mobile FCP / LCP. Done as a post-process so it
-// catches both syntaxes.
-// Captures everything between `<img` and the closing `>`, then drops the
-// optional self-closing slash so we don't end up with `<img ... / loading=...>`.
-const IMG_RX = /<img\b((?:[^>"]|"[^"]*")*?)\s*\/?\s*>/gi;
-const SRC_RX = /\bsrc\s*=\s*("|')([^"']+)\1/i;
-const WIDTH_RX = /\swidth\s*=\s*("|')[^"']*\1/i;
-const HEIGHT_RX = /\sheight\s*=\s*("|')[^"']*\1/i;
-const SRCSET_RX = /\ssrcset\s*=\s*("|')[^"']*\1/i;
-const SIZES_RX = /\ssizes\s*=\s*("|')[^"']*\1/i;
-
-function optimizeImage(attrs: string): string {
-  const srcMatch = attrs.match(SRC_RX);
-  if (!srcMatch) return attrs;
-  const original = srcMatch[2];
-  const cms = getCmsImage(original);
-  if (!cms) return attrs;
-  // Replace src, drop any old width/height/srcset/sizes, then re-add the
-  // intrinsic ones from the manifest. Preserves all other attrs (alt, class,
-  // title, data-*).
-  return attrs
-    .replace(SRC_RX, `src="${cms.src}"`)
-    .replace(WIDTH_RX, '')
-    .replace(HEIGHT_RX, '')
-    .replace(SRCSET_RX, '')
-    .replace(SIZES_RX, '')
-    + ` srcset="${cms.srcset}" sizes="(max-width: 768px) 100vw, 768px"`
-    + ` width="${cms.width}" height="${cms.height}"`;
-}
-
-function rewriteImages(html: string): string {
-  return html.replace(IMG_RX, (_match, attrs) => {
-    let out = optimizeImage(attrs);
-    if (!/\bloading\s*=/i.test(out)) out += ' loading="lazy"';
-    if (!/\bdecoding\s*=/i.test(out)) out += ' decoding="async"';
-    return `<img${out}>`;
-  });
-}
-
-// Strip <script> and <style> bodies entirely. By default xss only removes the
-// tag and escapes the body, which leaks CMS-authored CSS / JS into the page
-// as visible text. Per-tag spacing rules live in global.css under .prose.
-// Also extend the img whitelist with `loading` / `decoding` so the perf
-// attributes our markdown-it rule injects survive sanitization.
-const imgAllow = ['src', 'alt', 'title', 'width', 'height',
-                  'loading', 'decoding', 'fetchpriority', 'sizes', 'srcset'];
-
 export function renderMarkdown(src: string | null | undefined): string {
-  if (!src) return '';
-  const html = md.render(src);
-  const safe = xss(html, {
-    stripIgnoreTagBody: ['script', 'style'],
-    whiteList: {
-      ...xss.getDefaultWhiteList(),
-      img: imgAllow,
-    },
-  });
-  return rewriteImages(safe);
+  return renderCore(src, { imageResolver: getCmsImage });
 }
+
+export type { CmsImage, ImageResolver, RenderOptions } from './markdown/core';
