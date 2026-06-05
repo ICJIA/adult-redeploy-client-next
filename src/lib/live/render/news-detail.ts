@@ -4,7 +4,7 @@
 // check), so most views never download markdown-it.
 
 import { formatDate } from '../../dates';
-import { liveEl, escapeHtml } from './shared';
+import { liveEl, escapeHtml, cleanSlug } from './shared';
 import { fadeSwap } from '../behavior/transition';
 import type { LiveContext } from '../types';
 
@@ -25,7 +25,7 @@ export function renderTags(
   if (!list.length) return '';
   return list
     .map((t) =>
-      `<a href="${escapeHtml(ctx.basePath)}/tags/${escapeHtml(t.slug)}" class="${TAG_CLASS}">${escapeHtml(t.name)}</a>`)
+      `<a href="${escapeHtml(ctx.basePath)}/tags/${escapeHtml(cleanSlug(t.slug))}" class="${TAG_CLASS}">${escapeHtml(t.name)}</a>`)
     .join('');
 }
 

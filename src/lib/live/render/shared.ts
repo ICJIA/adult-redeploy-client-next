@@ -2,6 +2,9 @@
 // Tiny helpers shared by the client render functions (the PRESENTATION layer).
 // These mirror the Astro markup, so all dynamic text MUST be escaped.
 
+// Re-exported so render fns import slug hygiene alongside escapeHtml.
+export { cleanSlug } from '../data/slug.mjs';
+
 const ENT: Record<string, string> = {
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 };

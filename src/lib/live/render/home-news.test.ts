@@ -15,6 +15,10 @@ describe('renderHomeNews', () => {
     expect(renderHomeNews([row], ctx))
       .toContain('href="/adultredeploy/news/a-news-item"');
   });
+  it('trims a stray trailing space in the slug (a CMS slip must not break the link)', () => {
+    expect(renderHomeNews([{ ...row, slug: 'a-news-item ' }], ctx))
+      .toContain('href="/adultredeploy/news/a-news-item"');
+  });
   it('escapes interpolated text (XSS-safe)', () => {
     const html = renderHomeNews([row], ctx);
     expect(html).toContain('Big &amp; Bold &lt;News&gt;');

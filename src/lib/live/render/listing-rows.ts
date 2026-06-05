@@ -4,6 +4,7 @@
 // via Alpine x-for, so these return plain row objects (no markup) — the table's
 // own fmt() formats dates client-side.
 
+import { cleanSlug } from './shared';
 import type { LiveContext } from '../types';
 
 export interface NewsEntity {
@@ -38,7 +39,7 @@ export function newsIndexRows(items: NewsEntity[], ctx: LiveContext): TableRow[]
     .map((n) => ({
       publicationDate: n.publicationDate ?? n.createdAt ?? '',
       title: n.title,
-      href: `${ctx.basePath}/news/${n.slug}`,
+      href: `${ctx.basePath}/news/${cleanSlug(n.slug)}`,
     }))
     .sort((a, b) => (a.publicationDate < b.publicationDate ? 1 : -1));
 }
@@ -50,7 +51,7 @@ export function sitesIndexRows(items: SiteEntity[], ctx: LiveContext): TableRow[
     .map((s) => ({
       title: s.title,
       siteType: s.siteType ?? '',
-      href: `${ctx.basePath}/sites/${s.slug}`,
+      href: `${ctx.basePath}/sites/${cleanSlug(s.slug)}`,
     }))
     .sort((a, b) => a.title.localeCompare(b.title));
 }
@@ -68,6 +69,6 @@ export function meetingsIndexRows(
     .map((m) => ({
       title: m.title,
       scheduledDate: m.scheduledDate ?? '',
-      href: `${ctx.basePath}/about/meetings/${cat.slug}/${m.slug}`,
+      href: `${ctx.basePath}/about/meetings/${cat.slug}/${cleanSlug(m.slug)}`,
     }));
 }

@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { QUERY } from './strapi-query.mjs';
 import { MEETING_ENUM_TO_SLUG } from '../src/lib/live/data/meeting-cats.mjs';
+import { normalizeSlugs } from '../src/lib/live/data/slug.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -86,6 +87,12 @@ async function main() {
     data.applications = [];
     data.articles = [];
   }
+
+  // Trim stray whitespace from every slug (a trailing space in a CMS slug
+  // breaks the static route AND the 404 live-fallback lookup — see
+  // docs/live-islands-post-build-preview-v1.md). Idempotent; covers all
+  // collections incl. the researchhub apps/articles fetched above.
+  normalizeSlugs(data);
 
   await fs.mkdir(path.dirname(OUT), { recursive: true });
   await fs.writeFile(OUT, JSON.stringify(data, null, 2));

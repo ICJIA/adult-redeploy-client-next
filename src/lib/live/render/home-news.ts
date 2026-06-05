@@ -4,7 +4,7 @@
 // drift. Keep this structurally identical to HomeNews.astro's <li>.
 
 import { formatDate } from '../../dates';
-import { escapeHtml } from './shared';
+import { escapeHtml, cleanSlug } from './shared';
 import type { LiveContext } from '../types';
 
 export interface NewsRow {
@@ -33,7 +33,7 @@ export function renderHomeNews(rows: NewsRow[], ctx: LiveContext): string {
           Posted: ${escapeHtml(formatDate(item.publicationDate))}
         </div>
         <h3 class="${NEWS_CLASSES.h3}">
-          <a href="${ctx.basePath}/news/${escapeHtml(item.slug)}" class="${NEWS_CLASSES.link}">
+          <a href="${ctx.basePath}/news/${escapeHtml(cleanSlug(item.slug))}" class="${NEWS_CLASSES.link}">
             ${escapeHtml(item.title)}
           </a>
         </h3>

@@ -5,7 +5,7 @@
 
 import { formatDate } from '../../dates';
 import { enumToSlug } from '../../meetings';
-import { escapeHtml } from './shared';
+import { escapeHtml, cleanSlug } from './shared';
 import type { LiveContext } from '../types';
 
 export interface MeetingRow {
@@ -37,7 +37,7 @@ export function renderHomeMeetings(rows: MeetingRow[], ctx: LiveContext): string
     const cat = escapeHtml(enumToSlug[m.category] ?? m.category);
     return `
       <li>
-        <a href="${ctx.basePath}/about/meetings/${cat}/${escapeHtml(m.slug)}" class="${HOME_MTG_CLASSES.link}">
+        <a href="${ctx.basePath}/about/meetings/${cat}/${escapeHtml(cleanSlug(m.slug))}" class="${HOME_MTG_CLASSES.link}">
           <div class="${HOME_MTG_CLASSES.date}">Scheduled: ${escapeHtml(formatDate(m.scheduledDate))}</div>
           <div class="${HOME_MTG_CLASSES.title}">${escapeHtml(m.title)}</div>
           ${m.summary ? `<div class="${HOME_MTG_CLASSES.summary}">${escapeHtml(m.summary)}</div>` : ''}

@@ -6,7 +6,7 @@
 
 import { formatDate } from '../../dates';
 import { enumToSlug } from '../../meetings';
-import { escapeHtml } from './shared';
+import { escapeHtml, cleanSlug } from './shared';
 import type { LiveContext } from '../types';
 import type { MeetingRow } from './home-meetings';
 
@@ -29,7 +29,7 @@ export function renderMeetingsSplash(rows: MeetingRow[], ctx: LiveContext): stri
   return `<section aria-labelledby="next-meeting-heading" class="${SPLASH_CLASSES.section}">
   <p class="${SPLASH_CLASSES.label}">Next upcoming meeting</p>
   <h2 id="next-meeting-heading" class="${SPLASH_CLASSES.h2}">
-    <a href="${ctx.basePath}/about/meetings/${cat}/${escapeHtml(m.slug)}" class="${SPLASH_CLASSES.link}">${escapeHtml(m.title)}</a>
+    <a href="${ctx.basePath}/about/meetings/${cat}/${escapeHtml(cleanSlug(m.slug))}" class="${SPLASH_CLASSES.link}">${escapeHtml(m.title)}</a>
   </h2>
   <p class="${SPLASH_CLASSES.date}">Scheduled: ${escapeHtml(formatDate(m.scheduledDate))}</p>
   ${m.summary ? `<p class="${SPLASH_CLASSES.summary}">${escapeHtml(m.summary)}</p>` : ''}
