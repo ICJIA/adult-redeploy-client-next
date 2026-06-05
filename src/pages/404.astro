@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsDetailShell from '../components/NewsDetailShell.astro';
+import { FALLBACK_SURFACES } from '../lib/live/fallback/detect';
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const sections = [
   { href: `${base}/about`,           label: 'About' },
@@ -14,7 +16,52 @@ const sections = [
 ---
 <BaseLayout title="Page not found"
             description="The requested Adult Redeploy Illinois page could not be found.">
-  <section class="max-w-3xl mx-auto px-6 py-20 sm:py-28 text-center">
+  {/* Pre-paint: if the path is a not-yet-built CMS detail slug (e.g. a news
+      article published since the last build), switch to the live render host
+      BEFORE first paint so there's no 404 flash. CSP allows inline scripts
+      ('unsafe-inline'). Detection MIRRORS src/lib/live/fallback/detect.ts —
+      keep the two in sync. */}
+  <script is:inline define:vars={{ base, map: FALLBACK_SURFACES }}>
+    (function () {
+      window.__nfState = function (s) {
+        document.documentElement.setAttribute('data-nf-state', s);
+      };
+      var path = location.pathname;
+      if (base && path.indexOf(base) === 0) path = path.slice(base.length) || '/';
+      for (var i = 0; i < map.length; i++) {
+        var e = map[i];
+        if (path.indexOf(e.prefix) === 0) {
+          var slug = path.slice(e.prefix.length).replace(/\/+$/, '');
+          if (slug && slug.indexOf('/') === -1) {
+            window.__nf = { surface: e.surface, slug: slug };
+            window.__nfState('checking');
+            // Safety net: if the island never resolves (e.g. Alpine failed to
+            // load), don't strand the visitor on "Loading…" — revert to 404.
+            window.setTimeout(function () {
+              if (document.documentElement.getAttribute('data-nf-state') === 'checking') {
+                window.__nfState('default');
+              }
+            }, 8000);
+          }
+          break;
+        }
+      }
+    })();
+  </script>
+
+  {/* Live render host — hidden unless the inline script promoted us to
+      "checking". Reuses the shared news-detail markup + liveEntry bootstrap. */}
+  <div class="nf-live">
+    <p class="nf-loading max-w-3xl mx-auto px-6 py-24 text-center text-lg text-brand-ink/70">
+      Loading…
+    </p>
+    <div class="nf-shell"
+         x-data="liveEntry({ surface: window.__nf && window.__nf.surface, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
+      <NewsDetailShell />
+    </div>
+  </div>
+
+  <section class="nf-fallback max-w-3xl mx-auto px-6 py-20 sm:py-28 text-center">
     <p aria-hidden="true"
        class="font-heading font-black text-brand-secondary tracking-tight
               text-7xl sm:text-8xl leading-none select-none">404</p>
@@ -63,3 +110,17 @@ const sections = [
     </nav>
   </section>
 </BaseLayout>
+
+<style>
+  /* Live fallback host starts hidden; the inline detect script flips
+     <html data-nf-state> BEFORE paint, so there's no 404 flash. No-JS and
+     genuine 404s keep the .nf-fallback baseline (and the 404 HTTP status). */
+  .nf-live { display: none; }
+  .nf-shell { display: none; }
+  :root[data-nf-state="checking"] .nf-fallback,
+  :root[data-nf-state="rendered"] .nf-fallback { display: none; }
+  :root[data-nf-state="checking"] .nf-live,
+  :root[data-nf-state="rendered"] .nf-live { display: block; }
+  :root[data-nf-state="rendered"] .nf-loading { display: none; }
+  :root[data-nf-state="rendered"] .nf-shell { display: block; }
+</style>
