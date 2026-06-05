@@ -9,6 +9,12 @@ export interface FallbackSurface {
   prefix: string;
   /** The liveConfig.entries key to bootstrap, e.g. "newsDetail". */
   surface: string;
+  /**
+   * Number of path segments after the prefix; the slug is the LAST one.
+   * Default 1. News is "/news/<slug>" (1); meetings are
+   * "/about/meetings/<category>/<slug>" (2, slug = last segment).
+   */
+  segments?: number;
 }
 
 export interface FallbackMatch {
@@ -16,10 +22,11 @@ export interface FallbackMatch {
   slug: string;
 }
 
-// v1: news only. Add one entry per CMS detail surface later (meetings carry a
-// category segment, so they need their own rule — see the spec's "future").
+// Each CMS detail surface that should live-render on the 404 host. Add a row
+// per surface; meetings carry a category segment, so segments: 2.
 export const FALLBACK_SURFACES: FallbackSurface[] = [
   { prefix: '/news/', surface: 'newsDetail' },
+  { prefix: '/about/meetings/', surface: 'meetingDetail', segments: 2 },
 ];
 
 /**
@@ -37,11 +44,14 @@ export function detectSurface(
   let path = pathname;
   if (base && path.indexOf(base) === 0) path = path.slice(base.length) || '/';
   for (const e of surfaces) {
-    if (path.indexOf(e.prefix) === 0) {
-      const slug = path.slice(e.prefix.length).replace(/\/+$/, '');
-      if (slug && !slug.includes('/')) return { surface: e.surface, slug };
-      return null;
-    }
+    if (path.indexOf(e.prefix) !== 0) continue;
+    const rest = path.slice(e.prefix.length).replace(/\/+$/, '');
+    if (!rest) return null;
+    const segs = rest.split('/');
+    const want = e.segments ?? 1;
+    // Exact segment depth, no empty segments → the LAST segment is the slug.
+    if (segs.length !== want || segs.some((s) => !s)) return null;
+    return { surface: e.surface, slug: segs[segs.length - 1] };
   }
   return null;
 }

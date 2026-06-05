@@ -33,4 +33,11 @@ describe('meetingsIndexRows', () => {
   it('defaults RECENT_PER_CATEGORY to 5', () => {
     expect(RECENT_PER_CATEGORY).toBe(5);
   });
+  it('returns ALL matching meetings when no limit is given (category page)', () => {
+    const many = Array.from({ length: 7 }, (_, i) => ({
+      slug: `m${i}`, title: `M${i}`,
+      scheduledDate: `2026-0${i + 1}-01T00:00:00Z`, category: 'regular',
+    }));
+    expect(meetingsIndexRows(many, ctx, { enum: 'regular', slug: 'regular-oversight' })).toHaveLength(7);
+  });
 });

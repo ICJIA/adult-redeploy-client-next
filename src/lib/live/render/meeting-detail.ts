@@ -6,6 +6,7 @@
 
 import { formatDate } from '../../dates';
 import { liveEl, escapeHtml } from './shared';
+import { renderTags } from './news-detail';
 import { fadeSwap } from '../behavior/transition';
 import type { LiveContext } from '../types';
 
@@ -32,7 +33,7 @@ export function renderMeetingMaterials(materials: any[] | null | undefined): str
     </div>`;
 }
 
-export async function applyMeetingDetail(root: HTMLElement, view: any, _ctx: LiveContext): Promise<void> {
+export async function applyMeetingDetail(root: HTMLElement, view: any, ctx: LiveContext): Promise<void> {
   const title = liveEl(root, 'title');
   if (title) title.textContent = view.title ?? '';
 
@@ -46,5 +47,12 @@ export async function applyMeetingDetail(root: HTMLElement, view: any, _ctx: Liv
   if (body) {
     const { renderMarkdown } = await import('../../markdown/core');
     fadeSwap(body, () => { body.innerHTML = renderMarkdown(view.content ?? ''); });
+  }
+
+  const tags = liveEl(root, 'tags');
+  if (tags) {
+    const html = renderTags(view.tags, ctx);
+    tags.innerHTML = html;
+    tags.style.display = html ? '' : 'none';
   }
 }

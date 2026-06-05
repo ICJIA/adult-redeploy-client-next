@@ -1,0 +1,39 @@
+---
+// src/components/MeetingDetailShell.astro
+// Single source of the meeting-detail body markup, used BOTH by the static
+// /about/meetings/[category]/[slug] page (item provided → filled + data-live
+// hooks) AND by the 404 live-fallback host (no item → empty data-live hooks
+// that applyMeetingDetail fills from Strapi). One component so static + live
+// render can't drift.
+import ArticleCard from './ArticleCard.astro';
+import Markdown from './Markdown.astro';
+import { formatDate } from '../lib/dates';
+import { renderMeetingMaterials } from '../lib/live/render/meeting-detail';
+import { renderTags } from '../lib/live/render/news-detail';
+import { MEETING_CATEGORIES } from '../lib/meetings';
+import type { CollectionEntry } from 'astro:content';
+
+type Meeting = CollectionEntry<'meetings'>['data'];
+interface Props { item?: Meeting | null; }
+const { item = null } = Astro.props;
+
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+const ctx = { endpoint: '', basePath: base };
+const badge = (item && MEETING_CATEGORIES.find((c) => c.enum === item.category)?.title) || 'Meeting';
+const materialsHtml = item ? renderMeetingMaterials((item.meetingMaterial ?? []) as any[]) : '';
+const hasTags = !!(item && item.tags && item.tags.length > 0);
+const tagsHtml = item ? renderTags(item.tags, ctx) : '';
+---
+<ArticleCard title={item?.title ?? ''}
+             badge={badge}
+             pagefindMeta={item ? { type: 'meeting', date: item.scheduledDate ?? '' } : undefined}>
+  <p class="text-sm font-bold text-brand-secondary uppercase mb-4" data-live="scheduled">
+    {item ? `Scheduled: ${formatDate(item.scheduledDate)}` : ''}
+  </p>
+  {item
+    ? <Markdown content={item.content} dataLive="body" />
+    : <div class="prose max-w-none" data-live="body"></div>}
+  <div data-live="materials" set:html={materialsHtml}></div>
+  <div class="mt-8 flex flex-wrap gap-2" data-live="tags"
+       style={hasTags ? undefined : 'display:none'} set:html={tagsHtml}></div>
+</ArticleCard>

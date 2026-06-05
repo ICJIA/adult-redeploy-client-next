@@ -9,7 +9,7 @@ import {
   NEWS_BY_SLUG, MEETING_BY_SLUG, SITE_BY_SLUG, PAGE_HOME,
 } from './data/queries';
 import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from './render/home-news';
-import { renderHomeMeetings, HOME_MTG_SIG_KEYS, type MeetingRow } from './render/home-meetings';
+import { renderHomeMeetings, HOME_MTG_SIG_KEYS, selectUpcoming, type MeetingRow } from './render/home-meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from './render/meetings-splash';
 import {
   newsIndexRows, meetingsIndexRows, sitesIndexRows,
@@ -24,14 +24,11 @@ const env = import.meta.env as unknown as Record<string, string | undefined>;
 const endpoint = env.PUBLIC_STRAPI_ENDPOINT ?? 'https://ari.icjia-api.cloud/graphql';
 const basePath = env.BASE_URL || '/adultredeploy';
 
-// Future meetings (scheduledDate > now), soonest first — mirrors the .astro
-// transforms. `now` is evaluated per fetch so the list self-corrects by date.
+// Meetings dated today-or-later (date-only, Chicago day), soonest first.
+// Delegates to the shared selectUpcoming so the homepage list, the splash, and
+// the live islands all agree. See render/home-meetings.
 function upcoming(data: any, limit: number): MeetingRow[] {
-  const now = new Date().toISOString();
-  return ((data?.meetings ?? []) as MeetingRow[])
-    .filter((m) => m.scheduledDate && m.scheduledDate > now)
-    .sort((a, b) => ((a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? -1 : 1))
-    .slice(0, limit);
+  return selectUpcoming((data?.meetings ?? []) as MeetingRow[], limit);
 }
 
 export const liveConfig: LiveConfig = {
@@ -85,7 +82,8 @@ export const liveConfig: LiveConfig = {
       query: MEETINGS_BRIEF,
       variables: { limit: 300 },
       select: (data, ctx, params) =>
-        meetingsIndexRows(data?.meetings ?? [], ctx, params as { enum: string; slug: string }),
+        meetingsIndexRows(data?.meetings ?? [], ctx, params as { enum: string; slug: string },
+          (params as { limit?: number })?.limit),
       signatureKeys: MTG_INDEX_SIG_KEYS,
       mode: 'xfor',
       announceLabel: 'Meetings list',

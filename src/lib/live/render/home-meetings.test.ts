@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderHomeMeetings, HOME_MTG_CLASSES, type MeetingRow } from './home-meetings';
+import { renderHomeMeetings, HOME_MTG_CLASSES, selectUpcoming, type MeetingRow } from './home-meetings';
 import { formatDate } from '../../dates';
 
 const ctx = { endpoint: '', basePath: '/adultredeploy' };
@@ -35,5 +35,23 @@ describe('renderHomeMeetings', () => {
   });
   it('uses the shared list class (parity)', () => {
     expect(renderHomeMeetings([row], ctx)).toContain(`class="${HOME_MTG_CLASSES.ul}"`);
+  });
+});
+
+describe('selectUpcoming', () => {
+  // Injected "today" (YYYY-MM-DD, Chicago date) for determinism.
+  const cutoff = '2026-06-05';
+  const mtgs = [
+    { slug: 'today', scheduledDate: '2026-06-05T00:00:00.000Z' },
+    { slug: 'past', scheduledDate: '2026-06-04T12:00:00.000Z' },
+    { slug: 'soon', scheduledDate: '2026-06-10T13:30:00.000Z' },
+    { slug: 'later', scheduledDate: '2026-11-16T13:30:00.000Z' },
+    { slug: 'undated', scheduledDate: null },
+  ];
+  it('includes a meeting dated today, drops yesterday + undated, soonest first', () => {
+    expect(selectUpcoming(mtgs, 10, cutoff).map((m) => m.slug)).toEqual(['today', 'soon', 'later']);
+  });
+  it('respects the limit', () => {
+    expect(selectUpcoming(mtgs, 1, cutoff).map((m) => m.slug)).toEqual(['today']);
   });
 });

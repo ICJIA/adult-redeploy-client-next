@@ -5,7 +5,7 @@ import PageTitle from '../../../components/ui/PageTitle.astro';
 import ListingTable from '../../../components/alpine/ListingTable.astro';
 import { MEETING_CATEGORIES } from '../../../lib/meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from '../../../lib/live/render/meetings-splash';
-import type { MeetingRow } from '../../../lib/live/render/home-meetings';
+import { selectUpcoming, type MeetingRow } from '../../../lib/live/render/home-meetings';
 import { stableSignature } from '../../../lib/live/behavior/signature';
 import { meetingsIndexRows, MTG_INDEX_SIG_KEYS, RECENT_PER_CATEGORY } from '../../../lib/live/render/listing-rows';
 
@@ -17,11 +17,7 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
 
 // Feature splash: the single next upcoming meeting (or none). Live island
 // recomputes by current date + live data on load/focus and hides when empty.
-const now = new Date().toISOString();
-const splashRows = all
-  .filter((m) => m.scheduledDate && m.scheduledDate > now)
-  .sort((a, b) => ((a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? -1 : 1))
-  .slice(0, 1) as unknown as MeetingRow[];
+const splashRows = selectUpcoming(all, 1) as unknown as MeetingRow[];
 const liveCtx = { endpoint: '', basePath: base };
 const splashSig = stableSignature(splashRows, SPLASH_SIG_KEYS);
 
@@ -35,7 +31,7 @@ const sections = MEETING_CATEGORIES.map((c) => {
     live: {
       surface: 'meetingsIndex',
       sig: stableSignature(rows, MTG_INDEX_SIG_KEYS),
-      params: { enum: c.enum, slug: c.slug },
+      params: { enum: c.enum, slug: c.slug, limit: RECENT_PER_CATEGORY },
     },
   };
 }).filter((s) => s.total > 0);

@@ -1,12 +1,9 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import ArticleCard from '../../../../components/ArticleCard.astro';
-import Markdown from '../../../../components/Markdown.astro';
-import Tag from '../../../../components/ui/Tag.astro';
-import { formatDate } from '../../../../lib/dates';
+import MeetingDetailShell from '../../../../components/MeetingDetailShell.astro';
 import { MEETING_CATEGORIES, enumToSlug } from '../../../../lib/meetings';
-import { MTG_DETAIL_SIG, renderMeetingMaterials } from '../../../../lib/live/render/meeting-detail';
+import { MTG_DETAIL_SIG } from '../../../../lib/live/render/meeting-detail';
 import { meetingEvent } from '../../../../lib/jsonld';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
@@ -38,21 +35,6 @@ const eventJsonLd = meetingEvent({
             ogType="article" jsonLd={eventJsonLd}
             published={item.createdAt} modified={item.updatedAt}>
   <div x-data={xData}>
-    <ArticleCard title={item.title}
-                 badge={category.title}
-                 pagefindMeta={{ type: 'meeting', date: item.scheduledDate ?? '' }}>
-      <p class="text-sm font-bold text-brand-secondary uppercase mb-4" data-live="scheduled">
-        Scheduled: {formatDate(item.scheduledDate)}
-      </p>
-      <Markdown content={item.content} dataLive="body" />
-      <div data-live="materials" set:html={renderMeetingMaterials((item.meetingMaterial ?? []) as any[])}></div>
-      {item.tags && item.tags.length > 0 && (
-        <div class="mt-8 flex flex-wrap gap-2">
-          {item.tags.map((t) => (
-            <Tag label={t.name} href={`${base}/tags/${t.slug}`} />
-          ))}
-        </div>
-      )}
-    </ArticleCard>
+    <MeetingDetailShell item={item} />
   </div>
 </BaseLayout>

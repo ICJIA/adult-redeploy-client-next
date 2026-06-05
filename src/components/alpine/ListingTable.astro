@@ -123,11 +123,15 @@ const reservedPx = Math.min(rows.length * 46 + 110, 2200);
       fmt(v, kind) {
         if (v == null) return '';
         if (kind === 'date') {
-          const d = new Date(v);
-          if (Number.isNaN(d.getTime())) return v;
           const months = ['January','February','March','April','May','June',
             'July','August','September','October','November','December'];
-          return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+          // Date-only: format the stored Y-M-D, never shifted by the viewer's
+          // timezone (e.g. 2026-06-05T00:00:00Z must read "June 5", not 4).
+          const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v));
+          if (m) return months[Number(m[2]) - 1] + ' ' + Number(m[3]) + ', ' + m[1];
+          const d = new Date(v);
+          if (Number.isNaN(d.getTime())) return v;
+          return months[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear();
         }
         return String(v);
       },

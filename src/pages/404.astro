@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsDetailShell from '../components/NewsDetailShell.astro';
+import MeetingDetailShell from '../components/MeetingDetailShell.astro';
 import { FALLBACK_SURFACES } from '../lib/live/fallback/detect';
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const sections = [
@@ -30,34 +31,44 @@ const sections = [
       if (base && path.indexOf(base) === 0) path = path.slice(base.length) || '/';
       for (var i = 0; i < map.length; i++) {
         var e = map[i];
-        if (path.indexOf(e.prefix) === 0) {
-          var slug = path.slice(e.prefix.length).replace(/\/+$/, '');
-          if (slug && slug.indexOf('/') === -1) {
-            window.__nf = { surface: e.surface, slug: slug };
-            window.__nfState('checking');
-            // Safety net: if the island never resolves (e.g. Alpine failed to
-            // load), don't strand the visitor on "Loading…" — revert to 404.
-            window.setTimeout(function () {
-              if (document.documentElement.getAttribute('data-nf-state') === 'checking') {
-                window.__nfState('default');
-              }
-            }, 8000);
+        if (path.indexOf(e.prefix) !== 0) continue;
+        var rest = path.slice(e.prefix.length).replace(/\/+$/, '');
+        if (!rest) break;
+        var segs = rest.split('/');
+        var bad = segs.length !== (e.segments || 1);
+        for (var j = 0; j < segs.length; j++) if (!segs[j]) bad = true;
+        if (bad) break;
+        window.__nf = { surface: e.surface, slug: segs[segs.length - 1] };
+        document.documentElement.setAttribute('data-nf-surface', e.surface);
+        window.__nfState('checking');
+        // Safety net: if the island never resolves (e.g. Alpine failed to
+        // load), don't strand the visitor on "Loading…" — revert to 404.
+        window.setTimeout(function () {
+          if (document.documentElement.getAttribute('data-nf-state') === 'checking') {
+            window.__nfState('default');
           }
-          break;
-        }
+        }, 8000);
+        break;
       }
     })();
   </script>
 
   {/* Live render host — hidden unless the inline script promoted us to
-      "checking". Reuses the shared news-detail markup + liveEntry bootstrap. */}
+      "checking". One sub-host per detail surface; only the host whose surface
+      matches window.__nf fetches (the others get surface:undefined →
+      liveEntry.init no-ops). applyTo is scoped to each host's own $root, so the
+      shells' shared data-live hooks (title/body) never collide. */}
   <div class="nf-live">
     <p class="nf-loading max-w-3xl mx-auto px-6 py-24 text-center text-lg text-brand-ink/70">
       Loading…
     </p>
-    <div class="nf-shell"
-         x-data="liveEntry({ surface: window.__nf && window.__nf.surface, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
+    <div class="nf-shell" data-nf-shell="newsDetail"
+         x-data="liveEntry({ surface: (window.__nf && window.__nf.surface === 'newsDetail') ? 'newsDetail' : undefined, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
       <NewsDetailShell />
+    </div>
+    <div class="nf-shell" data-nf-shell="meetingDetail"
+         x-data="liveEntry({ surface: (window.__nf && window.__nf.surface === 'meetingDetail') ? 'meetingDetail' : undefined, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
+      <MeetingDetailShell />
     </div>
   </div>
 
@@ -122,5 +133,7 @@ const sections = [
   :root[data-nf-state="checking"] .nf-live,
   :root[data-nf-state="rendered"] .nf-live { display: block; }
   :root[data-nf-state="rendered"] .nf-loading { display: none; }
-  :root[data-nf-state="rendered"] .nf-shell { display: block; }
+  /* On render, reveal ONLY the shell whose surface matched. */
+  :root[data-nf-state="rendered"][data-nf-surface="newsDetail"] .nf-shell[data-nf-shell="newsDetail"],
+  :root[data-nf-state="rendered"][data-nf-surface="meetingDetail"] .nf-shell[data-nf-shell="meetingDetail"] { display: block; }
 </style>

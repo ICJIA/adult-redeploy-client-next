@@ -1,18 +1,10 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { renderHomeMeetings, HOME_MTG_SIG_KEYS, type MeetingRow } from '../lib/live/render/home-meetings';
+import { getCollection } from 'astro:content';
+import { renderHomeMeetings, HOME_MTG_SIG_KEYS, selectUpcoming, type MeetingRow } from '../lib/live/render/home-meetings';
 import { stableSignature } from '../lib/live/behavior/signature';
 
-type Meeting = CollectionEntry<'meetings'>['data'];
-
 const meetingEntries = await getCollection('meetings');
-const today = new Date().toISOString();
-const upcoming = meetingEntries
-  .map((e) => e.data)
-  .filter((m: Meeting) => m.scheduledDate && m.scheduledDate > today)
-  .sort((a: Meeting, b: Meeting) =>
-    (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? -1 : 1)
-  .slice(0, 4) as unknown as MeetingRow[];
+const upcoming = selectUpcoming(meetingEntries.map((e) => e.data), 4) as unknown as MeetingRow[];
 
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const ctx = { endpoint: '', basePath: base };

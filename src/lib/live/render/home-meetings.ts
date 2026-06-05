@@ -18,6 +18,29 @@ export interface MeetingRow {
 
 export const HOME_MTG_SIG_KEYS = ['slug', 'title', 'summary', 'scheduledDate', 'category'];
 
+// Current calendar date in America/Chicago (the agency's day), as YYYY-MM-DD.
+export function chicagoToday(): string {
+  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
+}
+
+// Meetings whose DATE is today or later, soonest first, capped to `limit`.
+// CMS meeting dates are DATE-ONLY (the time is a throwaway), so we compare and
+// sort by the Y-M-D part — a meeting dated today stays "upcoming" all day,
+// regardless of the stored time or the viewer's timezone. `today` (YYYY-MM-DD)
+// is injectable for deterministic tests. Shared by the homepage UPCOMING list,
+// the /about/meetings splash, and the live islands so static + live agree.
+export function selectUpcoming<T extends { scheduledDate?: string | null }>(
+  meetings: T[],
+  limit: number,
+  today: string = chicagoToday(),
+): T[] {
+  return meetings
+    .filter((m) => (m.scheduledDate ?? '').slice(0, 10) >= today)
+    .sort((a, b) =>
+      ((a.scheduledDate ?? '').slice(0, 10) < (b.scheduledDate ?? '').slice(0, 10) ? -1 : 1))
+    .slice(0, limit);
+}
+
 export const HOME_MTG_CLASSES = {
   ul: 'mt-6 space-y-4',
   link: 'block border border-brand-muted/40 rounded p-4 hover:shadow-elev1 '

@@ -4,6 +4,8 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../../components/ui/Breadcrumb.astro';
 import ListingTable from '../../../../components/alpine/ListingTable.astro';
 import { MEETING_CATEGORIES, type MeetingCategory } from '../../../../lib/meetings';
+import { meetingsIndexRows, MTG_INDEX_SIG_KEYS } from '../../../../lib/live/render/listing-rows';
+import { stableSignature } from '../../../../lib/live/behavior/signature';
 
 type Meeting = CollectionEntry<'meetings'>['data'];
 
@@ -16,16 +18,16 @@ export async function getStaticPaths() {
 const { category } = Astro.props as { category: MeetingCategory };
 const entries = await getCollection('meetings');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const rows = entries
-  .map((e) => e.data)
-  .filter((m: Meeting) => m.category === category.enum)
-  .sort((a: Meeting, b: Meeting) =>
-    (a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1)
-  .map((m: Meeting) => ({
-    title: m.title,
-    scheduledDate: m.scheduledDate ?? '',
-    href: `${base}/about/meetings/${category.slug}/${m.slug}`,
-  }));
+const ctx = { endpoint: '', basePath: base };
+// All meetings in this category (no limit), live-refreshed — the shared builder
+// drives both the static rows and the live swap, and sig baselines the build set.
+const rows = meetingsIndexRows(entries.map((e): Meeting => e.data), ctx,
+  { enum: category.enum, slug: category.slug });
+const live = {
+  surface: 'meetingsIndex',
+  sig: stableSignature(rows, MTG_INDEX_SIG_KEYS),
+  params: { enum: category.enum, slug: category.slug },
+};
 ---
 <BaseLayout title={category.title}
             description={`${category.title} — Adult Redeploy Illinois. ${rows.length} meeting${rows.length === 1 ? '' : 's'} on record.`}>
@@ -44,6 +46,7 @@ const rows = entries
           { key: 'scheduledDate', label: 'Scheduled', format: 'date' },
         ]}
         rows={rows}
+        live={live}
       />
     </div>
   </div>

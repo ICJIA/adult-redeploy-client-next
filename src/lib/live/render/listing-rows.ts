@@ -60,15 +60,15 @@ export function meetingsIndexRows(
   items: MeetingEntity[],
   ctx: LiveContext,
   cat: { enum: string; slug: string },
-  limit = RECENT_PER_CATEGORY,
+  limit?: number,
 ): TableRow[] {
-  return items
+  const matched = items
     .filter((m) => m.category === cat.enum)
-    .sort((a, b) => ((a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1))
-    .slice(0, limit)
-    .map((m) => ({
-      title: m.title,
-      scheduledDate: m.scheduledDate ?? '',
-      href: `${ctx.basePath}/about/meetings/${cat.slug}/${cleanSlug(m.slug)}`,
-    }));
+    .sort((a, b) => ((a.scheduledDate ?? '') < (b.scheduledDate ?? '') ? 1 : -1));
+  const limited = limit == null ? matched : matched.slice(0, limit);
+  return limited.map((m) => ({
+    title: m.title,
+    scheduledDate: m.scheduledDate ?? '',
+    href: `${ctx.basePath}/about/meetings/${cat.slug}/${cleanSlug(m.slug)}`,
+  }));
 }

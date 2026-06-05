@@ -24,4 +24,15 @@ describe('detectSurface', () => {
     expect(detectSurface('/about', BASE)).toBeNull();
     expect(detectSurface('/adultredeploy/about', BASE)).toBeNull();
   });
+  it('matches a meeting detail path (slug = last segment), proxied + raw host', () => {
+    expect(detectSurface('/about/meetings/regular-oversight/test-meeting-june-5', BASE))
+      .toEqual({ surface: 'meetingDetail', slug: 'test-meeting-june-5' });
+    expect(detectSurface('/adultredeploy/about/meetings/regular-oversight/test-meeting-june-5', BASE))
+      .toEqual({ surface: 'meetingDetail', slug: 'test-meeting-june-5' });
+  });
+  it('returns null for the meetings index + a bare category page (not a detail)', () => {
+    expect(detectSurface('/about/meetings', BASE)).toBeNull();
+    expect(detectSurface('/about/meetings/regular-oversight', BASE)).toBeNull();
+    expect(detectSurface('/about/meetings/a/b/c', BASE)).toBeNull();
+  });
 });
