@@ -1,0 +1,36 @@
+---
+// src/components/NewsDetailShell.astro
+// Single source of the news-detail body markup, used BOTH by the static
+// /news/[slug] page (item provided → filled + data-live hooks) AND by the 404
+// live-fallback host (no item → empty data-live hooks that applyNewsDetail
+// fills from Strapi). One component so static + live render can't drift.
+import ArticleCard from './ArticleCard.astro';
+import Markdown from './Markdown.astro';
+import { formatDate } from '../lib/dates';
+import { renderTags } from '../lib/live/render/news-detail';
+import type { CollectionEntry } from 'astro:content';
+
+type News = CollectionEntry<'news'>['data'];
+interface Props { item?: News | null; }
+const { item = null } = Astro.props;
+
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+const ctx = { endpoint: '', basePath: base };
+const posted = item ? (item.publicationDate ?? item.createdAt) : null;
+const hasTags = !!(item && item.tags && item.tags.length > 0);
+const tagsHtml = item ? renderTags(item.tags, ctx) : '';
+---
+<ArticleCard title={item?.title ?? ''}
+             badge="Adult Redeploy Illinois News"
+             pagefindMeta={item && posted ? { type: 'news', date: posted } : undefined}>
+  <p class="text-sm text-gray-700 mb-4" data-live="posted">
+    {item ? `Posted: ${formatDate(posted)}` : ''}
+  </p>
+  <p class="text-lg italic mb-6" data-live="summary"
+     style={item?.summary ? undefined : 'display:none'}>{item?.summary}</p>
+  {item
+    ? <Markdown content={item.content} dataLive="body" />
+    : <div class="prose max-w-none" data-live="body"></div>}
+  <div class="mt-8 flex flex-wrap gap-2" data-live="tags"
+       style={hasTags ? undefined : 'display:none'} set:html={tagsHtml}></div>
+</ArticleCard>
