@@ -29,7 +29,7 @@ export function renderTags(
     .join('');
 }
 
-export async function applyNewsDetail(root: HTMLElement, view: any, _ctx: LiveContext): Promise<void> {
+export async function applyNewsDetail(root: HTMLElement, view: any, ctx: LiveContext): Promise<void> {
   const title = liveEl(root, 'title');
   if (title) title.textContent = view.title ?? '';
 
@@ -46,5 +46,12 @@ export async function applyNewsDetail(root: HTMLElement, view: any, _ctx: LiveCo
   if (body) {
     const { renderMarkdown } = await import('../../markdown/core');
     fadeSwap(body, () => { body.innerHTML = renderMarkdown(view.content ?? ''); });
+  }
+
+  const tags = liveEl(root, 'tags');
+  if (tags) {
+    const html = renderTags(view.tags, ctx);
+    tags.innerHTML = html;
+    tags.style.display = html ? '' : 'none';
   }
 }
