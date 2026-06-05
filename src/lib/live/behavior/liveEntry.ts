@@ -10,10 +10,12 @@ import { gqlFetch } from '../data/endpoint';
 import { announce } from './announce';
 import { progress } from './progress';
 import { onVisible } from './focus-refetch';
+import { bootstrapEffect } from './bootstrap';
 import type { LiveConfig } from '../types';
 
 interface EntryState {
   _sig: string;
+  _rendered: boolean;
   _ctrl: AbortController | null;
   _stop: (() => void) | null;
   $root: HTMLElement;
@@ -24,8 +26,16 @@ interface IdleWindow {
 }
 
 export function makeLiveEntry(config: LiveConfig) {
-  return (opts: { surface: string; slug: string; sig: string }) => ({
+  return (opts: {
+    surface: string;
+    slug: string;
+    sig: string;
+    bootstrap?: boolean;
+    onHit?: () => void;
+    onMiss?: () => void;
+  }) => ({
     _sig: opts.sig,
+    _rendered: false,
     _ctrl: null as AbortController | null,
     _stop: null as (() => void) | null,
 
@@ -57,13 +67,21 @@ export function makeLiveEntry(config: LiveConfig) {
         const vars = surface.variables ? surface.variables(opts.slug) : {};
         const data = await gqlFetch(config.ctx.endpoint, surface.query, vars, { signal: c.signal });
         const view = surface.select(data, config.ctx);
-        if (!view) return;                       // not found / shape mismatch → keep static
+        if (!view) {                             // not found / shape mismatch → keep static
+          if (bootstrapEffect(opts.bootstrap, this._rendered, 'null') === 'miss') opts.onMiss?.();
+          return;
+        }
         const sig = surface.signature(view);
         if (sig === this._sig) return;           // unchanged → no markdown import, no swap
         this._sig = sig;
         await surface.applyTo(this.$root, view, config.ctx);
+        if (bootstrapEffect(opts.bootstrap, this._rendered, 'view') === 'hit') {
+          this._rendered = true;
+          opts.onHit?.();
+        }
         announce(`${surface.announceLabel} updated`);
       } catch {
+        if (bootstrapEffect(opts.bootstrap, this._rendered, 'error') === 'miss') opts.onMiss?.();
         /* keep the static / last-good DOM */
       } finally {
         progress.done();
