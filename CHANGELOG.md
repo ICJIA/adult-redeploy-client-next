@@ -1,5 +1,23 @@
 # Changelog
 
+## [Unreleased] — live fallback render for not-yet-built news articles
+
+### Added
+
+News articles published to Strapi **after** the last build now render
+client-side on the 404 host (`404.astro`) via a new bootstrap mode in the
+existing `liveEntry` island, instead of returning a dead 404 until the next
+rebuild — so authors can review and tweak new posts immediately. Genuine 404s
+are unchanged (normal 404 UI, 404 HTTP status). Tags also now refresh live on
+existing detail pages.
+
+New files: `src/lib/live/fallback/detect.ts`,
+`src/lib/live/behavior/bootstrap.ts`,
+`src/components/NewsDetailShell.astro`.
+
+No CSP or header change required — the Strapi origin was already in
+`connect-src`.
+
 ## [2.5.0] - 2026-06-02 — live islands for /sites + /programs map · raw netlify-host viewing · docs v8.1
 
 ### Live CMS islands extended to /sites and /programs
