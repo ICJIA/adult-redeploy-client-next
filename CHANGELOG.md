@@ -18,6 +18,25 @@ New files: `src/lib/live/fallback/detect.ts`,
 No CSP or header change required — the Strapi origin was already in
 `connect-src`.
 
+### Fixed
+
+Section landing pages now render their full body. The Astro rebuild only
+fetched and rendered a section's `summary`, silently dropping the rich
+`content` field that the Strapi **Section** content-type carries — so
+**/grants** showed only its intro paragraph instead of the full Application
+Process / Local Plan / Eligibility Tables body (with the local-plan template
+and eligibility-tables download links), and **/approach** was likewise
+truncated. The content was never lost or hard-coded; it lives on the section
+record in Strapi and just wasn't wired up.
+
+Fix mirrors the existing page pattern across three layers:
+
+- `scripts/strapi-query.mjs` — added `content` to the `sections` query.
+- `src/content/config.ts` — added `content` to the `sections` collection schema.
+- `src/pages/[section]/index.astro` — render `section.content` via `<Markdown>`
+  when present (falling back to `summary` for hub sections with no body, so
+  child-page index sections like /about are unaffected).
+
 ## [2.5.0] - 2026-06-02 — live islands for /sites + /programs map · raw netlify-host viewing · docs v8.1
 
 ### Live CMS islands extended to /sites and /programs

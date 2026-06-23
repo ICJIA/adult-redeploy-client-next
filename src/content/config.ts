@@ -132,6 +132,7 @@ const sections = defineCollection({
     slug: z.string(),
     title: z.string(),
     summary: z.string().nullable().optional(),
+    content: z.string().nullable().optional(),
     searchMeta: z.string().nullable().optional(),
     pages: z.array(z.object({
       slug: z.string(),

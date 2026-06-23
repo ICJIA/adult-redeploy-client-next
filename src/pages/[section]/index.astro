@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import Markdown from '../../components/Markdown.astro';
 
 type Section = CollectionEntry<'sections'>['data'];
 type SectionPage = NonNullable<Section['pages']>[number];
@@ -25,7 +26,9 @@ const pages = (section.pages ?? [])
       { label: section.title },
     ]} />
     <h1 class="text-page-title mt-4">{section.title}</h1>
-    {section.summary && <p class="mt-3 text-lg">{section.summary}</p>}
+    {section.content
+      ? <Markdown content={section.content} class="mt-6" />
+      : section.summary && <p class="mt-3 text-lg">{section.summary}</p>}
     {pages.length > 0 && (
       <ul class="mt-8 space-y-3">
         {pages.map((p: SectionPage) => (

@@ -37,7 +37,7 @@ export const QUERY = /* GraphQL */ `{
     tags { name slug }
   }
   sections(where: { isPublished: true }) {
-    slug title summary searchMeta
+    slug title summary content searchMeta
     createdAt updatedAt
     pages { slug title summary displayNav addDivider isPublished }
   }
