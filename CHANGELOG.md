@@ -37,6 +37,18 @@ Fix mirrors the existing page pattern across three layers:
   when present (falling back to `summary` for hub sections with no body, so
   child-page index sections like /about are unaffected).
 
+### Removed
+
+Two dead `src/api/` artifacts from the Vue/Nuxt era, neither referenced by any
+app code or build script:
+
+- `searchIndex.json` — the ~394 KB client-side Fuse.js search index, obsolete
+  since search moved to Pagefind (`pagefind --site dist`). It was also the last
+  place raw `https://ari.icjia-api.cloud/…` `<img>` tags sat unprocessed.
+- `routes.json` — an orphaned legacy route manifest.
+
+No runtime impact; both were unused.
+
 ## [2.5.0] - 2026-06-02 — live islands for /sites + /programs map · raw netlify-host viewing · docs v8.1
 
 ### Live CMS islands extended to /sites and /programs
