@@ -49,6 +49,18 @@ app code or build script:
 
 No runtime impact; both were unused.
 
+### Changed
+
+Home-page Publications summaries and **/apps** card descriptions are now
+visually truncated (Tailwind `line-clamp` — 4 lines on the home article cards,
+3 on the narrower /apps grid) so long research abstracts read as tidy previews
+instead of giant text blobs. The full text stays in the DOM (no loss for screen
+readers); each card already links to the complete piece, and short summaries are
+unaffected since the clamp only engages past the line limit.
+
+- `src/components/HomeArticles.astro` — `line-clamp-4` on the article abstract.
+- `src/pages/apps.astro` — `line-clamp-3` on the app description.
+
 ## [2.5.0] - 2026-06-02 — live islands for /sites + /programs map · raw netlify-host viewing · docs v8.1
 
 ### Live CMS islands extended to /sites and /programs
