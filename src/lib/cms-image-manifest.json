@@ -69,6 +69,21 @@
     ],
     "largest": "/_cms-img/538d03a9d1-450.webp"
   },
+  "https://ari.icjia-api.cloud/uploads/ARISPMissionVisionValues-20230106T23483824.png": {
+    "width": 736,
+    "height": 1010,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/d188a73ff1-640.webp"
+      },
+      {
+        "w": 736,
+        "src": "/_cms-img/d188a73ff1-736.webp"
+      }
+    ],
+    "largest": "/_cms-img/d188a73ff1-736.webp"
+  },
   "https://ari.icjia-api.cloud/uploads/ARISPMissionVisionValues-20230109T15161744.png": {
     "width": 736,
     "height": 1010,
