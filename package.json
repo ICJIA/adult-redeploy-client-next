@@ -35,7 +35,7 @@
     "astro": "^5.18.1",
     "astro-seo": "^1.1.0",
     "graphql-request": "^7.4.0",
-    "markdown-it": "^14.1.1",
+    "markdown-it": "^14.2.0",
     "markdown-it-attrs": "^4.5.0",
     "markdown-it-named-headers": "^0.0.4",
     "pagefind": "^1.5.2",
