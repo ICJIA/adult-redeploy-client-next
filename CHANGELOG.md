@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased] — a11y: 404 section-heading contrast
+
+### Fixed
+
+The **404** page's "Or jump to a section" sub-heading (`h2`) used
+`text-brand-ink/60` — `#222222` at 60% over the white surface composites to
+≈`#7a7a7a`, a **4.29:1** ratio at 14 px, just under the WCAG 2.1 **AA** 4.5:1
+minimum for normal-size text (14 px bold is not "large text"). Bumped to
+`text-brand-ink/70` (≈`#646464`, **5.9:1**), matching the already-compliant
+muted-text opacity used in `about/meetings/index.astro` and this page's own
+live-loading text. One-class change in `src/pages/404.astro`; the label stays
+visually muted.
+
+Found during a full accessibility sweep (axe-core, contrastcap, Lighthouse)
+across every page template, desktop and mobile — otherwise clean at AA
+(Lighthouse a11y 100/100). The `/programs` county-map contrast "failures"
+reported by pixel-samplers are **false positives**: each dark county label
+carries a 3 px white SVG halo (`paint-order: stroke; stroke:#fff` on
+`<g id="visnames">`), so glyphs read against white on any fill; the sampler
+measures the text fill against the county color and can't see the halo (many
+report `fg == bg` at ratio 1.00 — it self-samples the glyph).
+
 ## [Unreleased] — live fallback render for not-yet-built news articles
 
 ### Added
