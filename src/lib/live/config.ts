@@ -7,6 +7,7 @@ import type { LiveConfig } from './types';
 import {
   NEWS_LATEST, MEETINGS_BRIEF, SITES_BRIEF,
   NEWS_BY_SLUG, MEETING_BY_SLUG, SITE_BY_SLUG, PAGE_HOME,
+  SECTION_BY_SLUG,
 } from './data/queries';
 import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from './render/home-news';
 import { renderHomeMeetings, HOME_MTG_SIG_KEYS, selectUpcoming, type MeetingRow } from './render/home-meetings';
@@ -19,6 +20,7 @@ import { applyNewsDetail, NEWS_DETAIL_SIG } from './render/news-detail';
 import { applyMeetingDetail, MTG_DETAIL_SIG } from './render/meeting-detail';
 import { applySiteDetail, SITE_DETAIL_SIG } from './render/site-detail';
 import { applyHomeAbout, ABOUT_SIG } from './render/home-about';
+import { applyPageBody, PAGE_BODY_SIG } from './render/page-body';
 
 const env = import.meta.env as unknown as Record<string, string | undefined>;
 const endpoint = env.PUBLIC_STRAPI_ENDPOINT ?? 'https://ari.icjia-api.cloud/graphql';
@@ -133,6 +135,17 @@ export const liveConfig: LiveConfig = {
       select: (data) => (data?.pages ?? [])[0] ?? null,
       applyTo: applyHomeAbout,
       signature: ABOUT_SIG,
+      announceLabel: 'Page',
+    },
+    // Section landing pages — the shared [section]/index.astro body
+    // (/grants, /about, /approach). Reuses the generic page-body surface;
+    // updatedAt is the change signal (publishedAt intentionally omitted).
+    sectionDetail: {
+      query: SECTION_BY_SLUG,
+      variables: (slug) => ({ where: { isPublished: true, slug } }),
+      select: (data) => (data?.sections ?? [])[0] ?? null,
+      applyTo: applyPageBody,
+      signature: PAGE_BODY_SIG,
       announceLabel: 'Page',
     },
   },

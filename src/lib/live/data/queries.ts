@@ -61,3 +61,14 @@ export const PAGE_HOME = /* GraphQL */ `
       slug title content updatedAt
     }
   }`;
+
+// Section landing-page body — the shared [section]/index.astro live surface
+// (/grants, /about, /approach). Body-only; `updatedAt` is the change signal
+// (publishedAt intentionally omitted). `where` is passed as a whole JSON
+// variable per the Strapi-3 scalar gotcha noted above.
+export const SECTION_BY_SLUG = /* GraphQL */ `
+  query SectionBySlug($where: JSON) {
+    sections(where: $where) {
+      slug title summary content updatedAt
+    }
+  }`;
