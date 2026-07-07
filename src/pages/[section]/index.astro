@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import Markdown from '../../components/Markdown.astro';
+import { PAGE_BODY_SIG } from '../../lib/live/render/page-body';
 
 type Section = CollectionEntry<'sections'>['data'];
 type SectionPage = NonNullable<Section['pages']>[number];
@@ -16,6 +17,7 @@ export async function getStaticPaths() {
 }
 const { section } = Astro.props as { section: Section };
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+const sectionXData = `liveEntry({ surface: 'sectionDetail', slug: ${JSON.stringify(section.slug)}, sig: ${JSON.stringify(PAGE_BODY_SIG(section))} })`;
 const pages = (section.pages ?? [])
   .filter((p: SectionPage) => p.displayNav && p.isPublished !== false);
 ---
@@ -26,9 +28,10 @@ const pages = (section.pages ?? [])
       { label: section.title },
     ]} />
     <h1 class="text-page-title mt-4">{section.title}</h1>
-    {section.content
-      ? <Markdown content={section.content} class="mt-6" />
-      : section.summary && <p class="mt-3 text-lg">{section.summary}</p>}
+    <div x-data={sectionXData}>
+      <Markdown content={section.content ?? ''} class="mt-6" dataLive="body" />
+      {!section.content && section.summary && <p class="mt-3 text-lg">{section.summary}</p>}
+    </div>
     {pages.length > 0 && (
       <ul class="mt-8 space-y-3">
         {pages.map((p: SectionPage) => (

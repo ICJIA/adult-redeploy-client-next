@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased] — live refresh for section landing pages
+
+### Added
+
+Section landing pages (`/grants`, `/about`, `/approach`) now refresh their
+body from Strapi client-side — on idle and again on tab focus — instead of
+showing build-time content until the next rebuild. Adds a `sectionDetail`
+**entry** surface that reuses the generic `page-body` island (the same one
+behind the homepage About block and `/programs`); the body fades in only when
+the section's `updatedAt` changed. Static output, SEO, Pagefind, and no-JS are
+unchanged — the island is additive. The sub-page link list stays static (a
+rebuild still surfaces newly-published sub-pages).
+
+New: `SECTION_BY_SLUG` query + `sectionDetail` entry under `src/lib/live/`; the
+shared `src/pages/[section]/index.astro` passes `dataLive="body"` to
+`<Markdown>`. The `sections` content-collection schema now carries `updatedAt`
+so the build-baseline signature matches the live one — otherwise the body would
+spuriously re-render (and announce) on first load. No CSP or header change — the
+Strapi origin was already in `connect-src`.
+
 ## [Unreleased] — a11y: 404 section-heading contrast
 
 ### Fixed

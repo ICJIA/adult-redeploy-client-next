@@ -134,6 +134,10 @@ const sections = defineCollection({
     summary: z.string().nullable().optional(),
     content: z.string().nullable().optional(),
     searchMeta: z.string().nullable().optional(),
+    // Carried through for the sectionDetail live island's build-baseline
+    // signature (PAGE_BODY_SIG keys off updatedAt); Zod strips unlisted keys.
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
     pages: z.array(z.object({
       slug: z.string(),
       title: z.string(),
