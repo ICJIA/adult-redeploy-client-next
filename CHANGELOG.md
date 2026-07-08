@@ -1,5 +1,36 @@
 # Changelog
 
+## [Unreleased] — a11y: WCAG AAA polish (contrast, line-height, tap targets)
+
+### Changed
+
+SiteImprove's rollup docked the site for three **AAA** rules (its score doesn't
+separate AAA from the AA target). None affect WCAG 2.1 **AA** / ADA Title II /
+IITAA 2.1 conformance — every AA check already passes (axe-core AA 0 violations,
+contrastcap AA 0 failures, Lighthouse a11y 100/100) — but we cleared them so the
+SiteImprove score stops losing points:
+
+- **1.4.6 enhanced contrast** — `--color-brand-secondary` darkened
+  `#05797a` → `#045c62`. Was 5.22:1 on white (passes AA 1.4.3, fails AAA); now
+  **7.74:1** (7.42:1 on `#fafafa`). One `@theme` token change propagates to the
+  meeting/news date labels, article badges and tag chips, in both static markup
+  and the live-render (`.ts`) strings.
+- **1.4.8 line height** — the `text-xs` / `text-sm` scales now carry a **≥1.5**
+  line-height via `@theme` (`--text-{xs,sm}--line-height: 1.5`). Affects only
+  wrapped multi-line small text; single-line labels are visually unchanged.
+- **2.5.5 target size (enhanced, 44 px)** — footer nav links, footer social
+  icons, buttons, tag chips, header dropdown items and the mobile drawer
+  controls now have a 44 px minimum hit area (`min-h-11` / `min-w-11`). Header
+  top-nav was already 48 px; inline prose and breadcrumb links keep the 2.5.5
+  inline exception.
+
+### Fixed
+
+Two Strapi **Level A** content defects (fixed in the CMS, flagged by SiteImprove
+and confirmed by axe-core): an empty `<h3>` in the `ari-10-years` news body
+(1.3.1 / 2.4.6) and a missing `alt` on the promo image in `vital-voices-forum-1`
+(1.1.1). A cache nuke + re-fetch confirms both cleared in the content layer.
+
 ## [Unreleased] — live refresh for section landing pages
 
 ### Added

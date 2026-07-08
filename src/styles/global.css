@@ -18,7 +18,11 @@
 @theme {
   /* Brand palette */
   --color-brand-primary:   #043e3f;
-  --color-brand-secondary: #05797a;
+  /* WCAG 2.1 AAA (1.4.6 enhanced contrast): 7.74:1 on #fff / 7.42:1 on #fafafa.
+     Was #05797a (5.22:1 — passes AA 1.4.3 but fails AAA). Used as small-text
+     colour and as a white-on-fill badge/chip/tag background, so both directions
+     needed >=7:1. Still a distinct teal from --color-brand-primary (11.9:1). */
+  --color-brand-secondary: #045c62;
   --color-brand-accent:    #B158C2;
   --color-brand-ink:       #222222;
   --color-brand-muted:     #aaaaaa;
@@ -34,6 +38,13 @@
                   0 1px 2px rgb(0 0 0 / 0.24);
   --shadow-elev3: 0 3px 6px rgb(0 0 0 / 0.16),
                   0 3px 6px rgb(0 0 0 / 0.23);
+
+  /* WCAG 2.1 AAA (1.4.8): raise the small type scales to a >=1.5 line-height so
+     multi-line labels, card summaries and footer copy aren't flagged for tight
+     leading. Single-line uses (nav, badges, dates) are visually unaffected —
+     line-height only shows when text wraps. Base/prose already >=1.5. */
+  --text-xs--line-height: 1.5;
+  --text-sm--line-height: 1.5;
 }
 
 /* Page-title heading style used on most pages (h1) and the homepage's
