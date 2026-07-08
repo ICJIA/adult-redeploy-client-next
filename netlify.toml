@@ -29,6 +29,17 @@
   to   = "/adultredeploy/about/meetings/regular-oversight/ariob-meeting-2025-4"
   status = 301
 
+# Slug rename: the "Performance Measurement" page slug was corrected in Strapi
+# (performace-measurement -> performance-measurement, July 2026), which changed
+# the public URL. 301 the old misspelled URL so bookmarks / search-engine
+# results follow to the corrected one. Same prefix convention as above (`from`
+# un-prefixed, `to` keeps /adultredeploy). Safe to remove once the old URL has
+# aged out of external indexes.
+[[redirects]]
+  from = "/approach/performace-measurement"
+  to   = "/adultredeploy/approach/performance-measurement"
+  status = 301
+
 # /sitemap.xml is the conventional path crawlers/Search Console use. @astrojs/sitemap
 # regenerates the sitemap EVERY build, emitting an INDEX (sitemap-index.xml) plus the
 # actual URL list in sitemap-0.xml. Point the conventional /sitemap.xml at the URL

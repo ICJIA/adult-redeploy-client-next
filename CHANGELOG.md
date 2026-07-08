@@ -1,5 +1,44 @@
 # Changelog
 
+## [Unreleased] — SiteImprove QA sweep: content fixes + renamed-slug redirect
+
+### Fixed
+
+New SiteImprove reports (broken links + misspellings) worked through with the
+editorial team. All content issues were corrected in Strapi and verified against
+a clean `nuke` rebuild + `npm run check:links` — **0 broken internal links**, and
+none of the flagged strings remain in the rendered HTML.
+
+- `netlify.toml` — Added a 301 redirect for the corrected **Performance
+  Measurement** page slug: `/approach/performace-measurement` →
+  `/adultredeploy/approach/performance-measurement`. The slug was misspelled in
+  Strapi and renamed; the 301 keeps old bookmarks / search-engine results
+  resolving. Same prefix convention as the existing meeting-URL redirects
+  (`from` un-prefixed, `to` keeps `/adultredeploy`).
+- `docs/siteimprove-content-fixes-2026-07-08.md` / `.docx` — Content-author
+  handoff documenting every finding, its live URL, and the fix. Kept as the
+  record of the sweep (Markdown for the repo, Word for the editorial team).
+
+**CMS-side corrections (Strapi, completed by the editorial team):**
+
+- Misspellings: `Commitee` → `Committee` (9 meeting / news entries);
+  `Perfomance` → `Performance` and `devleop` → `develop` (Performance
+  Measurement page).
+- Broken links removed / replaced: dead ILGA statute link on `/about/overview`;
+  three dead COVID-era links on `/news/ari-covid19` (APPA, JMI Justice, NCSC —
+  two live links kept); two expired Egnyte share links on
+  `/resources/webinar/housing-webinars` (they lived in the **Summary** field).
+- Slug rename: `performace-measurement` → `performance-measurement`.
+
+**Flagged but intentionally left as-is (false positives — approved in
+SiteImprove, not changed in content):**
+
+- `Reconation` — the correct, trademarked name of *Moral Reconation Therapy*
+  (MRT); flagged on all 18 county / circuit site pages and the EBP page.
+- `https://www.facebook.com/ICJIA` and the `doit.illinois.gov` IITAA footer
+  link — both return 200 in a real browser; those servers reject rapid automated
+  link-checks. SiteImprove flags neither.
+
 ## [Unreleased] — a11y: solid-black homepage hero panel
 
 ### Changed
