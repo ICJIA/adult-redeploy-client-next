@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — a11y: solid-black homepage hero panel
+
+### Changed
+
+The homepage hero banner is now an opaque black panel (`#000`, was
+`rgba(0,0,0,0.78)`) with pure-white text — an unambiguous 21:1 contrast. The
+translucent overlay composited over the splash photo couldn't be read by some
+contrast checkers: SiteImprove compared the overlay's rgba base `#000` against
+its composited-over-white shade `#383838` and reported a false 1.79:1. Real
+contrast was never below ~12:1 (axe-core, contrastcap, and Lighthouse all passed
+the prior hero). Buttons stay white-on-teal.
+
 ## [Unreleased] — a11y: WCAG AAA polish (contrast, line-height, tap targets)
 
 ### Changed

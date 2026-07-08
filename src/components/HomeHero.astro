@@ -25,7 +25,7 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
                text-2xl sm:text-4xl md:text-5xl tracking-tight">
       Adult Redeploy Illinois
     </h1>
-    <p class="text-white/95 mt-4 text-sm sm:text-base md:text-lg
+    <p class="text-white mt-4 text-sm sm:text-base md:text-lg
               leading-relaxed">
       Reallocating state resources to develop more effective, less
       expensive community-based alternatives to incarceration and
@@ -54,7 +54,12 @@ const base = import.meta.env.BASE_URL || '/adultredeploy';
 
 <style>
   .banner {
-    background: rgba(0, 0, 0, 0.78);
+    /* Solid opaque black (not a semi-transparent overlay) so the text/background
+       contrast is unambiguously #fff on #000 = 21:1. A translucent panel over the
+       photo can't be composited by some contrast checkers (SiteImprove read the
+       rgba base #000 against its over-white shade #383838 = 1.79:1, a false
+       positive); an opaque panel removes that ambiguity. */
+    background: #000;
     padding: 1.75rem 1.5rem;
   }
   @media (min-width: 768px) {
