@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# nuke — wipe every regenerable cache/build artifact from an Astro (+ Strapi)
+# project so the next `dev` or `build` starts from an absolutely clean slate.
+#
+# PORTABLE: drop this single file into the root of ANY Astro project. It
+# auto-locates the Astro app dir (the repo root itself, or an ./astro
+# subfolder) by finding astro.config.*, then removes ONLY known-regenerable
+# directories. It never touches src/, never removes the whole node_modules,
+# never deletes anything it can't regenerate.
+#
+# What it removes (each, if present), inside the Astro app dir:
+#   .astro/             Astro content-layer store + generated types
+#   node_modules/.vite  Vite dependency-optimization cache
+#   .cache/             App-level caches. For Strapi-backed apps this holds
+#                       .cache/strapi/<sha256>.json — GraphQL responses cached
+#                       on disk with NO TTL and NO invalidation. After you edit
+#                       content in Strapi, dev keeps rendering the cached copy
+#                       until this is deleted. Also holds fetched CMS images
+#                       (.cache/cms-img), which the build re-downloads.
+#   dist/               Astro build output
+#   .netlify/ .vercel/  Adapter build output (if present)
+#
+# Everything above is rebuilt by `dev`/`build`, so this is always safe to run.
+#
+# Usage:
+#   ./nuke              # remove everything listed above
+#   ./nuke --dry-run    # show what WOULD be removed, delete nothing
+#   ./nuke --help
+#
+# In this repo you can also run it via:  pnpm nuke
+
+set -euo pipefail
+
+DRY_RUN=0
+for arg in "${@:-}"; do
+  case "$arg" in
+    --dry-run|-n) DRY_RUN=1 ;;
+    --help|-h)
+      grep -E '^# ' "$0" | sed 's/^# \{0,1\}//'
+      exit 0 ;;
+    "") ;;
+    *) echo "nuke: unknown option '$arg' (try --help)" >&2; exit 2 ;;
+  esac
+done
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+
+# Locate the Astro app dir: the first of ROOT or ROOT/astro that contains an
+# astro.config.* file. Glob-based so it works on stock macOS bash 3.2 (no
+# compgen/nullglob dependency): an unmatched glob stays literal, and [ -e ]
+# on the literal path is false.
+has_astro_config() {
+  local d="$1" f
+  for f in "$d"/astro.config.*; do
+    [ -e "$f" ] && return 0
+  done
+  return 1
+}
+
+ASTRO_DIR=""
+for d in "$ROOT" "$ROOT/astro"; do
+  if has_astro_config "$d"; then ASTRO_DIR="$d"; break; fi
+done
+
+if [ -z "$ASTRO_DIR" ]; then
+  echo "nuke: no astro.config.* found in '$ROOT' or '$ROOT/astro'." >&2
+  echo "  Run nuke from the repo root of an Astro project (or copy it there)." >&2
+  exit 1
+fi
+
+# Known-regenerable targets, relative to the Astro app dir.
+TARGETS=(
+  ".astro"
+  "node_modules/.vite"
+  ".cache"
+  "dist"
+  ".netlify"
+  ".vercel"
+)
+
+echo "nuke: Astro app dir → $ASTRO_DIR"
+[ "$DRY_RUN" -eq 1 ] && echo "nuke: DRY RUN — nothing will be deleted"
+
+removed=0
+for t in "${TARGETS[@]}"; do
+  path="$ASTRO_DIR/$t"
+  [ -e "$path" ] || continue
+  size="$(du -sh "$path" 2>/dev/null | cut -f1 || true)"
+  size="${size:-?}"
+  if [ "$DRY_RUN" -eq 1 ]; then
+    printf '  would remove  %-20s %s\n' "$t" "($size)"
+  else
+    rm -rf "$path"
+    printf '  removed       %-20s %s\n' "$t" "($size)"
+  fi
+  removed=$((removed + 1))
+done
+
+if [ "$removed" -eq 0 ]; then
+  echo "nuke: nothing to remove — already clean."
+elif [ "$DRY_RUN" -eq 1 ]; then
+  echo "nuke: dry run complete — $removed target(s) would be removed."
+else
+  echo "nuke: done — $removed target(s) removed. Next dev/build starts clean."
+fi
