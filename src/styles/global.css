@@ -124,12 +124,17 @@
 .prose a:hover { text-decoration: none; }
 .prose strong { font-weight: 700; }
 .prose em { font-style: italic; }
+/* Deliberately NOT italic. A blockquote's <p> children inherit font-style, so an
+   italic rule here turns every quoted paragraph into a fully-italic paragraph —
+   which is what SiteImprove's "overuse of italics" (Alfa R85) flags. /approach/ebps
+   alone is 23 blockquotes (23 of the report's 174 occurrences); none of them use
+   <em>, so the italics were entirely ours, not the CMS body's. The left border,
+   indent and muted colour carry the quote semantics on their own. */
 .prose blockquote {
   margin: 0 0 1em;
   padding: 0.25em 1em;
   border-left: 4px solid var(--color-brand-muted);
-  font-style: italic;
-  color: #555;
+  color: var(--color-brand-ink-muted);
 }
 .prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;

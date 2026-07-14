@@ -39,11 +39,21 @@ IITAA 2.1 conformance is unchanged; these clear the rollup score.
   the label/date `<p>` in `meetings-splash.ts` (2). Uppercase **headings**, nav,
   badges and buttons are untouched — R72 only applies to paragraphs, so the site's
   display typography is unchanged.
-- **Overuse of italics (R85) — 174 occurrences.** Alfa flags a fully-italic
-  paragraph. Removed `italic` from the summary/title `<p>` in the detail templates:
-  news (72), resources (46), sites (24), biographies (4), staff (4), and the
-  county-picker hint in `SiteIllinois.astro` (1). `.prose em` stays italic —
-  inline emphasis from markdown is legitimate and is not what R85 flags.
+- **Overuse of italics (R85) — 174 occurrences, all of them ours.** Alfa flags a
+  fully-italic paragraph. Two sources, both in code:
+  - **151** — the `italic` class on the summary/title `<p>` in the detail
+    templates: news (72), resources (46), sites (24), biographies (4), staff (4),
+    and the county-picker hint in `SiteIllinois.astro` (1).
+  - **23** — `.prose blockquote { font-style: italic }` in `global.css`. A
+    blockquote's `<p>` children inherit `font-style`, so every quoted paragraph
+    rendered fully italic. `/approach/ebps` is 23 blockquotes and **zero `<em>`
+    tags** — the italics were entirely from our stylesheet, not the CMS body.
+    Dropped the rule; the left border, indent and muted colour carry the quote.
+
+  `.prose em` stays italic — inline emphasis from markdown is legitimate and is
+  not what R85 flags.
+
+  **No Strapi edits were required for any of the five reports.**
 
 ### Known / deferred
 
@@ -55,9 +65,11 @@ IITAA 2.1 conformance is unchanged; these clear the rollup score.
   flagged (email alone in its `<p>`) while `montgomery-county` is not (its email
   shares the `<p>` with the phone number). Fixable in CSS via
   `.prose p > a:only-child`, with no Strapi edits.
-- **Overuse of italics on `/approach/ebps` — 23 occurrences.** The only genuinely
-  CMS-side item in the five reports: 23 whole paragraphs italicised in the Strapi
-  body (no template class). Needs an editorial fix, not a code one.
+- **Latent (not currently flagged): four empty-state messages** still carry the
+  `italic` utility — `HomeArticles`, `ListingTable`, `apps`, `tags/[slug]`. They
+  contribute 0 occurrences today because the lists they guard are never empty on
+  the live site, but each is a fully-italic `<p>` and would trip R85 if it ever
+  rendered (the `ListingTable` one is reachable via an empty search result).
 
 ## [Unreleased] — SiteImprove QA sweep: content fixes + renamed-slug redirect
 
