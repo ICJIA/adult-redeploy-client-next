@@ -27,7 +27,7 @@ const tagsHtml = item ? renderTags(item.tags, ctx) : '';
 <ArticleCard title={item?.title ?? ''}
              badge={badge}
              pagefindMeta={item ? { type: 'meeting', date: item.scheduledDate ?? '' } : undefined}>
-  <p class="text-sm font-bold text-brand-secondary uppercase mb-4" data-live="scheduled">
+  <p class="text-sm font-bold text-brand-secondary mb-4" data-live="scheduled">
     {item ? `Scheduled: ${formatDate(item.scheduledDate)}` : ''}
   </p>
   {item

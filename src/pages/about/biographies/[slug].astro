@@ -53,7 +53,7 @@ const headshot = item.headshot ? getCmsImageByPath(item.headshot.url) : null;
         </div>
       )}
       <div class={item.headshot ? 'md:col-span-2' : 'md:col-span-3'}>
-        {item.title && <p class="text-lg italic">{item.title}</p>}
+        {item.title && <p class="text-lg">{item.title}</p>}
         {item.membership && <p class="text-sm mt-1">{item.membership}</p>}
         <Markdown content={item.content} class="mt-6" />
       </div>

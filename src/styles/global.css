@@ -27,6 +27,23 @@
   --color-brand-ink:       #222222;
   --color-brand-muted:     #aaaaaa;
 
+  /* Pre-composited replacements for the `/opacity` colour modifiers.
+     Tailwind v4 compiles `text-white/80` to color-mix(in oklab, …), which the
+     browser serialises as oklab(L a b / .8). SiteImprove's Alfa engine cannot
+     composite an oklab colour that carries alpha, so it reported a 1.4.6
+     failure on every element inheriting one — the footer copyright line alone
+     produced 6 flags on all 269 pages (1,614 of 1,647 occurrences). These are
+     the same pixels with the alpha resolved up front, so Alfa has a plain sRGB
+     value to measure. Same trick as the opaque hero panel.
+
+     brand-ink-muted is the exception: it is deliberately DARKER than the
+     text-brand-ink/70 it replaces, which composited to #636363 — 5.76:1, a real
+     AAA failure, not a false positive. */
+  --color-on-primary-muted:   #cdd8d9;  /* was text-white/80  on brand-primary — 8.17:1 */
+  --color-on-primary-soft:    #e6ecec;  /* was text-white/90  on brand-primary — 9.95:1 */
+  --color-brand-ink-muted:    #555555;  /* was text-brand-ink/70 — now 7.14:1 on #fafafa, 7.45:1 on #fff */
+  --color-brand-primary-hi:   #2a5b5c;  /* was bg-white/15 over brand-primary (active footer nav) */
+
   --color-surface:         #ffffff;
   --color-surface-subtle:  #fafafa;
   --color-surface-shaded:  #eeeeee;

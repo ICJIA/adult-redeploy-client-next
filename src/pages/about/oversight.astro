@@ -13,9 +13,12 @@ const stripTags = (s: string | null | undefined) =>
 const page = await getEntry('pages', 'about/oversight');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const entries = await getCollection('biographies');
+// The CMS category for Oversight Board members is 'board' (the sibling staff page
+// filters on 'staff'). Filtering on 'oversight' matched nothing, so this page shipped
+// an empty <ul> — all 17 members were missing and their bio pages were orphaned.
 const board: Bio[] = entries
   .map((e) => e.data)
-  .filter((b: Bio) => b.category === 'oversight')
+  .filter((b: Bio) => b.category === 'board')
   .sort((a: Bio, b: Bio) =>
     (a.alphabetizeBy ?? a.lastName ?? '').localeCompare(
       b.alphabetizeBy ?? b.lastName ?? ''));
@@ -57,7 +60,7 @@ const board: Bio[] = entries
               )}
               <div>
                 <div class="font-bold text-brand-primary">{name}</div>
-                {title && <div class="text-sm italic">{title}</div>}
+                {title && <div class="text-sm">{title}</div>}
                 {membership && <div class="text-sm">{membership}</div>}
               </div>
             </a>

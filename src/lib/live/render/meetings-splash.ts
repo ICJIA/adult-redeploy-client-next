@@ -14,12 +14,12 @@ export const SPLASH_SIG_KEYS = ['slug', 'title', 'summary', 'scheduledDate', 'ca
 
 export const SPLASH_CLASSES = {
   section: 'mt-6 mb-10 rounded bg-brand-primary text-white p-6 md:p-8 shadow-elev1',
-  label: 'text-xs font-bold uppercase tracking-wider text-white/80',
+  label: 'text-xs font-bold tracking-wider text-on-primary-muted',
   h2: 'mt-1 font-heading font-black text-xl md:text-2xl leading-tight',
   link: 'underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 '
     + 'focus-visible:outline-white focus-visible:outline-offset-2',
-  date: 'mt-3 text-sm font-bold uppercase tracking-wide text-white/90',
-  summary: 'mt-2 text-sm text-white/90 max-w-2xl',
+  date: 'mt-3 text-sm font-bold tracking-wide text-on-primary-soft',
+  summary: 'mt-2 text-sm text-on-primary-soft max-w-2xl',
 } as const;
 
 export function renderMeetingsSplash(rows: MeetingRow[], ctx: LiveContext): string {

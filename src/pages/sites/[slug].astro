@@ -22,7 +22,7 @@ const xData = `liveEntry({ surface: 'siteDetail', slug: ${JSON.stringify(item.sl
     <ArticleCard title={item.title}
                  badge={item.siteType ?? undefined}
                  pagefindMeta={{ type: 'site' }}>
-      <p class="text-lg italic mb-6" data-live="summary"
+      <p class="text-lg mb-6" data-live="summary"
          style={item.summary ? undefined : 'display:none'}>{item.summary}</p>
       <Markdown content={item.content} dataLive="body" />
     </ArticleCard>

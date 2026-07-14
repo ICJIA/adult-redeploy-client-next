@@ -1,5 +1,64 @@
 # Changelog
 
+## [Unreleased] — Oversight Board restored + SiteImprove AAA/best-practice sweep
+
+### Fixed
+
+- **`src/pages/about/oversight.astro` — the Oversight Board page was empty.** The
+  member list filtered biographies on `category === 'oversight'`, but the CMS
+  category is `board` (the sibling staff page correctly filters on `staff`). The
+  filter matched nothing, so the page shipped an empty `<ul>`: **all 17 board
+  members were missing from the live site**, and their biography pages — which
+  build and return 200 — were orphaned, reachable by no link. That is also why
+  SiteImprove only ever crawled 4 biography pages (the staff ones). Surfaced by
+  the single "Container element is empty" (Alfa R68) occurrence in the report.
+
+### Changed — SiteImprove sub-100 items (all AAA / best-practice; no AA impact)
+
+The five new reports were **1,647 + 198 + 174 + 100 + 1 occurrences of five Alfa
+rules**, none of them WCAG 2.1 Level A or AA. Every A/AA check still passes (axe
+AA 0 violations, contrastcap AAA 0 failures, 63/63 unit tests). ADA Title II /
+IITAA 2.1 conformance is unchanged; these clear the rollup score.
+
+- **1.4.6 enhanced contrast (R66) — 1,647 occurrences, 269 pages.** Root cause was
+  a single mechanism: Tailwind v4 compiles `/opacity` modifiers (`text-white/80`)
+  to `color-mix(in oklab, …)`, which serialises as `oklab(L a b / .8)`. Alfa
+  cannot composite an oklab colour carrying alpha, so it reported a contrast
+  failure on every element inheriting one — the footer copyright line alone
+  produced exactly 6 flags on all 269 pages (1,614 of the 1,647). Replaced the
+  opacity modifiers with pre-composited solid tokens in `@theme`
+  (`--color-on-primary-muted`, `--color-on-primary-soft`, `--color-brand-ink-muted`,
+  `--color-brand-primary-hi`). Same pixels, no alpha for Alfa to choke on — same
+  workaround as the opaque hero panel.
+  - Not all of it was a false positive: `text-brand-ink/70` composited to
+    **#636363 = 5.76:1, a real AAA failure**. Its replacement is deliberately
+    darker (`#555555` — 7.14:1 on `#fafafa`, 7.45:1 on `#fff`).
+- **Text in all caps (R72) — 100 occurrences.** Alfa flags a paragraph rendered
+  entirely uppercase, including via CSS `text-transform`. Dropped `uppercase` from
+  the scheduled-date `<p>` in `MeetingDetailShell.astro` (98 meeting pages) and
+  the label/date `<p>` in `meetings-splash.ts` (2). Uppercase **headings**, nav,
+  badges and buttons are untouched — R72 only applies to paragraphs, so the site's
+  display typography is unchanged.
+- **Overuse of italics (R85) — 174 occurrences.** Alfa flags a fully-italic
+  paragraph. Removed `italic` from the summary/title `<p>` in the detail templates:
+  news (72), resources (46), sites (24), biographies (4), staff (4), and the
+  county-picker hint in `SiteIllinois.astro` (1). `.prose em` stays italic —
+  inline emphasis from markdown is legitimate and is not what R85 flags.
+
+### Known / deferred
+
+- **2.5.5 enhanced target size (R111) — 198 occurrences.** Not addressed. Splits
+  into code (the `ListingTable` sort buttons at 21px, its search input at 42px,
+  and the "View all N meetings" links) and CMS-authored standalone links. The
+  latter are links that are the *entire* paragraph — `<p><a>email</a></p>` — which
+  lose WCAG 2.5.5's **inline exception**. Confirmed by contrast: `will-county` is
+  flagged (email alone in its `<p>`) while `montgomery-county` is not (its email
+  shares the `<p>` with the phone number). Fixable in CSS via
+  `.prose p > a:only-child`, with no Strapi edits.
+- **Overuse of italics on `/approach/ebps` — 23 occurrences.** The only genuinely
+  CMS-side item in the five reports: 23 whole paragraphs italicised in the Strapi
+  body (no template class). Needs an editorial fix, not a code one.
+
 ## [Unreleased] — SiteImprove QA sweep: content fixes + renamed-slug redirect
 
 ### Fixed
