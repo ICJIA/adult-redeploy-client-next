@@ -20,7 +20,9 @@ export const NEWS_CLASSES = {
   li: 'border-b border-brand-muted/30 pb-4',
   date: 'text-xs uppercase',
   h3: 'mt-1 font-heading font-bold text-xl',
-  link: 'text-brand-primary underline-offset-4 hover:underline '
+  // tap-target: the link is the h3's only content, so SIA-R111 (2.5.5 enhanced
+  // target size) requires a >=44px clickable box — no inline-text exemption.
+  link: 'tap-target text-brand-primary underline-offset-4 hover:underline '
     + 'focus-visible:outline focus-visible:outline-2 '
     + 'focus-visible:outline-brand-primary focus-visible:outline-offset-2',
   summary: 'mt-2 text-sm',

@@ -48,7 +48,7 @@ const externalMediaMaterial = (item.externalMediaMaterial ?? []) as Material[];
             <li>
               <a href={`${STRAPI_BASE}${m.file!.url}`}
                  target="_blank" rel="noopener"
-                 class="text-brand-primary font-bold underline hover:no-underline
+                 class="tap-target text-brand-primary font-bold underline hover:no-underline
                         focus-visible:outline focus-visible:outline-2
                         focus-visible:outline-brand-primary focus-visible:outline-offset-2">
                 {m.name}
@@ -68,7 +68,7 @@ const externalMediaMaterial = (item.externalMediaMaterial ?? []) as Material[];
             <li>
               <a href={m.url}
                  target="_blank" rel="noopener"
-                 class="text-brand-primary font-bold underline hover:no-underline
+                 class="tap-target text-brand-primary font-bold underline hover:no-underline
                         focus-visible:outline focus-visible:outline-2
                         focus-visible:outline-brand-primary focus-visible:outline-offset-2">
                 {m.name}

@@ -1,5 +1,80 @@
 # Changelog
 
+## [Unreleased] — SiteImprove sub-100 sweep: enhanced target size, final contrast items, heading structure
+
+### Changed — clears every remaining sub-100 SiteImprove issue (all AAA / best-practice; AA was already 100/100 across the board)
+
+The 7/17 report had four rules below 100 — enhanced contrast R66 (63.95),
+enhanced target size R111 (38.94), headings-not-structured R53 (77.99), and
+content-missing-after-heading R78 (88.5). Every occurrence was located through
+the logged-in SiteImprove page reports first, so each fix targets the exact
+elements Alfa measures rather than a guess at them.
+
+- **1.4.6 enhanced contrast (R66) — 26 occurrences, 14 pages. Two sources, both
+  ours, same colour:**
+  - The breadcrumb separator `/` was `text-brand-muted` (`#aaa` on `#fafafa` =
+    2.23:1). Alfa measures aria-hidden text, and the occurrence count matched
+    breadcrumb depth exactly — 3 per committee listing page, 2 on
+    staff/oversight, 1 per top-level section page. Now `text-brand-ink-muted`
+    (`#555` — 7.14:1).
+  - The homepage publications pagination ellipsis ("…", top + bottom nav) used
+    the same `#aaa`; same replacement. The disabled ‹ › arrows were never
+    flagged — Alfa ignores CSS `opacity` and reads their solid `brand-primary`
+    at 12.4:1 (and disabled controls are 1.4.3/1.4.6-exempt anyway).
+- **2.5.5 enhanced target size (R111) — the "Known / deferred" item two entries
+  below, now done — ~198 occurrences, ~140 pages.** Alfa's applicability,
+  confirmed against five page reports: an `<a>` smaller than 44×44 whose
+  nearest block contains no text besides the link (that's WCAG 2.5.5's
+  "in a sentence or block of text" exemption inverted). Fixed by three
+  mechanisms:
+  - **New `.tap-target` utility** (`global.css`): `inline-block` +
+    `padding-block: max(0px, calc((44px - 1lh) / 2))` + `min-width: 44px`.
+    Grows the border box to exactly 44px for any font size, keeps underlines
+    (a flex box would not propagate `text-decoration` to its items), leaves
+    horizontal rhythm alone, and — being un-layered — wins over `@layer`'d
+    Tailwind `py-*` on the same element. Applied to: breadcrumb links (the
+    sitewide "1 occurrence on every content page" was the first crumb, "Home",
+    38×21 — the only crumb whose `<li>` has no `/` sharing the text block),
+    hero CTAs, the homepage h2 title links + news-list h3 links + "Visit
+    ICJIA's Research Hub" link, meetings-index heading and "View all" links,
+    the meetings splash link, staff name links, and the material/download
+    links in the meeting + resource detail shells.
+  - **Markdown pipeline** (`src/lib/markdown/core.ts`): new
+    `standalone_link_tap_target` core rule tags any link that is the sole
+    content of its paragraph, heading, or list item — CMS bodies are full of
+    them ("LINK TO APPLY IN EUNA" on /grants, standalone mailto lines on the
+    county pages, link-only bullets). `class` added to the xss whitelist for
+    `<a>` (same trust level as the already-allowed `style`) so the tag
+    survives sanitization. 6 new unit tests.
+  - **Left alone on purpose:** the ~320 sub-44 `ListingTable` row links.
+    Alfa demonstrably exempts links in table cells — /about/meetings reports
+    exactly 11 occurrences (6 heading links + 5 "View all" links) and zero of
+    its ~55 row links; growing table rows to 44px would wreck density for no
+    score gain.
+- **R53 "Headings are not structured" + R78 "Content missing after heading" —
+  3 occurrences, 2 pages, both CMS content.** Fixed via a new slug-keyed
+  `CONTENT_PATCHES` step in `scripts/fetch-content.mjs` (same pattern as the
+  meeting-URL canonicalisation: no Strapi edits, survives refetches, logs and
+  no-ops once the CMS copy is corrected upstream):
+  - `resources/eligibility-webinar` — `##### Click to play on YouTube{.muted
+    .mt-5}`: an h5 directly after the page h1 (R53 level skip) with nothing
+    after it (R78), whose `{.muted .mt-5}` rendered as literal text because
+    markdown-it-attrs isn't in the pipeline. It's a caption; now a bold
+    paragraph.
+  - `news/ari-nofo-sfy21` — first body heading was `###` under the card's h1;
+    now `##`.
+
+### Verified
+
+- **Full-site sweep — all 300 sitemap pages** (in-browser iframe crawl at
+  1366px): **0** text nodes under 7:1 (4.5:1 large), **0** undersized
+  standalone links outside table cells, **0** heading-level skips, 0 errors.
+- **axe-core AAA (axecap): 0 violations on all 21 page templates.**
+- **Lighthouse (lightcap): accessibility 100/100** on 7 templates; homepage
+  full audit 100/100/100/100 (perf/a11y/bp/seo).
+- 69/69 unit tests. `astro check`: only the 3 pre-existing `formats`
+  Image-prop type errors, present on clean master (verified via stash).
+
 ## [Unreleased] — Oversight Board restored + SiteImprove AAA/best-practice sweep
 
 ### Fixed
@@ -57,7 +132,8 @@ IITAA 2.1 conformance is unchanged; these clear the rollup score.
 
 ### Known / deferred
 
-- **2.5.5 enhanced target size (R111) — 198 occurrences.** Not addressed. Splits
+- **2.5.5 enhanced target size (R111) — 198 occurrences.** *Since addressed —
+  see the sweep entry at the top of this file.* Splits
   into code (the `ListingTable` sort buttons at 21px, its search input at 42px,
   and the "View all N meetings" links) and CMS-authored standalone links. The
   latter are links that are the *entire* paragraph — `<p><a>email</a></p>` — which

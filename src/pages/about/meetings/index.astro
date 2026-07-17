@@ -60,7 +60,7 @@ const sections = MEETING_CATEGORIES.map((c) => {
                 class="font-heading font-black uppercase tracking-tight
                        text-xl md:text-2xl text-brand-primary">
               <a href={`${base}/about/meetings/${s.category.slug}`}
-                 class="underline-offset-4 hover:underline
+                 class="tap-target underline-offset-4 hover:underline
                         focus-visible:outline focus-visible:outline-2
                         focus-visible:outline-brand-primary focus-visible:outline-offset-2">
                 {s.category.title}
@@ -81,7 +81,7 @@ const sections = MEETING_CATEGORIES.map((c) => {
           {s.total > s.rows.length && (
             <div class="mt-3 text-right">
               <a href={`${base}/about/meetings/${s.category.slug}`}
-                 class="text-brand-primary font-bold underline-offset-4 hover:underline
+                 class="tap-target text-brand-primary font-bold underline-offset-4 hover:underline
                         focus-visible:outline focus-visible:outline-2
                         focus-visible:outline-brand-primary focus-visible:outline-offset-2">
                 View all {s.total} {s.category.short} meetings →

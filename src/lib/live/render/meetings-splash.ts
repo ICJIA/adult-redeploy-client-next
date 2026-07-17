@@ -16,7 +16,7 @@ export const SPLASH_CLASSES = {
   section: 'mt-6 mb-10 rounded bg-brand-primary text-white p-6 md:p-8 shadow-elev1',
   label: 'text-xs font-bold tracking-wider text-on-primary-muted',
   h2: 'mt-1 font-heading font-black text-xl md:text-2xl leading-tight',
-  link: 'underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 '
+  link: 'tap-target underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 '
     + 'focus-visible:outline-white focus-visible:outline-offset-2',
   date: 'mt-3 text-sm font-bold tracking-wide text-on-primary-soft',
   summary: 'mt-2 text-sm text-on-primary-soft max-w-2xl',

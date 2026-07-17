@@ -7,10 +7,13 @@ const { items } = Astro.props;
   <ol class="flex flex-wrap items-center gap-1">
     {items.map((c, i) => (
       <li class="flex items-center gap-1">
-        {i > 0 && <span aria-hidden="true" class="text-brand-muted">/</span>}
+        {/* Separator: brand-ink-muted (#555), not brand-muted (#aaa) — Alfa
+            measures aria-hidden text too, and #aaa on #fafafa is 2.23:1
+            (SIA-R66 flagged one per separator, sitewide). #555 is >=7:1. */}
+        {i > 0 && <span aria-hidden="true" class="text-brand-ink-muted">/</span>}
         {c.href && i < items.length - 1 ? (
           <a href={c.href}
-             class="text-brand-primary underline hover:no-underline
+             class="tap-target text-brand-primary underline hover:no-underline
                     focus-visible:outline focus-visible:outline-2
                     focus-visible:outline-brand-primary focus-visible:outline-offset-2">
             {c.label}

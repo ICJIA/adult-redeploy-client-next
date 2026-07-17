@@ -11,7 +11,9 @@ import { fadeSwap } from '../behavior/transition';
 import type { LiveContext } from '../types';
 
 const STRAPI_BASE = 'https://ari.icjia-api.cloud';
-const MAT_LINK = 'text-brand-primary font-bold underline hover:no-underline '
+// tap-target: each material link is the sole content of its <li>, so SIA-R111
+// (2.5.5 enhanced target size) requires a >=44px clickable box.
+const MAT_LINK = 'tap-target text-brand-primary font-bold underline hover:no-underline '
   + 'focus-visible:outline focus-visible:outline-2 '
   + 'focus-visible:outline-brand-primary focus-visible:outline-offset-2';
 

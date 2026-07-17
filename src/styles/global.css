@@ -64,6 +64,23 @@
   --text-sm--line-height: 1.5;
 }
 
+/* WCAG 2.1 AAA (2.5.5 target size enhanced / SIA-R111): a standalone link —
+   one that is the sole content of its heading/paragraph/list-item block, so
+   the "in a sentence or block of text" exemption doesn't apply — must present
+   a clickable box of at least 44×44 CSS px. inline-block + symmetric block
+   padding derived from the link's own line box (1lh) grows the border box to
+   exactly 44px tall for any font size, keeps the underline (unlike a flex
+   box, which doesn't propagate text-decoration to its items), and leaves
+   horizontal rhythm alone. min-width covers short labels ("Home", "FAQs").
+   Declared un-layered on purpose: it must win over @layer'd Tailwind py-*
+   utilities on the same element. Browsers without the lh unit simply keep the
+   original link size — the AA-level rules are unaffected either way. */
+.tap-target {
+  display: inline-block;
+  min-width: 44px;
+  padding-block: max(0px, calc((44px - 1lh) / 2));
+}
+
 /* Page-title heading style used on most pages (h1) and the homepage's
    section headers (h2). Class is sprinkled across markup but Tailwind v4
    does not ship a utility by that name, so without this rule h1.text-page-title
