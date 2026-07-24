@@ -7,15 +7,11 @@ export default defineConfig({
   base: '/adultredeploy',
   trailingSlash: 'never',
   output: 'static',
-  build: {
-    // Inline the bundled CSS into each page's <head> instead of shipping a
-    // ~119 KB render-blocking stylesheet (Astro's 'auto' leaves anything that
-    // large external). On Lighthouse's desktop test that blocking request was
-    // the top opportunity (~1.5 s) and, with the oversized CMS image above,
-    // held Performance at 56. Tradeoff: the CSS repeats per page (no cross-page
-    // cache) — an accepted trade for a static site tuned for first paint.
-    inlineStylesheets: 'always',
-  },
+  // NOTE: inlineStylesheets is intentionally left at Astro's default ('auto').
+  // Inlining the full ~119 KB bundled CSS improved FCP but *raised* the desktop
+  // LCP (the browser parses the large inline <style> before painting the hero),
+  // so it was a net wash there — reverted. The desktop LCP bottleneck is the
+  // hero image / critical-path render, not the stylesheet round-trip.
   integrations: [
     sitemap({
       // Exclude the 404 page and any pagefind UI routes from the sitemap;
