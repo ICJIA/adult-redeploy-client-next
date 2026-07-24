@@ -117,8 +117,17 @@ async function processBuffer(buffer, hash, manifestKey) {
   const origH = meta.height ?? 0;
   if (!origW || !origH) return null;
 
+  // Cap the largest generated variant at MAX_CMS_WIDTH. Some Strapi uploads are
+  // 3000–6700px wide; appending the raw origW produced multi-megabyte variants
+  // (e.g. a 6720px / 1.4 MB WebP). Worse, that largest variant is what
+  // getCmsImage() uses as the <img src> fallback (entry.largest) — so it became
+  // the desktop LCP element and dragged Lighthouse Performance to 56. 1600px
+  // covers every on-page display size; the full-bleed hero uses a separate
+  // local-asset pipeline, so nothing on the site needs a wider CMS variant.
+  const MAX_CMS_WIDTH = 1600;
+  const capW = Math.min(origW, MAX_CMS_WIDTH);
   const widths = [...new Set(
-    [...TARGET_WIDTHS.filter((w) => w < origW), origW]
+    [...TARGET_WIDTHS.filter((w) => w < capW), capW]
   )].sort((a, b) => a - b);
 
   const variants = [];
