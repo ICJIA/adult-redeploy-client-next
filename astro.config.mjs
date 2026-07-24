@@ -7,6 +7,15 @@ export default defineConfig({
   base: '/adultredeploy',
   trailingSlash: 'never',
   output: 'static',
+  build: {
+    // Inline the bundled CSS into each page's <head> instead of shipping a
+    // ~119 KB render-blocking stylesheet (Astro's 'auto' leaves anything that
+    // large external). On Lighthouse's desktop test that blocking request was
+    // the top opportunity (~1.5 s) and, with the oversized CMS image above,
+    // held Performance at 56. Tradeoff: the CSS repeats per page (no cross-page
+    // cache) — an accepted trade for a static site tuned for first paint.
+    inlineStylesheets: 'always',
+  },
   integrations: [
     sitemap({
       // Exclude the 404 page and any pagefind UI routes from the sitemap;
