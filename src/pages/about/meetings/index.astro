@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageTitle from '../../../components/ui/PageTitle.astro';
+import MeetingsArchiveNote from '../../../components/ui/MeetingsArchiveNote.astro';
 import ListingTable from '../../../components/alpine/ListingTable.astro';
 import { MEETING_CATEGORIES } from '../../../lib/meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from '../../../lib/live/render/meetings-splash';
@@ -45,12 +46,14 @@ const sections = MEETING_CATEGORIES.map((c) => {
       <div x-ref="region" set:html={renderMeetingsSplash(splashRows, liveCtx)}></div>
     </div>
 
-    <p class="-mt-2 mb-10 text-lg">
+    <p class="-mt-2 mb-4 text-lg">
       The Adult Redeploy Illinois Oversight Board and its committees meet
       regularly to review program performance, set policy direction, and
       coordinate site selection and monitoring. Meeting agendas, minutes,
       and supporting materials are grouped below by committee.
     </p>
+
+    <MeetingsArchiveNote class="mb-10" />
 
     <div class="space-y-14">
       {sections.map((s) => (

@@ -1,0 +1,17 @@
+---
+// Records-request note shown on the meetings index and every committee
+// listing page. July 2019 is the cutoff for what the CMS holds; anything
+// older is fulfilled by staff, so the copy and the date live here rather
+// than being repeated across seven pages.
+interface Props { class?: string; }
+const { class: cls = '' } = Astro.props;
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+---
+<p class:list={['text-lg', cls]}>
+  To request meeting agendas, minutes, and supporting materials from
+  prior to July 2019,
+  <a href={`${base}/about/contact`}
+     class="tap-target text-brand-primary font-bold underline underline-offset-4
+            focus-visible:outline focus-visible:outline-2
+            focus-visible:outline-brand-primary focus-visible:outline-offset-2">contact us</a>.
+</p>

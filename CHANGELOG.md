@@ -1,5 +1,26 @@
 # Changelog
 
+## [Unreleased] — pre-July-2019 records request note across the meetings pages
+
+### Added
+
+- **New `MeetingsArchiveNote` component** (`src/components/ui/`) — the note
+  telling readers to contact staff for agendas, minutes, and supporting
+  materials from prior to July 2019, linking to `/about/contact`. July 2019 is
+  the cutoff for what the CMS holds, so the copy and the date live in one file
+  rather than being repeated across six pages. Takes a `class` prop for
+  caller-side margins, matching the `PageTitle` pattern.
+- **Rendered on `/about/meetings`** (after the existing intro paragraph, whose
+  bottom margin goes `mb-10` → `mb-4` so the two sit together) **and on all
+  five committee listing pages** — `ad-hoc`, `outreach`, `performance`,
+  `regular-oversight`, `site-selection` — between the h1 and the listing table,
+  which previously carried no prose at all. Meeting *detail* pages are
+  deliberately left alone.
+- The "contact us" link reuses the page's existing `.tap-target` +
+  `text-brand-primary` treatment, so it clears 2.5.5 enhanced target size
+  (44px) and 1.4.6 enhanced contrast (11.39:1 measured, AAA needs 7:1).
+  axe AAA + best-practice: 0 violations on all six pages.
+
 ## [Unreleased] — SiteImprove sub-100 sweep: enhanced target size, final contrast items, heading structure
 
 ### Changed — clears every remaining sub-100 SiteImprove issue (all AAA / best-practice; AA was already 100/100 across the board)

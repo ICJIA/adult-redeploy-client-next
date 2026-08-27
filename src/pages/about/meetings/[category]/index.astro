@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../../components/ui/Breadcrumb.astro';
+import MeetingsArchiveNote from '../../../../components/ui/MeetingsArchiveNote.astro';
 import ListingTable from '../../../../components/alpine/ListingTable.astro';
 import { MEETING_CATEGORIES, type MeetingCategory } from '../../../../lib/meetings';
 import { meetingsIndexRows, MTG_INDEX_SIG_KEYS } from '../../../../lib/live/render/listing-rows';
@@ -39,6 +40,7 @@ const live = {
       { label: category.short },
     ]} />
     <h1 class="text-page-title mt-4">{category.title}</h1>
+    <MeetingsArchiveNote class="mt-6" />
     <div class="mt-8">
       <ListingTable ariaLabel={category.slug}
         columns={[
