@@ -81,6 +81,11 @@ Design: `docs/superpowers/specs/2026-10-14-cms-freshness-all-routes-design.md`.
 - `renderTags` pills now mirror `Tag.astro`'s linked variant (`min-h-11`, 44px
   enhanced target size) — they were left behind by the 7/17 tap-target sweep and
   the resources shell renders tags through the same function now.
+- **External Links on resource pages render only `http(s):` / `mailto:` URLs.**
+  `renderExternalLinks` (shared by the static page and the live swap) now drops
+  any other scheme, so a `javascript:` or `data:` URL authored in Strapi can
+  never become a clickable link. The previous static template rendered the CMS
+  value verbatim. Flagged by the automated security review of the commit.
 - **Build-time content patches now apply on the live path too.** The two
   slug-keyed R53/R78 fixups (`eligibility-webinar` caption h5 → bold,
   `ari-nofo-sfy21` h3 → h2) lived only in `scripts/fetch-content.mjs`, so a live

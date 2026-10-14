@@ -114,3 +114,25 @@ describe('applyResourceDetail — build-time content patches apply on the live p
     expect(els.body.innerHTML).not.toContain('<h5>');
   });
 });
+
+describe('renderExternalLinks — only http(s) and mailto links are rendered', () => {
+  it('drops javascript:, data: and protocol-less entries (CMS-authored URLs are untrusted input)', () => {
+    const html = renderExternalLinks([
+      { name: 'bad js', url: 'javascript:alert(1)' },
+      { name: 'bad data', url: 'data:text/html,hi' },
+      { name: 'relative', url: '/uploads/x.pdf' },
+      { name: 'spaced js', url: '  JavaScript:alert(2)' },
+    ]);
+    expect(html).toBe('');
+  });
+  it('keeps http, https and mailto links', () => {
+    const html = renderExternalLinks([
+      { name: 'web', url: 'https://example.org/a' },
+      { name: 'plain', url: 'http://example.org/b' },
+      { name: 'mail', url: 'mailto:ari@example.org' },
+    ]);
+    expect(html).toContain('href="https://example.org/a"');
+    expect(html).toContain('href="http://example.org/b"');
+    expect(html).toContain('href="mailto:ari@example.org"');
+  });
+});

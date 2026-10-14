@@ -31,6 +31,20 @@ export function resourceCategoryTitle(e: string | null | undefined): string {
 
 interface LinkItem { href: string; name?: string | null; summary?: string | null }
 
+// CMS-authored URLs are untrusted input: only http(s) and mailto may become an
+// href (a `javascript:` or `data:` URL typed into Strapi must never render as a
+// clickable link, on the static page or a live swap). Anything else is dropped.
+const SAFE_PROTOCOLS = ['http:', 'https:', 'mailto:'];
+export function safeExternalHref(url: unknown): string | null {
+  if (typeof url !== 'string') return null;
+  try {
+    const u = new URL(url.trim());
+    return SAFE_PROTOCOLS.includes(u.protocol) ? u.href : null;
+  } catch {
+    return null; // relative / malformed → not an external link
+  }
+}
+
 function renderLinkBlock(heading: string, wrapperClass: string, items: LinkItem[]): string {
   if (!items.length) return '';
   const lis = items.map((m) => `
@@ -55,8 +69,8 @@ export function renderResourceMaterials(materials: any[] | null | undefined): st
 /** The "External Links" block, or '' when there are none. */
 export function renderExternalLinks(links: any[] | null | undefined): string {
   const items = (links ?? [])
-    .filter((m) => m?.url)
-    .map((m) => ({ href: m.url, name: m.name, summary: m.summary }));
+    .map((m) => ({ href: safeExternalHref(m?.url), name: m?.name, summary: m?.summary }))
+    .filter((m): m is LinkItem => !!m.href);
   return renderLinkBlock('External Links', 'mt-6 bg-surface-shaded p-6 rounded', items);
 }
 
