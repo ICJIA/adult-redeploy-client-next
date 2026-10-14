@@ -1,4 +1,5 @@
 # Adult Redeploy Illinois — site
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a1e29cf9-84eb-406a-b78d-7fa4c82646d1/deploy-status)](https://app.netlify.com/projects/adultredeploy/deploys)
 
 ![Adult Redeploy Illinois — community-based alternatives to incarceration.](./public/img/og-image.png)
 
