@@ -3,25 +3,26 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import Markdown from '../../components/Markdown.astro';
+import { renderMarkdown } from '../../lib/markdown';
 import { getCmsImageByPath } from '../../lib/cms-image';
+import { selectBoard, renderBoardList, BIO_LIST_SIG_KEYS } from '../../lib/live/render/bio-list';
+import { stableSignature } from '../../lib/live/behavior/signature';
+import { PAGE_DETAIL_SIG } from '../../lib/live/render/page-detail';
 
 type Bio = CollectionEntry<'biographies'>['data'];
 
-const stripTags = (s: string | null | undefined) =>
-  (s ?? '').replace(/<[^>]+>/g, '').trim();
-
 const page = await getEntry('pages', 'about/oversight');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
+const ctx = { endpoint: '', basePath: base };
 const entries = await getCollection('biographies');
-// The CMS category for Oversight Board members is 'board' (the sibling staff page
-// filters on 'staff'). Filtering on 'oversight' matched nothing, so this page shipped
-// an empty <ul> — all 17 members were missing and their bio pages were orphaned.
-const board: Bio[] = entries
-  .map((e) => e.data)
-  .filter((b: Bio) => b.category === 'board')
-  .sort((a: Bio, b: Bio) =>
-    (a.alphabetizeBy ?? a.lastName ?? '').localeCompare(
-      b.alphabetizeBy ?? b.lastName ?? ''));
+// The CMS category for Oversight Board members is 'board' (staff is 'staff');
+// selectBoard filters + alphabetizes. The same select + render fn drive the live
+// island (surface `boardList`), so static and live markup can't diverge.
+const board = selectBoard(entries.map((e): Bio => e.data));
+const listHtml = renderBoardList(board, ctx, { image: getCmsImageByPath, markdown: renderMarkdown });
+// The CMS intro paragraph (pages: about/oversight) refreshes through the generic pageDetail surface.
+const introXData = `liveEntry({ surface: 'pageDetail', slug: 'about/oversight', sig: ${JSON.stringify(PAGE_DETAIL_SIG(page?.data))} })`;
+const listXData = `liveEntry({ surface: 'boardList', slug: 'board', sig: ${JSON.stringify(stableSignature(board, BIO_LIST_SIG_KEYS))} })`;
 ---
 <BaseLayout title="Oversight Board"
             description="The Adult Redeploy Illinois Oversight Board guides program policy and reviews local-site funding decisions.">
@@ -32,41 +33,13 @@ const board: Bio[] = entries
       { label: 'Oversight Board' },
     ]} />
     <h1 class="text-page-title mt-4">Oversight Board</h1>
-    {page && <Markdown content={page.data.content} class="mt-4" />}
-    <ul class="mt-8 grid gap-6 md:grid-cols-2">
-      {board.map((b: Bio) => {
-        const name = [b.prefix, b.firstName, b.middleName, b.lastName, b.suffix]
-                       .filter(Boolean).map((s) => s!.trim()).join(' ');
-        const title = stripTags(b.title);
-        const membership = stripTags(b.membership);
-        const headshot = b.headshot ? getCmsImageByPath(b.headshot.url) : null;
-        return (
-          <li>
-            <a href={`${base}/about/biographies/${b.slug}`}
-               class="flex gap-4 p-4 border border-brand-muted/40 rounded
-                      hover:shadow-elev1
-                      focus-visible:outline focus-visible:outline-2
-                      focus-visible:outline-brand-primary focus-visible:outline-offset-2">
-              {headshot && (
-                <img src={headshot.src}
-                     srcset={headshot.srcset}
-                     sizes="80px"
-                     width={headshot.width}
-                     height={headshot.height}
-                     alt=""
-                     loading="lazy"
-                     decoding="async"
-                     class="w-20 h-20 rounded object-cover shrink-0" />
-              )}
-              <div>
-                <div class="font-bold text-brand-primary">{name}</div>
-                {title && <div class="text-sm">{title}</div>}
-                {membership && <div class="text-sm">{membership}</div>}
-              </div>
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+    {page && (
+      <div x-data={introXData}>
+        <Markdown content={page.data.content} class="mt-4" dataLive="body" />
+      </div>
+    )}
+    <div x-data={listXData}>
+      <ul class="mt-8 grid gap-6 md:grid-cols-2" data-live="list" set:html={listHtml}></ul>
+    </div>
   </div>
 </BaseLayout>

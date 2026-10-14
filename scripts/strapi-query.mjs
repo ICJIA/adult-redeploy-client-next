@@ -27,6 +27,7 @@ export const QUERY = /* GraphQL */ `{
   biographies(where: { isPublished: true }) {
     slug firstName middleName lastName prefix suffix title
     membership category alphabetizeBy order content isPublished
+    createdAt updatedAt
     headshot { url name }
   }
   resources(sort: "publicationDate:desc", where: { isPublished: true }) {

@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Markdown from '../../components/Markdown.astro';
+import { PAGE_DETAIL_SIG } from '../../lib/live/render/page-detail';
 
 type Page = CollectionEntry<'pages'>['data'];
 
@@ -19,12 +20,19 @@ export async function getStaticPaths() {
     }));
 }
 const { page } = Astro.props as { page: Page };
+// Live island: refetches this page by "<section>/<slug>" on load + tab focus and
+// swaps title / summary / body only when updatedAt changed (surface pageDetail).
+const pageId = `${page.section?.slug ?? ''}/${page.slug}`;
+const xData = `liveEntry({ surface: 'pageDetail', slug: ${JSON.stringify(pageId)}, sig: ${JSON.stringify(PAGE_DETAIL_SIG(page))} })`;
 ---
 <BaseLayout title={page.title} description={page.summary ?? undefined}>
-  <ArticleCard title={page.title}
-               badge={page.section?.title}
-               pagefindMeta={{ type: 'page' }}>
-    {page.summary && <p class="text-lg mb-6">{page.summary}</p>}
-    <Markdown content={page.content} />
-  </ArticleCard>
+  <div x-data={xData}>
+    <ArticleCard title={page.title}
+                 badge={page.section?.title}
+                 pagefindMeta={{ type: 'page' }}>
+      <p class="text-lg mb-6" data-live="summary"
+         style={page.summary ? undefined : 'display:none'}>{page.summary}</p>
+      <Markdown content={page.content} dataLive="body" />
+    </ArticleCard>
+  </div>
 </BaseLayout>

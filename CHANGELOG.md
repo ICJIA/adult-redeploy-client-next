@@ -1,5 +1,114 @@
 # Changelog
 
+## [Unreleased] — every CMS-backed route live-refreshes; publish/nightly rebuild backstop
+
+Reported: `/about/staff` and `/about/oversight` did not show a new Oversight
+Board member after the CMS changed. Root cause (two layers):
+
+1. Those pages — and `/about/biographies/<slug>`, `/<section>/<page>`,
+   `/resources/*`, `/tags/<slug>` — had **no live island**. They rendered the
+   build snapshot only, unlike news / meetings / sites / home / section landings,
+   which refresh from Strapi on load and tab focus. The build query did not even
+   fetch `updatedAt` for biographies, so nothing could baseline a change signal.
+2. Nothing outside a git push ever rebuilt the site. The Strapi → Netlify build
+   hook documented as an owner step in June/July was never configured, and no
+   scheduled rebuild existed. Timeline on 2026-10-14 (CDT): member created in
+   Strapi 13:11 → manual Netlify deploy 13:43 → build hook `manual_build` created
+   13:44 → README push 13:48 rebuilt the site, which is why both routes match the
+   CMS again now. The staleness window was "CMS edit until the next push".
+
+Design: `docs/superpowers/specs/2026-10-14-cms-freshness-all-routes-design.md`.
+
+### Added — live surfaces (`src/lib/live/`)
+
+- **`staffList` / `boardList`** — `/about/staff` and `/about/oversight` member
+  lists. New `render/bio-list.ts` holds `selectStaff` / `selectBoard` (filter +
+  sort) and `renderStaffList` / `renderBoardList`; the `.astro` pages emit the
+  list via `set:html` from the **same** functions the island uses, so static and
+  live markup cannot diverge. Signature = `stableSignature(rows, ['slug',
+  'updatedAt'])`. The island lazy-imports the manifest-aware image lookup and
+  markdown only on a real change; a headshot uploaded after the last build falls
+  back to the raw Strapi URL (CSP `img-src` already allows it) until the next
+  build optimizes it. New queries `BIOS_LIST` (cards, ~8 KB) and
+  `BIOS_LIST_FULL` (+ bio bodies for the staff page, ~34 KB).
+- **`pageDetail`** — the `pages` content type: every `/<section>/<page>` card
+  (title / summary / body) and the body-only intro islands on the staff and
+  oversight pages. `render/page-detail.ts`; `PAGE_BY_SLUG` passes
+  `{ isPublished, slug, section: { slug } }` as one JSON `where` (the nested
+  relation filter was verified against the API: a wrong section returns `[]`).
+- **`bioDetail`** — `/about/biographies/<slug>` (name, badge, headshot, role,
+  membership, body) via a new shared `BioDetailShell.astro` used by the static
+  page and the 404 host. Also fixes a pre-existing bug: the detail page printed
+  the legacy `<span class="heavy">` wrapper from CMS titles as literal text (the
+  list pages already stripped it).
+- **`resourcesIndex` / `resourcesCategory`** — `/resources` and
+  `/resources/<category>` tables via the existing `ListingTable` `live` prop;
+  `resourcesIndexRows` / `resourcesCategoryRows` in `render/listing-rows.ts`.
+- **`resourceDetail`** — `/resources/<category>/<slug>` (title, badge, date,
+  summary, body, Downloads, External Links, tags) via a new shared
+  `ResourceDetailShell.astro`; `renderResourceMaterials` / `renderExternalLinks`
+  drive both static and live markup.
+- **`tagPage`** — `/tags/<slug>` grouped lists (`render/tag-page.ts`, one
+  `TAGGED_ITEMS` round trip, filtered client-side like the build).
+  `liveCollection` now forwards `params` to `select` (the type already allowed
+  it). Tag-page links gain `.tap-target` (sole content of their `<li>`).
+- **404 live-render host** now also bootstraps `/about/biographies/<slug>` and
+  `/resources/<category>/<slug>` — the live lists link to a new record before its
+  static page exists.
+- Build fetch + `biographies` schema carry `createdAt updatedAt` so the
+  build-time signature equals the live one (no spurious re-render on first load).
+
+### Added — rebuild backstop
+
+- **`netlify/functions/nightly-rebuild.mjs`** — nightly rebuild on Netlify,
+  mirroring icjia.illinois.gov's `nightly-rebuild` function: a scheduled
+  function at `0 5 * * *` UTC (≈ midnight US Central) POSTs the site's existing
+  `manual_build` build hook, read from the `NETLIFY_BUILD_HOOK_URL` env var
+  (Functions scope, secret, production — same name as the flagship);
+  `NIGHTLY_REBUILD_DISABLED=1` is the kill switch. Uses Netlify's current
+  function API (`export default` + `config.schedule`, no `@netlify/functions`
+  dependency, like icjia-infonet-astro). Build-time artifacts — static pages for
+  new records, Pagefind index, sitemap, nav, optimized images, the
+  researchhub-backed `/apps` and homepage publications — are never more than a
+  day stale even without the webhook. `netlify.toml` gains a `[functions]`
+  block; `.gitignore` ignores `.netlify/`.
+- **Owner step (not possible from this repo):** add a Strapi webhook that POSTs
+  the `manual_build` hook URL on entry create / update / delete / publish /
+  unpublish (+ media). README → "Keeping content fresh".
+
+### Changed
+
+- `renderTags` pills now mirror `Tag.astro`'s linked variant (`min-h-11`, 44px
+  enhanced target size) — they were left behind by the 7/17 tap-target sweep and
+  the resources shell renders tags through the same function now.
+- **Build-time content patches now apply on the live path too.** The two
+  slug-keyed R53/R78 fixups (`eligibility-webinar` caption h5 → bold,
+  `ari-nofo-sfy21` h3 → h2) lived only in `scripts/fetch-content.mjs`, so a live
+  re-render or a 404-host bootstrap of those entries showed the unpatched CMS
+  copy (caught by axe on the bootstrap-rendered webinar page: `heading-order`).
+  The list moved to `src/lib/live/data/content-patches.mjs` and
+  `applyNewsDetail` / `applyResourceDetail` run `patchContent` before rendering.
+
+### Tests / verification
+
+- 138 unit tests (was 69): select/sort parity, HTML escaping, image fallback,
+  class-constant parity, config wiring, where-clause construction, fallback
+  detection, the nightly function (with an injected fetch).
+- `astro check`: unchanged (the 3 pre-existing `formats` Image-prop errors).
+- `netlify build --context production` green locally (fetch → images → Astro →
+  Pagefind → functions bundling).
+- Browser (preview build, DevTools-driven): every island's live signature equals
+  its build signature on load (no spurious swap/announce); forcing a stale
+  signature re-renders markup identical to the static markup on the oversight
+  grid, biography, FAQ page, and tag page; the 404 host renders a biography and a
+  resource whose static page was removed, and the genuine 404 for a bad slug; axe
+  AAA + best-practice = 0 on all changed pages.
+- **Live validation, by accident:** while testing, a new staff member was
+  published in Strapi (created 19:35 UTC, three minutes after the build
+  snapshot). The staff island listed them on the next refresh with the raw
+  Strapi headshot fallback, and `/about/biographies/<new-slug>` rendered fully
+  from the 404 host — the exact scenario reported, with no rebuild.
+
 ## [Unreleased] — pre-July-2019 records request note across the meetings pages
 
 ### Added

@@ -159,21 +159,6 @@
     ],
     "largest": "/_cms-img/1379bec8ea-150.webp"
   },
-  "https://ari.icjia-api.cloud/uploads/CEvans-photo-20210319T15014136.jpeg": {
-    "width": 720,
-    "height": 957,
-    "variants": [
-      {
-        "w": 640,
-        "src": "/_cms-img/d8644b221b-640.webp"
-      },
-      {
-        "w": 720,
-        "src": "/_cms-img/d8644b221b-720.webp"
-      }
-    ],
-    "largest": "/_cms-img/d8644b221b-720.webp"
-  },
   "https://ari.icjia-api.cloud/uploads/Caitlyn-6732-20211014T19312162.jpg": {
     "width": 3908,
     "height": 4726,
@@ -191,11 +176,11 @@
         "src": "/_cms-img/b6a7f84d68-1280.webp"
       },
       {
-        "w": 3908,
-        "src": "/_cms-img/b6a7f84d68-3908.webp"
+        "w": 1600,
+        "src": "/_cms-img/b6a7f84d68-1600.webp"
       }
     ],
-    "largest": "/_cms-img/b6a7f84d68-3908.webp"
+    "largest": "/_cms-img/b6a7f84d68-1600.webp"
   },
   "https://ari.icjia-api.cloud/uploads/ChristiYMCAStriveGraduationv3-20240209T16554701.jpg": {
     "width": 600,
@@ -236,11 +221,11 @@
         "src": "/_cms-img/ff7da027dc-1280.webp"
       },
       {
-        "w": 1862,
-        "src": "/_cms-img/ff7da027dc-1862.webp"
+        "w": 1600,
+        "src": "/_cms-img/ff7da027dc-1600.webp"
       }
     ],
-    "largest": "/_cms-img/ff7da027dc-1862.webp"
+    "largest": "/_cms-img/ff7da027dc-1600.webp"
   },
   "https://ari.icjia-api.cloud/uploads/EmilyCole-20200108T15585581.jpg": {
     "width": 960,
@@ -337,11 +322,11 @@
         "src": "/_cms-img/8e72342b86-1280.webp"
       },
       {
-        "w": 3894,
-        "src": "/_cms-img/8e72342b86-3894.webp"
+        "w": 1600,
+        "src": "/_cms-img/8e72342b86-1600.webp"
       }
     ],
-    "largest": "/_cms-img/8e72342b86-3894.webp"
+    "largest": "/_cms-img/8e72342b86-1600.webp"
   },
   "https://ari.icjia-api.cloud/uploads/MADyar-20250701T18200703.jpg": {
     "width": 373,
@@ -365,17 +350,6 @@
     ],
     "largest": "/_cms-img/7fd104144a-640.webp"
   },
-  "https://ari.icjia-api.cloud/uploads/NancyMichaels-RJI-20251209T15580270.jpg": {
-    "width": 271,
-    "height": 323,
-    "variants": [
-      {
-        "w": 271,
-        "src": "/_cms-img/eb223f87e9-271.webp"
-      }
-    ],
-    "largest": "/_cms-img/eb223f87e9-271.webp"
-  },
   "https://ari.icjia-api.cloud/uploads/ParleRoeTaylor-CCPD-20220607T17523099.jpg": {
     "width": 2292,
     "height": 2412,
@@ -393,11 +367,11 @@
         "src": "/_cms-img/5cff564ba7-1280.webp"
       },
       {
-        "w": 2292,
-        "src": "/_cms-img/5cff564ba7-2292.webp"
+        "w": 1600,
+        "src": "/_cms-img/5cff564ba7-1600.webp"
       }
     ],
-    "largest": "/_cms-img/5cff564ba7-2292.webp"
+    "largest": "/_cms-img/5cff564ba7-1600.webp"
   },
   "https://ari.icjia-api.cloud/uploads/QuintinWilliams-JoyceFdn-20251209T15533130.png": {
     "width": 246,
@@ -431,6 +405,25 @@
       }
     ],
     "largest": "/_cms-img/060d052434-321.webp"
+  },
+  "https://ari.icjia-api.cloud/uploads/TM Headshot-20261014T19353692.png": {
+    "width": 1003,
+    "height": 1568,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/8070c583e6-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "/_cms-img/8070c583e6-960.webp"
+      },
+      {
+        "w": 1003,
+        "src": "/_cms-img/8070c583e6-1003.webp"
+      }
+    ],
+    "largest": "/_cms-img/8070c583e6-1003.webp"
   },
   "https://ari.icjia-api.cloud/uploads/TSumnerHeadshot001-20210416T20131223.jpg": {
     "width": 1541,
@@ -678,11 +671,11 @@
         "src": "/_cms-img/745e7e50a7-1280.webp"
       },
       {
-        "w": 1635,
-        "src": "/_cms-img/745e7e50a7-1635.webp"
+        "w": 1600,
+        "src": "/_cms-img/745e7e50a7-1600.webp"
       }
     ],
-    "largest": "/_cms-img/745e7e50a7-1635.webp"
+    "largest": "/_cms-img/745e7e50a7-1600.webp"
   },
   "cms-base64:6411ccd443": {
     "width": 2360,
@@ -701,34 +694,63 @@
         "src": "/_cms-img/6411ccd443-1280.webp"
       },
       {
-        "w": 2360,
-        "src": "/_cms-img/6411ccd443-2360.webp"
+        "w": 1600,
+        "src": "/_cms-img/6411ccd443-1600.webp"
       }
     ],
-    "largest": "/_cms-img/6411ccd443-2360.webp"
+    "largest": "/_cms-img/6411ccd443-1600.webp"
   },
-  "cms-base64:4d4776739b": {
-    "width": 1566,
-    "height": 1157,
+  "cms-base64:be386a983a": {
+    "width": 500,
+    "height": 500,
+    "variants": [
+      {
+        "w": 500,
+        "src": "/_cms-img/be386a983a-500.webp"
+      }
+    ],
+    "largest": "/_cms-img/be386a983a-500.webp"
+  },
+  "cms-base64:b0f9c454f7": {
+    "width": 830,
+    "height": 557,
     "variants": [
       {
         "w": 640,
-        "src": "/_cms-img/4d4776739b-640.webp"
+        "src": "/_cms-img/b0f9c454f7-640.webp"
       },
       {
-        "w": 960,
-        "src": "/_cms-img/4d4776739b-960.webp"
-      },
-      {
-        "w": 1280,
-        "src": "/_cms-img/4d4776739b-1280.webp"
-      },
-      {
-        "w": 1566,
-        "src": "/_cms-img/4d4776739b-1566.webp"
+        "w": 830,
+        "src": "/_cms-img/b0f9c454f7-830.webp"
       }
     ],
-    "largest": "/_cms-img/4d4776739b-1566.webp"
+    "largest": "/_cms-img/b0f9c454f7-830.webp"
+  },
+  "cms-base64:95efb50015": {
+    "width": 500,
+    "height": 500,
+    "variants": [
+      {
+        "w": 500,
+        "src": "/_cms-img/95efb50015-500.webp"
+      }
+    ],
+    "largest": "/_cms-img/95efb50015-500.webp"
+  },
+  "cms-base64:10a6d3c33e": {
+    "width": 755,
+    "height": 400,
+    "variants": [
+      {
+        "w": 640,
+        "src": "/_cms-img/10a6d3c33e-640.webp"
+      },
+      {
+        "w": 755,
+        "src": "/_cms-img/10a6d3c33e-755.webp"
+      }
+    ],
+    "largest": "/_cms-img/10a6d3c33e-755.webp"
   },
   "cms-base64:1f29c563e0": {
     "width": 500,
@@ -814,11 +836,11 @@
         "src": "/_cms-img/e36b9ebe18-1280.webp"
       },
       {
-        "w": 6720,
-        "src": "/_cms-img/e36b9ebe18-6720.webp"
+        "w": 1600,
+        "src": "/_cms-img/e36b9ebe18-1600.webp"
       }
     ],
-    "largest": "/_cms-img/e36b9ebe18-6720.webp"
+    "largest": "/_cms-img/e36b9ebe18-1600.webp"
   },
   "cms-base64:faefe34d57": {
     "width": 500,
@@ -848,11 +870,11 @@
         "src": "/_cms-img/f4a4bcc8a6-1280.webp"
       },
       {
-        "w": 3309,
-        "src": "/_cms-img/f4a4bcc8a6-3309.webp"
+        "w": 1600,
+        "src": "/_cms-img/f4a4bcc8a6-1600.webp"
       }
     ],
-    "largest": "/_cms-img/f4a4bcc8a6-3309.webp"
+    "largest": "/_cms-img/f4a4bcc8a6-1600.webp"
   },
   "cms-base64:dd59b04830": {
     "width": 500,
@@ -1020,11 +1042,11 @@
         "src": "/_cms-img/2bd3f55126-1280.webp"
       },
       {
-        "w": 2806,
-        "src": "/_cms-img/2bd3f55126-2806.webp"
+        "w": 1600,
+        "src": "/_cms-img/2bd3f55126-1600.webp"
       }
     ],
-    "largest": "/_cms-img/2bd3f55126-2806.webp"
+    "largest": "/_cms-img/2bd3f55126-1600.webp"
   },
   "cms-base64:46b5c23da5": {
     "width": 500,
@@ -1088,11 +1110,11 @@
         "src": "/_cms-img/c2a8ebbcc6-1280.webp"
       },
       {
-        "w": 5743,
-        "src": "/_cms-img/c2a8ebbcc6-5743.webp"
+        "w": 1600,
+        "src": "/_cms-img/c2a8ebbcc6-1600.webp"
       }
     ],
-    "largest": "/_cms-img/c2a8ebbcc6-5743.webp"
+    "largest": "/_cms-img/c2a8ebbcc6-1600.webp"
   },
   "cms-base64:312627e6db": {
     "width": 500,
@@ -1256,11 +1278,11 @@
         "src": "/_cms-img/1b761f91a3-1280.webp"
       },
       {
-        "w": 1920,
-        "src": "/_cms-img/1b761f91a3-1920.webp"
+        "w": 1600,
+        "src": "/_cms-img/1b761f91a3-1600.webp"
       }
     ],
-    "largest": "/_cms-img/1b761f91a3-1920.webp"
+    "largest": "/_cms-img/1b761f91a3-1600.webp"
   },
   "cms-base64:ffd7dbfec1": {
     "width": 500,
@@ -1402,11 +1424,11 @@
         "src": "/_cms-img/00c2153132-1280.webp"
       },
       {
-        "w": 2096,
-        "src": "/_cms-img/00c2153132-2096.webp"
+        "w": 1600,
+        "src": "/_cms-img/00c2153132-1600.webp"
       }
     ],
-    "largest": "/_cms-img/00c2153132-2096.webp"
+    "largest": "/_cms-img/00c2153132-1600.webp"
   },
   "cms-base64:75947ca49e": {
     "width": 500,
@@ -1574,11 +1596,11 @@
         "src": "/_cms-img/7baa183f22-1280.webp"
       },
       {
-        "w": 1920,
-        "src": "/_cms-img/7baa183f22-1920.webp"
+        "w": 1600,
+        "src": "/_cms-img/7baa183f22-1600.webp"
       }
     ],
-    "largest": "/_cms-img/7baa183f22-1920.webp"
+    "largest": "/_cms-img/7baa183f22-1600.webp"
   },
   "cms-base64:6c45f3d27b": {
     "width": 500,
@@ -1634,11 +1656,11 @@
         "src": "/_cms-img/775a421853-1280.webp"
       },
       {
-        "w": 6240,
-        "src": "/_cms-img/775a421853-6240.webp"
+        "w": 1600,
+        "src": "/_cms-img/775a421853-1600.webp"
       }
     ],
-    "largest": "/_cms-img/775a421853-6240.webp"
+    "largest": "/_cms-img/775a421853-1600.webp"
   },
   "cms-base64:0280958ad2": {
     "width": 500,
@@ -1690,11 +1712,11 @@
         "src": "/_cms-img/fe95e0d897-1280.webp"
       },
       {
-        "w": 1786,
-        "src": "/_cms-img/fe95e0d897-1786.webp"
+        "w": 1600,
+        "src": "/_cms-img/fe95e0d897-1600.webp"
       }
     ],
-    "largest": "/_cms-img/fe95e0d897-1786.webp"
+    "largest": "/_cms-img/fe95e0d897-1600.webp"
   },
   "cms-base64:9c6ce6bc09": {
     "width": 500,
@@ -1934,11 +1956,11 @@
         "src": "/_cms-img/189f69cde2-1280.webp"
       },
       {
-        "w": 2200,
-        "src": "/_cms-img/189f69cde2-2200.webp"
+        "w": 1600,
+        "src": "/_cms-img/189f69cde2-1600.webp"
       }
     ],
-    "largest": "/_cms-img/189f69cde2-2200.webp"
+    "largest": "/_cms-img/189f69cde2-1600.webp"
   },
   "cms-base64:42b6b135c3": {
     "width": 500,
@@ -2031,11 +2053,11 @@
         "src": "/_cms-img/99609f2763-1280.webp"
       },
       {
-        "w": 2000,
-        "src": "/_cms-img/99609f2763-2000.webp"
+        "w": 1600,
+        "src": "/_cms-img/99609f2763-1600.webp"
       }
     ],
-    "largest": "/_cms-img/99609f2763-2000.webp"
+    "largest": "/_cms-img/99609f2763-1600.webp"
   },
   "cms-base64:c5c141d877": {
     "width": 500,
@@ -2065,11 +2087,11 @@
         "src": "/_cms-img/6dd9eb482b-1280.webp"
       },
       {
-        "w": 1893,
-        "src": "/_cms-img/6dd9eb482b-1893.webp"
+        "w": 1600,
+        "src": "/_cms-img/6dd9eb482b-1600.webp"
       }
     ],
-    "largest": "/_cms-img/6dd9eb482b-1893.webp"
+    "largest": "/_cms-img/6dd9eb482b-1600.webp"
   },
   "cms-base64:d502945dc8": {
     "width": 500,
@@ -2241,11 +2263,11 @@
         "src": "/_cms-img/7dbc549884-1280.webp"
       },
       {
-        "w": 2829,
-        "src": "/_cms-img/7dbc549884-2829.webp"
+        "w": 1600,
+        "src": "/_cms-img/7dbc549884-1600.webp"
       }
     ],
-    "largest": "/_cms-img/7dbc549884-2829.webp"
+    "largest": "/_cms-img/7dbc549884-1600.webp"
   },
   "cms-base64:f79589f7eb": {
     "width": 500,
@@ -2429,11 +2451,11 @@
         "src": "/_cms-img/96b5c7a3c7-1280.webp"
       },
       {
-        "w": 2000,
-        "src": "/_cms-img/96b5c7a3c7-2000.webp"
+        "w": 1600,
+        "src": "/_cms-img/96b5c7a3c7-1600.webp"
       }
     ],
-    "largest": "/_cms-img/96b5c7a3c7-2000.webp"
+    "largest": "/_cms-img/96b5c7a3c7-1600.webp"
   },
   "cms-base64:3c70bfbe3c": {
     "width": 500,
@@ -2523,11 +2545,11 @@
         "src": "/_cms-img/b044d16621-1280.webp"
       },
       {
-        "w": 6000,
-        "src": "/_cms-img/b044d16621-6000.webp"
+        "w": 1600,
+        "src": "/_cms-img/b044d16621-1600.webp"
       }
     ],
-    "largest": "/_cms-img/b044d16621-6000.webp"
+    "largest": "/_cms-img/b044d16621-1600.webp"
   },
   "cms-base64:16887055e8": {
     "width": 500,
@@ -2557,11 +2579,11 @@
         "src": "/_cms-img/ad752b4dcc-1280.webp"
       },
       {
-        "w": 1920,
-        "src": "/_cms-img/ad752b4dcc-1920.webp"
+        "w": 1600,
+        "src": "/_cms-img/ad752b4dcc-1600.webp"
       }
     ],
-    "largest": "/_cms-img/ad752b4dcc-1920.webp"
+    "largest": "/_cms-img/ad752b4dcc-1600.webp"
   },
   "cms-base64:e2c9c0d97f": {
     "width": 500,
@@ -2767,11 +2789,11 @@
         "src": "/_cms-img/b7f1368f9c-1280.webp"
       },
       {
-        "w": 2592,
-        "src": "/_cms-img/b7f1368f9c-2592.webp"
+        "w": 1600,
+        "src": "/_cms-img/b7f1368f9c-1600.webp"
       }
     ],
-    "largest": "/_cms-img/b7f1368f9c-2592.webp"
+    "largest": "/_cms-img/b7f1368f9c-1600.webp"
   },
   "cms-base64:e8e98491fb": {
     "width": 500,
@@ -2801,11 +2823,11 @@
         "src": "/_cms-img/06f97cab4b-1280.webp"
       },
       {
-        "w": 4800,
-        "src": "/_cms-img/06f97cab4b-4800.webp"
+        "w": 1600,
+        "src": "/_cms-img/06f97cab4b-1600.webp"
       }
     ],
-    "largest": "/_cms-img/06f97cab4b-4800.webp"
+    "largest": "/_cms-img/06f97cab4b-1600.webp"
   },
   "cms-base64:aea88b55f6": {
     "width": 500,
@@ -2865,11 +2887,11 @@
         "src": "/_cms-img/f874f2069e-1280.webp"
       },
       {
-        "w": 2250,
-        "src": "/_cms-img/f874f2069e-2250.webp"
+        "w": 1600,
+        "src": "/_cms-img/f874f2069e-1600.webp"
       }
     ],
-    "largest": "/_cms-img/f874f2069e-2250.webp"
+    "largest": "/_cms-img/f874f2069e-1600.webp"
   },
   "cms-base64:b0d6f92839": {
     "width": 500,
@@ -2899,11 +2921,11 @@
         "src": "/_cms-img/dedc212624-1280.webp"
       },
       {
-        "w": 1900,
-        "src": "/_cms-img/dedc212624-1900.webp"
+        "w": 1600,
+        "src": "/_cms-img/dedc212624-1600.webp"
       }
     ],
-    "largest": "/_cms-img/dedc212624-1900.webp"
+    "largest": "/_cms-img/dedc212624-1600.webp"
   },
   "cms-base64:f4602bc8de": {
     "width": 500,
@@ -2963,11 +2985,11 @@
         "src": "/_cms-img/d7b855a040-1280.webp"
       },
       {
-        "w": 4608,
-        "src": "/_cms-img/d7b855a040-4608.webp"
+        "w": 1600,
+        "src": "/_cms-img/d7b855a040-1600.webp"
       }
     ],
-    "largest": "/_cms-img/d7b855a040-4608.webp"
+    "largest": "/_cms-img/d7b855a040-1600.webp"
   },
   "cms-base64:dccf0d14ef": {
     "width": 500,
@@ -3023,11 +3045,11 @@
         "src": "/_cms-img/5c76d84375-1280.webp"
       },
       {
-        "w": 2238,
-        "src": "/_cms-img/5c76d84375-2238.webp"
+        "w": 1600,
+        "src": "/_cms-img/5c76d84375-1600.webp"
       }
     ],
-    "largest": "/_cms-img/5c76d84375-2238.webp"
+    "largest": "/_cms-img/5c76d84375-1600.webp"
   },
   "cms-base64:b6b2462e78": {
     "width": 500,
@@ -3087,11 +3109,11 @@
         "src": "/_cms-img/bba3cf9b3a-1280.webp"
       },
       {
-        "w": 1694,
-        "src": "/_cms-img/bba3cf9b3a-1694.webp"
+        "w": 1600,
+        "src": "/_cms-img/bba3cf9b3a-1600.webp"
       }
     ],
-    "largest": "/_cms-img/bba3cf9b3a-1694.webp"
+    "largest": "/_cms-img/bba3cf9b3a-1600.webp"
   },
   "cms-base64:bcff07f19b": {
     "width": 500,
@@ -3181,11 +3203,11 @@
         "src": "/_cms-img/7b8d8b108d-1280.webp"
       },
       {
-        "w": 1701,
-        "src": "/_cms-img/7b8d8b108d-1701.webp"
+        "w": 1600,
+        "src": "/_cms-img/7b8d8b108d-1600.webp"
       }
     ],
-    "largest": "/_cms-img/7b8d8b108d-1701.webp"
+    "largest": "/_cms-img/7b8d8b108d-1600.webp"
   },
   "cms-base64:ae7e97d694": {
     "width": 500,
@@ -3215,11 +3237,11 @@
         "src": "/_cms-img/326b33cf60-1280.webp"
       },
       {
-        "w": 1700,
-        "src": "/_cms-img/326b33cf60-1700.webp"
+        "w": 1600,
+        "src": "/_cms-img/326b33cf60-1600.webp"
       }
     ],
-    "largest": "/_cms-img/326b33cf60-1700.webp"
+    "largest": "/_cms-img/326b33cf60-1600.webp"
   },
   "cms-base64:2de8f213f2": {
     "width": 500,
@@ -3279,11 +3301,11 @@
         "src": "/_cms-img/01329a684e-1280.webp"
       },
       {
-        "w": 2116,
-        "src": "/_cms-img/01329a684e-2116.webp"
+        "w": 1600,
+        "src": "/_cms-img/01329a684e-1600.webp"
       }
     ],
-    "largest": "/_cms-img/01329a684e-2116.webp"
+    "largest": "/_cms-img/01329a684e-1600.webp"
   },
   "cms-base64:ca7019bff8": {
     "width": 500,
@@ -3485,11 +3507,11 @@
         "src": "/_cms-img/5a53f32530-1280.webp"
       },
       {
-        "w": 3570,
-        "src": "/_cms-img/5a53f32530-3570.webp"
+        "w": 1600,
+        "src": "/_cms-img/5a53f32530-1600.webp"
       }
     ],
-    "largest": "/_cms-img/5a53f32530-3570.webp"
+    "largest": "/_cms-img/5a53f32530-1600.webp"
   },
   "cms-base64:4241b5ade4": {
     "width": 500,
@@ -3647,66 +3669,10 @@
         "src": "/_cms-img/bdc23eed0e-1280.webp"
       },
       {
-        "w": 2000,
-        "src": "/_cms-img/bdc23eed0e-2000.webp"
+        "w": 1600,
+        "src": "/_cms-img/bdc23eed0e-1600.webp"
       }
     ],
-    "largest": "/_cms-img/bdc23eed0e-2000.webp"
-  },
-  "cms-base64:96f43abd70": {
-    "width": 500,
-    "height": 500,
-    "variants": [
-      {
-        "w": 500,
-        "src": "/_cms-img/96f43abd70-500.webp"
-      }
-    ],
-    "largest": "/_cms-img/96f43abd70-500.webp"
-  },
-  "cms-base64:82d9e8ac4f": {
-    "width": 667,
-    "height": 500,
-    "variants": [
-      {
-        "w": 640,
-        "src": "/_cms-img/82d9e8ac4f-640.webp"
-      },
-      {
-        "w": 667,
-        "src": "/_cms-img/82d9e8ac4f-667.webp"
-      }
-    ],
-    "largest": "/_cms-img/82d9e8ac4f-667.webp"
-  },
-  "cms-base64:37aaccd759": {
-    "width": 500,
-    "height": 500,
-    "variants": [
-      {
-        "w": 500,
-        "src": "/_cms-img/37aaccd759-500.webp"
-      }
-    ],
-    "largest": "/_cms-img/37aaccd759-500.webp"
-  },
-  "cms-base64:4390b09824": {
-    "width": 1200,
-    "height": 800,
-    "variants": [
-      {
-        "w": 640,
-        "src": "/_cms-img/4390b09824-640.webp"
-      },
-      {
-        "w": 960,
-        "src": "/_cms-img/4390b09824-960.webp"
-      },
-      {
-        "w": 1200,
-        "src": "/_cms-img/4390b09824-1200.webp"
-      }
-    ],
-    "largest": "/_cms-img/4390b09824-1200.webp"
+    "largest": "/_cms-img/bdc23eed0e-1600.webp"
   }
 }

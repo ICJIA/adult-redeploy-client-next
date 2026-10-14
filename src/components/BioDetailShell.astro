@@ -1,0 +1,39 @@
+---
+// src/components/BioDetailShell.astro
+// Single source of the biography-detail markup, used BOTH by the static
+// /about/biographies/[slug] page (item provided → filled + data-live hooks) AND by
+// the 404 live-fallback host (no item → empty hooks that applyBioDetail fills
+// from Strapi). One component so static + live render can't drift.
+import ArticleCard from './ArticleCard.astro';
+import Markdown from './Markdown.astro';
+import { getCmsImageByPath } from '../lib/cms-image';
+import { fullName, stripTags } from '../lib/live/render/bio-list';
+import { bioBadge, renderBioHeadshot, BIO_DETAIL_CLASSES } from '../lib/live/render/bio-detail';
+import type { CollectionEntry } from 'astro:content';
+
+type Bio = CollectionEntry<'biographies'>['data'];
+interface Props { item?: Bio | null; }
+const { item = null } = Astro.props;
+
+const headshotHtml = item ? renderBioHeadshot(item.headshot?.url, getCmsImageByPath) : '';
+// CMS titles sometimes wrap text in legacy <span class="heavy"> markup; show plain text.
+const role = item ? stripTags(item.title) : '';
+const membership = item ? stripTags(item.membership) : '';
+---
+<ArticleCard title={item ? fullName(item) : ''}
+             badge={item ? bioBadge(item.category) : 'Biography'}
+             pagefindMeta={item ? { type: 'biography' } : undefined}>
+  <div class="grid gap-6 md:grid-cols-3">
+    <div class={BIO_DETAIL_CLASSES.imgCol} data-live="headshot"
+         style={headshotHtml ? undefined : 'display:none'} set:html={headshotHtml}></div>
+    <div class={headshotHtml ? BIO_DETAIL_CLASSES.textWithImg : BIO_DETAIL_CLASSES.textFull}
+         data-live="text">
+      <p class="text-lg" data-live="role" style={role ? undefined : 'display:none'}>{role}</p>
+      <p class="text-sm mt-1" data-live="membership"
+         style={membership ? undefined : 'display:none'}>{membership}</p>
+      {item
+        ? <Markdown content={item.content} class="mt-6" dataLive="body" />
+        : <div class="prose max-w-none mt-6" data-live="body"></div>}
+    </div>
+  </div>
+</ArticleCard>

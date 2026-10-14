@@ -41,16 +41,31 @@ On any fetch failure the static DOM is kept (never blanks).
 
 **For authors:** publish in Strapi, then just reload any page.
 
-Live surfaces:
+Live surfaces (every route backed by the ARI Strapi):
 
 - **Home** — About, ARI News, Upcoming Meetings
+- **Section pages** — `/about`, `/approach`, `/grants` bodies and every
+  `/<section>/<page>` card (title, summary, body)
+- **About** — Staff list + intro, Oversight Board grid + intro, biography detail
 - **News** — index + article detail
 - **Meetings** — index (per committee) + meeting detail
+- **Resources** — index, per-category tables, resource detail (body, downloads,
+  external links, tags)
 - **Sites** — index + site detail
+- **Tags** — `/tags/<slug>` grouped lists
 - **Programs** — the county-map **side panel** (site title/summary/link). The set of
   *clickable* counties is build-time: it comes from a static legacy config
   (`scripts/usiljs-config.js`), not the CMS, so a newly-funded county appears on the
   next rebuild while existing counties' panel data refreshes live.
+
+A **new** record (a member, article, meeting, or publication published after the
+last build) already appears in the live lists; its detail URL has no static file
+yet, so `404.astro` live-renders it from Strapi (news, meetings, biographies,
+resources) until the next build creates the real page.
+
+Rebuild path only: `/apps` + the homepage "ICJIA Publications" (researchhub
+backend), the Pagefind search index, the sitemap, the nav menu, and the map's
+clickable counties — see **Keeping content fresh** below.
 
 The module lives in `src/lib/live/` (data / behavior / render / config layers — see its
 own `README.md`) and is built to be extracted for reuse on other Astro/Tailwind/Alpine
@@ -96,3 +111,27 @@ when content actually changed (a chunk most views never download).
 Netlify deploys `master` to the `adultredeploy` site. A push triggers a build (fetch
 Strapi → build → Pagefind). The full conversion playbook and every architecture lesson
 behind this site live in [`docs/astro-conversion-checklist-v8.1.md`](./docs/astro-conversion-checklist-v8.1.md).
+
+## Keeping content fresh
+
+Three layers, from fastest to slowest:
+
+1. **Live islands** (above) — existing pages reflect a Strapi edit on the next
+   reload, no build.
+2. **Publish → rebuild (owner step, Strapi admin).** Netlify build hook
+   `manual_build` exists on the site (`Site configuration → Build hooks`). In the
+   ARI Strapi admin add a webhook (`Settings → Webhooks`) that POSTs that hook URL
+   on Entry create / update / delete / publish / unpublish and Media create /
+   update / delete. Every save then triggers a ~1.5 min build, so new records get
+   real static pages, and the search index, sitemap, nav, and optimized images
+   refresh within minutes. Add the same hook to the researchhub Strapi so `/apps`
+   and the homepage publications refresh on publish too.
+3. **Nightly rebuild** — `netlify/functions/nightly-rebuild.mjs` is a Netlify
+   scheduled function, the same mechanism and schedule as icjia.illinois.gov
+   (`0 5 * * *` UTC ≈ midnight US Central). It POSTs the hook URL from the
+   `NETLIFY_BUILD_HOOK_URL` env var (Functions scope, secret, production). Nothing
+   build-time is ever more than a day stale even if the webhook is missing or
+   misses an event. Set `NIGHTLY_REBUILD_DISABLED=1` to pause it; the deploy list
+   shows each night's build as triggered by the `manual_build` hook. Scheduled
+   functions run only on the published production deploy, so the first run
+   happens the night after this change is pushed.

@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsDetailShell from '../components/NewsDetailShell.astro';
 import MeetingDetailShell from '../components/MeetingDetailShell.astro';
+import BioDetailShell from '../components/BioDetailShell.astro';
+import ResourceDetailShell from '../components/ResourceDetailShell.astro';
 import { FALLBACK_SURFACES } from '../lib/live/fallback/detect';
 const base = import.meta.env.BASE_URL || '/adultredeploy';
 const sections = [
@@ -70,6 +72,14 @@ const sections = [
          x-data="liveEntry({ surface: (window.__nf && window.__nf.surface === 'meetingDetail') ? 'meetingDetail' : undefined, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
       <MeetingDetailShell />
     </div>
+    <div class="nf-shell" data-nf-shell="bioDetail"
+         x-data="liveEntry({ surface: (window.__nf && window.__nf.surface === 'bioDetail') ? 'bioDetail' : undefined, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
+      <BioDetailShell />
+    </div>
+    <div class="nf-shell" data-nf-shell="resourceDetail"
+         x-data="liveEntry({ surface: (window.__nf && window.__nf.surface === 'resourceDetail') ? 'resourceDetail' : undefined, slug: window.__nf && window.__nf.slug, sig: '', bootstrap: true, onHit: () => window.__nfState('rendered'), onMiss: () => window.__nfState('default') })">
+      <ResourceDetailShell />
+    </div>
   </div>
 
   <section class="nf-fallback max-w-3xl mx-auto px-6 py-20 sm:py-28 text-center">
@@ -135,5 +145,7 @@ const sections = [
   :root[data-nf-state="rendered"] .nf-loading { display: none; }
   /* On render, reveal ONLY the shell whose surface matched. */
   :root[data-nf-state="rendered"][data-nf-surface="newsDetail"] .nf-shell[data-nf-shell="newsDetail"],
-  :root[data-nf-state="rendered"][data-nf-surface="meetingDetail"] .nf-shell[data-nf-shell="meetingDetail"] { display: block; }
+  :root[data-nf-state="rendered"][data-nf-surface="meetingDetail"] .nf-shell[data-nf-shell="meetingDetail"],
+  :root[data-nf-state="rendered"][data-nf-surface="bioDetail"] .nf-shell[data-nf-shell="bioDetail"],
+  :root[data-nf-state="rendered"][data-nf-surface="resourceDetail"] .nf-shell[data-nf-shell="resourceDetail"] { display: block; }
 </style>

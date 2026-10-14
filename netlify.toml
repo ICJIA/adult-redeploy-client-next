@@ -5,6 +5,15 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Serverless functions live beside the static site. The only one is the
+# nightly rebuild (netlify/functions/nightly-rebuild.mjs — same mechanism and
+# schedule as icjia.illinois.gov), which POSTs the site's build hook so build-time artifacts (new CMS records' static pages,
+# Pagefind index, sitemap, optimized images) are never more than a day stale
+# even if the Strapi publish webhook is missing or misses an event.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Redirects for CMS-authored meeting links that used the wrong category slug
 # (links live in published news article bodies and can't be edited from the
 # Astro side). 301s so search engines / external sites update; safe to remove

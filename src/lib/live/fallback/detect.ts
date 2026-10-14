@@ -27,6 +27,11 @@ export interface FallbackMatch {
 export const FALLBACK_SURFACES: FallbackSurface[] = [
   { prefix: '/news/', surface: 'newsDetail' },
   { prefix: '/about/meetings/', surface: 'meetingDetail', segments: 2 },
+  // A member added in Strapi after the last build: the live staff / board lists
+  // already link here, so render the bio from Strapi instead of a 404.
+  { prefix: '/about/biographies/', surface: 'bioDetail' },
+  // /resources/<category>/<slug> — the live /resources tables link here first.
+  { prefix: '/resources/', surface: 'resourceDetail', segments: 2 },
 ];
 
 /**

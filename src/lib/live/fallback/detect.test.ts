@@ -36,3 +36,27 @@ describe('detectSurface', () => {
     expect(detectSurface('/about/meetings/a/b/c', BASE)).toBeNull();
   });
 });
+
+describe('detectSurface — biographies', () => {
+  it('matches a biography slug, proxied + raw host', () => {
+    expect(detectSurface('/about/biographies/jane-doe', BASE)).toEqual({ surface: 'bioDetail', slug: 'jane-doe' });
+    expect(detectSurface('/adultredeploy/about/biographies/jane-doe/', BASE)).toEqual({ surface: 'bioDetail', slug: 'jane-doe' });
+  });
+  it('returns null for the bare prefix and for nested paths', () => {
+    expect(detectSurface('/about/biographies', BASE)).toBeNull();
+    expect(detectSurface('/about/biographies/', BASE)).toBeNull();
+    expect(detectSurface('/about/biographies/a/b', BASE)).toBeNull();
+  });
+});
+
+describe('detectSurface — resources', () => {
+  it('matches a resource detail path (category + slug), proxied + raw host', () => {
+    expect(detectSurface('/resources/annual-report/ari-2026', BASE)).toEqual({ surface: 'resourceDetail', slug: 'ari-2026' });
+    expect(detectSurface('/adultredeploy/resources/summits/s-2026/', BASE)).toEqual({ surface: 'resourceDetail', slug: 's-2026' });
+  });
+  it('returns null for the resources index, a bare category, and deeper paths', () => {
+    expect(detectSurface('/resources', BASE)).toBeNull();
+    expect(detectSurface('/resources/annual-report', BASE)).toBeNull();
+    expect(detectSurface('/resources/a/b/c', BASE)).toBeNull();
+  });
+});

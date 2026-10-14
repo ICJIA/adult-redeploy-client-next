@@ -73,6 +73,10 @@ const biographies = defineCollection({
     alphabetizeBy: z.string().nullable().optional(),
     order: z.number().nullable().optional(),
     content: z.string().nullable().optional(),
+    // Carried through so the staff/board list islands can baseline their
+    // build signature on updatedAt (Zod strips unlisted keys).
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
     headshot: z.object({
       url: z.string(),
       name: z.string().nullable().optional(),

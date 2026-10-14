@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    include: ['scripts/**/*.test.mjs', 'src/**/*.test.{ts,js,mjs}'],
+    include: ['scripts/**/*.test.mjs', 'netlify/**/*.test.mjs', 'src/**/*.test.{ts,js,mjs}'],
     environment: 'node',
   },
 });

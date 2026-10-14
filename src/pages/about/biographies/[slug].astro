@@ -1,9 +1,9 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import ArticleCard from '../../../components/ArticleCard.astro';
-import Markdown from '../../../components/Markdown.astro';
-import { getCmsImageByPath } from '../../../lib/cms-image';
+import BioDetailShell from '../../../components/BioDetailShell.astro';
+import { fullName, stripTags } from '../../../lib/live/render/bio-list';
+import { BIO_DETAIL_SIG } from '../../../lib/live/render/bio-detail';
 
 type Bio = CollectionEntry<'biographies'>['data'];
 
@@ -15,48 +15,21 @@ export async function getStaticPaths() {
   }));
 }
 const { item } = Astro.props as { item: Bio };
-const fullName = [item.prefix, item.firstName, item.middleName,
-                  item.lastName, item.suffix]
-  .filter(Boolean).map((s) => s!.trim()).join(' ');
-const isStaff = item.category === 'staff';
-const role = isStaff ? 'staff' : 'Oversight Board member';
+const name = fullName(item);
+const role = item.category === 'staff' ? 'staff' : 'Oversight Board member';
 
-// CMS titles sometimes wrap text in spans for styling (e.g.
-// "<span class=\"heavy\">Program Director</span>"). Strip tags for the
-// meta description so search engines see clean prose.
-const stripTags = (s: string) => s.replace(/<[^>]+>/g, '').trim();
-const descriptionParts = [
-  `${fullName}, ${role} — Adult Redeploy Illinois.`,
-  item.title ? stripTags(item.title) : null,
-  item.membership ? stripTags(item.membership) : null,
-].filter(Boolean);
-const description = descriptionParts.join(' ');
+// Plain-text meta description (CMS titles can carry legacy <span> markup).
+const description = [
+  `${name}, ${role} — Adult Redeploy Illinois.`,
+  stripTags(item.title) || null,
+  stripTags(item.membership) || null,
+].filter(Boolean).join(' ');
 
-const headshot = item.headshot ? getCmsImageByPath(item.headshot.url) : null;
+// Live island: refetch by slug on load + tab focus; swap only when updatedAt changed.
+const xData = `liveEntry({ surface: 'bioDetail', slug: ${JSON.stringify(item.slug)}, sig: ${JSON.stringify(BIO_DETAIL_SIG(item))} })`;
 ---
-<BaseLayout title={fullName} description={description}>
-  <ArticleCard title={fullName}
-               badge={isStaff ? 'Staff' : 'Oversight Board'}
-               pagefindMeta={{ type: 'biography' }}>
-    <div class="grid gap-6 md:grid-cols-3">
-      {item.headshot && headshot && (
-        <div class="md:col-span-1">
-          <img src={headshot.src}
-               srcset={headshot.srcset}
-               sizes="(min-width: 768px) 33vw, 100vw"
-               width={headshot.width}
-               height={headshot.height}
-               alt=""
-               loading="lazy"
-               decoding="async"
-               class="w-full rounded shadow-elev1" />
-        </div>
-      )}
-      <div class={item.headshot ? 'md:col-span-2' : 'md:col-span-3'}>
-        {item.title && <p class="text-lg">{item.title}</p>}
-        {item.membership && <p class="text-sm mt-1">{item.membership}</p>}
-        <Markdown content={item.content} class="mt-6" />
-      </div>
-    </div>
-  </ArticleCard>
+<BaseLayout title={name} description={description}>
+  <div x-data={xData}>
+    <BioDetailShell item={item} />
+  </div>
 </BaseLayout>

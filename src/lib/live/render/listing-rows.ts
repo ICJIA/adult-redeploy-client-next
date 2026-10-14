@@ -5,6 +5,7 @@
 // own fmt() formats dates client-side.
 
 import { cleanSlug } from './shared';
+import { RESOURCE_CATEGORIES, resEnumToSlug } from '../../resources';
 import type { LiveContext } from '../types';
 
 export interface NewsEntity {
@@ -24,6 +25,12 @@ export interface SiteEntity {
   title: string;
   siteType?: string | null;
 }
+export interface ResourceEntity {
+  slug: string;
+  title: string;
+  category: string;
+  publicationDate?: string | null;
+}
 export interface TableRow {
   href: string;
   [k: string]: unknown;
@@ -32,6 +39,8 @@ export interface TableRow {
 export const NEWS_INDEX_SIG_KEYS = ['publicationDate', 'title', 'href'];
 export const MTG_INDEX_SIG_KEYS = ['scheduledDate', 'title', 'href'];
 export const SITES_INDEX_SIG_KEYS = ['title', 'siteType', 'href'];
+export const RES_INDEX_SIG_KEYS = ['publicationDate', 'title', 'category', 'href'];
+export const RES_CAT_SIG_KEYS = ['title', 'publicationDate', 'href'];
 export const RECENT_PER_CATEGORY = 5;
 
 export function newsIndexRows(items: NewsEntity[], ctx: LiveContext): TableRow[] {
@@ -71,4 +80,34 @@ export function meetingsIndexRows(
     scheduledDate: m.scheduledDate ?? '',
     href: `${ctx.basePath}/about/meetings/${cat.slug}/${cleanSlug(m.slug)}`,
   }));
+}
+
+// /resources — every publication, newest first, with the short category label.
+// An unknown category enum falls back to itself for both label and URL segment
+// (mirrors resources/index.astro's original behaviour).
+export function resourcesIndexRows(items: ResourceEntity[], ctx: LiveContext): TableRow[] {
+  return items
+    .map((r) => ({
+      publicationDate: r.publicationDate ?? '',
+      title: r.title,
+      category: RESOURCE_CATEGORIES.find((c) => c.enum === r.category)?.short ?? r.category,
+      href: `${ctx.basePath}/resources/${resEnumToSlug[r.category] ?? r.category}/${cleanSlug(r.slug)}`,
+    }))
+    .sort((a, b) => (a.publicationDate < b.publicationDate ? 1 : -1));
+}
+
+// /resources/<category> — that category only, newest first.
+export function resourcesCategoryRows(
+  items: ResourceEntity[],
+  ctx: LiveContext,
+  cat: { enum: string; slug: string },
+): TableRow[] {
+  return items
+    .filter((r) => r.category === cat.enum)
+    .map((r) => ({
+      title: r.title,
+      publicationDate: r.publicationDate ?? '',
+      href: `${ctx.basePath}/resources/${cat.slug}/${cleanSlug(r.slug)}`,
+    }))
+    .sort((a, b) => (a.publicationDate < b.publicationDate ? 1 : -1));
 }

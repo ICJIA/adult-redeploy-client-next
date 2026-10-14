@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { QUERY } from './strapi-query.mjs';
 import { MEETING_ENUM_TO_SLUG } from '../src/lib/live/data/meeting-cats.mjs';
 import { normalizeSlugs } from '../src/lib/live/data/slug.mjs';
+import { CONTENT_PATCHES } from '../src/lib/live/data/content-patches.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -66,29 +67,9 @@ async function main() {
   }
   if (rewrites) console.log(`[fetch] rewrote meeting URLs in ${rewrites} item(s)`);
 
-  // Slug-keyed body fixups for SiteImprove structural flags that are really
-  // content bugs — R53 "Headings are not structured" (skipped levels) and R78
-  // "Content missing after heading". Patching at fetch time keeps the CMS
-  // untouched and survives refetches; each patch no-ops (with a log line)
-  // once the CMS copy is corrected upstream, at which point it can be deleted.
-  const CONTENT_PATCHES = [
-    {
-      bucket: 'resources', slug: 'eligibility-webinar',
-      // An h5 directly after the page h1 (R53 level skip) with no content
-      // after it (R78) — and the `{.muted .mt-5}` attrs syntax renders as
-      // literal text because markdown-it-attrs isn't in the render pipeline.
-      // It's a caption for the YouTube thumbnail, not a heading.
-      find: '##### Click to play on YouTube{.muted .mt-5}',
-      replace: '**Click to play on YouTube**',
-    },
-    {
-      bucket: 'news', slug: 'ari-nofo-sfy21',
-      // First body heading is an h3, but the page h1 is the article-card
-      // title — so the body must start heading levels at h2 (R53).
-      find: '### Application deadline: March 31, 2020.',
-      replace: '## Application deadline: March 31, 2020.',
-    },
-  ];
+  // Slug-keyed body fixups (R53 / R78) — the list lives in
+  // src/lib/live/data/content-patches.mjs so the live islands and the 404 host
+  // apply exactly the same rewrites as this build snapshot.
   for (const p of CONTENT_PATCHES) {
     const item = (data[p.bucket] ?? []).find((x) => x?.slug === p.slug);
     if (!item || typeof item.content !== 'string') {

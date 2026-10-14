@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
 import ListingTable from '../../../components/alpine/ListingTable.astro';
 import { RESOURCE_CATEGORIES, type ResourceCategory } from '../../../lib/resources';
+import { resourcesCategoryRows, RES_CAT_SIG_KEYS } from '../../../lib/live/render/listing-rows';
+import { stableSignature } from '../../../lib/live/behavior/signature';
 
 type Resource = CollectionEntry<'resources'>['data'];
 
@@ -16,16 +18,12 @@ export async function getStaticPaths() {
 const { category } = Astro.props as { category: ResourceCategory };
 const entries = await getCollection('resources');
 const base = import.meta.env.BASE_URL || '/adultredeploy';
-const rows = entries
-  .map((e) => e.data)
-  .filter((r: Resource) => r.category === category.enum)
-  .sort((a: Resource, b: Resource) =>
-    (a.publicationDate ?? '') < (b.publicationDate ?? '') ? 1 : -1)
-  .map((r: Resource) => ({
-    title: r.title,
-    publicationDate: r.publicationDate ?? '',
-    href: `${base}/resources/${category.slug}/${r.slug}`,
-  }));
+const ctx = { endpoint: '', basePath: base };
+// Shared row builder drives both the static rows and the live swap; the
+// category reaches the island through params.
+const cat = { enum: category.enum, slug: category.slug };
+const rows = resourcesCategoryRows(entries.map((e): Resource => e.data), ctx, cat);
+const live = { surface: 'resourcesCategory', sig: stableSignature(rows, RES_CAT_SIG_KEYS), params: cat };
 ---
 <BaseLayout title={category.title}
             description={`${category.title} from Adult Redeploy Illinois — ${rows.length} publication${rows.length === 1 ? '' : 's'}.`}>
@@ -43,6 +41,7 @@ const rows = entries
           { key: 'publicationDate', label: 'Published', format: 'date' },
         ]}
         rows={rows}
+        live={live}
       />
     </div>
   </div>

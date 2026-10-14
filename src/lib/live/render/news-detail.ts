@@ -6,13 +6,14 @@
 import { formatDate } from '../../dates';
 import { liveEl, escapeHtml, cleanSlug } from './shared';
 import { fadeSwap } from '../behavior/transition';
+import { patchContent } from '../data/content-patches.mjs';
 import type { LiveContext } from '../types';
 
 export const NEWS_DETAIL_SIG = (v: any): string => String(v?.updatedAt ?? '');
 
 // Tag pills, shared by the static build (set:html) and applyNewsDetail's live
 // swap so they can't diverge. Mirrors components/ui/Tag.astro's linked variant.
-const TAG_CLASS = 'inline-block px-2 py-0.5 text-xs font-bold rounded '
+const TAG_CLASS = 'inline-flex items-center min-h-11 px-3 text-xs font-bold rounded '
   + 'bg-brand-secondary text-white hover:bg-brand-secondary/90 '
   + 'focus-visible:outline focus-visible:outline-2 '
   + 'focus-visible:outline-brand-primary focus-visible:outline-offset-2';
@@ -45,7 +46,9 @@ export async function applyNewsDetail(root: HTMLElement, view: any, ctx: LiveCon
   const body = liveEl(root, 'body');
   if (body) {
     const { renderMarkdown } = await import('../../markdown/core');
-    fadeSwap(body, () => { body.innerHTML = renderMarkdown(view.content ?? ''); });
+    // Same slug-keyed fixups the build applies, so live and static agree.
+    const src = patchContent('news', cleanSlug(view.slug ?? ''), view.content ?? '');
+    fadeSwap(body, () => { body.innerHTML = renderMarkdown(src); });
   }
 
   const tags = liveEl(root, 'tags');

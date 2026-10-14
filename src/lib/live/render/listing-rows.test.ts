@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { newsIndexRows, meetingsIndexRows, RECENT_PER_CATEGORY } from './listing-rows';
+import {
+  newsIndexRows, meetingsIndexRows, RECENT_PER_CATEGORY,
+  resourcesIndexRows, resourcesCategoryRows, RES_INDEX_SIG_KEYS, RES_CAT_SIG_KEYS,
+} from './listing-rows';
 
 const ctx = { endpoint: '', basePath: '/adultredeploy' };
 
@@ -39,5 +42,36 @@ describe('meetingsIndexRows', () => {
       scheduledDate: `2026-0${i + 1}-01T00:00:00Z`, category: 'regular',
     }));
     expect(meetingsIndexRows(many, ctx, { enum: 'regular', slug: 'regular-oversight' })).toHaveLength(7);
+  });
+});
+
+describe('resourcesIndexRows / resourcesCategoryRows', () => {
+  const data = [
+    { slug: 'r1', title: 'R1', publicationDate: '2024-01-01T00:00:00Z', category: 'annualReport' },
+    { slug: 'r2 ', title: 'R2', publicationDate: '2026-01-01T00:00:00Z', category: 'summit' },
+    { slug: 'r3', title: 'R3', publicationDate: null, category: 'mystery' },
+  ];
+  it('index: newest first, short category label, href by category slug, slug trimmed', () => {
+    const rows = resourcesIndexRows(data, ctx);
+    expect(rows.map((r) => r.title)).toEqual(['R2', 'R1', 'R3']);
+    expect(rows[0]).toEqual({
+      publicationDate: '2026-01-01T00:00:00Z', title: 'R2', category: 'Summits',
+      href: '/adultredeploy/resources/summits/r2',
+    });
+    expect(rows[1].category).toBe('Annual Reports');
+  });
+  it('index: an unknown category enum falls back to the enum itself (mirrors the build)', () => {
+    const r3 = resourcesIndexRows(data, ctx).find((r) => r.title === 'R3')!;
+    expect(r3.category).toBe('mystery');
+    expect(r3.href).toBe('/adultredeploy/resources/mystery/r3');
+    expect(r3.publicationDate).toBe('');
+  });
+  it('category: filters on the enum, newest first, href under the category slug', () => {
+    const rows = resourcesCategoryRows(data, ctx, { enum: 'summit', slug: 'summits' });
+    expect(rows).toEqual([{ title: 'R2', publicationDate: '2026-01-01T00:00:00Z', href: '/adultredeploy/resources/summits/r2' }]);
+  });
+  it('exposes the signature keys the tables baseline on', () => {
+    expect(RES_INDEX_SIG_KEYS).toEqual(['publicationDate', 'title', 'category', 'href']);
+    expect(RES_CAT_SIG_KEYS).toEqual(['title', 'publicationDate', 'href']);
   });
 });

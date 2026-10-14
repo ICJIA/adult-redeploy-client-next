@@ -72,3 +72,80 @@ export const SECTION_BY_SLUG = /* GraphQL */ `
       slug title summary content updatedAt
     }
   }`;
+
+// ---- Biographies (staff + Oversight Board) --------------------------------
+// BIOS_LIST feeds the /about/oversight grid (cards only, ~8 KB); BIOS_LIST_FULL
+// adds `content` for /about/staff, which renders each bio body inline (~34 KB).
+// updatedAt is the change signal (any CMS save bumps it).
+const BIO_CARD_FIELDS = `slug firstName middleName lastName prefix suffix title
+      membership category alphabetizeBy order updatedAt
+      headshot { url name }`;
+
+export const BIOS_LIST = /* GraphQL */ `
+  query BiosList($limit: Int) {
+    biographies(limit: $limit, where: { isPublished: true }) {
+      ${BIO_CARD_FIELDS}
+    }
+  }`;
+
+export const BIOS_LIST_FULL = /* GraphQL */ `
+  query BiosListFull($limit: Int) {
+    biographies(limit: $limit, where: { isPublished: true }) {
+      ${BIO_CARD_FIELDS}
+      content
+    }
+  }`;
+
+export const BIO_BY_SLUG = /* GraphQL */ `
+  query BioBySlug($where: JSON) {
+    biographies(where: $where) {
+      ${BIO_CARD_FIELDS}
+      content
+    }
+  }`;
+
+// ---- CMS pages (/<section>/<page>, the staff + oversight intros) ----------
+// `where` carries { isPublished, slug, section: { slug } } as one JSON variable;
+// the nested relation filter is honored by Strapi 3 (verified: a wrong section
+// returns []). publishedAt intentionally omitted (see sectionDetail).
+export const PAGE_BY_SLUG = /* GraphQL */ `
+  query PageBySlug($where: JSON) {
+    pages(where: $where) {
+      slug title summary content updatedAt
+      section { slug title }
+    }
+  }`;
+
+// ---- Resources ------------------------------------------------------------
+export const RESOURCES_BRIEF = /* GraphQL */ `
+  query ResourcesBrief($limit: Int) {
+    resources(sort: "publicationDate:desc", limit: $limit, where: { isPublished: true }) {
+      slug title publicationDate category createdAt updatedAt
+    }
+  }`;
+
+export const RESOURCE_BY_SLUG = /* GraphQL */ `
+  query ResourceBySlug($where: JSON) {
+    resources(where: $where) {
+      slug title summary content category publicationDate createdAt updatedAt
+      mediaMaterial { name summary file { name url hash } }
+      externalMediaMaterial { name url summary }
+      tags { name slug }
+    }
+  }`;
+
+// ---- Tag pages ------------------------------------------------------------
+// One round trip for the three tagged collections (no bodies, ~30 KB); the
+// tagPage surface filters client-side by tag slug, exactly like the build.
+export const TAGGED_ITEMS = /* GraphQL */ `
+  query TaggedItems($limit: Int) {
+    posts(limit: $limit, where: { isPublished: true }) {
+      slug title tags { slug }
+    }
+    meetings(limit: $limit, where: { isPublished: true }) {
+      slug title category tags { slug }
+    }
+    resources(limit: $limit, where: { isPublished: true }) {
+      slug title category tags { slug }
+    }
+  }`;

@@ -26,7 +26,7 @@ interface IdleWindow {
 }
 
 export function makeLiveCollection(config: LiveConfig) {
-  return (opts: { surface: string; sig: string }) => ({
+  return (opts: { surface: string; sig: string; params?: Record<string, unknown> }) => ({
     _sig: opts.sig,
     _ctrl: null as AbortController | null,
     _stop: null as (() => void) | null,
@@ -59,7 +59,7 @@ export function makeLiveCollection(config: LiveConfig) {
         const data = await gqlFetch(
           config.ctx.endpoint, surface.query, surface.variables ?? {}, { signal: ctrl.signal },
         );
-        const rows = surface.select(data, config.ctx);
+        const rows = surface.select(data, config.ctx, opts.params);
         const sig = stableSignature(rows, surface.signatureKeys);
         if (sig === this._sig) return;          // unchanged → silent (bar still ran)
         this._sig = sig;

@@ -8,3 +8,4 @@ src/content/_data.json
 public/_cms-img/
 .DS_Store
 *.log
+.netlify/

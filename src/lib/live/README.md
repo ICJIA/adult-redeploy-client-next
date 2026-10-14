@@ -32,6 +32,33 @@ API origin to its CSP `connect-src`.
 - **Entry** (`liveEntry`) — detail pages + About: targeted `[data-live="…"]`
   swaps; the markdown renderer is imported **inside** `applyTo`, so it downloads
   only when an entry changed.
+- **Entry-as-list** (`liveEntry` whose view is a row *array*) — the staff /
+  Oversight Board member lists: `signature` = `stableSignature(rows, keys)`,
+  `applyTo` lazy-imports the manifest-aware image lookup + markdown and
+  re-renders `[data-live="list"]` with the same render fn the `.astro` used.
+  Chosen over a collection because the renderer needs those lazy deps.
+
+## Surfaces (ARI)
+
+| Route | Surface | Kind |
+|-------|---------|------|
+| `/` | `homeAbout`, `homeNews`, `homeMeetings` | entry, innerHTML ×2 |
+| `/news`, `/news/<slug>` | `newsIndex`, `newsDetail` (+404 host) | xfor, entry |
+| `/about/meetings`, `/<cat>`, `/<cat>/<slug>` | `meetingsSplash`, `meetingsIndex`, `meetingDetail` (+404 host) | innerHTML, xfor, entry |
+| `/sites`, `/sites/<slug>` | `sitesIndex`, `siteDetail` | xfor, entry |
+| `/programs` | `liveMap` (side panel) | custom |
+| `/about`, `/approach`, `/grants` | `sectionDetail` | entry |
+| `/<section>/<page>` + staff/oversight intros | `pageDetail` | entry |
+| `/about/staff`, `/about/oversight` | `staffList`, `boardList` | entry-as-list |
+| `/about/biographies/<slug>` | `bioDetail` (+404 host) | entry |
+| `/resources`, `/resources/<cat>` | `resourcesIndex`, `resourcesCategory` | xfor |
+| `/resources/<cat>/<slug>` | `resourceDetail` (+404 host) | entry |
+| `/tags/<slug>` | `tagPage` | innerHTML (params) |
+
+Not live (rebuild path — nightly function + Strapi webhook): `/apps` and the
+homepage "ICJIA Publications" (researchhub backend, inline-base64 images
+processed at build), the Pagefind index, the sitemap, nav menu items, and the
+`/programs` clickable-county set.
 
 ## UX / a11y invariants
 
@@ -50,3 +77,10 @@ API origin to its CSP `connect-src`.
   Pass the whole `where` as a `$where: JSON` variable (see `data/queries.ts`).
 - The inline `ListingTable` can't `import`; it reads helpers off `window.__live`,
   set by `register.ts` before `Alpine.start()`.
+- A build-time signature must be computed from the SAME select + keys as the
+  island, and every signed field must survive the content-collection Zod schema
+  (`src/content/config.ts` strips unlisted keys) and be fetched by
+  `scripts/strapi-query.mjs` — otherwise the first live tick re-renders and
+  announces a no-op change on every page load.
+- Headshots on a live change: `getCmsImageByPath` (manifest) first, raw Strapi
+  URL for an image uploaded after the last build; both lazy-imported.

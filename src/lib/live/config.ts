@@ -7,20 +7,31 @@ import type { LiveConfig } from './types';
 import {
   NEWS_LATEST, MEETINGS_BRIEF, SITES_BRIEF,
   NEWS_BY_SLUG, MEETING_BY_SLUG, SITE_BY_SLUG, PAGE_HOME,
-  SECTION_BY_SLUG,
+  SECTION_BY_SLUG, BIOS_LIST, BIOS_LIST_FULL, BIO_BY_SLUG, PAGE_BY_SLUG,
+  RESOURCES_BRIEF, RESOURCE_BY_SLUG, TAGGED_ITEMS,
 } from './data/queries';
+import { stableSignature } from './behavior/signature';
 import { renderHomeNews, NEWS_SIG_KEYS, type NewsRow } from './render/home-news';
 import { renderHomeMeetings, HOME_MTG_SIG_KEYS, selectUpcoming, type MeetingRow } from './render/home-meetings';
 import { renderMeetingsSplash, SPLASH_SIG_KEYS } from './render/meetings-splash';
 import {
   newsIndexRows, meetingsIndexRows, sitesIndexRows,
+  resourcesIndexRows, resourcesCategoryRows,
   NEWS_INDEX_SIG_KEYS, MTG_INDEX_SIG_KEYS, SITES_INDEX_SIG_KEYS,
+  RES_INDEX_SIG_KEYS, RES_CAT_SIG_KEYS,
 } from './render/listing-rows';
 import { applyNewsDetail, NEWS_DETAIL_SIG } from './render/news-detail';
 import { applyMeetingDetail, MTG_DETAIL_SIG } from './render/meeting-detail';
 import { applySiteDetail, SITE_DETAIL_SIG } from './render/site-detail';
 import { applyHomeAbout, ABOUT_SIG } from './render/home-about';
 import { applyPageBody, PAGE_BODY_SIG } from './render/page-body';
+import { applyPageDetail, pageDetailWhere, PAGE_DETAIL_SIG } from './render/page-detail';
+import {
+  selectStaff, selectBoard, applyBioList, BIO_LIST_SIG_KEYS, type BioRow,
+} from './render/bio-list';
+import { applyBioDetail, BIO_DETAIL_SIG } from './render/bio-detail';
+import { applyResourceDetail, RES_DETAIL_SIG } from './render/resource-detail';
+import { tagPageRows, renderTagSections, TAG_SIG_KEYS } from './render/tag-page';
 
 const env = import.meta.env as unknown as Record<string, string | undefined>;
 const endpoint = env.PUBLIC_STRAPI_ENDPOINT ?? 'https://ari.icjia-api.cloud/graphql';
@@ -99,6 +110,37 @@ export const liveConfig: LiveConfig = {
       mode: 'xfor',
       announceLabel: 'Sites list',
     },
+    // /resources table — every publication, newest first (x-for).
+    resourcesIndex: {
+      query: RESOURCES_BRIEF,
+      variables: { limit: 300 },
+      select: (data, ctx) => resourcesIndexRows(data?.resources ?? [], ctx),
+      signatureKeys: RES_INDEX_SIG_KEYS,
+      mode: 'xfor',
+      announceLabel: 'Resources list',
+    },
+    // /resources/<category> table — the category arrives via params (x-for).
+    resourcesCategory: {
+      query: RESOURCES_BRIEF,
+      variables: { limit: 300 },
+      select: (data, ctx, params) =>
+        resourcesCategoryRows(data?.resources ?? [], ctx, params as { enum: string; slug: string }),
+      signatureKeys: RES_CAT_SIG_KEYS,
+      mode: 'xfor',
+      announceLabel: 'Resources list',
+    },
+    // /tags/<slug> — grouped news / meetings / resources carrying the tag; the
+    // tag slug arrives via params (innerHTML region re-rendered on change).
+    tagPage: {
+      query: TAGGED_ITEMS,
+      variables: { limit: 300 },
+      select: (data, ctx, params) =>
+        tagPageRows(data ?? {}, ctx, String((params as { tag?: string } | undefined)?.tag ?? '')),
+      render: renderTagSections,
+      signatureKeys: TAG_SIG_KEYS,
+      mode: 'innerHTML',
+      announceLabel: 'Tagged content',
+    },
   },
   entries: {
     // News detail — full body; markdown re-rendered client-side only on change.
@@ -147,6 +189,61 @@ export const liveConfig: LiveConfig = {
       applyTo: applyPageBody,
       signature: PAGE_BODY_SIG,
       announceLabel: 'Page',
+    },
+    // CMS page records — /<section>/<page> cards (title/summary/body) and the
+    // body-only intro islands on /about/staff + /about/oversight. The slug is
+    // "<section>/<slug>"; the where clause pins the section relation too.
+    pageDetail: {
+      query: PAGE_BY_SLUG,
+      variables: (id) => ({ where: pageDetailWhere(id) }),
+      select: (data) => (data?.pages ?? [])[0] ?? null,
+      applyTo: applyPageDetail,
+      signature: PAGE_DETAIL_SIG,
+      announceLabel: 'Page',
+    },
+    // Biography detail — name/badge/headshot/role/membership/body; also the 404
+    // host's bootstrap surface for a member slug that has no static page yet.
+    bioDetail: {
+      query: BIO_BY_SLUG,
+      variables: (slug) => ({ where: { isPublished: true, slug } }),
+      select: (data) => (data?.biographies ?? [])[0] ?? null,
+      applyTo: applyBioDetail,
+      signature: BIO_DETAIL_SIG,
+      announceLabel: 'Biography',
+    },
+    // Resource detail — body + Downloads + External Links + tags; also the 404
+    // host's bootstrap surface for a publication added after the last build.
+    resourceDetail: {
+      query: RESOURCE_BY_SLUG,
+      variables: (slug) => ({ where: { isPublished: true, slug } }),
+      select: (data) => (data?.resources ?? [])[0] ?? null,
+      applyTo: applyResourceDetail,
+      signature: RES_DETAIL_SIG,
+      announceLabel: 'Resource',
+    },
+    // /about/staff member list — an entry surface whose "view" is the selected
+    // row ARRAY: the markdown + image-manifest deps are lazy-imported inside
+    // applyTo, so an unchanged list downloads nothing. A shape mismatch (no
+    // `biographies` array) yields null → liveEntry keeps the static DOM; an
+    // empty array is a real view (everyone unpublished → the list empties).
+    staffList: {
+      query: BIOS_LIST_FULL,
+      variables: () => ({ limit: 300 }),
+      select: (data) => (Array.isArray(data?.biographies)
+        ? selectStaff(data.biographies as BioRow[]) : null),
+      applyTo: applyBioList('staff'),
+      signature: (rows) => stableSignature(rows, BIO_LIST_SIG_KEYS),
+      announceLabel: 'Staff list',
+    },
+    // /about/oversight member grid — same shape, cards only (no bio bodies).
+    boardList: {
+      query: BIOS_LIST,
+      variables: () => ({ limit: 300 }),
+      select: (data) => (Array.isArray(data?.biographies)
+        ? selectBoard(data.biographies as BioRow[]) : null),
+      applyTo: applyBioList('board'),
+      signature: (rows) => stableSignature(rows, BIO_LIST_SIG_KEYS),
+      announceLabel: 'Oversight Board list',
     },
   },
 };

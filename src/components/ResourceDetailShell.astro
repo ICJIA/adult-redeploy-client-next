@@ -1,0 +1,45 @@
+---
+// src/components/ResourceDetailShell.astro
+// Single source of the resource-detail markup, used BOTH by the static
+// /resources/[category]/[slug] page (item provided → filled + data-live hooks)
+// AND by the 404 live-fallback host (no item → empty hooks that
+// applyResourceDetail fills from Strapi). One component so static + live render
+// can't drift.
+import ArticleCard from './ArticleCard.astro';
+import Markdown from './Markdown.astro';
+import { formatDate } from '../lib/dates';
+import {
+  renderResourceMaterials, renderExternalLinks, resourceCategory,
+} from '../lib/live/render/resource-detail';
+import { renderTags } from '../lib/live/render/news-detail';
+import type { CollectionEntry } from 'astro:content';
+
+type Resource = CollectionEntry<'resources'>['data'];
+interface Props { item?: Resource | null; }
+const { item = null } = Astro.props;
+
+const base = import.meta.env.BASE_URL || '/adultredeploy';
+const ctx = { endpoint: '', basePath: base };
+const category = item ? resourceCategory(item.category) : undefined;
+const badge = category?.title ?? (item?.category || 'Resource');
+const downloadsHtml = item ? renderResourceMaterials(item.mediaMaterial) : '';
+const externalHtml = item ? renderExternalLinks(item.externalMediaMaterial) : '';
+const hasTags = !!(item && item.tags && item.tags.length > 0);
+const tagsHtml = item ? renderTags(item.tags, ctx) : '';
+---
+<ArticleCard title={item?.title ?? ''}
+             badge={badge}
+             pagefindMeta={item ? { type: 'resource', category: category?.short ?? item.category } : undefined}>
+  <p class="text-sm text-gray-700 mb-4" data-live="published">
+    {item ? `Published: ${formatDate(item.publicationDate)}` : ''}
+  </p>
+  <p class="text-lg mb-6" data-live="summary"
+     style={item?.summary ? undefined : 'display:none'}>{item?.summary}</p>
+  {item
+    ? <Markdown content={item.content} dataLive="body" />
+    : <div class="prose max-w-none" data-live="body"></div>}
+  <div data-live="downloads" set:html={downloadsHtml}></div>
+  <div data-live="external" set:html={externalHtml}></div>
+  <div class="mt-8 flex flex-wrap gap-2" data-live="tags"
+       style={hasTags ? undefined : 'display:none'} set:html={tagsHtml}></div>
+</ArticleCard>
