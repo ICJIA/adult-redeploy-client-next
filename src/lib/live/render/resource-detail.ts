@@ -68,9 +68,10 @@ export function renderResourceMaterials(materials: any[] | null | undefined): st
 
 /** The "External Links" block, or '' when there are none. */
 export function renderExternalLinks(links: any[] | null | undefined): string {
-  const items = (links ?? [])
-    .map((m) => ({ href: safeExternalHref(m?.url), name: m?.name, summary: m?.summary }))
-    .filter((m): m is LinkItem => !!m.href);
+  const items: LinkItem[] = (links ?? []).flatMap((m) => {
+    const href = safeExternalHref(m?.url);
+    return href ? [{ href, name: m?.name, summary: m?.summary }] : [];
+  });
   return renderLinkBlock('External Links', 'mt-6 bg-surface-shaded p-6 rounded', items);
 }
 
